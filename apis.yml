@@ -1,0 +1,83 @@
+name: Solaris Zones API
+description: API for managing Solaris Zones (containers) and virtualization on Oracle Solaris systems
+image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
+created: '2024'
+modified: '2024'
+url: https://docs.oracle.com/en/operating-systems/solaris.html
+specificationVersion: '0.18'
+apis:
+- name: Solaris Zones Management API
+  description: Core API for creating, managing, and monitoring Solaris Zones
+  image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - virtualization
+  - containers
+  - zones
+  - solaris
+  - oracle
+  properties:
+  - type: documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: OpenAPI
+    url: https://solaris-host.example.com/api/v1/openapi.json
+  contact:
+  - FN: Oracle Solaris Support
+    email: solaris-support@oracle.com
+    url: https://www.oracle.com/solaris/support/
+- name: Zone Configuration API
+  description: API endpoints for zone configuration and resource management
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  baseURL: https://solaris-host.example.com/api/v1/zones
+  tags:
+  - configuration
+  - resources
+  - networking
+  properties:
+  - type: documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+- name: Zone Administration API
+  description: API for zone lifecycle management including install, boot, halt, and delete operations
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  baseURL: https://solaris-host.example.com/api/v1/zones/admin
+  tags:
+  - administration
+  - lifecycle
+  - management
+  properties:
+  - type: documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+- name: Zone Monitoring API
+  description: API for monitoring zone status, resource usage, and performance metrics
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  baseURL: https://solaris-host.example.com/api/v1/zones/monitoring
+  tags:
+  - monitoring
+  - metrics
+  - performance
+  properties:
+  - type: documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+common:
+- type: Terms of Service
+  url: https://www.oracle.com/legal/terms.html
+- type: Privacy Policy
+  url: https://www.oracle.com/legal/privacy/
+- type: Authentication
+  url: https://docs.oracle.com/en/cloud/paas/api-platform/authentication.html
+- type: Support
+  url: https://www.oracle.com/support/
+- type: Blog
+  url: https://blogs.oracle.com/solaris/
+maintainers:
+- FN: Oracle Corporation
+  email: solaris-feedback@oracle.com
+  url: https://www.oracle.com/solaris/
+tags:
+- virtualization
+- containers
+- solaris
+- zones
+- oracle
+- operating-systems
