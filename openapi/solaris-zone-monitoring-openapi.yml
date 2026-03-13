@@ -1,0 +1,532 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zone Monitoring API
+  description: >-
+    REST API for monitoring Oracle Solaris zone status, resource usage, and
+    performance metrics. Provides access to zone state information, resource
+    utilization statistics via the RAD kstat module and zonestat functionality,
+    including CPU usage, memory consumption, and network statistics per zone.
+  version: '2.0'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Monitoring
+  url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+servers:
+  - url: https://{host}:{port}/api
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Zone State
+    description: Zone state monitoring via zonemgr module
+  - name: Kernel Statistics
+    description: Kernel statistics via kstat module
+  - name: Zone Statistics
+    description: Zone resource utilization statistics
+security:
+  - cookieAuth: []
+paths:
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/state:
+    get:
+      operationId: getZoneState
+      summary: Get zone current state
+      description: >-
+        Retrieve the current lifecycle state of a zone (configured, installed,
+        ready, running, shutting_down, down).
+      tags:
+        - Zone State
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    enum:
+                      - configured
+                      - incomplete
+                      - installed
+                      - ready
+                      - running
+                      - shutting_down
+                      - down
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/id:
+    get:
+      operationId: getZoneId
+      summary: Get zone numeric ID
+      description: >-
+        Retrieve the numeric ID assigned to a zone. Only available when the
+        zone is in running or ready state.
+      tags:
+        - Zone State
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone numeric ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/auxstate:
+    get:
+      operationId: getZoneAuxState
+      summary: Get zone auxiliary states
+      description: >-
+        Retrieve auxiliary state flags for a zone. These provide additional
+        status information beyond the primary lifecycle state.
+      tags:
+        - Zone State
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone auxiliary states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.zonemgr/1.6:
+    get:
+      operationId: listAllZones
+      summary: List all zones with status
+      description: >-
+        Retrieve a list of all zones on the system with their current state
+        and properties. Use _rad_detail for full zone information.
+      tags:
+        - Zone State
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of all zone interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneInterface'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /com.oracle.solaris.rad.kstat/2.0:
+    get:
+      operationId: listKstatInterfaces
+      summary: List kernel statistics interfaces
+      description: >-
+        Retrieve a list of all available kernel statistics interfaces. These
+        provide access to CPU, memory, network, and I/O statistics per zone.
+      tags:
+        - Kernel Statistics
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of kstat interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KstatInterface'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/{module},{name},{statistic},{instance}:
+    get:
+      operationId: getKstat
+      summary: Get a specific kernel statistic
+      description: >-
+        Retrieve a specific kernel statistic by module, name, statistic, and
+        instance identifier. The four-tuple uniquely identifies a kernel
+        statistics entry.
+      tags:
+        - Kernel Statistics
+      parameters:
+        - name: module
+          in: path
+          required: true
+          description: Kstat module name (e.g., misc, cpu, zones)
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: Kstat name (e.g., cpu_info0, vm)
+          schema:
+            type: string
+        - name: statistic
+          in: path
+          required: true
+          description: Statistic name (e.g., cpu_info, cpu)
+          schema:
+            type: string
+        - name: instance
+          in: path
+          required: true
+          description: Instance identifier (e.g., CPU number, zone ID)
+          schema:
+            type: string
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Kernel statistic data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/KstatData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
+    get:
+      operationId: getZoneCapStats
+      summary: Get zone resource cap statistics
+      description: >-
+        Retrieve resource cap statistics for a specific zone including capped
+        CPU and memory utilization data.
+      tags:
+        - Zone Statistics
+      parameters:
+        - name: zoneName
+          in: path
+          required: true
+          description: Name of the zone
+          schema:
+            type: string
+        - name: zoneId
+          in: path
+          required: true
+          description: Numeric zone ID
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneCapStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
+    get:
+      operationId: getCpuInfo
+      summary: Get CPU information
+      description: >-
+        Retrieve detailed CPU information for a specific CPU. Useful for
+        monitoring CPU allocation and usage across zones.
+      tags:
+        - Kernel Statistics
+      parameters:
+        - name: cpuId
+          in: path
+          required: true
+          description: CPU number
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,{cpuId}:
+    get:
+      operationId: getVmCpuStats
+      summary: Get VM CPU statistics
+      description: >-
+        Retrieve virtual machine CPU statistics for a specific CPU. Provides
+        CPU utilization data relevant to zone performance monitoring.
+      tags:
+        - Kernel Statistics
+      parameters:
+        - name: cpuId
+          in: path
+          required: true
+          description: CPU number
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: VM CPU statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/VmCpuStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Returns detailed property information when present
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the zone interface
+        type:
+          type: string
+          description: Interface type (Zone, ZoneInfo, ZoneManager)
+        name:
+          type: string
+          description: Zone name
+        state:
+          type: string
+          description: Current zone state
+        brand:
+          type: string
+          description: Zone brand
+        id:
+          type: integer
+          description: Zone numeric ID
+    KstatInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the kstat interface
+        module:
+          type: string
+          description: Kstat module name
+        name:
+          type: string
+          description: Kstat name
+        statistic:
+          type: string
+          description: Statistic name
+        instance:
+          type: string
+          description: Instance identifier
+    KstatData:
+      type: object
+      properties:
+        module:
+          type: string
+        name:
+          type: string
+        statistic:
+          type: string
+        instance:
+          type: integer
+        snaptime:
+          type: integer
+          format: int64
+          description: Snapshot time in nanoseconds
+        data:
+          type: object
+          additionalProperties: true
+          description: Key-value pairs of statistic data
+    ZoneCapStats:
+      type: object
+      properties:
+        zonename:
+          type: string
+          description: Zone name
+        zone_id:
+          type: integer
+          description: Numeric zone ID
+        cpu_cap:
+          type: number
+          description: CPU cap value
+        cpu_usage:
+          type: number
+          description: Current CPU usage
+        memory_cap:
+          type: integer
+          format: int64
+          description: Memory cap in bytes
+        memory_usage:
+          type: integer
+          format: int64
+          description: Current memory usage in bytes
+        swap_cap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+        swap_usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+        chip_id:
+          type: integer
+          description: Physical chip ID
+        clock_MHz:
+          type: integer
+          description: CPU clock speed in MHz
+        core_id:
+          type: integer
+          description: Core ID within the chip
+        cpu_type:
+          type: string
+          description: CPU type identifier
+        implementation:
+          type: string
+          description: CPU implementation description
+        ncore_per_chip:
+          type: integer
+          description: Number of cores per chip
+        state:
+          type: string
+          description: CPU state (on-line, off-line)
+        vendor_id:
+          type: string
+          description: CPU vendor identifier
+    VmCpuStats:
+      type: object
+      properties:
+        cpu_nsec_idle:
+          type: integer
+          format: int64
+          description: Nanoseconds spent idle
+        cpu_nsec_kernel:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in kernel mode
+        cpu_nsec_user:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in user mode
+        cpu_nsec_dtrace:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in DTrace
+        cpu_nsec_intr:
+          type: integer
+          format: int64
+          description: Nanoseconds spent handling interrupts

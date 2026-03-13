@@ -1,0 +1,548 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-configuration.json",
+  "title": "Oracle Solaris Zone Configuration",
+  "description": "Represents a complete Solaris zone configuration including global properties, resource assignments, and networking for non-global zones managed through zonecfg(8) and the RAD zonemgr module.",
+  "type": "object",
+  "required": ["name", "brand", "zonepath"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name identifying the zone on the system",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-zA-Z][a-zA-Z0-9._-]*$"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier assigned to the zone"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand determining the runtime environment and kernel behavior",
+      "enum": ["solaris", "solaris10", "solaris-kz", "labeled"]
+    },
+    "zonepath": {
+      "type": "string",
+      "description": "File system path for the zone root directory",
+      "examples": ["/system/zones/testzone1"]
+    },
+    "autoboot": {
+      "type": "boolean",
+      "description": "Whether the zone should automatically boot when the global zone boots",
+      "default": false
+    },
+    "autoshutdown": {
+      "type": "string",
+      "description": "Action to take when the global zone is shut down",
+      "enum": ["shutdown", "suspend"],
+      "default": "shutdown"
+    },
+    "bootargs": {
+      "type": "string",
+      "description": "Boot arguments passed to the zone at boot time"
+    },
+    "file-mac-profile": {
+      "type": "string",
+      "description": "File MAC policy profile for mandatory access control"
+    },
+    "hostid": {
+      "type": "string",
+      "description": "Emulated host identifier for the zone",
+      "pattern": "^[0-9a-fA-F]{1,8}$"
+    },
+    "ip-type": {
+      "type": "string",
+      "description": "IP stack type for the zone",
+      "enum": ["exclusive", "shared"],
+      "default": "exclusive"
+    },
+    "limitpriv": {
+      "type": "string",
+      "description": "Comma-separated list of privileges for the zone",
+      "examples": ["default,dtrace_user,dtrace_proc"]
+    },
+    "scheduling-class": {
+      "type": "string",
+      "description": "Default scheduling class for processes in the zone",
+      "examples": ["FSS", "TS"]
+    },
+    "max-lwps": {
+      "type": "integer",
+      "description": "Maximum number of lightweight processes allowed in the zone",
+      "minimum": 0
+    },
+    "max-processes": {
+      "type": "integer",
+      "description": "Maximum number of processes allowed in the zone",
+      "minimum": 0
+    },
+    "max-shm-memory": {
+      "type": "string",
+      "description": "Maximum shared memory allowed for the zone",
+      "examples": ["256m", "1g"]
+    },
+    "max-shm-ids": {
+      "type": "integer",
+      "description": "Maximum number of shared memory identifiers",
+      "minimum": 0
+    },
+    "max-msg-ids": {
+      "type": "integer",
+      "description": "Maximum number of message queue identifiers",
+      "minimum": 0
+    },
+    "max-sem-ids": {
+      "type": "integer",
+      "description": "Maximum number of semaphore identifiers",
+      "minimum": 0
+    },
+    "state": {
+      "type": "string",
+      "description": "Current runtime state of the zone (read-only, not a configuration property)",
+      "enum": ["configured", "incomplete", "installed", "ready", "running", "shutting_down", "down"],
+      "readOnly": true
+    },
+    "id": {
+      "type": "integer",
+      "description": "Kernel-assigned zone ID when the zone is running (read-only)",
+      "readOnly": true
+    },
+    "anet": {
+      "type": "array",
+      "description": "Automatic network interface resources providing network connectivity",
+      "items": {
+        "$ref": "#/$defs/AnetResource"
+      }
+    },
+    "capped-cpu": {
+      "$ref": "#/$defs/CappedCpuResource"
+    },
+    "capped-memory": {
+      "$ref": "#/$defs/CappedMemoryResource"
+    },
+    "dedicated-cpu": {
+      "$ref": "#/$defs/DedicatedCpuResource"
+    },
+    "virtual-cpu": {
+      "$ref": "#/$defs/VirtualCpuResource"
+    },
+    "device": {
+      "type": "array",
+      "description": "Device resources made available to the zone",
+      "items": {
+        "$ref": "#/$defs/DeviceResource"
+      }
+    },
+    "fs": {
+      "type": "array",
+      "description": "File system mount resources",
+      "items": {
+        "$ref": "#/$defs/FsResource"
+      }
+    },
+    "net": {
+      "type": "array",
+      "description": "Network interface resources for shared-IP zones",
+      "items": {
+        "$ref": "#/$defs/NetResource"
+      }
+    },
+    "dataset": {
+      "type": "array",
+      "description": "ZFS dataset resources delegated to the zone",
+      "items": {
+        "$ref": "#/$defs/DatasetResource"
+      }
+    },
+    "rctl": {
+      "type": "array",
+      "description": "Resource control entries for the zone",
+      "items": {
+        "$ref": "#/$defs/RctlResource"
+      }
+    },
+    "attr": {
+      "type": "array",
+      "description": "Generic attribute key-value pairs",
+      "items": {
+        "$ref": "#/$defs/AttrResource"
+      }
+    },
+    "admin": {
+      "type": "array",
+      "description": "Administrative access entries for zone delegation",
+      "items": {
+        "$ref": "#/$defs/AdminResource"
+      }
+    },
+    "rootzpool": {
+      "$ref": "#/$defs/RootzpoolResource"
+    },
+    "zpool": {
+      "type": "array",
+      "description": "Additional ZFS pools available to the zone",
+      "items": {
+        "$ref": "#/$defs/ZpoolResource"
+      }
+    },
+    "smf-dependency": {
+      "type": "array",
+      "description": "SMF service dependencies required before zone boot",
+      "items": {
+        "$ref": "#/$defs/SmfDependencyResource"
+      }
+    },
+    "verified-boot": {
+      "$ref": "#/$defs/VerifiedBootResource"
+    }
+  },
+  "$defs": {
+    "AnetResource": {
+      "type": "object",
+      "description": "Automatic network interface providing exclusive-IP networking for the zone",
+      "properties": {
+        "linkname": {
+          "type": "string",
+          "description": "Name of the network link inside the zone",
+          "examples": ["net0"]
+        },
+        "lower-link": {
+          "type": "string",
+          "description": "Physical link over which the VNIC is created",
+          "examples": ["auto", "net0"]
+        },
+        "mac-address": {
+          "type": "string",
+          "description": "MAC address for the virtual NIC",
+          "examples": ["auto", "random", "02:08:20:12:34:56"]
+        },
+        "vlan-id": {
+          "type": "integer",
+          "description": "VLAN identifier for tagged traffic",
+          "minimum": 0,
+          "maximum": 4094
+        },
+        "mtu": {
+          "type": "integer",
+          "description": "Maximum transmission unit size",
+          "minimum": 576,
+          "maximum": 9000
+        },
+        "defrouter": {
+          "type": "string",
+          "description": "Default router IP address",
+          "examples": ["10.0.0.1"]
+        },
+        "allowed-address": {
+          "type": "string",
+          "description": "IP address or CIDR permitted on this interface",
+          "examples": ["10.0.0.100/24"]
+        },
+        "configure-allowed-address": {
+          "type": "boolean",
+          "description": "Whether to automatically configure the allowed address on the interface",
+          "default": true
+        },
+        "link-protection": {
+          "type": "string",
+          "description": "Link protection mode to prevent spoofing",
+          "examples": ["mac-nospoof,ip-nospoof"]
+        },
+        "auto-mac-address": {
+          "type": "string",
+          "description": "Automatic MAC address assignment policy"
+        },
+        "mac-prefix": {
+          "type": "string",
+          "description": "MAC address prefix for auto-assigned addresses"
+        },
+        "mac-slot": {
+          "type": "integer",
+          "description": "MAC address slot number"
+        },
+        "vsi-typeid": {
+          "type": "integer",
+          "description": "VSI type identifier"
+        },
+        "vsi-typeidversion": {
+          "type": "integer",
+          "description": "VSI type identifier version"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Resource identifier"
+        }
+      }
+    },
+    "CappedCpuResource": {
+      "type": "object",
+      "description": "CPU cap limiting the total CPU time available to the zone",
+      "properties": {
+        "ncpus": {
+          "type": "number",
+          "description": "CPU cap expressed as a decimal number of CPUs (e.g., 1.5 = 150% of one CPU)",
+          "minimum": 0,
+          "examples": [1.0, 2.5]
+        }
+      },
+      "required": ["ncpus"]
+    },
+    "CappedMemoryResource": {
+      "type": "object",
+      "description": "Memory caps limiting physical and swap memory available to the zone",
+      "properties": {
+        "physical": {
+          "type": "string",
+          "description": "Physical memory cap",
+          "examples": ["2G", "512M"]
+        },
+        "swap": {
+          "type": "string",
+          "description": "Swap memory cap",
+          "examples": ["4G", "1G"]
+        },
+        "locked": {
+          "type": "string",
+          "description": "Locked memory cap",
+          "examples": ["512M"]
+        }
+      }
+    },
+    "DedicatedCpuResource": {
+      "type": "object",
+      "description": "Dedicated CPU resource guaranteeing exclusive CPU access",
+      "properties": {
+        "ncpus": {
+          "type": "string",
+          "description": "Number or range of CPUs dedicated to the zone",
+          "examples": ["2", "1-4"]
+        },
+        "importance": {
+          "type": "integer",
+          "description": "Relative importance for CPU allocation when oversubscribed",
+          "minimum": 1
+        }
+      },
+      "required": ["ncpus"]
+    },
+    "VirtualCpuResource": {
+      "type": "object",
+      "description": "Virtual CPU resource for kernel zones (solaris-kz brand only)",
+      "properties": {
+        "ncpus": {
+          "type": "string",
+          "description": "Number or range of virtual CPUs",
+          "examples": ["4", "2-8"]
+        }
+      },
+      "required": ["ncpus"]
+    },
+    "DeviceResource": {
+      "type": "object",
+      "description": "Device resource allowing access to a host device from within the zone",
+      "properties": {
+        "match": {
+          "type": "string",
+          "description": "Device path pattern to match",
+          "examples": ["/dev/zvol/dsk/rpool/zvol1"]
+        },
+        "allow-partition": {
+          "type": "boolean",
+          "description": "Whether to allow access to device partitions"
+        },
+        "allow-raw-io": {
+          "type": "boolean",
+          "description": "Whether to allow raw I/O access to the device"
+        },
+        "storage": {
+          "type": "string",
+          "description": "Storage URI for the device"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Resource identifier"
+        }
+      },
+      "required": ["match"]
+    },
+    "FsResource": {
+      "type": "object",
+      "description": "File system mount providing host file system access within the zone",
+      "required": ["dir", "special", "type"],
+      "properties": {
+        "dir": {
+          "type": "string",
+          "description": "Mount point directory inside the zone",
+          "examples": ["/opt/shared"]
+        },
+        "special": {
+          "type": "string",
+          "description": "Source file system path or device on the host",
+          "examples": ["/export/shared"]
+        },
+        "type": {
+          "type": "string",
+          "description": "File system type",
+          "enum": ["lofs", "hsfs", "nfs", "tmpfs", "ufs", "zfs"]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Mount options",
+          "examples": [["ro", "nosuid"]]
+        },
+        "raw": {
+          "type": "string",
+          "description": "Raw device path for fsck operations"
+        }
+      }
+    },
+    "NetResource": {
+      "type": "object",
+      "description": "Network interface resource for shared-IP zones",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "IP address for the network interface",
+          "examples": ["10.0.0.100/24"]
+        },
+        "physical": {
+          "type": "string",
+          "description": "Physical network interface name",
+          "examples": ["net0"]
+        },
+        "defrouter": {
+          "type": "string",
+          "description": "Default router IP address"
+        }
+      },
+      "required": ["address", "physical"]
+    },
+    "DatasetResource": {
+      "type": "object",
+      "description": "ZFS dataset delegated to the zone for direct management",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "ZFS dataset name",
+          "examples": ["rpool/export/zones/testzone1/data"]
+        },
+        "alias": {
+          "type": "string",
+          "description": "Alias name for the dataset inside the zone"
+        }
+      },
+      "required": ["name"]
+    },
+    "RctlResource": {
+      "type": "object",
+      "description": "Resource control entry limiting system resource usage within the zone",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Resource control name",
+          "examples": ["zone.max-lwps", "zone.max-shm-memory", "zone.cpu-shares"]
+        },
+        "value": {
+          "type": "string",
+          "description": "Resource control value in the form (priv=X,limit=Y,action=Z)",
+          "examples": ["(priv=privileged,limit=1000,action=deny)"]
+        }
+      },
+      "required": ["name", "value"]
+    },
+    "AttrResource": {
+      "type": "object",
+      "description": "Generic attribute resource for custom zone configuration properties",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Attribute name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Attribute data type",
+          "enum": ["string", "int", "uint", "boolean"]
+        },
+        "value": {
+          "type": "string",
+          "description": "Attribute value"
+        }
+      },
+      "required": ["name", "type", "value"]
+    },
+    "AdminResource": {
+      "type": "object",
+      "description": "Administrative access entry defining who can manage the zone",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "User or role name granted administrative access",
+          "examples": ["zoneadm"]
+        },
+        "auths": {
+          "type": "string",
+          "description": "Comma-separated list of authorizations granted",
+          "examples": ["login,manage,config"]
+        }
+      },
+      "required": ["user", "auths"]
+    },
+    "RootzpoolResource": {
+      "type": "object",
+      "description": "Root ZFS pool configuration for the zone (solaris and solaris10 brands only)",
+      "properties": {
+        "storage": {
+          "type": "string",
+          "description": "Storage URI for the root zpool"
+        }
+      }
+    },
+    "ZpoolResource": {
+      "type": "object",
+      "description": "Additional ZFS pool available within the zone",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the ZFS pool"
+        },
+        "storage": {
+          "type": "string",
+          "description": "Storage URI for the pool"
+        }
+      },
+      "required": ["name"]
+    },
+    "SmfDependencyResource": {
+      "type": "object",
+      "description": "SMF service dependency that must be satisfied before zone boot",
+      "properties": {
+        "fmri": {
+          "type": "string",
+          "description": "Fault Management Resource Identifier of the SMF service",
+          "examples": ["svc:/network/physical:default"]
+        },
+        "grouping": {
+          "type": "string",
+          "description": "Dependency grouping type",
+          "enum": ["require_all", "require_any", "optional_all", "exclude_all"]
+        }
+      },
+      "required": ["fmri"]
+    },
+    "VerifiedBootResource": {
+      "type": "object",
+      "description": "Verified boot settings for kernel zone security (solaris-kz brand only)",
+      "properties": {
+        "firmware": {
+          "type": "string",
+          "description": "Firmware image path for verified boot"
+        }
+      }
+    }
+  }
+}

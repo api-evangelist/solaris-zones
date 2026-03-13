@@ -1,0 +1,214 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "solaris": "https://docs.oracle.com/schemas/solaris/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Zone": {
+      "@id": "solaris:Zone",
+      "@context": {
+        "name": "schema:name",
+        "uuid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "brand": "solaris:brand",
+        "state": "solaris:zoneState",
+        "zonepath": "solaris:zonepath",
+        "autoboot": {
+          "@id": "solaris:autoboot",
+          "@type": "xsd:boolean"
+        },
+        "ipType": "solaris:ipType",
+        "id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "isGlobal": {
+          "@id": "solaris:isGlobal",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "ZoneConfiguration": {
+      "@id": "solaris:ZoneConfiguration",
+      "@context": {
+        "name": "schema:name",
+        "brand": "solaris:brand",
+        "zonepath": "solaris:zonepath",
+        "autoboot": {
+          "@id": "solaris:autoboot",
+          "@type": "xsd:boolean"
+        },
+        "limitpriv": "solaris:limitpriv",
+        "schedulingClass": "solaris:schedulingClass",
+        "maxLwps": {
+          "@id": "solaris:maxLwps",
+          "@type": "xsd:integer"
+        },
+        "maxProcesses": {
+          "@id": "solaris:maxProcesses",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "AnetResource": {
+      "@id": "solaris:AnetResource",
+      "@context": {
+        "linkname": "solaris:linkname",
+        "lowerLink": "solaris:lowerLink",
+        "macAddress": "solaris:macAddress",
+        "vlanId": {
+          "@id": "solaris:vlanId",
+          "@type": "xsd:integer"
+        },
+        "mtu": {
+          "@id": "solaris:mtu",
+          "@type": "xsd:integer"
+        },
+        "defrouter": "solaris:defrouter",
+        "allowedAddress": "solaris:allowedAddress",
+        "linkProtection": "solaris:linkProtection"
+      }
+    },
+
+    "CappedCpuResource": {
+      "@id": "solaris:CappedCpuResource",
+      "@context": {
+        "ncpus": {
+          "@id": "solaris:ncpus",
+          "@type": "xsd:decimal"
+        }
+      }
+    },
+
+    "CappedMemoryResource": {
+      "@id": "solaris:CappedMemoryResource",
+      "@context": {
+        "physical": "solaris:physicalMemory",
+        "swap": "solaris:swapMemory",
+        "locked": "solaris:lockedMemory"
+      }
+    },
+
+    "DedicatedCpuResource": {
+      "@id": "solaris:DedicatedCpuResource",
+      "@context": {
+        "ncpus": "solaris:dedicatedNcpus",
+        "importance": {
+          "@id": "solaris:importance",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "DeviceResource": {
+      "@id": "solaris:DeviceResource",
+      "@context": {
+        "match": "solaris:deviceMatch",
+        "allowPartition": {
+          "@id": "solaris:allowPartition",
+          "@type": "xsd:boolean"
+        },
+        "allowRawIo": {
+          "@id": "solaris:allowRawIo",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "FsResource": {
+      "@id": "solaris:FsResource",
+      "@context": {
+        "dir": "solaris:mountPoint",
+        "special": "solaris:fsSpecial",
+        "type": "solaris:fsType"
+      }
+    },
+
+    "DatasetResource": {
+      "@id": "solaris:DatasetResource",
+      "@context": {
+        "name": "schema:name",
+        "alias": "solaris:datasetAlias"
+      }
+    },
+
+    "NetResource": {
+      "@id": "solaris:NetResource",
+      "@context": {
+        "address": "solaris:networkAddress",
+        "physical": "solaris:physicalInterface",
+        "defrouter": "solaris:defrouter"
+      }
+    },
+
+    "StateChange": {
+      "@id": "solaris:StateChange",
+      "@context": {
+        "zone": "schema:name",
+        "oldState": "solaris:oldState",
+        "newState": "solaris:newState"
+      }
+    },
+
+    "MigrationProgress": {
+      "@id": "solaris:MigrationProgress",
+      "@context": {
+        "zone": "schema:name",
+        "operation": "solaris:migrationOperation",
+        "message": "schema:description",
+        "percentComplete": {
+          "@id": "solaris:percentComplete",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "EvacuationResult": {
+      "@id": "solaris:EvacuationResult",
+      "@context": {
+        "status": "solaris:evacuationStatus",
+        "returning": {
+          "@id": "solaris:returning",
+          "@type": "xsd:boolean"
+        },
+        "zoneCount": {
+          "@id": "solaris:zoneCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "ZoneManager": {
+      "@id": "solaris:ZoneManager",
+      "@context": {
+        "evacuationState": "solaris:evacuationState"
+      }
+    },
+
+    "ZoneInfo": {
+      "@id": "solaris:ZoneInfo",
+      "@context": {
+        "name": "schema:name",
+        "brand": "solaris:brand",
+        "id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "isGlobal": {
+          "@id": "solaris:isGlobal",
+          "@type": "xsd:boolean"
+        }
+      }
+    }
+  }
+}

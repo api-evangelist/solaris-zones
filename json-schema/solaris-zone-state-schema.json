@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-state.json",
+  "title": "Oracle Solaris Zone State",
+  "description": "Represents runtime state information for a Solaris zone as reported by zoneadm(8) and the RAD zonemgr module, including lifecycle state, resource utilization, and migration status.",
+  "type": "object",
+  "required": ["name", "state"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name identifying the zone on the system",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "id": {
+      "type": "integer",
+      "description": "Kernel-assigned numeric zone ID, present only when the zone is running or ready",
+      "minimum": -1
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier for the zone"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current lifecycle state of the zone",
+      "enum": ["configured", "incomplete", "installed", "ready", "running", "shutting_down", "down"]
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand type determining the runtime environment",
+      "enum": ["solaris", "solaris10", "solaris-kz", "labeled"]
+    },
+    "auxstate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Auxiliary state flags providing additional zone status information"
+    },
+    "isGlobal": {
+      "type": "boolean",
+      "description": "Whether this is the global (host) zone"
+    },
+    "zonepath": {
+      "type": "string",
+      "description": "File system path for the zone root"
+    },
+    "stateChange": {
+      "$ref": "#/$defs/StateChange"
+    },
+    "migrationState": {
+      "$ref": "#/$defs/MigrationState"
+    },
+    "evacuationState": {
+      "$ref": "#/$defs/EvacuationState"
+    }
+  },
+  "$defs": {
+    "StateChange": {
+      "type": "object",
+      "description": "Record of a zone state transition event",
+      "properties": {
+        "zone": {
+          "type": "string",
+          "description": "Name of the zone that changed state"
+        },
+        "oldState": {
+          "type": "string",
+          "description": "Previous zone state",
+          "enum": ["configured", "incomplete", "installed", "ready", "running", "shutting_down", "down"]
+        },
+        "newState": {
+          "type": "string",
+          "description": "New zone state",
+          "enum": ["configured", "incomplete", "installed", "ready", "running", "shutting_down", "down"]
+        }
+      },
+      "required": ["zone", "oldState", "newState"]
+    },
+    "MigrationState": {
+      "type": "object",
+      "description": "Current migration state for a zone being migrated between hosts",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Migration lifecycle state",
+          "enum": ["none", "initialized", "migrating", "completed"]
+        },
+        "type": {
+          "type": "string",
+          "description": "Migration type",
+          "enum": ["live", "cold"]
+        },
+        "remoteHost": {
+          "type": "string",
+          "description": "Target or source host for the migration"
+        },
+        "progress": {
+          "$ref": "#/$defs/MigrationProgress"
+        },
+        "error": {
+          "$ref": "#/$defs/MigrationError"
+        }
+      }
+    },
+    "MigrationProgress": {
+      "type": "object",
+      "description": "Progress information for an in-flight zone migration",
+      "properties": {
+        "zone": {
+          "type": "string",
+          "description": "Name of the zone being migrated"
+        },
+        "operation": {
+          "type": "string",
+          "description": "Current migration operation phase",
+          "enum": [
+            "framework",
+            "connect",
+            "init_crypto",
+            "config_check",
+            "configure",
+            "attach",
+            "boot",
+            "migrate_initial",
+            "migrate",
+            "suspend",
+            "restart",
+            "halt",
+            "detach",
+            "unconfigure",
+            "complete",
+            "cancel"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable progress message"
+        },
+        "percentComplete": {
+          "type": "integer",
+          "description": "Percentage of migration completed",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "MigrationError": {
+      "type": "object",
+      "description": "Error information for a failed migration operation",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "The migration operation that failed"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Error domain classification",
+          "enum": ["system", "zonecfg"]
+        },
+        "errno": {
+          "type": "integer",
+          "description": "System error number"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error description"
+        }
+      }
+    },
+    "EvacuationState": {
+      "type": "object",
+      "description": "State information for a zone evacuation operation",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Overall evacuation status",
+          "enum": ["success", "fail", "partial_fail"]
+        },
+        "returning": {
+          "type": "boolean",
+          "description": "Whether zones are being returned from a previous evacuation"
+        },
+        "milestone": {
+          "type": "string",
+          "description": "Current evacuation milestone",
+          "enum": [
+            "migrate_initializing",
+            "migrate_initialization_complete",
+            "migrate_initialization_fail",
+            "migrating",
+            "migrate_complete",
+            "migrate_fail",
+            "evacuate_initializing",
+            "evacuate_initialization_complete",
+            "evacuate_initialization_fail",
+            "evacuating",
+            "evacuate_complete",
+            "evacuate_fail",
+            "evacuate_canceled"
+          ]
+        },
+        "zoneCount": {
+          "type": "integer",
+          "description": "Number of zones involved in the evacuation",
+          "minimum": 0
+        },
+        "transferRate": {
+          "type": "integer",
+          "description": "Current data transfer rate in bytes per second"
+        }
+      }
+    }
+  }
+}

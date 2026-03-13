@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-resource.json",
+  "title": "Oracle Solaris Zone Resource",
+  "description": "Represents a configurable resource within an Oracle Solaris Zone, such as a network interface, device, filesystem, resource control, or CPU/memory allocation. Resources are managed through the zonecfg interface exposed via the RAD zonemgr module.",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Resource type identifier determining the kind of resource",
+      "enum": [
+        "net",
+        "anet",
+        "device",
+        "fs",
+        "dataset",
+        "rctl",
+        "attr",
+        "dedicated-cpu",
+        "capped-memory",
+        "capped-cpu",
+        "admin",
+        "security-flags",
+        "suspend"
+      ]
+    },
+    "properties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Property"
+      },
+      "description": "Array of property name-value pairs for the resource"
+    },
+    "parent": {
+      "type": ["string", "null"],
+      "description": "Reference to a parent resource, if applicable"
+    }
+  },
+  "$defs": {
+    "Property": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Property name (e.g., physical, address, dir, special, ncpus, physical, locked)"
+        },
+        "value": {
+          "type": ["string", "null"],
+          "description": "Simple scalar property value"
+        },
+        "type": {
+          "type": "string",
+          "description": "Property value type classification",
+          "enum": ["simple", "list", "complex"],
+          "default": "simple"
+        },
+        "listvalue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of values for list-type properties"
+        },
+        "complexvalue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of values for complex-type properties (key=value pairs)"
+        }
+      }
+    }
+  }
+}

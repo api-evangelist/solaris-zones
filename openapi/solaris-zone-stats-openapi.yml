@@ -1,0 +1,549 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Monitoring Statistics API
+  description: >-
+    REST API for retrieving zone resource utilization statistics on Oracle
+    Solaris 11.4 systems. Provides access to the libzonestat functionality
+    through the RAD REST interface, enabling programmatic retrieval of per-zone
+    resource consumption data including physical memory, virtual memory, CPU
+    utilization, and network I/O with sorting and filtering capabilities.
+  version: '1.0'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Monitoring Statistics
+  url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+servers:
+  - url: https://{host}:{port}/api
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Zone Statistics
+    description: Per-zone resource utilization statistics
+  - name: System Statistics
+    description: System-wide resource statistics
+  - name: CPU Statistics
+    description: CPU utilization and allocation statistics
+  - name: Memory Statistics
+    description: Memory and swap utilization statistics
+security:
+  - cookieAuth: []
+paths:
+  /com.oracle.solaris.rad.kstat/2.0:
+    get:
+      operationId: listKstatInterfaces
+      summary: List all kernel statistics interfaces
+      description: >-
+        Discover all available kernel statistics interfaces. Provides access
+        to CPU, memory, network, and zone-specific resource utilization data.
+      tags:
+        - System Statistics
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Available kstat interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        href:
+                          type: string
+                        type:
+                          type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
+    get:
+      operationId: getZoneCapStatistics
+      summary: Get zone resource cap statistics
+      description: >-
+        Retrieve resource cap statistics for a specific zone including CPU cap,
+        memory cap, and swap cap utilization. Shows the configured limits and
+        current usage.
+      tags:
+        - Zone Statistics
+      parameters:
+        - name: zoneName
+          in: path
+          required: true
+          description: Zone name
+          schema:
+            type: string
+        - name: zoneId
+          in: path
+          required: true
+          description: Numeric zone ID
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneCapStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_misc,{zoneId}:
+    get:
+      operationId: getZoneMiscStatistics
+      summary: Get zone miscellaneous statistics
+      description: >-
+        Retrieve miscellaneous statistics for a specific zone including
+        process counts, lightweight process counts, and other zone-level
+        metrics.
+      tags:
+        - Zone Statistics
+      parameters:
+        - name: zoneName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone miscellaneous statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneMiscStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},physcap,{zoneId}:
+    get:
+      operationId: getZonePhysicalMemoryCap
+      summary: Get zone physical memory cap statistics
+      description: >-
+        Retrieve physical memory capping statistics for a zone including the
+        configured cap, current RSS, number of page-outs due to capping, and
+        time spent in page-out.
+      tags:
+        - Memory Statistics
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          description: Numeric zone ID
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Physical memory cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/MemoryCapStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},swapcap,{zoneId}:
+    get:
+      operationId: getZoneSwapCap
+      summary: Get zone swap cap statistics
+      description: >-
+        Retrieve swap space capping statistics for a zone including the
+        configured swap cap and current swap usage.
+      tags:
+        - Memory Statistics
+      parameters:
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Swap cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/SwapCapStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{zoneName},cpucaps_zone_{zoneId},{zoneId}:
+    get:
+      operationId: getZoneCpuCap
+      summary: Get zone CPU cap statistics
+      description: >-
+        Retrieve CPU capping statistics for a specific zone including the
+        configured CPU cap value, current usage, and time spent being capped.
+      tags:
+        - CPU Statistics
+      parameters:
+        - name: zoneName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: zoneId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuCapStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
+    get:
+      operationId: getCpuInfo
+      summary: Get CPU information
+      description: >-
+        Retrieve detailed information about a specific CPU including model,
+        clock speed, vendor, and state. Useful for understanding the physical
+        resources available to zones.
+      tags:
+        - CPU Statistics
+      parameters:
+        - name: cpuId
+          in: path
+          required: true
+          description: CPU identifier number
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0:
+    get:
+      operationId: getSystemMemoryPages
+      summary: Get system memory page statistics
+      description: >-
+        Retrieve system-wide memory page statistics including total physical
+        pages, free pages, and page sizes. Provides context for zone memory
+        allocation.
+      tags:
+        - Memory Statistics
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: System memory statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/SystemMemoryStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Statistic or zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneCapStats:
+      type: object
+      description: Zone resource cap utilization statistics
+      properties:
+        zonename:
+          type: string
+          description: Zone name
+        zone_id:
+          type: integer
+          description: Numeric zone ID
+        cpu_cap:
+          type: number
+          description: CPU cap value (percentage of a CPU)
+        cpu_usage:
+          type: number
+          description: Current CPU usage percentage
+        cpu_nwait:
+          type: integer
+          format: int64
+          description: Number of times zone waited due to CPU cap
+        memory_cap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+        memory_usage:
+          type: integer
+          format: int64
+          description: Current physical memory usage in bytes
+        swap_cap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+        swap_usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+    ZoneMiscStats:
+      type: object
+      description: Zone miscellaneous statistics
+      properties:
+        zonename:
+          type: string
+        zone_id:
+          type: integer
+        nprocs:
+          type: integer
+          description: Number of processes in the zone
+        nlwps:
+          type: integer
+          description: Number of lightweight processes in the zone
+        pr_size:
+          type: integer
+          format: int64
+          description: Total process size in bytes
+        pr_rss:
+          type: integer
+          format: int64
+          description: Total resident set size in bytes
+    MemoryCapStats:
+      type: object
+      description: Physical memory cap statistics
+      properties:
+        physcap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+        rss:
+          type: integer
+          format: int64
+          description: Current resident set size in bytes
+        nover:
+          type: integer
+          format: int64
+          description: Number of times memory went over the cap
+        pagedout:
+          type: integer
+          format: int64
+          description: Total bytes paged out due to capping
+        pgpgin:
+          type: integer
+          format: int64
+          description: Pages paged in
+        anonpgin:
+          type: integer
+          format: int64
+          description: Anonymous pages paged in
+    SwapCapStats:
+      type: object
+      description: Swap cap statistics
+      properties:
+        swapcap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+        usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+        nover:
+          type: integer
+          format: int64
+          description: Number of times swap exceeded the cap
+    CpuCapStats:
+      type: object
+      description: CPU cap statistics
+      properties:
+        value:
+          type: integer
+          format: int64
+          description: CPU cap value in microseconds per second
+        usage:
+          type: integer
+          format: int64
+          description: Current CPU usage in microseconds per second
+        nwait:
+          type: integer
+          format: int64
+          description: Number of times threads waited due to cap
+        below:
+          type: integer
+          format: int64
+          description: Time spent below the cap in nanoseconds
+        above:
+          type: integer
+          format: int64
+          description: Time spent above the cap in nanoseconds
+        maxusage:
+          type: integer
+          format: int64
+          description: Maximum CPU usage observed
+        zonename:
+          type: string
+          description: Zone name
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+        chip_id:
+          type: integer
+        clock_MHz:
+          type: integer
+        core_id:
+          type: integer
+        cpu_type:
+          type: string
+        implementation:
+          type: string
+        ncore_per_chip:
+          type: integer
+        state:
+          type: string
+          enum:
+            - on-line
+            - off-line
+            - powered-off
+            - no-intr
+            - spare
+        vendor_id:
+          type: string
+    SystemMemoryStats:
+      type: object
+      properties:
+        physmem:
+          type: integer
+          format: int64
+          description: Total physical memory pages
+        freemem:
+          type: integer
+          format: int64
+          description: Free memory pages
+        availrmem:
+          type: integer
+          format: int64
+          description: Available real memory pages
+        lotsfree:
+          type: integer
+          format: int64
+          description: Lotsfree threshold
+        desfree:
+          type: integer
+          format: int64
+          description: Desfree threshold
+        minfree:
+          type: integer
+          format: int64
+          description: Minfree threshold
+        pp_kernel:
+          type: integer
+          format: int64
+          description: Pages used by kernel

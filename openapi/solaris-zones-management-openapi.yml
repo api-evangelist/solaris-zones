@@ -1,0 +1,1111 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Management API
+  description: >-
+    Core API for creating, managing, and monitoring Oracle Solaris Zones via the
+    Remote Administration Daemon (RAD) REST interface. Provides access to the
+    com.oracle.solaris.rad.zonemgr module for zone lifecycle operations including
+    creation, deletion, state queries, and evacuation management.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zones Administration Guide
+  url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Oracle Solaris RAD REST endpoint for zone management
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port (default HTTPS)
+tags:
+  - name: Zone Manager
+    description: System-wide zone management operations
+  - name: Zones
+    description: Individual zone operations and queries
+  - name: Zone Info
+    description: Read-only zone information
+security:
+  - cookieAuth: []
+paths:
+  /:
+    get:
+      operationId: listZoneInterfaces
+      summary: List all zone management interfaces
+      description: >-
+        Retrieve a list of all available zone management interfaces including
+        ZoneManager, Zone instances, and ZoneInfo. Use the _rad_detail parameter
+        to include full property details.
+      tags:
+        - Zone Manager
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of zone management interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RadInterface'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager:
+    get:
+      operationId: getZoneManager
+      summary: Get zone manager instance
+      description: >-
+        Retrieve the ZoneManager singleton interface which provides system-wide
+        zone management operations.
+      tags:
+        - Zone Manager
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone manager details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneManager'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/create:
+    put:
+      operationId: createZone
+      summary: Create a new zone
+      description: >-
+        Create a new zone with the specified name, zone path, and brand template.
+        The zone is created in the configured state.
+      tags:
+        - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateZoneRequest'
+      responses:
+        '200':
+          description: Zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/delete:
+    put:
+      operationId: deleteZone
+      summary: Delete a zone
+      description: >-
+        Delete an existing zone. The zone must be in the configured or
+        installed state before it can be deleted.
+      tags:
+        - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name of the zone to delete
+      responses:
+        '200':
+          description: Zone deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/createConfig:
+    put:
+      operationId: createEphemeralConfig
+      summary: Create ephemeral zone configuration
+      description: >-
+        Create a temporary zone configuration for editing before committing.
+        Used for staged configuration changes.
+      tags:
+        - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - template
+              properties:
+                name:
+                  type: string
+                  description: Configuration name
+                template:
+                  type: string
+                  description: Zone brand template to base configuration on
+      responses:
+        '200':
+          description: Ephemeral configuration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/importConfig:
+    put:
+      operationId: importZoneConfig
+      summary: Import a zone from configuration
+      description: >-
+        Import a zone definition from an exported configuration. Used for
+        restoring or cloning zone configurations.
+      tags:
+        - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - config
+              properties:
+                name:
+                  type: string
+                  description: Name for the imported zone
+                config:
+                  type: string
+                  description: Zone configuration data to import
+      responses:
+        '200':
+          description: Zone configuration imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/initEvacuate:
+    put:
+      operationId: initializeEvacuation
+      summary: Initialize zone evacuation
+      description: >-
+        Initialize evacuation of zones from the current host to a remote host.
+        Must be called before evacuate(). Available since API version 1.4.
+      tags:
+        - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - host
+              properties:
+                host:
+                  type: string
+                  description: Remote host to evacuate zones to
+                cipher:
+                  type: string
+                  description: Encryption cipher to use for transfer
+      responses:
+        '200':
+          description: Evacuation initialized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/evacuate:
+    put:
+      operationId: evacuateZones
+      summary: Evacuate zones to remote host
+      description: >-
+        Perform zone evacuation to a previously initialized remote host.
+        Migrates all eligible zones. Available since API version 1.4.
+      tags:
+        - Zone Manager
+      responses:
+        '200':
+          description: Evacuation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /ZoneManager/_rad_method/cancelEvacuate:
+    put:
+      operationId: cancelEvacuation
+      summary: Cancel zone evacuation in progress
+      description: >-
+        Cancel an ongoing zone evacuation operation. Available since API version
+        1.4.
+      tags:
+        - Zone Manager
+      responses:
+        '200':
+          description: Evacuation cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RadResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Zone/{zoneName}:
+    get:
+      operationId: getZone
+      summary: Get zone details
+      description: >-
+        Retrieve detailed information about a specific zone including its
+        name, brand, state, UUID, and auxiliary states.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/Zone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/name:
+    get:
+      operationId: getZoneName
+      summary: Get zone name property
+      description: Retrieve the name property of a specific zone.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/state:
+    get:
+      operationId: getZoneState
+      summary: Get zone state
+      description: >-
+        Retrieve the current state of a zone. States include configured,
+        incomplete, installed, ready, running, shutting_down, and down.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    enum:
+                      - configured
+                      - incomplete
+                      - installed
+                      - ready
+                      - running
+                      - shutting_down
+                      - down
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/brand:
+    get:
+      operationId: getZoneBrand
+      summary: Get zone brand
+      description: >-
+        Retrieve the brand type of a zone (e.g., solaris, solaris-kz,
+        solaris10).
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone brand
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/id:
+    get:
+      operationId: getZoneId
+      summary: Get zone numeric ID
+      description: >-
+        Retrieve the numeric zone ID. Only available when the zone is in
+        running or ready state.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: integer
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/uuid:
+    get:
+      operationId: getZoneUuid
+      summary: Get zone UUID
+      description: Retrieve the universally unique identifier for the zone.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone UUID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    format: uuid
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/boot:
+    put:
+      operationId: bootZone
+      summary: Boot a zone
+      description: >-
+        Boot a zone, transitioning it from installed or ready state to running
+        state. Equivalent to zoneadm boot.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional boot arguments
+      responses:
+        '200':
+          description: Zone boot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/halt:
+    put:
+      operationId: haltZone
+      summary: Halt a zone
+      description: >-
+        Immediately halt a running zone. Equivalent to zoneadm halt.
+        Does not run shutdown scripts.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone halted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/shutdown:
+    put:
+      operationId: shutdownZone
+      summary: Gracefully shut down a zone
+      description: >-
+        Gracefully shut down a running zone by running shutdown scripts.
+        Equivalent to zoneadm shutdown.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone shutdown initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/reboot:
+    put:
+      operationId: rebootZone
+      summary: Reboot a zone
+      description: >-
+        Reboot a running zone. Equivalent to zoneadm reboot.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone reboot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installZone
+      summary: Install a zone
+      description: >-
+        Install a configured zone, transitioning it from configured to installed
+        state. Equivalent to zoneadm install.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional install arguments
+      responses:
+        '200':
+          description: Zone install initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/uninstall:
+    put:
+      operationId: uninstallZone
+      summary: Uninstall a zone
+      description: >-
+        Uninstall an installed zone, removing its file system content.
+        Equivalent to zoneadm uninstall.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone uninstalled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/clone:
+    put:
+      operationId: cloneZone
+      summary: Clone a zone
+      description: >-
+        Clone an existing zone to create a new zone with the same configuration
+        and content. Equivalent to zoneadm clone.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - source
+              properties:
+                source:
+                  type: string
+                  description: Name of the source zone to clone from
+                snapshot:
+                  type: string
+                  description: ZFS snapshot to clone from
+      responses:
+        '200':
+          description: Zone cloned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/attach:
+    put:
+      operationId: attachZone
+      summary: Attach a zone
+      description: >-
+        Attach a previously detached zone. Equivalent to zoneadm attach.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional attach arguments
+      responses:
+        '200':
+          description: Zone attached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/detach:
+    put:
+      operationId: detachZone
+      summary: Detach a zone
+      description: >-
+        Detach a zone from the system for migration or archival.
+        Equivalent to zoneadm detach.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone detached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/suspend:
+    put:
+      operationId: suspendZone
+      summary: Suspend a zone
+      description: >-
+        Suspend a running zone, saving its state for later resumption.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone suspended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/ready:
+    put:
+      operationId: readyZone
+      summary: Prepare a zone for running
+      description: >-
+        Transition a zone to the ready state without booting it.
+        Equivalent to zoneadm ready.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/verify:
+    put:
+      operationId: verifyZone
+      summary: Verify zone configuration
+      description: >-
+        Verify the zone configuration for correctness. Equivalent to
+        zoneadm verify.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/migrate:
+    put:
+      operationId: migrateZone
+      summary: Migrate a zone to a remote host
+      description: >-
+        Migrate a zone to a remote host. Supports live and cold migration
+        types. Available since API version 1.1.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MigrateZoneRequest'
+      responses:
+        '200':
+          description: Migration initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/exportConfig:
+    put:
+      operationId: exportZoneConfig
+      summary: Export zone configuration
+      description: >-
+        Export the zone configuration as a string that can be saved or imported
+        into another system.
+      tags:
+        - Zones
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone configuration exported
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    description: Exported zone configuration
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /ZoneInfo:
+    get:
+      operationId: listZoneInfo
+      summary: List zone information
+      description: >-
+        Retrieve read-only information about all zones on the system including
+        name, brand, ID, UUID, and whether the zone is a global zone.
+      tags:
+        - Zone Info
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone information list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: >-
+        RAD session cookie obtained via authentication. Establish a session
+        by posting credentials to the RAD authentication endpoint.
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: >-
+        When present, returns detailed information including all properties
+        for each interface.
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the interface
+        type:
+          type: string
+          description: Interface type name
+    RadResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - failure
+        payload:
+          type: object
+          description: Result payload
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code
+            message:
+              type: string
+              description: Error message
+    ZoneManager:
+      type: object
+      properties:
+        evacuationState:
+          $ref: '#/components/schemas/EvacuationResult'
+          description: Current evacuation state if any
+    Zone:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+        brand:
+          type: string
+          description: Zone brand type (e.g., solaris, solaris-kz, solaris10)
+        id:
+          type: integer
+          description: Numeric zone ID (only when running or ready)
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+        state:
+          type: string
+          enum:
+            - configured
+            - incomplete
+            - installed
+            - ready
+            - running
+            - shutting_down
+            - down
+          description: Current zone state
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary zone states
+    ZoneInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+        brand:
+          type: string
+          description: Zone brand type
+        id:
+          type: integer
+          description: Numeric zone ID
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+        isGlobal:
+          type: boolean
+          description: Whether this is a global zone
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - NONE
+                - FRAMEWORK_ERROR
+                - SNAPSHOT_ERROR
+                - COMMAND_ERROR
+                - RESOURCE_ALREADY_EXISTS
+                - RESOURCE_NOT_FOUND
+                - RESOURCE_TOO_MANY
+                - RESOURCE_UNKNOWN
+                - ALREADY_EDITING
+                - INCOMPLETE_NO_CONFIG
+                - PROPERTY_UNKNOWN
+                - NOT_EDITING
+                - SYSTEM_ERROR
+                - INVALID_ARGUMENT
+                - INVALID_ZONE_STATE
+              description: Error code
+            message:
+              type: string
+              description: Error or success message
+            stdout:
+              type: string
+              description: Standard output from the operation
+            stderr:
+              type: string
+              description: Standard error from the operation
+    CreateZoneRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name of the new zone
+        path:
+          type: string
+          description: Zone root path
+        template:
+          type: string
+          description: Zone brand template (e.g., SYSdefault)
+          default: SYSdefault
+    MigrateZoneRequest:
+      type: object
+      required:
+        - host
+        - type
+      properties:
+        host:
+          type: string
+          description: Remote host to migrate the zone to
+        type:
+          type: string
+          enum:
+            - live
+            - cold
+          description: Migration type
+        cipher:
+          type: string
+          description: Encryption cipher for the migration transfer
+    EvacuationResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAIL
+            - PARTIAL_FAIL
+          description: Overall evacuation status
+        returning:
+          type: boolean
+          description: Whether this is a return evacuation
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+    EvacuationMigrationResult:
+      type: object
+      properties:
+        zoneName:
+          type: string
+          description: Name of the zone
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+        evacuationTarget:
+          type: string
+          description: Destination host
+        migrationStatus:
+          type: string
+          description: Migration status
+        migrationError:
+          $ref: '#/components/schemas/MigrationError'
+    MigrationError:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum:
+            - FRAMEWORK
+            - CONNECT
+            - INIT_CRYPTO
+            - CONFIG_CHECK
+            - CONFIGURE
+            - ATTACH
+            - BOOT
+            - MIGRATE_INITIAL
+            - MIGRATE
+            - SUSPEND
+            - RESTART
+            - HALT
+            - DETACH
+            - UNCONFIGURE
+            - COMPLETE
+            - CANCEL
+          description: The operation that failed
+        error:
+          type: string
+          description: System or zone configuration error
+        message:
+          type: string
+          description: Human-readable error message

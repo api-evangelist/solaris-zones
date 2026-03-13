@@ -1,0 +1,677 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zone Administration API
+  description: >-
+    REST API for Oracle Solaris zone lifecycle management operations via the RAD
+    zonemgr module. Provides administrative operations including install, boot,
+    halt, shutdown, reboot, clone, attach, detach, suspend, move, mark, and
+    savecore. These operations correspond to the zoneadm(1M) command
+    functionality exposed through the RAD REST interface.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Administration
+  url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Lifecycle
+    description: Zone lifecycle state transitions
+  - name: Installation
+    description: Zone install and uninstall operations
+  - name: Migration
+    description: Zone attach, detach, move, and migration operations
+  - name: State Query
+    description: Zone state and property queries
+security:
+  - cookieAuth: []
+paths:
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installZone
+      summary: Install a zone
+      description: >-
+        Install a configured zone, provisioning its root file system and
+        packages. Transitions the zone from configured to installed state.
+        Equivalent to zoneadm install.
+      tags:
+        - Installation
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Optional install arguments (e.g., -m manifest, -c profile,
+                    -a archive-path)
+      responses:
+        '200':
+          description: Zone installation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/uninstall:
+    put:
+      operationId: uninstallZone
+      summary: Uninstall a zone
+      description: >-
+        Uninstall a zone, removing its root file system and installed content.
+        The zone returns to the configured state. Equivalent to zoneadm
+        uninstall.
+      tags:
+        - Installation
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force:
+                  type: boolean
+                  default: false
+                  description: Force uninstall even if zone is in an inconsistent state
+      responses:
+        '200':
+          description: Zone uninstalled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/boot:
+    put:
+      operationId: bootZone
+      summary: Boot a zone
+      description: >-
+        Boot an installed or ready zone, transitioning it to the running
+        state. Equivalent to zoneadm boot.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional boot arguments
+      responses:
+        '200':
+          description: Zone boot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/halt:
+    put:
+      operationId: haltZone
+      summary: Halt a zone immediately
+      description: >-
+        Immediately halt a running zone without running shutdown scripts.
+        The zone transitions to the installed state. Equivalent to zoneadm halt.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone halted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/shutdown:
+    put:
+      operationId: shutdownZone
+      summary: Gracefully shut down a zone
+      description: >-
+        Gracefully shut down a running zone by executing shutdown scripts and
+        cleanly stopping services. Equivalent to zoneadm shutdown.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional shutdown arguments (e.g., -r for reboot)
+      responses:
+        '200':
+          description: Zone shutdown initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/reboot:
+    put:
+      operationId: rebootZone
+      summary: Reboot a zone
+      description: >-
+        Reboot a running zone. The zone is halted and then booted again.
+        Equivalent to zoneadm reboot.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional reboot arguments
+      responses:
+        '200':
+          description: Zone reboot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/ready:
+    put:
+      operationId: readyZone
+      summary: Prepare zone for running
+      description: >-
+        Transition the zone to the ready state where virtual platform and
+        networking are set up but the zone is not yet booted. Equivalent to
+        zoneadm ready.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone transitioned to ready state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/suspend:
+    put:
+      operationId: suspendZone
+      summary: Suspend a zone
+      description: >-
+        Suspend a running zone, saving its state to persistent storage for
+        later resumption. The zone can be resumed by booting it.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone suspended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/mark:
+    put:
+      operationId: markZone
+      summary: Mark zone to a specified state
+      description: >-
+        Forcefully mark a zone to a specific state when normal state transitions
+        are not possible. Used for recovery. Equivalent to zoneadm mark.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+              properties:
+                state:
+                  type: string
+                  enum:
+                    - configured
+                    - installed
+                    - incomplete
+                  description: Target state to mark the zone
+      responses:
+        '200':
+          description: Zone marked to specified state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/clone:
+    put:
+      operationId: cloneZone
+      summary: Clone a zone
+      description: >-
+        Install a zone by cloning from an existing zone or ZFS snapshot.
+        The target zone must be in the configured state. Equivalent to
+        zoneadm clone.
+      tags:
+        - Installation
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - source
+              properties:
+                source:
+                  type: string
+                  description: Source zone name to clone from
+                snapshot:
+                  type: string
+                  description: Specific ZFS snapshot to use as clone source
+      responses:
+        '200':
+          description: Zone cloned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/attach:
+    put:
+      operationId: attachZone
+      summary: Attach a zone
+      description: >-
+        Attach a previously detached zone or a zone moved from another system.
+        Validates and updates the zone configuration for the current system.
+        Equivalent to zoneadm attach.
+      tags:
+        - Migration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional attach arguments
+      responses:
+        '200':
+          description: Zone attached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/detach:
+    put:
+      operationId: detachZone
+      summary: Detach a zone
+      description: >-
+        Detach a zone from the system, preparing it for migration to another
+        system or for archival. The zone transitions to the configured state.
+        Equivalent to zoneadm detach.
+      tags:
+        - Migration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone detached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/move:
+    put:
+      operationId: moveZone
+      summary: Move a zone to a new path
+      description: >-
+        Move a zone's root file system to a new location on the same system.
+        Equivalent to zoneadm move.
+      tags:
+        - Migration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - path
+              properties:
+                path:
+                  type: string
+                  description: New file system path for the zone root
+      responses:
+        '200':
+          description: Zone moved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/migrate:
+    put:
+      operationId: migrateZone
+      summary: Migrate zone to a remote host
+      description: >-
+        Migrate a zone to a remote host using either live or cold migration.
+        Live migration keeps the zone running during transfer. Cold migration
+        halts the zone first. Available since API version 1.1.
+      tags:
+        - Migration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - host
+                - type
+              properties:
+                host:
+                  type: string
+                  description: Remote host to migrate the zone to
+                type:
+                  type: string
+                  enum:
+                    - live
+                    - cold
+                  description: Migration type
+                cipher:
+                  type: string
+                  description: Encryption cipher for the migration data transfer
+      responses:
+        '200':
+          description: Migration initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/savecore:
+    put:
+      operationId: savecoreZone
+      summary: Save zone core dump
+      description: >-
+        Save a kernel crash dump from a zone. Equivalent to zoneadm savecore.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Core dump saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/verify:
+    put:
+      operationId: verifyZone
+      summary: Verify zone configuration
+      description: >-
+        Verify that the zone configuration is complete and correct. Checks
+        resource dependencies and property validity. Equivalent to zoneadm
+        verify.
+      tags:
+        - State Query
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/state:
+    get:
+      operationId: getZoneState
+      summary: Get current zone state
+      description: >-
+        Retrieve the current lifecycle state of the zone.
+      tags:
+        - State Query
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    enum:
+                      - configured
+                      - incomplete
+                      - installed
+                      - ready
+                      - running
+                      - shutting_down
+                      - down
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/auxstate:
+    get:
+      operationId: getZoneAuxState
+      summary: Get zone auxiliary states
+      description: >-
+        Retrieve auxiliary state information for the zone.
+      tags:
+        - State Query
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone auxiliary states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - NONE
+                - FRAMEWORK_ERROR
+                - SNAPSHOT_ERROR
+                - COMMAND_ERROR
+                - RESOURCE_ALREADY_EXISTS
+                - RESOURCE_NOT_FOUND
+                - RESOURCE_TOO_MANY
+                - RESOURCE_UNKNOWN
+                - ALREADY_EDITING
+                - INCOMPLETE_NO_CONFIG
+                - PROPERTY_UNKNOWN
+                - NOT_EDITING
+                - SYSTEM_ERROR
+                - INVALID_ARGUMENT
+                - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string

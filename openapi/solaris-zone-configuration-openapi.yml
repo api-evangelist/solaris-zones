@@ -1,0 +1,674 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zone Configuration API
+  description: >-
+    REST API for configuring Oracle Solaris Zones via the RAD zonemgr module.
+    Provides operations for editing zone configurations, managing zone resources
+    (network interfaces, devices, file systems, resource controls), and
+    committing configuration changes. Corresponds to the zonecfg(1M) command
+    functionality exposed through the RAD REST interface.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Configuration Resources
+  url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Configuration
+    description: Zone configuration editing and commit operations
+  - name: Resources
+    description: Zone resource management (net, device, fs, rctl, etc.)
+security:
+  - cookieAuth: []
+paths:
+  /Zone/{zoneName}/_rad_method/editConfig:
+    put:
+      operationId: editZoneConfig
+      summary: Begin editing zone configuration
+      description: >-
+        Start a configuration editing transaction for the specified zone.
+        All subsequent resource and property changes are staged until
+        commitConfig is called. Set liveMode to true to apply changes to
+        a running zone.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                liveMode:
+                  type: boolean
+                  default: false
+                  description: >-
+                    Enable live reconfiguration mode to apply changes to a
+                    running zone without requiring reboot
+      responses:
+        '200':
+          description: Configuration editing session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Already in editing mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+  /Zone/{zoneName}/_rad_method/commitConfig:
+    put:
+      operationId: commitZoneConfig
+      summary: Commit zone configuration changes
+      description: >-
+        Commit all staged configuration changes made since editConfig was
+        called. If the configuration was modified externally since the editing
+        session began, a SNAPSHOT_ERROR is returned.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration committed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Configuration was externally modified (snapshot error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+  /Zone/{zoneName}/_rad_method/cancelConfig:
+    put:
+      operationId: cancelZoneConfig
+      summary: Cancel zone configuration changes
+      description: >-
+        Discard all staged configuration changes and end the editing session.
+        The zone configuration reverts to its state before editConfig was called.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration changes cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/reloadConfig:
+    put:
+      operationId: reloadZoneConfig
+      summary: Reload zone configuration from disk
+      description: >-
+        Reload the zone configuration from persistent storage, discarding any
+        in-memory cached version. Useful when external changes have been made.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration reloaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/configIsLive:
+    put:
+      operationId: checkConfigIsLive
+      summary: Check if live configuration mode is enabled
+      description: >-
+        Check whether the current editing session has live reconfiguration
+        mode enabled.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Live mode status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/configIsStale:
+    put:
+      operationId: checkConfigIsStale
+      summary: Check if configuration has been externally modified
+      description: >-
+        Check whether the zone configuration has been modified externally since
+        the current editing session began.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Stale status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/update:
+    put:
+      operationId: updateZoneConfig
+      summary: Process zonecfg-format commands
+      description: >-
+        Process configuration commands in zonecfg(1M) format. Allows batch
+        configuration updates using the familiar command syntax.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - commands
+              properties:
+                commands:
+                  type: string
+                  description: >-
+                    Zone configuration commands in zonecfg(1M) format,
+                    separated by semicolons
+      responses:
+        '200':
+          description: Commands processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/getResources:
+    put:
+      operationId: getZoneResources
+      summary: Query zone resources
+      description: >-
+        Retrieve resources configured for the zone, optionally filtered by
+        resource type and property values. Returns an array of Resource
+        objects with their properties.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    Resource type filter (e.g., net, device, fs, rctl, attr,
+                    dataset, dedicated-cpu, capped-memory, capped-cpu, anet)
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter criteria
+      responses:
+        '200':
+          description: List of matching resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/addResource:
+    put:
+      operationId: addZoneResource
+      summary: Add a resource to zone configuration
+      description: >-
+        Add a new resource to the zone configuration. Must be called within
+        an editing session (after editConfig). The resource is staged until
+        commitConfig is called.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          description: Resource added to staged configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Resource already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+  /Zone/{zoneName}/_rad_method/removeResources:
+    put:
+      operationId: removeZoneResources
+      summary: Remove resources from zone configuration
+      description: >-
+        Remove resources matching the specified filter from the zone
+        configuration. Must be called within an editing session.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: Resource type to remove
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify resources to remove
+      responses:
+        '200':
+          description: Resources removed from staged configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/getResourceProperties:
+    put:
+      operationId: getZoneResourceProperties
+      summary: Get properties of a zone resource
+      description: >-
+        Retrieve specific properties from a zone resource identified by type
+        and filter criteria.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    type: string
+                  description: Names of properties to retrieve
+      responses:
+        '200':
+          description: Resource properties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/setResourceProperties:
+    put:
+      operationId: setZoneResourceProperties
+      summary: Set properties on a zone resource
+      description: >-
+        Set property values on a zone resource identified by type and filter
+        criteria. Must be called within an editing session.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - properties
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Properties to set
+      responses:
+        '200':
+          description: Resource properties updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/clearResourceProperties:
+    put:
+      operationId: clearZoneResourceProperties
+      summary: Clear properties on a zone resource
+      description: >-
+        Clear (reset to default) property values on a zone resource. Must be
+        called within an editing session.
+      tags:
+        - Resources
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - properties
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    type: string
+                  description: Names of properties to clear
+      responses:
+        '200':
+          description: Resource properties cleared
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/apply:
+    put:
+      operationId: applyZoneConfig
+      summary: Apply configuration to a running zone
+      description: >-
+        Apply the current zone configuration to a running zone without
+        requiring a reboot. Only effective when changes are compatible with
+        live reconfiguration.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration applied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - NONE
+                - FRAMEWORK_ERROR
+                - SNAPSHOT_ERROR
+                - COMMAND_ERROR
+                - RESOURCE_ALREADY_EXISTS
+                - RESOURCE_NOT_FOUND
+                - RESOURCE_TOO_MANY
+                - RESOURCE_UNKNOWN
+                - ALREADY_EDITING
+                - INCOMPLETE_NO_CONFIG
+                - PROPERTY_UNKNOWN
+                - NOT_EDITING
+                - SYSTEM_ERROR
+                - INVALID_ARGUMENT
+                - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+    Resource:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: >-
+            Resource type name. Common types include: net, anet, device, fs,
+            dataset, rctl, attr, dedicated-cpu, capped-memory, capped-cpu,
+            admin, security-flags
+          enum:
+            - net
+            - anet
+            - device
+            - fs
+            - dataset
+            - rctl
+            - attr
+            - dedicated-cpu
+            - capped-memory
+            - capped-cpu
+            - admin
+            - security-flags
+            - suspend
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: Resource properties
+        parent:
+          type: string
+          description: Parent resource reference
+    Property:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Property name
+        value:
+          type: string
+          description: Simple property value
+        type:
+          type: string
+          enum:
+            - simple
+            - list
+            - complex
+          description: Property value type
+        listvalue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+        complexvalue:
+          type: array
+          items:
+            type: string
+          description: Complex property values

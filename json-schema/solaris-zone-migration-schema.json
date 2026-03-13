@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-migration.json",
+  "title": "Oracle Solaris Zone Migration",
+  "description": "Represents a zone migration operation in Oracle Solaris, including migration type, state, progress tracking, connection details, and encryption cipher configuration for live and cold migrations between hosts.",
+  "type": "object",
+  "properties": {
+    "zoneName": {
+      "type": "string",
+      "description": "Name of the zone being migrated"
+    },
+    "host": {
+      "type": "string",
+      "description": "Destination host for the migration"
+    },
+    "type": {
+      "type": "string",
+      "description": "Migration type",
+      "enum": ["live", "cold"]
+    },
+    "state": {
+      "type": "string",
+      "description": "Current migration state",
+      "enum": ["NONE", "INITIALIZED", "MIGRATING", "COMPLETED"]
+    },
+    "cipher": {
+      "type": ["string", "null"],
+      "description": "Encryption cipher used for the migration data transfer"
+    },
+    "progress": {
+      "$ref": "#/$defs/MigrationProgress"
+    },
+    "error": {
+      "$ref": "#/$defs/MigrationError"
+    },
+    "connection": {
+      "$ref": "#/$defs/MigrationConnection"
+    }
+  },
+  "$defs": {
+    "MigrationProgress": {
+      "type": "object",
+      "description": "Progress information for an ongoing migration",
+      "properties": {
+        "zone": {
+          "type": "string",
+          "description": "Zone name"
+        },
+        "operation": {
+          "type": "string",
+          "description": "Current migration operation",
+          "enum": [
+            "FRAMEWORK",
+            "CONNECT",
+            "INIT_CRYPTO",
+            "CONFIG_CHECK",
+            "CONFIGURE",
+            "ATTACH",
+            "BOOT",
+            "MIGRATE_INITIAL",
+            "MIGRATE",
+            "SUSPEND",
+            "RESTART",
+            "HALT",
+            "DETACH",
+            "UNCONFIGURE",
+            "COMPLETE",
+            "CANCEL"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable progress message"
+        },
+        "percentComplete": {
+          "type": ["integer", "null"],
+          "description": "Progress percentage (0-100)",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "MigrationError": {
+      "type": "object",
+      "description": "Error information from a failed migration",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "The operation that failed",
+          "enum": [
+            "FRAMEWORK",
+            "CONNECT",
+            "INIT_CRYPTO",
+            "CONFIG_CHECK",
+            "CONFIGURE",
+            "ATTACH",
+            "BOOT",
+            "MIGRATE_INITIAL",
+            "MIGRATE",
+            "SUSPEND",
+            "RESTART",
+            "HALT",
+            "DETACH",
+            "UNCONFIGURE",
+            "COMPLETE",
+            "CANCEL"
+          ]
+        },
+        "error": {
+          "type": ["string", "null"],
+          "description": "System or zone configuration error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message"
+        }
+      }
+    },
+    "MigrationConnection": {
+      "type": "object",
+      "description": "Remote host connection details for migration",
+      "properties": {
+        "hostname": {
+          "type": "string",
+          "description": "Remote host name or address"
+        },
+        "supportsMultipleZones": {
+          "type": "boolean",
+          "description": "Whether the remote host supports multi-zone migration"
+        },
+        "supportsSolarisZones": {
+          "type": "boolean",
+          "description": "Whether the remote host supports native Solaris zones"
+        },
+        "supportsSolaris10Zones": {
+          "type": ["boolean", "null"],
+          "description": "Whether the remote host supports Solaris 10 branded zones"
+        },
+        "supportedCiphers": {
+          "$ref": "#/$defs/SupportedCiphers"
+        }
+      }
+    },
+    "SupportedCiphers": {
+      "type": "object",
+      "description": "Encryption ciphers supported for migration",
+      "properties": {
+        "source": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ciphers supported by the source host"
+        },
+        "destination": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ciphers supported by the destination host"
+        },
+        "defaultCipher": {
+          "type": "string",
+          "description": "Default cipher for migration"
+        }
+      }
+    }
+  }
+}

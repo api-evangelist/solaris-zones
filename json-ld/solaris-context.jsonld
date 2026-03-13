@@ -1,0 +1,205 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "solaris": "https://docs.oracle.com/schemas/solaris/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Zone": {
+      "@id": "solaris:Zone",
+      "@context": {
+        "name": "schema:name",
+        "brand": "solaris:brand",
+        "id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "state": "solaris:zoneState",
+        "auxstate": "solaris:auxState"
+      }
+    },
+
+    "KernelZone": {
+      "@id": "solaris:KernelZone",
+      "@context": {
+        "name": "schema:name",
+        "brand": "solaris:brand",
+        "id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "state": "solaris:zoneState"
+      }
+    },
+
+    "ZoneInfo": {
+      "@id": "solaris:ZoneInfo",
+      "@context": {
+        "name": "schema:name",
+        "brand": "solaris:brand",
+        "id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "uuid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "isGlobal": {
+          "@id": "solaris:isGlobal",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "ZoneResource": {
+      "@id": "solaris:ZoneResource",
+      "@context": {
+        "type": "solaris:resourceType",
+        "properties": "solaris:resourceProperties",
+        "parent": "solaris:parentResource"
+      }
+    },
+
+    "ZoneProperty": {
+      "@id": "solaris:ZoneProperty",
+      "@context": {
+        "name": "schema:name",
+        "value": "schema:value",
+        "type": "solaris:propertyValueType",
+        "listvalue": "solaris:listValue",
+        "complexvalue": "solaris:complexValue"
+      }
+    },
+
+    "ZoneStatistics": {
+      "@id": "solaris:ZoneStatistics",
+      "@context": {
+        "zonename": "schema:name",
+        "zone_id": {
+          "@id": "solaris:zoneId",
+          "@type": "xsd:integer"
+        },
+        "cpu_cap": {
+          "@id": "solaris:cpuCap",
+          "@type": "xsd:decimal"
+        },
+        "cpu_usage": {
+          "@id": "solaris:cpuUsage",
+          "@type": "xsd:decimal"
+        },
+        "memory_cap": {
+          "@id": "solaris:memoryCap",
+          "@type": "xsd:long"
+        },
+        "memory_usage": {
+          "@id": "solaris:memoryUsage",
+          "@type": "xsd:long"
+        },
+        "swap_cap": {
+          "@id": "solaris:swapCap",
+          "@type": "xsd:long"
+        },
+        "swap_usage": {
+          "@id": "solaris:swapUsage",
+          "@type": "xsd:long"
+        },
+        "nprocs": {
+          "@id": "solaris:processCount",
+          "@type": "xsd:integer"
+        },
+        "nlwps": {
+          "@id": "solaris:threadCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "ZoneMigration": {
+      "@id": "solaris:ZoneMigration",
+      "@context": {
+        "zoneName": "schema:name",
+        "host": "solaris:migrationHost",
+        "type": "solaris:migrationType",
+        "state": "solaris:migrationState",
+        "cipher": "solaris:migrationCipher"
+      }
+    },
+
+    "MigrationConnection": {
+      "@id": "solaris:MigrationConnection",
+      "@context": {
+        "hostname": "schema:url",
+        "supportsMultipleZones": {
+          "@id": "solaris:supportsMultipleZones",
+          "@type": "xsd:boolean"
+        },
+        "supportsSolarisZones": {
+          "@id": "solaris:supportsSolarisZones",
+          "@type": "xsd:boolean"
+        },
+        "supportsSolaris10Zones": {
+          "@id": "solaris:supportsSolaris10Zones",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "ZoneEvacuation": {
+      "@id": "solaris:ZoneEvacuation",
+      "@context": {
+        "status": "solaris:evacuationStatus",
+        "returning": {
+          "@id": "solaris:returning",
+          "@type": "xsd:boolean"
+        },
+        "migrationResults": "solaris:migrationResults"
+      }
+    },
+
+    "StatsStoreStatistic": {
+      "@id": "solaris:StatsStoreStatistic",
+      "@context": {
+        "ssid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "value": "schema:value",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "unit": "schema:unitCode",
+        "description": "schema:description"
+      }
+    },
+
+    "ZoneResult": {
+      "@id": "solaris:ZoneResult",
+      "@context": {
+        "code": "solaris:errorCode",
+        "message": "schema:description",
+        "stdout": "solaris:stdout",
+        "stderr": "solaris:stderr"
+      }
+    },
+
+    "StateChange": {
+      "@id": "solaris:StateChange",
+      "@context": {
+        "zone": "schema:name",
+        "oldstate": "solaris:previousState",
+        "newstate": "solaris:currentState"
+      }
+    }
+  }
+}

@@ -1,0 +1,480 @@
+openapi: 3.1.0
+info:
+  title: Oracle Solaris Unified Archives Zones API
+  description: >-
+    REST API for creating, deploying, and managing Unified Archives for Oracle
+    Solaris zone system recovery, cloning, and migration. Unified Archives
+    package one or more system images (zones and global zone) into a single
+    portable archive file that can be used for bare-metal recovery, zone
+    cloning, zone deployment on new systems, and disaster recovery scenarios.
+  version: '1.0'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Using Unified Archives for System Recovery and Cloning
+  url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Archive Creation
+    description: Create Unified Archives from zones
+  - name: Archive Deployment
+    description: Deploy zones from Unified Archives
+  - name: Archive Information
+    description: Query archive contents and metadata
+  - name: Zone Recovery
+    description: Recover zones from archives
+security:
+  - cookieAuth: []
+paths:
+  /ZoneManager/_rad_method/create:
+    put:
+      operationId: createZoneFromArchive
+      summary: Create a zone from a Unified Archive
+      description: >-
+        Create and configure a new zone that will be installed from a Unified
+        Archive. The zone is created in the configured state and can then be
+        installed using the archive as the installation source.
+      tags:
+        - Archive Deployment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name for the new zone
+                path:
+                  type: string
+                  description: Zone root path
+                template:
+                  type: string
+                  description: Zone brand template
+                  default: SYSdefault
+      responses:
+        '200':
+          description: Zone created ready for archive-based installation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installZoneFromArchive
+      summary: Install a zone from a Unified Archive
+      description: >-
+        Install a configured zone using a Unified Archive as the source. The
+        archive path is provided as an install option using -a flag. Supports
+        both recovery archives (full system state) and clone archives
+        (template-based deployment).
+      tags:
+        - Archive Deployment
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - options
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Install options. Use -a to specify the archive path and
+                    -c for a system configuration profile.
+                  example:
+                    - '-a'
+                    - '/archives/zone-backup.uar'
+                    - '-c'
+                    - '/profiles/zone-sc.xml'
+      responses:
+        '200':
+          description: Zone installation from archive initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/clone:
+    put:
+      operationId: cloneZoneFromArchive
+      summary: Clone a zone using a Unified Archive
+      description: >-
+        Clone a zone using a Unified Archive as the source. This creates a new
+        zone installation based on the archived zone image, allowing rapid
+        deployment of standardized zone configurations.
+      tags:
+        - Archive Deployment
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - source
+              properties:
+                source:
+                  type: string
+                  description: >-
+                    Source zone name within the archive to clone from
+                archivePath:
+                  type: string
+                  description: Path to the Unified Archive file
+                snapshot:
+                  type: string
+                  description: ZFS snapshot within the archive to use
+      responses:
+        '200':
+          description: Zone cloned from archive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/attach:
+    put:
+      operationId: attachZoneFromArchive
+      summary: Attach a zone from a Unified Archive
+      description: >-
+        Attach a zone using a Unified Archive. Used for restoring a zone from
+        an archive on a new or rebuilt system. The archive provides the zone
+        root content that is attached to the zone configuration.
+      tags:
+        - Zone Recovery
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Attach options. Use -a for archive path, -z for zone
+                    within the archive.
+                  example:
+                    - '-a'
+                    - '/archives/zone-backup.uar'
+      responses:
+        '200':
+          description: Zone attached from archive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/exportConfig:
+    put:
+      operationId: exportZoneConfigForArchive
+      summary: Export zone configuration for archival
+      description: >-
+        Export the zone configuration as a string suitable for inclusion in
+        a Unified Archive or for recreating the zone on another system.
+      tags:
+        - Archive Creation
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Exported zone configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    description: >-
+                      Zone configuration in zonecfg export format
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/getResources:
+    put:
+      operationId: getArchiveZoneResources
+      summary: Get zone resources for archive validation
+      description: >-
+        Retrieve all configured resources for a zone to validate compatibility
+        before creating an archive or deploying from an archive.
+      tags:
+        - Archive Information
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Optional resource type filter
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+      responses:
+        '200':
+          description: Zone resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}:
+    get:
+      operationId: getZoneForArchive
+      summary: Get zone details for archive operations
+      description: >-
+        Retrieve zone details to verify state before creating archives or
+        deploying from archives. Includes zone brand, state, and UUID.
+      tags:
+        - Archive Information
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/Zone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/detach:
+    put:
+      operationId: detachZoneForArchive
+      summary: Detach zone for archival
+      description: >-
+        Detach a zone in preparation for archiving or moving. The zone
+        transitions to the configured state with its data preserved.
+      tags:
+        - Archive Creation
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone detached for archival
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - NONE
+                - FRAMEWORK_ERROR
+                - SNAPSHOT_ERROR
+                - COMMAND_ERROR
+                - RESOURCE_ALREADY_EXISTS
+                - RESOURCE_NOT_FOUND
+                - RESOURCE_TOO_MANY
+                - RESOURCE_UNKNOWN
+                - ALREADY_EDITING
+                - INCOMPLETE_NO_CONFIG
+                - PROPERTY_UNKNOWN
+                - NOT_EDITING
+                - SYSTEM_ERROR
+                - INVALID_ARGUMENT
+                - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+    Zone:
+      type: object
+      properties:
+        name:
+          type: string
+        brand:
+          type: string
+        id:
+          type: integer
+        uuid:
+          type: string
+          format: uuid
+        state:
+          type: string
+          enum:
+            - configured
+            - incomplete
+            - installed
+            - ready
+            - running
+            - shutting_down
+            - down
+        auxstate:
+          type: array
+          items:
+            type: string
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+        parent:
+          type: string
+    Property:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        type:
+          type: string
+          enum:
+            - simple
+            - list
+            - complex
+        listvalue:
+          type: array
+          items:
+            type: string
+        complexvalue:
+          type: array
+          items:
+            type: string

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-evacuation.json",
+  "title": "Oracle Solaris Zone Evacuation",
+  "description": "Represents a multi-zone evacuation operation in Oracle Solaris, including overall status, per-zone migration results, and progress tracking for evacuating zones from one host to another. Available since RAD zonemgr API version 1.4.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall evacuation status",
+      "enum": ["SUCCESS", "FAIL", "PARTIAL_FAIL"]
+    },
+    "returning": {
+      "type": "boolean",
+      "description": "Whether this is a return evacuation (zones being moved back to original host)"
+    },
+    "migrationResults": {
+      "type": "object",
+      "description": "Per-zone migration results keyed by zone name",
+      "additionalProperties": {
+        "$ref": "#/$defs/EvacuationMigrationResult"
+      }
+    },
+    "progress": {
+      "$ref": "#/$defs/EvacuationProgress"
+    }
+  },
+  "$defs": {
+    "EvacuationMigrationResult": {
+      "type": "object",
+      "description": "Migration result for a single zone during evacuation",
+      "properties": {
+        "zoneName": {
+          "type": "string",
+          "description": "Name of the evacuated zone"
+        },
+        "evacuated": {
+          "type": "boolean",
+          "description": "Whether the zone was successfully evacuated"
+        },
+        "evacuationTarget": {
+          "type": "string",
+          "description": "Destination host the zone was evacuated to"
+        },
+        "migrationStatus": {
+          "type": "string",
+          "description": "Migration status for this zone"
+        },
+        "migrationError": {
+          "type": ["object", "null"],
+          "description": "Error details if migration failed",
+          "properties": {
+            "operation": {
+              "type": "string",
+              "description": "The operation that failed"
+            },
+            "error": {
+              "type": ["string", "null"],
+              "description": "Error code"
+            },
+            "message": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      }
+    },
+    "EvacuationProgress": {
+      "type": "object",
+      "description": "Progress information for an ongoing evacuation",
+      "properties": {
+        "zoneName": {
+          "type": "string",
+          "description": "Zone currently being evacuated"
+        },
+        "remoteHost": {
+          "type": "string",
+          "description": "Destination host"
+        },
+        "returning": {
+          "type": "boolean",
+          "description": "Whether this is a return evacuation"
+        },
+        "migrationMilestone": {
+          "type": "string",
+          "description": "Current migration milestone",
+          "enum": [
+            "MIGRATE_INITIALIZING",
+            "MIGRATE_INITIALIZATION_COMPLETE",
+            "MIGRATE_INITIALIZATION_FAIL",
+            "MIGRATING",
+            "MIGRATE_COMPLETE",
+            "MIGRATE_FAIL",
+            "EVACUATE_INITIALIZING",
+            "EVACUATE_INITIALIZATION_COMPLETE",
+            "EVACUATE_INITIALIZATION_FAIL",
+            "EVACUATING",
+            "EVACUATE_COMPLETE",
+            "EVACUATE_FAIL",
+            "EVACUATE_CANCELED"
+          ]
+        },
+        "zoneCount": {
+          "type": "integer",
+          "description": "Total number of zones being evacuated",
+          "minimum": 0
+        },
+        "transferRate": {
+          "type": ["integer", "null"],
+          "description": "Current transfer rate in bytes per second"
+        },
+        "zoneProgress": {
+          "type": "string",
+          "description": "Detailed progress information for the current zone"
+        }
+      }
+    }
+  }
+}

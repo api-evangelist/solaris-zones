@@ -1,0 +1,512 @@
+openapi: 3.1.0
+info:
+  title: Oracle Solaris StatsStore and Analytics API
+  description: >-
+    REST API for accessing the Oracle Solaris 11.4 StatsStore, which provides
+    consolidated system statistics, zone resource utilization data, and
+    historical performance analytics. The StatsStore collects and organizes
+    system-wide and per-zone statistics using a hierarchical namespace of
+    statistics identifiers (SSIDs). Data is accessible via CLI (sstore),
+    the RAD REST interface, the System Web Interface, and programmatic APIs
+    in C and Python.
+  version: '1.0'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Using Oracle Solaris 11.4 StatsStore and System Web Interface
+  url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+    description: Oracle Solaris RAD REST endpoint for StatsStore
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+  - url: https://{host}:{webport}
+    description: Oracle Solaris System Web Interface
+    variables:
+      host:
+        default: localhost
+      webport:
+        default: '6787'
+        description: System Web Interface HTTPS port
+tags:
+  - name: Statistics Discovery
+    description: Discover available statistics and namespaces
+  - name: Statistics Retrieval
+    description: Retrieve current and historical statistics data
+  - name: Zone Statistics
+    description: Per-zone resource utilization statistics
+  - name: System Statistics
+    description: System-wide performance statistics
+security:
+  - cookieAuth: []
+paths:
+  /:
+    get:
+      operationId: listSstoreInterfaces
+      summary: List StatsStore interfaces
+      description: >-
+        Discover all available StatsStore interfaces and the hierarchical
+        namespace of statistics identifiers (SSIDs).
+      tags:
+        - Statistics Discovery
+      parameters:
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Available StatsStore interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        href:
+                          type: string
+                        type:
+                          type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/list:
+    put:
+      operationId: listStatistics
+      summary: List available statistics
+      description: >-
+        List statistics identifiers (SSIDs) matching the given pattern.
+        SSIDs follow a hierarchical namespace format like
+        //:class:module/statistic-name. Supports glob-style wildcards.
+      tags:
+        - Statistics Discovery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - pattern
+              properties:
+                pattern:
+                  type: string
+                  description: >-
+                    SSID pattern with optional wildcards. Examples:
+                    //:class:zones/*, //:class:cpu/*, //:class:memory/*,
+                    //:class:net/*
+                  example: '//:class:zones/*'
+      responses:
+        '200':
+          description: List of matching SSIDs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StatisticIdentifier'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/read:
+    put:
+      operationId: readStatistics
+      summary: Read current statistics values
+      description: >-
+        Read the current values of one or more statistics identified by their
+        SSIDs. Returns the most recent recorded values.
+      tags:
+        - Statistics Retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ssids
+              properties:
+                ssids:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Array of SSID strings to read. Supports wildcards.
+                  example:
+                    - '//:class:zones/utilization/cpu'
+                    - '//:class:zones/utilization/memory-rss'
+      responses:
+        '200':
+          description: Statistics values
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StatisticValue'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/readHistory:
+    put:
+      operationId: readHistoricalStatistics
+      summary: Read historical statistics
+      description: >-
+        Read historical statistics data within a specified time range. The
+        StatsStore maintains historical data at configurable retention
+        intervals.
+      tags:
+        - Statistics Retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ssids
+              properties:
+                ssids:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of SSID strings to retrieve history for
+                start:
+                  type: string
+                  format: date-time
+                  description: Start of the time range (ISO 8601)
+                end:
+                  type: string
+                  format: date-time
+                  description: End of the time range (ISO 8601)
+                step:
+                  type: integer
+                  description: Interval step in seconds between data points
+      responses:
+        '200':
+          description: Historical statistics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HistoricalStatistic'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/describe:
+    put:
+      operationId: describeStatistic
+      summary: Describe a statistic
+      description: >-
+        Get metadata about a statistic including its description, data type,
+        unit, and collection interval.
+      tags:
+        - Statistics Discovery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ssid
+              properties:
+                ssid:
+                  type: string
+                  description: SSID to describe
+                  example: '//:class:zones/utilization/cpu'
+      responses:
+        '200':
+          description: Statistic metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/StatisticMetadata'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/readZoneStats:
+    put:
+      operationId: readZoneStatistics
+      summary: Read zone-specific statistics
+      description: >-
+        Read resource utilization statistics for one or more zones. Provides
+        a convenient way to query zone-specific data without constructing
+        full SSID paths.
+      tags:
+        - Zone Statistics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                zones:
+                  type: array
+                  items:
+                    type: string
+                  description: Zone names to retrieve statistics for (empty for all zones)
+                metrics:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - cpu
+                      - memory-rss
+                      - memory-vm
+                      - memory-locked
+                      - swap
+                      - nprocs
+                      - nlwps
+                      - network-bytes-in
+                      - network-bytes-out
+                  description: Metrics to retrieve
+      responses:
+        '200':
+          description: Zone statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneStatistic'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Store/_rad_method/readSystemStats:
+    put:
+      operationId: readSystemStatistics
+      summary: Read system-wide statistics
+      description: >-
+        Read system-wide performance statistics including total CPU, memory,
+        I/O, and network utilization.
+      tags:
+        - System Statistics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metrics:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - cpu-utilization
+                      - memory-utilization
+                      - memory-total
+                      - memory-free
+                      - swap-utilization
+                      - disk-io-bytes
+                      - network-bytes-total
+                  description: System metrics to retrieve
+      responses:
+        '200':
+          description: System statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SystemStatistic'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    StatisticIdentifier:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: >-
+            Statistics identifier in hierarchical namespace format
+            (e.g., //:class:zones/zone-name/utilization/cpu)
+        type:
+          type: string
+          description: Statistic data type
+          enum:
+            - counter
+            - gauge
+            - histogram
+            - string
+        description:
+          type: string
+          description: Human-readable description
+    StatisticValue:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier
+        value:
+          description: Current value (type depends on the statistic)
+          oneOf:
+            - type: number
+            - type: string
+            - type: integer
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+        unit:
+          type: string
+          description: Unit of measurement
+    HistoricalStatistic:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier
+        dataPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              value:
+                oneOf:
+                  - type: number
+                  - type: integer
+          description: Time series data points
+        unit:
+          type: string
+          description: Unit of measurement
+    StatisticMetadata:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier
+        description:
+          type: string
+          description: Human-readable description
+        type:
+          type: string
+          description: Data type
+          enum:
+            - counter
+            - gauge
+            - histogram
+            - string
+        unit:
+          type: string
+          description: Unit of measurement (e.g., bytes, percent, count)
+        interval:
+          type: integer
+          description: Collection interval in seconds
+        persistent:
+          type: boolean
+          description: Whether historical data is retained
+    ZoneStatistic:
+      type: object
+      properties:
+        zoneName:
+          type: string
+          description: Zone name
+        zoneId:
+          type: integer
+          description: Numeric zone ID
+        metric:
+          type: string
+          description: Metric name
+        value:
+          type: number
+          description: Current metric value
+        unit:
+          type: string
+          description: Unit of measurement
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+    SystemStatistic:
+      type: object
+      properties:
+        metric:
+          type: string
+          description: System metric name
+        value:
+          type: number
+          description: Current metric value
+        unit:
+          type: string
+          description: Unit of measurement
+        timestamp:
+          type: string
+          format: date-time

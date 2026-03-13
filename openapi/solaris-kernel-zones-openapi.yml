@@ -1,0 +1,613 @@
+openapi: 3.1.0
+info:
+  title: Oracle Solaris Kernel Zones API
+  description: >-
+    REST API for creating and managing Oracle Solaris Kernel Zones via the RAD
+    zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with
+    their own kernel, providing greater independence and enhanced security
+    isolation compared to native zones. They support live migration, independent
+    patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+servers:
+  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Oracle Solaris RAD REST endpoint
+    variables:
+      host:
+        default: localhost
+        description: Solaris host running RAD
+      port:
+        default: '6788'
+        description: RAD REST API port
+tags:
+  - name: Kernel Zone Management
+    description: Create and manage kernel zones
+  - name: Kernel Zone Lifecycle
+    description: Kernel zone boot, halt, suspend, and resume operations
+  - name: Kernel Zone Configuration
+    description: Configure kernel zone resources and properties
+  - name: Kernel Zone Migration
+    description: Live migration of kernel zones between hosts
+security:
+  - cookieAuth: []
+paths:
+  /ZoneManager/_rad_method/create:
+    put:
+      operationId: createKernelZone
+      summary: Create a kernel zone
+      description: >-
+        Create a new kernel zone using the solaris-kz brand template. Kernel
+        zones run their own kernel and provide enhanced isolation through
+        hardware-assisted virtualization.
+      tags:
+        - Kernel Zone Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Unique kernel zone name
+                  example: kzone1
+                path:
+                  type: string
+                  description: Zone root path
+                  example: /zones/kzone1
+                template:
+                  type: string
+                  description: Must be SYSsolaris-kz for kernel zones
+                  default: SYSsolaris-kz
+                  enum:
+                    - SYSsolaris-kz
+      responses:
+        '200':
+          description: Kernel zone created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /Zone/{zoneName}:
+    get:
+      operationId: getKernelZone
+      summary: Get kernel zone details
+      description: >-
+        Retrieve detailed information about a kernel zone including its brand
+        (solaris-kz), state, UUID, and auxiliary states. The brand property
+        confirms this is a kernel zone.
+      tags:
+        - Kernel Zone Management
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+        - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Kernel zone details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/KernelZone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installKernelZone
+      summary: Install a kernel zone
+      description: >-
+        Install a configured kernel zone. This provisions the zone with its own
+        Solaris kernel, creating an independent operating environment with
+        hardware-assisted virtualization support.
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional install arguments
+      responses:
+        '200':
+          description: Kernel zone installation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/boot:
+    put:
+      operationId: bootKernelZone
+      summary: Boot a kernel zone
+      description: >-
+        Boot a kernel zone. Unlike native zones, kernel zones boot their own
+        kernel providing full OS isolation.
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional boot arguments
+      responses:
+        '200':
+          description: Kernel zone boot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/halt:
+    put:
+      operationId: haltKernelZone
+      summary: Halt a kernel zone
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone halted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/shutdown:
+    put:
+      operationId: shutdownKernelZone
+      summary: Gracefully shut down a kernel zone
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone shutdown initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/reboot:
+    put:
+      operationId: rebootKernelZone
+      summary: Reboot a kernel zone
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone reboot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/suspend:
+    put:
+      operationId: suspendKernelZone
+      summary: Suspend a kernel zone
+      description: >-
+        Suspend a running kernel zone, saving its complete state including
+        the kernel zone's own kernel state for later resumption.
+      tags:
+        - Kernel Zone Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone suspended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/editConfig:
+    put:
+      operationId: editKernelZoneConfig
+      summary: Begin editing kernel zone configuration
+      description: >-
+        Start a configuration editing session for a kernel zone. Kernel zones
+        support additional resource types such as virtual CPUs (dedicated-cpu),
+        virtual memory, and virtual I/O devices.
+      tags:
+        - Kernel Zone Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                liveMode:
+                  type: boolean
+                  default: false
+                  description: Enable live reconfiguration
+      responses:
+        '200':
+          description: Editing session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/addResource:
+    put:
+      operationId: addKernelZoneResource
+      summary: Add resource to kernel zone
+      description: >-
+        Add a resource to the kernel zone configuration. Kernel zones support
+        additional resource types including dedicated-cpu for virtual CPU
+        allocation, capped-memory for memory limits, and virtual I/O devices.
+      tags:
+        - Kernel Zone Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KernelZoneResource'
+      responses:
+        '200':
+          description: Resource added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/commitConfig:
+    put:
+      operationId: commitKernelZoneConfig
+      summary: Commit kernel zone configuration
+      tags:
+        - Kernel Zone Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration committed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/getResources:
+    put:
+      operationId: getKernelZoneResources
+      summary: Query kernel zone resources
+      description: >-
+        Retrieve resources configured for the kernel zone including CPU, memory,
+        I/O devices, and networking.
+      tags:
+        - Kernel Zone Configuration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    Resource type filter. Kernel zones support: dedicated-cpu,
+                    capped-memory, anet, device, suspend, security-flags
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+      responses:
+        '200':
+          description: Kernel zone resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KernelZoneResource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /Zone/{zoneName}/_rad_method/migrate:
+    put:
+      operationId: livelyMigrateKernelZone
+      summary: Live migrate a kernel zone
+      description: >-
+        Live migrate a running kernel zone to a remote host. Kernel zones
+        are the primary zone type that supports live migration where the zone
+        continues running while its state is transferred to the destination.
+      tags:
+        - Kernel Zone Migration
+      parameters:
+        - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - host
+                - type
+              properties:
+                host:
+                  type: string
+                  description: Destination host for the migration
+                type:
+                  type: string
+                  enum:
+                    - live
+                    - cold
+                  description: >-
+                    Migration type. Kernel zones support both live and cold
+                    migration. Live migration keeps the zone running.
+                cipher:
+                  type: string
+                  description: Encryption cipher for migration data transfer
+      responses:
+        '200':
+          description: Migration initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - NONE
+                - FRAMEWORK_ERROR
+                - SNAPSHOT_ERROR
+                - COMMAND_ERROR
+                - RESOURCE_ALREADY_EXISTS
+                - RESOURCE_NOT_FOUND
+                - RESOURCE_TOO_MANY
+                - RESOURCE_UNKNOWN
+                - ALREADY_EDITING
+                - INCOMPLETE_NO_CONFIG
+                - PROPERTY_UNKNOWN
+                - NOT_EDITING
+                - SYSTEM_ERROR
+                - INVALID_ARGUMENT
+                - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+    KernelZone:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Kernel zone name
+        brand:
+          type: string
+          description: Zone brand (solaris-kz for kernel zones)
+          enum:
+            - solaris-kz
+        id:
+          type: integer
+          description: Numeric zone ID
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+        state:
+          type: string
+          enum:
+            - configured
+            - incomplete
+            - installed
+            - ready
+            - running
+            - shutting_down
+            - down
+          description: Current zone state
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary zone states
+    KernelZoneResource:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: >-
+            Resource type. Kernel zone specific types include dedicated-cpu
+            and capped-memory for virtual hardware allocation.
+          enum:
+            - dedicated-cpu
+            - capped-memory
+            - capped-cpu
+            - anet
+            - device
+            - fs
+            - suspend
+            - security-flags
+            - attr
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: Resource property values
+        parent:
+          type: string
+          description: Parent resource reference
+    Property:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: >-
+            Property name. Key kernel zone properties include ncpus, physical,
+            locked, swap, lower-link, allowed-address.
+        value:
+          type: string
+          description: Property value
+        type:
+          type: string
+          enum:
+            - simple
+            - list
+            - complex
+        listvalue:
+          type: array
+          items:
+            type: string
+        complexvalue:
+          type: array
+          items:
+            type: string

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.oracle.com/schemas/solaris/zone-stats.json",
+  "title": "Oracle Solaris Zone Statistics",
+  "description": "Represents resource utilization statistics for an Oracle Solaris Zone, including CPU, memory, swap, and process metrics collected via the kstat interface and libzonestat library.",
+  "type": "object",
+  "properties": {
+    "zonename": {
+      "type": "string",
+      "description": "Name of the zone"
+    },
+    "zone_id": {
+      "type": "integer",
+      "description": "Numeric zone identifier",
+      "minimum": 0
+    },
+    "cpu_cap": {
+      "type": "number",
+      "description": "CPU cap value as a percentage of a single CPU (100 = 1 full CPU)",
+      "minimum": 0
+    },
+    "cpu_usage": {
+      "type": "number",
+      "description": "Current CPU usage as a percentage",
+      "minimum": 0
+    },
+    "cpu_nwait": {
+      "type": "integer",
+      "description": "Number of times zone threads waited due to CPU cap",
+      "minimum": 0
+    },
+    "memory_cap": {
+      "type": "integer",
+      "description": "Physical memory cap in bytes",
+      "minimum": 0
+    },
+    "memory_usage": {
+      "type": "integer",
+      "description": "Current physical memory usage (RSS) in bytes",
+      "minimum": 0
+    },
+    "swap_cap": {
+      "type": "integer",
+      "description": "Swap space cap in bytes",
+      "minimum": 0
+    },
+    "swap_usage": {
+      "type": "integer",
+      "description": "Current swap space usage in bytes",
+      "minimum": 0
+    },
+    "nprocs": {
+      "type": "integer",
+      "description": "Number of processes running in the zone",
+      "minimum": 0
+    },
+    "nlwps": {
+      "type": "integer",
+      "description": "Number of lightweight processes (threads) in the zone",
+      "minimum": 0
+    },
+    "pr_size": {
+      "type": "integer",
+      "description": "Total virtual size of all processes in bytes",
+      "minimum": 0
+    },
+    "pr_rss": {
+      "type": "integer",
+      "description": "Total resident set size of all processes in bytes",
+      "minimum": 0
+    }
+  }
+}
