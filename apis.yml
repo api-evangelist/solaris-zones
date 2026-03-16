@@ -1,4 +1,4 @@
-name: Solaris Zones API
+name: Solaris Zones
 description: API for managing Solaris Zones (containers) and virtualization on Oracle Solaris systems
 image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
 created: '2024'
