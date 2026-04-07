@@ -43,7 +43,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0:
     get:
       operationId: listKstatInterfaces
-      summary: List all kernel statistics interfaces
+      summary: Solaris Zones List all kernel statistics interfaces
       description: >-
         Discover all available kernel statistics interfaces. Provides access
         to CPU, memory, network, and zone-specific resource utilization data.
@@ -75,7 +75,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
     get:
       operationId: getZoneCapStatistics
-      summary: Get zone resource cap statistics
+      summary: Solaris Zones Get zone resource cap statistics
       description: >-
         Retrieve resource cap statistics for a specific zone including CPU cap,
         memory cap, and swap cap utilization. Shows the configured limits and
@@ -115,7 +115,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_misc,{zoneId}:
     get:
       operationId: getZoneMiscStatistics
-      summary: Get zone miscellaneous statistics
+      summary: Solaris Zones Get zone miscellaneous statistics
       description: >-
         Retrieve miscellaneous statistics for a specific zone including
         process counts, lightweight process counts, and other zone-level
@@ -153,7 +153,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},physcap,{zoneId}:
     get:
       operationId: getZonePhysicalMemoryCap
-      summary: Get zone physical memory cap statistics
+      summary: Solaris Zones Get zone physical memory cap statistics
       description: >-
         Retrieve physical memory capping statistics for a zone including the
         configured cap, current RSS, number of page-outs due to capping, and
@@ -187,7 +187,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},swapcap,{zoneId}:
     get:
       operationId: getZoneSwapCap
-      summary: Get zone swap cap statistics
+      summary: Solaris Zones Get zone swap cap statistics
       description: >-
         Retrieve swap space capping statistics for a zone including the
         configured swap cap and current swap usage.
@@ -219,7 +219,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{zoneName},cpucaps_zone_{zoneId},{zoneId}:
     get:
       operationId: getZoneCpuCap
-      summary: Get zone CPU cap statistics
+      summary: Solaris Zones Get zone CPU cap statistics
       description: >-
         Retrieve CPU capping statistics for a specific zone including the
         configured CPU cap value, current usage, and time spent being capped.
@@ -256,7 +256,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
     get:
       operationId: getCpuInfo
-      summary: Get CPU information
+      summary: Solaris Zones Get CPU information
       description: >-
         Retrieve detailed information about a specific CPU including model,
         clock speed, vendor, and state. Useful for understanding the physical
@@ -290,7 +290,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0:
     get:
       operationId: getSystemMemoryPages
-      summary: Get system memory page statistics
+      summary: Solaris Zones Get system memory page statistics
       description: >-
         Retrieve system-wide memory page statistics including total physical
         pages, free pages, and page sizes. Provides context for zone memory

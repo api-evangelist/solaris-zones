@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Oracle Solaris RAD Zone Management REST API
+  title: Solaris Zones Oracle Solaris RAD Zone Management REST API
   description: >-
     REST API for the Oracle Solaris Remote Administration Daemon (RAD)
     com.oracle.solaris.rad.zonemgr module. Provides programmatic access to
@@ -40,7 +40,7 @@ paths:
   /:
     get:
       operationId: listZoneInterfaces
-      summary: List all zone management interfaces
+      summary: Solaris Zones List all zone management interfaces
       description: >-
         Returns a list of all available zone management interfaces including
         ZoneManager, Zone instances, ZoneInfo, and migration connections.
@@ -73,7 +73,7 @@ paths:
   /ZoneManager:
     get:
       operationId: getZoneManager
-      summary: Get the ZoneManager singleton
+      summary: Solaris Zones Get the ZoneManager singleton
       description: >-
         Returns the ZoneManager interface which provides system-wide zone
         management capabilities including zone creation, deletion, and
@@ -104,7 +104,7 @@ paths:
   /ZoneManager/create:
     put:
       operationId: createZone
-      summary: Create a new zone
+      summary: Solaris Zones Create a new zone
       description: >-
         Creates a new Solaris zone with the specified name, zone path, and
         optional template. The zone is created in the configured state and
@@ -156,7 +156,7 @@ paths:
   /ZoneManager/delete:
     put:
       operationId: deleteZone
-      summary: Delete a zone
+      summary: Solaris Zones Delete a zone
       description: >-
         Permanently deletes a zone from the system. The zone must be in the
         configured state before it can be deleted.
@@ -194,7 +194,7 @@ paths:
   /ZoneManager/importConfig:
     put:
       operationId: importZoneConfig
-      summary: Import zone configuration
+      summary: Solaris Zones Import zone configuration
       description: >-
         Import a zone configuration from zonecfg(8) format text, creating
         a new zone with the specified configuration.
@@ -236,7 +236,7 @@ paths:
   /ZoneManager/initEvacuate:
     put:
       operationId: initEvacuate
-      summary: Initialize zone evacuation
+      summary: Solaris Zones Initialize zone evacuation
       description: >-
         Initialize an evacuation session to migrate all eligible zones from
         this host to a remote system. Added in version 1.4 of the zonemgr module.
@@ -277,7 +277,7 @@ paths:
   /ZoneManager/evacuate:
     put:
       operationId: evacuate
-      summary: Perform zone evacuation
+      summary: Solaris Zones Perform zone evacuation
       description: >-
         Execute the evacuation of all eligible zones to the previously
         configured remote host. Must be preceded by initEvacuate.
@@ -313,7 +313,7 @@ paths:
   /ZoneManager/cancelEvacuate:
     put:
       operationId: cancelEvacuate
-      summary: Cancel zone evacuation
+      summary: Solaris Zones Cancel zone evacuation
       description: >-
         Cancel an in-progress evacuation operation. Zones that have already
         been migrated will remain on the remote host.
@@ -342,7 +342,7 @@ paths:
   /Zone/{zoneName}:
     get:
       operationId: getZone
-      summary: Get zone details
+      summary: Solaris Zones Get zone details
       description: >-
         Returns detailed information about a specific zone including its
         current state, brand, UUID, auxiliary states, and configuration.
@@ -375,7 +375,7 @@ paths:
   /Zone/{zoneName}/boot:
     put:
       operationId: bootZone
-      summary: Boot a zone
+      summary: Solaris Zones Boot a zone
       description: >-
         Boot the specified zone. The zone must be in the installed state.
         After booting, the zone transitions to the running state.
@@ -414,7 +414,7 @@ paths:
   /Zone/{zoneName}/shutdown:
     put:
       operationId: shutdownZone
-      summary: Shutdown a zone
+      summary: Solaris Zones Shutdown a zone
       description: >-
         Gracefully shut down the specified zone by running the shutdown
         scripts within the zone before halting it.
@@ -453,7 +453,7 @@ paths:
   /Zone/{zoneName}/halt:
     put:
       operationId: haltZone
-      summary: Halt a zone
+      summary: Solaris Zones Halt a zone
       description: >-
         Immediately halt the specified zone without running shutdown scripts.
         The zone transitions from running to installed state.
@@ -486,7 +486,7 @@ paths:
   /Zone/{zoneName}/reboot:
     put:
       operationId: rebootZone
-      summary: Reboot a zone
+      summary: Solaris Zones Reboot a zone
       description: >-
         Reboot the specified zone. This is equivalent to a halt followed
         by a boot operation.
@@ -525,7 +525,7 @@ paths:
   /Zone/{zoneName}/install:
     put:
       operationId: installZone
-      summary: Install a zone
+      summary: Solaris Zones Install a zone
       description: >-
         Install the specified zone. The zone must be in the configured state.
         After installation, the zone transitions to the installed state and
@@ -565,7 +565,7 @@ paths:
   /Zone/{zoneName}/uninstall:
     put:
       operationId: uninstallZone
-      summary: Uninstall a zone
+      summary: Solaris Zones Uninstall a zone
       description: >-
         Uninstall the specified zone, removing all zone data from disk.
         The zone transitions from installed back to configured state.
@@ -598,7 +598,7 @@ paths:
   /Zone/{zoneName}/clone:
     put:
       operationId: cloneZone
-      summary: Clone a zone
+      summary: Solaris Zones Clone a zone
       description: >-
         Clone the specified zone from an existing zone or snapshot,
         providing a fast method to create zone instances with
@@ -644,7 +644,7 @@ paths:
   /Zone/{zoneName}/attach:
     put:
       operationId: attachZone
-      summary: Attach a zone
+      summary: Solaris Zones Attach a zone
       description: >-
         Attach a previously detached zone, making it available for use
         on this system. Validates the zone configuration against the
@@ -684,7 +684,7 @@ paths:
   /Zone/{zoneName}/detach:
     put:
       operationId: detachZone
-      summary: Detach a zone
+      summary: Solaris Zones Detach a zone
       description: >-
         Detach the specified zone from this system, preparing it for
         migration or relocation to another system.
@@ -717,7 +717,7 @@ paths:
   /Zone/{zoneName}/suspend:
     put:
       operationId: suspendZone
-      summary: Suspend a zone
+      summary: Solaris Zones Suspend a zone
       description: >-
         Suspend the specified running zone, saving its state to disk.
         The zone can later be resumed to continue execution from the
@@ -751,7 +751,7 @@ paths:
   /Zone/{zoneName}/ready:
     put:
       operationId: readyZone
-      summary: Ready a zone
+      summary: Solaris Zones Ready a zone
       description: >-
         Transition the zone to the ready state, which sets up the virtual
         platform for the zone but does not start any processes within it.
@@ -784,7 +784,7 @@ paths:
   /Zone/{zoneName}/verify:
     put:
       operationId: verifyZone
-      summary: Verify zone configuration
+      summary: Solaris Zones Verify zone configuration
       description: >-
         Verify that the zone configuration is valid and that all required
         resources are available on the system.
@@ -817,7 +817,7 @@ paths:
   /Zone/{zoneName}/editConfig:
     put:
       operationId: editZoneConfig
-      summary: Begin editing zone configuration
+      summary: Solaris Zones Begin editing zone configuration
       description: >-
         Initiate a configuration editing session for the specified zone.
         Takes a snapshot of the current configuration that can be modified
@@ -851,7 +851,7 @@ paths:
   /Zone/{zoneName}/commitConfig:
     put:
       operationId: commitZoneConfig
-      summary: Commit zone configuration changes
+      summary: Solaris Zones Commit zone configuration changes
       description: >-
         Save all pending configuration changes made during the current
         editing session. The changes are written to persistent storage.
@@ -884,7 +884,7 @@ paths:
   /Zone/{zoneName}/cancelConfig:
     put:
       operationId: cancelZoneConfig
-      summary: Cancel zone configuration changes
+      summary: Solaris Zones Cancel zone configuration changes
       description: >-
         Discard all pending configuration changes and end the current
         editing session without saving.
@@ -917,7 +917,7 @@ paths:
   /Zone/{zoneName}/exportConfig:
     put:
       operationId: exportZoneConfig
-      summary: Export zone configuration
+      summary: Solaris Zones Export zone configuration
       description: >-
         Export the zone configuration in zonecfg(8) format text that can
         be used to recreate the zone on another system using importConfig.
@@ -958,7 +958,7 @@ paths:
   /Zone/{zoneName}/apply:
     put:
       operationId: applyZoneConfig
-      summary: Apply configuration to running zone
+      summary: Solaris Zones Apply configuration to running zone
       description: >-
         Apply committed configuration changes to a running zone without
         requiring a reboot. Not all configuration changes support live
@@ -992,7 +992,7 @@ paths:
   /Zone/{zoneName}/getResources:
     put:
       operationId: getZoneResources
-      summary: Get zone resources
+      summary: Solaris Zones Get zone resources
       description: >-
         Retrieve resources configured for the zone that match the specified
         filter criteria. Resources include anet, capped-cpu, capped-memory,
@@ -1053,7 +1053,7 @@ paths:
   /Zone/{zoneName}/addResource:
     put:
       operationId: addZoneResource
-      summary: Add a resource to zone configuration
+      summary: Solaris Zones Add a resource to zone configuration
       description: >-
         Add a new resource to the zone configuration. The zone must be in
         an editing session started with editConfig. Changes are not
@@ -1090,7 +1090,7 @@ paths:
   /Zone/{zoneName}/removeResources:
     put:
       operationId: removeZoneResources
-      summary: Remove resources from zone configuration
+      summary: Solaris Zones Remove resources from zone configuration
       description: >-
         Remove resources matching the specified filter from the zone
         configuration. Requires an active editing session.
@@ -1137,7 +1137,7 @@ paths:
   /Zone/{zoneName}/setResourceProperties:
     put:
       operationId: setZoneResourceProperties
-      summary: Set resource properties
+      summary: Solaris Zones Set resource properties
       description: >-
         Modify properties of zone resources matching the specified filter.
         Requires an active editing session.
@@ -1190,7 +1190,7 @@ paths:
   /Zone/{zoneName}/migrate:
     put:
       operationId: migrateZone
-      summary: Migrate a zone to a remote host
+      summary: Solaris Zones Migrate a zone to a remote host
       description: >-
         Migrate the specified zone to a remote Solaris host. Supports both
         live migration (zone continues running during transfer) and cold
@@ -1246,7 +1246,7 @@ paths:
   /Zone/{zoneName}/rename:
     put:
       operationId: renameZone
-      summary: Rename a zone
+      summary: Solaris Zones Rename a zone
       description: >-
         Rename the specified zone. The zone must not be running when
         this operation is performed.
@@ -1288,7 +1288,7 @@ paths:
   /Zone/{zoneName}/move:
     put:
       operationId: moveZone
-      summary: Move zone to new path
+      summary: Solaris Zones Move zone to new path
       description: >-
         Move the zone root to a new file system path on the same host.
         The zone must not be running.
@@ -1330,7 +1330,7 @@ paths:
   /ZoneInfo:
     get:
       operationId: getZoneInfo
-      summary: Get executing zone information
+      summary: Solaris Zones Get executing zone information
       description: >-
         Returns read-only information about the zone in which the RAD
         daemon is currently executing, including whether it is the global zone.
@@ -1458,7 +1458,7 @@ components:
             - initialized
             - evacuating
             - completed
-            - null
+            - 
 
     ZoneDetail:
       type: object

@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Solaris Zone Monitoring API
+  title: Solaris Zones Solaris Zone Monitoring API
   description: >-
     REST API for monitoring Oracle Solaris zone status, resource usage, and
     performance metrics. Provides access to zone state information, resource
@@ -40,7 +40,7 @@ paths:
   /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/state:
     get:
       operationId: getZoneState
-      summary: Get zone current state
+      summary: Solaris Zones Get zone current state
       description: >-
         Retrieve the current lifecycle state of a zone (configured, installed,
         ready, running, shutting_down, down).
@@ -75,7 +75,7 @@ paths:
   /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/id:
     get:
       operationId: getZoneId
-      summary: Get zone numeric ID
+      summary: Solaris Zones Get zone numeric ID
       description: >-
         Retrieve the numeric ID assigned to a zone. Only available when the
         zone is in running or ready state.
@@ -102,7 +102,7 @@ paths:
   /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/auxstate:
     get:
       operationId: getZoneAuxState
-      summary: Get zone auxiliary states
+      summary: Solaris Zones Get zone auxiliary states
       description: >-
         Retrieve auxiliary state flags for a zone. These provide additional
         status information beyond the primary lifecycle state.
@@ -131,7 +131,7 @@ paths:
   /com.oracle.solaris.rad.zonemgr/1.6:
     get:
       operationId: listAllZones
-      summary: List all zones with status
+      summary: Solaris Zones List all zones with status
       description: >-
         Retrieve a list of all zones on the system with their current state
         and properties. Use _rad_detail for full zone information.
@@ -158,7 +158,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0:
     get:
       operationId: listKstatInterfaces
-      summary: List kernel statistics interfaces
+      summary: Solaris Zones List kernel statistics interfaces
       description: >-
         Retrieve a list of all available kernel statistics interfaces. These
         provide access to CPU, memory, network, and I/O statistics per zone.
@@ -185,7 +185,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/{module},{name},{statistic},{instance}:
     get:
       operationId: getKstat
-      summary: Get a specific kernel statistic
+      summary: Solaris Zones Get a specific kernel statistic
       description: >-
         Retrieve a specific kernel statistic by module, name, statistic, and
         instance identifier. The four-tuple uniquely identifies a kernel
@@ -237,7 +237,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
     get:
       operationId: getZoneCapStats
-      summary: Get zone resource cap statistics
+      summary: Solaris Zones Get zone resource cap statistics
       description: >-
         Retrieve resource cap statistics for a specific zone including capped
         CPU and memory utilization data.
@@ -276,7 +276,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
     get:
       operationId: getCpuInfo
-      summary: Get CPU information
+      summary: Solaris Zones Get CPU information
       description: >-
         Retrieve detailed CPU information for a specific CPU. Useful for
         monitoring CPU allocation and usage across zones.
@@ -309,7 +309,7 @@ paths:
   /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,{cpuId}:
     get:
       operationId: getVmCpuStats
-      summary: Get VM CPU statistics
+      summary: Solaris Zones Get VM CPU statistics
       description: >-
         Retrieve virtual machine CPU statistics for a specific CPU. Provides
         CPU utilization data relevant to zone performance monitoring.

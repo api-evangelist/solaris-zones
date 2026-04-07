@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Solaris Zone Configuration API
+  title: Solaris Zones Solaris Zone Configuration API
   description: >-
     REST API for configuring Oracle Solaris Zones via the RAD zonemgr module.
     Provides operations for editing zone configurations, managing zone resources
@@ -39,7 +39,7 @@ paths:
   /Zone/{zoneName}/_rad_method/editConfig:
     put:
       operationId: editZoneConfig
-      summary: Begin editing zone configuration
+      summary: Solaris Zones Begin editing zone configuration
       description: >-
         Start a configuration editing transaction for the specified zone.
         All subsequent resource and property changes are staged until
@@ -81,7 +81,7 @@ paths:
   /Zone/{zoneName}/_rad_method/commitConfig:
     put:
       operationId: commitZoneConfig
-      summary: Commit zone configuration changes
+      summary: Solaris Zones Commit zone configuration changes
       description: >-
         Commit all staged configuration changes made since editConfig was
         called. If the configuration was modified externally since the editing
@@ -110,7 +110,7 @@ paths:
   /Zone/{zoneName}/_rad_method/cancelConfig:
     put:
       operationId: cancelZoneConfig
-      summary: Cancel zone configuration changes
+      summary: Solaris Zones Cancel zone configuration changes
       description: >-
         Discard all staged configuration changes and end the editing session.
         The zone configuration reverts to its state before editConfig was called.
@@ -132,7 +132,7 @@ paths:
   /Zone/{zoneName}/_rad_method/reloadConfig:
     put:
       operationId: reloadZoneConfig
-      summary: Reload zone configuration from disk
+      summary: Solaris Zones Reload zone configuration from disk
       description: >-
         Reload the zone configuration from persistent storage, discarding any
         in-memory cached version. Useful when external changes have been made.
@@ -154,7 +154,7 @@ paths:
   /Zone/{zoneName}/_rad_method/configIsLive:
     put:
       operationId: checkConfigIsLive
-      summary: Check if live configuration mode is enabled
+      summary: Solaris Zones Check if live configuration mode is enabled
       description: >-
         Check whether the current editing session has live reconfiguration
         mode enabled.
@@ -181,7 +181,7 @@ paths:
   /Zone/{zoneName}/_rad_method/configIsStale:
     put:
       operationId: checkConfigIsStale
-      summary: Check if configuration has been externally modified
+      summary: Solaris Zones Check if configuration has been externally modified
       description: >-
         Check whether the zone configuration has been modified externally since
         the current editing session began.
@@ -208,7 +208,7 @@ paths:
   /Zone/{zoneName}/_rad_method/update:
     put:
       operationId: updateZoneConfig
-      summary: Process zonecfg-format commands
+      summary: Solaris Zones Process zonecfg-format commands
       description: >-
         Process configuration commands in zonecfg(1M) format. Allows batch
         configuration updates using the familiar command syntax.
@@ -246,7 +246,7 @@ paths:
   /Zone/{zoneName}/_rad_method/getResources:
     put:
       operationId: getZoneResources
-      summary: Query zone resources
+      summary: Solaris Zones Query zone resources
       description: >-
         Retrieve resources configured for the zone, optionally filtered by
         resource type and property values. Returns an array of Resource
@@ -292,7 +292,7 @@ paths:
   /Zone/{zoneName}/_rad_method/addResource:
     put:
       operationId: addZoneResource
-      summary: Add a resource to zone configuration
+      summary: Solaris Zones Add a resource to zone configuration
       description: >-
         Add a new resource to the zone configuration. Must be called within
         an editing session (after editConfig). The resource is staged until
@@ -329,7 +329,7 @@ paths:
   /Zone/{zoneName}/_rad_method/removeResources:
     put:
       operationId: removeZoneResources
-      summary: Remove resources from zone configuration
+      summary: Solaris Zones Remove resources from zone configuration
       description: >-
         Remove resources matching the specified filter from the zone
         configuration. Must be called within an editing session.
@@ -368,7 +368,7 @@ paths:
   /Zone/{zoneName}/_rad_method/getResourceProperties:
     put:
       operationId: getZoneResourceProperties
-      summary: Get properties of a zone resource
+      summary: Solaris Zones Get properties of a zone resource
       description: >-
         Retrieve specific properties from a zone resource identified by type
         and filter criteria.
@@ -419,7 +419,7 @@ paths:
   /Zone/{zoneName}/_rad_method/setResourceProperties:
     put:
       operationId: setZoneResourceProperties
-      summary: Set properties on a zone resource
+      summary: Solaris Zones Set properties on a zone resource
       description: >-
         Set property values on a zone resource identified by type and filter
         criteria. Must be called within an editing session.
@@ -466,7 +466,7 @@ paths:
   /Zone/{zoneName}/_rad_method/clearResourceProperties:
     put:
       operationId: clearZoneResourceProperties
-      summary: Clear properties on a zone resource
+      summary: Solaris Zones Clear properties on a zone resource
       description: >-
         Clear (reset to default) property values on a zone resource. Must be
         called within an editing session.
@@ -511,7 +511,7 @@ paths:
   /Zone/{zoneName}/_rad_method/apply:
     put:
       operationId: applyZoneConfig
-      summary: Apply configuration to a running zone
+      summary: Solaris Zones Apply configuration to a running zone
       description: >-
         Apply the current zone configuration to a running zone without
         requiring a reboot. Only effective when changes are compatible with

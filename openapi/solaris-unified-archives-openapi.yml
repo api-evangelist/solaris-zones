@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Oracle Solaris Unified Archives Zones API
+  title: Solaris Zones Oracle Solaris Unified Archives Zones API
   description: >-
     REST API for creating, deploying, and managing Unified Archives for Oracle
     Solaris zone system recovery, cloning, and migration. Unified Archives
@@ -43,7 +43,7 @@ paths:
   /ZoneManager/_rad_method/create:
     put:
       operationId: createZoneFromArchive
-      summary: Create a zone from a Unified Archive
+      summary: Solaris Zones Create a zone from a Unified Archive
       description: >-
         Create and configure a new zone that will be installed from a Unified
         Archive. The zone is created in the configured state and can then be
@@ -83,7 +83,7 @@ paths:
   /Zone/{zoneName}/_rad_method/install:
     put:
       operationId: installZoneFromArchive
-      summary: Install a zone from a Unified Archive
+      summary: Solaris Zones Install a zone from a Unified Archive
       description: >-
         Install a configured zone using a Unified Archive as the source. The
         archive path is provided as an install option using -a flag. Supports
@@ -130,7 +130,7 @@ paths:
   /Zone/{zoneName}/_rad_method/clone:
     put:
       operationId: cloneZoneFromArchive
-      summary: Clone a zone using a Unified Archive
+      summary: Solaris Zones Clone a zone using a Unified Archive
       description: >-
         Clone a zone using a Unified Archive as the source. This creates a new
         zone installation based on the archived zone image, allowing rapid
@@ -174,7 +174,7 @@ paths:
   /Zone/{zoneName}/_rad_method/attach:
     put:
       operationId: attachZoneFromArchive
-      summary: Attach a zone from a Unified Archive
+      summary: Solaris Zones Attach a zone from a Unified Archive
       description: >-
         Attach a zone using a Unified Archive. Used for restoring a zone from
         an archive on a new or rebuilt system. The archive provides the zone
@@ -213,7 +213,7 @@ paths:
   /Zone/{zoneName}/_rad_method/exportConfig:
     put:
       operationId: exportZoneConfigForArchive
-      summary: Export zone configuration for archival
+      summary: Solaris Zones Export zone configuration for archival
       description: >-
         Export the zone configuration as a string suitable for inclusion in
         a Unified Archive or for recreating the zone on another system.
@@ -242,7 +242,7 @@ paths:
   /Zone/{zoneName}/_rad_method/getResources:
     put:
       operationId: getArchiveZoneResources
-      summary: Get zone resources for archive validation
+      summary: Solaris Zones Get zone resources for archive validation
       description: >-
         Retrieve all configured resources for a zone to validate compatibility
         before creating an archive or deploying from an archive.
@@ -284,7 +284,7 @@ paths:
   /Zone/{zoneName}:
     get:
       operationId: getZoneForArchive
-      summary: Get zone details for archive operations
+      summary: Solaris Zones Get zone details for archive operations
       description: >-
         Retrieve zone details to verify state before creating archives or
         deploying from archives. Includes zone brand, state, and UUID.
@@ -312,7 +312,7 @@ paths:
   /Zone/{zoneName}/_rad_method/detach:
     put:
       operationId: detachZoneForArchive
-      summary: Detach zone for archival
+      summary: Solaris Zones Detach zone for archival
       description: >-
         Detach a zone in preparation for archiving or moving. The zone
         transitions to the configured state with its data preserved.

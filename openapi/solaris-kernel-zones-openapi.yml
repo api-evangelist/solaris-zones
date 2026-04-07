@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Oracle Solaris Kernel Zones API
+  title: Solaris Zones Oracle Solaris Kernel Zones API
   description: >-
     REST API for creating and managing Oracle Solaris Kernel Zones via the RAD
     zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with
@@ -43,7 +43,7 @@ paths:
   /ZoneManager/_rad_method/create:
     put:
       operationId: createKernelZone
-      summary: Create a kernel zone
+      summary: Solaris Zones Create a kernel zone
       description: >-
         Create a new kernel zone using the solaris-kz brand template. Kernel
         zones run their own kernel and provide enhanced isolation through
@@ -87,7 +87,7 @@ paths:
   /Zone/{zoneName}:
     get:
       operationId: getKernelZone
-      summary: Get kernel zone details
+      summary: Solaris Zones Get kernel zone details
       description: >-
         Retrieve detailed information about a kernel zone including its brand
         (solaris-kz), state, UUID, and auxiliary states. The brand property
@@ -116,7 +116,7 @@ paths:
   /Zone/{zoneName}/_rad_method/install:
     put:
       operationId: installKernelZone
-      summary: Install a kernel zone
+      summary: Solaris Zones Install a kernel zone
       description: >-
         Install a configured kernel zone. This provisions the zone with its own
         Solaris kernel, creating an independent operating environment with
@@ -150,7 +150,7 @@ paths:
   /Zone/{zoneName}/_rad_method/boot:
     put:
       operationId: bootKernelZone
-      summary: Boot a kernel zone
+      summary: Solaris Zones Boot a kernel zone
       description: >-
         Boot a kernel zone. Unlike native zones, kernel zones boot their own
         kernel providing full OS isolation.
@@ -183,7 +183,7 @@ paths:
   /Zone/{zoneName}/_rad_method/halt:
     put:
       operationId: haltKernelZone
-      summary: Halt a kernel zone
+      summary: Solaris Zones Halt a kernel zone
       tags:
         - Kernel Zone Lifecycle
       parameters:
@@ -202,7 +202,7 @@ paths:
   /Zone/{zoneName}/_rad_method/shutdown:
     put:
       operationId: shutdownKernelZone
-      summary: Gracefully shut down a kernel zone
+      summary: Solaris Zones Gracefully shut down a kernel zone
       tags:
         - Kernel Zone Lifecycle
       parameters:
@@ -221,7 +221,7 @@ paths:
   /Zone/{zoneName}/_rad_method/reboot:
     put:
       operationId: rebootKernelZone
-      summary: Reboot a kernel zone
+      summary: Solaris Zones Reboot a kernel zone
       tags:
         - Kernel Zone Lifecycle
       parameters:
@@ -240,7 +240,7 @@ paths:
   /Zone/{zoneName}/_rad_method/suspend:
     put:
       operationId: suspendKernelZone
-      summary: Suspend a kernel zone
+      summary: Solaris Zones Suspend a kernel zone
       description: >-
         Suspend a running kernel zone, saving its complete state including
         the kernel zone's own kernel state for later resumption.
@@ -262,7 +262,7 @@ paths:
   /Zone/{zoneName}/_rad_method/editConfig:
     put:
       operationId: editKernelZoneConfig
-      summary: Begin editing kernel zone configuration
+      summary: Solaris Zones Begin editing kernel zone configuration
       description: >-
         Start a configuration editing session for a kernel zone. Kernel zones
         support additional resource types such as virtual CPUs (dedicated-cpu),
@@ -295,7 +295,7 @@ paths:
   /Zone/{zoneName}/_rad_method/addResource:
     put:
       operationId: addKernelZoneResource
-      summary: Add resource to kernel zone
+      summary: Solaris Zones Add resource to kernel zone
       description: >-
         Add a resource to the kernel zone configuration. Kernel zones support
         additional resource types including dedicated-cpu for virtual CPU
@@ -326,7 +326,7 @@ paths:
   /Zone/{zoneName}/_rad_method/commitConfig:
     put:
       operationId: commitKernelZoneConfig
-      summary: Commit kernel zone configuration
+      summary: Solaris Zones Commit kernel zone configuration
       tags:
         - Kernel Zone Configuration
       parameters:
@@ -345,7 +345,7 @@ paths:
   /Zone/{zoneName}/_rad_method/getResources:
     put:
       operationId: getKernelZoneResources
-      summary: Query kernel zone resources
+      summary: Solaris Zones Query kernel zone resources
       description: >-
         Retrieve resources configured for the kernel zone including CPU, memory,
         I/O devices, and networking.
@@ -389,7 +389,7 @@ paths:
   /Zone/{zoneName}/_rad_method/migrate:
     put:
       operationId: livelyMigrateKernelZone
-      summary: Live migrate a kernel zone
+      summary: Solaris Zones Live migrate a kernel zone
       description: >-
         Live migrate a running kernel zone to a remote host. Kernel zones
         are the primary zone type that supports live migration where the zone

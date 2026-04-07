@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Oracle Solaris StatsStore and Analytics API
+  title: Solaris Zones Oracle Solaris StatsStore and Analytics API
   description: >-
     REST API for accessing the Oracle Solaris 11.4 StatsStore, which provides
     consolidated system statistics, zone resource utilization data, and
@@ -53,7 +53,7 @@ paths:
   /:
     get:
       operationId: listSstoreInterfaces
-      summary: List StatsStore interfaces
+      summary: Solaris Zones List StatsStore interfaces
       description: >-
         Discover all available StatsStore interfaces and the hierarchical
         namespace of statistics identifiers (SSIDs).
@@ -85,7 +85,7 @@ paths:
   /Store/_rad_method/list:
     put:
       operationId: listStatistics
-      summary: List available statistics
+      summary: Solaris Zones List available statistics
       description: >-
         List statistics identifiers (SSIDs) matching the given pattern.
         SSIDs follow a hierarchical namespace format like
@@ -127,7 +127,7 @@ paths:
   /Store/_rad_method/read:
     put:
       operationId: readStatistics
-      summary: Read current statistics values
+      summary: Solaris Zones Read current statistics values
       description: >-
         Read the current values of one or more statistics identified by their
         SSIDs. Returns the most recent recorded values.
@@ -170,7 +170,7 @@ paths:
   /Store/_rad_method/readHistory:
     put:
       operationId: readHistoricalStatistics
-      summary: Read historical statistics
+      summary: Solaris Zones Read historical statistics
       description: >-
         Read historical statistics data within a specified time range. The
         StatsStore maintains historical data at configurable retention
@@ -221,7 +221,7 @@ paths:
   /Store/_rad_method/describe:
     put:
       operationId: describeStatistic
-      summary: Describe a statistic
+      summary: Solaris Zones Describe a statistic
       description: >-
         Get metadata about a statistic including its description, data type,
         unit, and collection interval.
@@ -257,7 +257,7 @@ paths:
   /Store/_rad_method/readZoneStats:
     put:
       operationId: readZoneStatistics
-      summary: Read zone-specific statistics
+      summary: Solaris Zones Read zone-specific statistics
       description: >-
         Read resource utilization statistics for one or more zones. Provides
         a convenient way to query zone-specific data without constructing
@@ -310,7 +310,7 @@ paths:
   /Store/_rad_method/readSystemStats:
     put:
       operationId: readSystemStatistics
-      summary: Read system-wide statistics
+      summary: Solaris Zones Read system-wide statistics
       description: >-
         Read system-wide performance statistics including total CPU, memory,
         I/O, and network utilization.

@@ -40,7 +40,7 @@ paths:
   /:
     get:
       operationId: listZoneInterfaces
-      summary: List all zone management interfaces
+      summary: Solaris Zones List all zone management interfaces
       description: >-
         Retrieve a list of all available zone management interfaces including
         ZoneManager, Zone instances, and ZoneInfo. Use the _rad_detail parameter
@@ -69,7 +69,7 @@ paths:
   /ZoneManager:
     get:
       operationId: getZoneManager
-      summary: Get zone manager instance
+      summary: Solaris Zones Get zone manager instance
       description: >-
         Retrieve the ZoneManager singleton interface which provides system-wide
         zone management operations.
@@ -94,7 +94,7 @@ paths:
   /ZoneManager/_rad_method/create:
     put:
       operationId: createZone
-      summary: Create a new zone
+      summary: Solaris Zones Create a new zone
       description: >-
         Create a new zone with the specified name, zone path, and brand template.
         The zone is created in the configured state.
@@ -120,7 +120,7 @@ paths:
   /ZoneManager/_rad_method/delete:
     put:
       operationId: deleteZone
-      summary: Delete a zone
+      summary: Solaris Zones Delete a zone
       description: >-
         Delete an existing zone. The zone must be in the configured or
         installed state before it can be deleted.
@@ -152,7 +152,7 @@ paths:
   /ZoneManager/_rad_method/createConfig:
     put:
       operationId: createEphemeralConfig
-      summary: Create ephemeral zone configuration
+      summary: Solaris Zones Create ephemeral zone configuration
       description: >-
         Create a temporary zone configuration for editing before committing.
         Used for staged configuration changes.
@@ -186,7 +186,7 @@ paths:
   /ZoneManager/_rad_method/importConfig:
     put:
       operationId: importZoneConfig
-      summary: Import a zone from configuration
+      summary: Solaris Zones Import a zone from configuration
       description: >-
         Import a zone definition from an exported configuration. Used for
         restoring or cloning zone configurations.
@@ -220,7 +220,7 @@ paths:
   /ZoneManager/_rad_method/initEvacuate:
     put:
       operationId: initializeEvacuation
-      summary: Initialize zone evacuation
+      summary: Solaris Zones Initialize zone evacuation
       description: >-
         Initialize evacuation of zones from the current host to a remote host.
         Must be called before evacuate(). Available since API version 1.4.
@@ -253,7 +253,7 @@ paths:
   /ZoneManager/_rad_method/evacuate:
     put:
       operationId: evacuateZones
-      summary: Evacuate zones to remote host
+      summary: Solaris Zones Evacuate zones to remote host
       description: >-
         Perform zone evacuation to a previously initialized remote host.
         Migrates all eligible zones. Available since API version 1.4.
@@ -271,7 +271,7 @@ paths:
   /ZoneManager/_rad_method/cancelEvacuate:
     put:
       operationId: cancelEvacuation
-      summary: Cancel zone evacuation in progress
+      summary: Solaris Zones Cancel zone evacuation in progress
       description: >-
         Cancel an ongoing zone evacuation operation. Available since API version
         1.4.
@@ -289,7 +289,7 @@ paths:
   /Zone/{zoneName}:
     get:
       operationId: getZone
-      summary: Get zone details
+      summary: Solaris Zones Get zone details
       description: >-
         Retrieve detailed information about a specific zone including its
         name, brand, state, UUID, and auxiliary states.
@@ -317,7 +317,7 @@ paths:
   /Zone/{zoneName}/name:
     get:
       operationId: getZoneName
-      summary: Get zone name property
+      summary: Solaris Zones Get zone name property
       description: Retrieve the name property of a specific zone.
       tags:
         - Zones
@@ -340,7 +340,7 @@ paths:
   /Zone/{zoneName}/state:
     get:
       operationId: getZoneState
-      summary: Get zone state
+      summary: Solaris Zones Get zone state
       description: >-
         Retrieve the current state of a zone. States include configured,
         incomplete, installed, ready, running, shutting_down, and down.
@@ -373,7 +373,7 @@ paths:
   /Zone/{zoneName}/brand:
     get:
       operationId: getZoneBrand
-      summary: Get zone brand
+      summary: Solaris Zones Get zone brand
       description: >-
         Retrieve the brand type of a zone (e.g., solaris, solaris-kz,
         solaris10).
@@ -398,7 +398,7 @@ paths:
   /Zone/{zoneName}/id:
     get:
       operationId: getZoneId
-      summary: Get zone numeric ID
+      summary: Solaris Zones Get zone numeric ID
       description: >-
         Retrieve the numeric zone ID. Only available when the zone is in
         running or ready state.
@@ -423,7 +423,7 @@ paths:
   /Zone/{zoneName}/uuid:
     get:
       operationId: getZoneUuid
-      summary: Get zone UUID
+      summary: Solaris Zones Get zone UUID
       description: Retrieve the universally unique identifier for the zone.
       tags:
         - Zones
@@ -447,7 +447,7 @@ paths:
   /Zone/{zoneName}/_rad_method/boot:
     put:
       operationId: bootZone
-      summary: Boot a zone
+      summary: Solaris Zones Boot a zone
       description: >-
         Boot a zone, transitioning it from installed or ready state to running
         state. Equivalent to zoneadm boot.
@@ -480,7 +480,7 @@ paths:
   /Zone/{zoneName}/_rad_method/halt:
     put:
       operationId: haltZone
-      summary: Halt a zone
+      summary: Solaris Zones Halt a zone
       description: >-
         Immediately halt a running zone. Equivalent to zoneadm halt.
         Does not run shutdown scripts.
@@ -502,7 +502,7 @@ paths:
   /Zone/{zoneName}/_rad_method/shutdown:
     put:
       operationId: shutdownZone
-      summary: Gracefully shut down a zone
+      summary: Solaris Zones Gracefully shut down a zone
       description: >-
         Gracefully shut down a running zone by running shutdown scripts.
         Equivalent to zoneadm shutdown.
@@ -524,7 +524,7 @@ paths:
   /Zone/{zoneName}/_rad_method/reboot:
     put:
       operationId: rebootZone
-      summary: Reboot a zone
+      summary: Solaris Zones Reboot a zone
       description: >-
         Reboot a running zone. Equivalent to zoneadm reboot.
       tags:
@@ -545,7 +545,7 @@ paths:
   /Zone/{zoneName}/_rad_method/install:
     put:
       operationId: installZone
-      summary: Install a zone
+      summary: Solaris Zones Install a zone
       description: >-
         Install a configured zone, transitioning it from configured to installed
         state. Equivalent to zoneadm install.
@@ -578,7 +578,7 @@ paths:
   /Zone/{zoneName}/_rad_method/uninstall:
     put:
       operationId: uninstallZone
-      summary: Uninstall a zone
+      summary: Solaris Zones Uninstall a zone
       description: >-
         Uninstall an installed zone, removing its file system content.
         Equivalent to zoneadm uninstall.
@@ -600,7 +600,7 @@ paths:
   /Zone/{zoneName}/_rad_method/clone:
     put:
       operationId: cloneZone
-      summary: Clone a zone
+      summary: Solaris Zones Clone a zone
       description: >-
         Clone an existing zone to create a new zone with the same configuration
         and content. Equivalent to zoneadm clone.
@@ -637,7 +637,7 @@ paths:
   /Zone/{zoneName}/_rad_method/attach:
     put:
       operationId: attachZone
-      summary: Attach a zone
+      summary: Solaris Zones Attach a zone
       description: >-
         Attach a previously detached zone. Equivalent to zoneadm attach.
       tags:
@@ -669,7 +669,7 @@ paths:
   /Zone/{zoneName}/_rad_method/detach:
     put:
       operationId: detachZone
-      summary: Detach a zone
+      summary: Solaris Zones Detach a zone
       description: >-
         Detach a zone from the system for migration or archival.
         Equivalent to zoneadm detach.
@@ -691,7 +691,7 @@ paths:
   /Zone/{zoneName}/_rad_method/suspend:
     put:
       operationId: suspendZone
-      summary: Suspend a zone
+      summary: Solaris Zones Suspend a zone
       description: >-
         Suspend a running zone, saving its state for later resumption.
       tags:
@@ -712,7 +712,7 @@ paths:
   /Zone/{zoneName}/_rad_method/ready:
     put:
       operationId: readyZone
-      summary: Prepare a zone for running
+      summary: Solaris Zones Prepare a zone for running
       description: >-
         Transition a zone to the ready state without booting it.
         Equivalent to zoneadm ready.
@@ -734,7 +734,7 @@ paths:
   /Zone/{zoneName}/_rad_method/verify:
     put:
       operationId: verifyZone
-      summary: Verify zone configuration
+      summary: Solaris Zones Verify zone configuration
       description: >-
         Verify the zone configuration for correctness. Equivalent to
         zoneadm verify.
@@ -756,7 +756,7 @@ paths:
   /Zone/{zoneName}/_rad_method/migrate:
     put:
       operationId: migrateZone
-      summary: Migrate a zone to a remote host
+      summary: Solaris Zones Migrate a zone to a remote host
       description: >-
         Migrate a zone to a remote host. Supports live and cold migration
         types. Available since API version 1.1.
@@ -786,7 +786,7 @@ paths:
   /Zone/{zoneName}/_rad_method/exportConfig:
     put:
       operationId: exportZoneConfig
-      summary: Export zone configuration
+      summary: Solaris Zones Export zone configuration
       description: >-
         Export the zone configuration as a string that can be saved or imported
         into another system.
@@ -814,7 +814,7 @@ paths:
   /ZoneInfo:
     get:
       operationId: listZoneInfo
-      summary: List zone information
+      summary: Solaris Zones List zone information
       description: >-
         Retrieve read-only information about all zones on the system including
         name, brand, ID, UUID, and whether the zone is a global zone.
