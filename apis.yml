@@ -15,11 +15,11 @@ apis:
     humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
     baseURL: https://solaris-host.example.com/api/v1
     tags:
-      - virtualization
-      - containers
-      - zones
-      - solaris
-      - oracle
+      - Containers
+      - Oracle
+      - Solaris
+      - Virtualization
+      - Zones
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
@@ -35,9 +35,9 @@ apis:
     humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
     baseURL: https://solaris-host.example.com/api/v1/zones
     tags:
-      - configuration
-      - resources
-      - networking
+      - Configuration
+      - Networking
+      - Resources
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
@@ -56,9 +56,9 @@ apis:
     humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
     baseURL: https://solaris-host.example.com/api/v1/zones/admin
     tags:
-      - administration
-      - lifecycle
-      - management
+      - Administration
+      - Lifecycle
+      - Management
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
@@ -76,9 +76,9 @@ apis:
     humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
     baseURL: https://solaris-host.example.com/api/v1/zones/monitoring
     tags:
-      - monitoring
-      - metrics
-      - performance
+      - Metrics
+      - Monitoring
+      - Performance
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
@@ -95,26 +95,23 @@ apis:
       Remote Administration Daemon REST API for programmatic zone management via the
       com.oracle.solaris.rad.zonemgr module, supporting zone creation, configuration,
       migration, and lifecycle operations over HTTP/JSON.
-    humanURL: 
-      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+    humanURL: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
     baseURL: https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
     tags:
-      - rest-api
-      - rad
-      - zones
-      - management
-      - remote-administration
+      - Management
+      - Rad
+      - Remote-Administration
+      - Rest-Api
+      - Zones
     properties:
       - type: documentation
-        url: 
-          https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+        url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
       - type: documentation
-        url: 
-          https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+        url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
       - type: OpenAPI
         url: openapi/solaris-rad-zonemgr-openapi.yml
     contact:
@@ -129,12 +126,12 @@ apis:
     humanURL: https://docs.oracle.com/cd/E37838_01/html/E61043/
     baseURL: https://solaris-host.example.com/api/v1/zones/stats
     tags:
-      - monitoring
-      - statistics
-      - libzonestat
-      - resource-utilization
-      - memory
-      - cpu
+      - Cpu
+      - Libzonestat
+      - Memory
+      - Monitoring
+      - Resource-Utilization
+      - Statistics
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E61043/
@@ -153,18 +150,16 @@ apis:
       API for creating and managing Oracle Solaris Kernel Zones, which are non-global
       zones with their own kernel providing greater independence and enhanced security
       isolation.
-    humanURL: 
-      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+    humanURL: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
     baseURL: https://solaris-host.example.com/api/v1/zones/kernel
     tags:
-      - kernel-zones
-      - virtualization
-      - isolation
-      - security
+      - Isolation
+      - Kernel-Zones
+      - Security
+      - Virtualization
     properties:
       - type: documentation
-        url: 
-          https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+        url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
       - type: OpenAPI
@@ -181,12 +176,12 @@ apis:
     humanURL: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
     baseURL: https://solaris-host.example.com/api/v1/statsstore
     tags:
-      - analytics
-      - statsstore
-      - monitoring
-      - rest-api
-      - performance
-      - web-interface
+      - Analytics
+      - Monitoring
+      - Performance
+      - Rest-Api
+      - Statsstore
+      - Web-Interface
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
@@ -207,11 +202,11 @@ apis:
     humanURL: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
     baseURL: https://solaris-host.example.com/api/v1/zones/archives
     tags:
-      - unified-archives
-      - cloning
-      - migration
-      - recovery
-      - backup
+      - Backup
+      - Cloning
+      - Migration
+      - Recovery
+      - Unified-Archives
     properties:
       - type: documentation
         url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
@@ -237,8 +232,7 @@ common:
   - type: Blog
     url: https://blogs.oracle.com/solaris/
   - type: Portal
-    url: 
-      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/index.html
+    url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/index.html
   - type: Developer Resources
     url: https://www.oracle.com/solaris/technologies/solarisdeveloper.html
   - type: GitHub Organization
@@ -273,13 +267,13 @@ maintainers:
     email: solaris-feedback@oracle.com
     url: https://www.oracle.com/solaris/
 tags:
-  - virtualization
-  - containers
-  - solaris
-  - zones
-  - oracle
-  - operating-systems
-  - rad
-  - kernel-zones
-  - resource-management
-  - statsstore
+  - Containers
+  - Kernel-Zones
+  - Operating-Systems
+  - Oracle
+  - Rad
+  - Resource-Management
+  - Solaris
+  - Statsstore
+  - Virtualization
+  - Zones

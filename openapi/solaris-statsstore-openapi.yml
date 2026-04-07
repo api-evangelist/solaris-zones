@@ -43,10 +43,10 @@ tags:
     description: Discover available statistics and namespaces
   - name: Statistics Retrieval
     description: Retrieve current and historical statistics data
-  - name: Zone Statistics
-    description: Per-zone resource utilization statistics
   - name: System Statistics
     description: System-wide performance statistics
+  - name: Zone Statistics
+    description: Per-zone resource utilization statistics
 security:
   - cookieAuth: []
 paths:

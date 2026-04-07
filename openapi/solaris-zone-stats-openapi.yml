@@ -29,14 +29,14 @@ servers:
         default: '6788'
         description: RAD REST API port
 tags:
-  - name: Zone Statistics
-    description: Per-zone resource utilization statistics
-  - name: System Statistics
-    description: System-wide resource statistics
   - name: CPU Statistics
     description: CPU utilization and allocation statistics
   - name: Memory Statistics
     description: Memory and swap utilization statistics
+  - name: System Statistics
+    description: System-wide resource statistics
+  - name: Zone Statistics
+    description: Per-zone resource utilization statistics
 security:
   - cookieAuth: []
 paths:

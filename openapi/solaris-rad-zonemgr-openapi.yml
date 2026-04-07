@@ -26,14 +26,14 @@ servers:
         default: radserver.example.com
         description: Hostname or IP of the Solaris RAD server
 tags:
-  - name: Zone Manager
-    description: System-wide zone management operations including creation, deletion, and evacuation
-  - name: Zones
-    description: Individual zone operations including configuration, lifecycle, and resource management
   - name: Zone Info
     description: Read-only zone information and status queries
+  - name: Zone Manager
+    description: System-wide zone management operations including creation, deletion, and evacuation
   - name: Zone Migration
     description: Live and cold zone migration operations between Solaris hosts
+  - name: Zones
+    description: Individual zone operations including configuration, lifecycle, and resource management
 security:
   - cookieAuth: []
 paths:

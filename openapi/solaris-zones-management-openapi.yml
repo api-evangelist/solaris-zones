@@ -28,12 +28,12 @@ servers:
         default: '6788'
         description: RAD REST API port (default HTTPS)
 tags:
+  - name: Zone Info
+    description: Read-only zone information
   - name: Zone Manager
     description: System-wide zone management operations
   - name: Zones
     description: Individual zone operations and queries
-  - name: Zone Info
-    description: Read-only zone information
 security:
   - cookieAuth: []
 paths:

@@ -28,10 +28,10 @@ servers:
         default: '6788'
         description: RAD REST API port
 tags:
-  - name: Zone State
-    description: Zone state monitoring via zonemgr module
   - name: Kernel Statistics
     description: Kernel statistics via kstat module
+  - name: Zone State
+    description: Zone state monitoring via zonemgr module
   - name: Zone Statistics
     description: Zone resource utilization statistics
 security:

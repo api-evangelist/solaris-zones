@@ -29,12 +29,12 @@ servers:
         default: '6788'
         description: RAD REST API port
 tags:
-  - name: Kernel Zone Management
-    description: Create and manage kernel zones
-  - name: Kernel Zone Lifecycle
-    description: Kernel zone boot, halt, suspend, and resume operations
   - name: Kernel Zone Configuration
     description: Configure kernel zone resources and properties
+  - name: Kernel Zone Lifecycle
+    description: Kernel zone boot, halt, suspend, and resume operations
+  - name: Kernel Zone Management
+    description: Create and manage kernel zones
   - name: Kernel Zone Migration
     description: Live migration of kernel zones between hosts
 security:

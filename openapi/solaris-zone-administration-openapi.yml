@@ -29,10 +29,10 @@ servers:
         default: '6788'
         description: RAD REST API port
 tags:
-  - name: Lifecycle
-    description: Zone lifecycle state transitions
   - name: Installation
     description: Zone install and uninstall operations
+  - name: Lifecycle
+    description: Zone lifecycle state transitions
   - name: Migration
     description: Zone attach, detach, move, and migration operations
   - name: State Query
