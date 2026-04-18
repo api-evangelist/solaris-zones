@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SystemMemoryStats",
+  "type": "object",
+  "properties": {
+    "physmem": {
+      "type": "integer",
+      "description": "Total physical memory pages"
+    },
+    "freemem": {
+      "type": "integer",
+      "description": "Free memory pages"
+    },
+    "availrmem": {
+      "type": "integer",
+      "description": "Available real memory pages"
+    },
+    "lotsfree": {
+      "type": "integer",
+      "description": "Lotsfree threshold"
+    },
+    "desfree": {
+      "type": "integer",
+      "description": "Desfree threshold"
+    },
+    "minfree": {
+      "type": "integer",
+      "description": "Minfree threshold"
+    },
+    "pp_kernel": {
+      "type": "integer",
+      "description": "Pages used by kernel"
+    }
+  }
+}

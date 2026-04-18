@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "HistoricalStatistic",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string"
+    },
+    "dataPoints": {
+      "type": "array"
+    },
+    "unit": {
+      "type": "string"
+    }
+  }
+}

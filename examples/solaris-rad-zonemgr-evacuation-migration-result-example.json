@@ -1,0 +1,7 @@
+{
+  "zoneName": "example_value",
+  "evacuated": true,
+  "evacuationTarget": "example_value",
+  "migrationStatus": "example_value",
+  "migrationError": "example_value"
+}

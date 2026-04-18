@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zone",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Zone name"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand type (e.g., solaris, solaris-kz, solaris10)"
+    },
+    "id": {
+      "type": "integer",
+      "description": "Numeric zone ID (only when running or ready)"
+    },
+    "uuid": {
+      "type": "string",
+      "description": "Zone UUID"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current zone state"
+    },
+    "auxstate": {
+      "type": "array",
+      "description": "Auxiliary zone states"
+    }
+  }
+}

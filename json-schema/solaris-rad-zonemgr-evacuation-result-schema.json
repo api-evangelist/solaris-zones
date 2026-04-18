@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvacuationResult",
+  "type": "object",
+  "description": "Result of a zone evacuation operation",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall evacuation status"
+    },
+    "returning": {
+      "type": "boolean",
+      "description": "Whether zones are being returned from a previous evacuation"
+    },
+    "migrationResults": {
+      "type": "object",
+      "description": "Per-zone migration results keyed by zone name"
+    }
+  }
+}

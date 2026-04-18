@@ -1,0 +1,8 @@
+{
+  "zonename": "example_value",
+  "zone_id": "500123",
+  "nprocs": 10,
+  "nlwps": 10,
+  "pr_size": 10,
+  "pr_rss": 10
+}

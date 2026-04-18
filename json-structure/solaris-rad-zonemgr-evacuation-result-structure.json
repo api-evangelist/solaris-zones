@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "EvacuationResult",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "returning": {
+      "type": "boolean"
+    },
+    "migrationResults": {
+      "type": "object"
+    }
+  }
+}

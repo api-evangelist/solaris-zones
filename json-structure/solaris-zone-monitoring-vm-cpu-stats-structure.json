@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "VmCpuStats",
+  "type": "object",
+  "properties": {
+    "cpu_nsec_idle": {
+      "type": "integer"
+    },
+    "cpu_nsec_kernel": {
+      "type": "integer"
+    },
+    "cpu_nsec_user": {
+      "type": "integer"
+    },
+    "cpu_nsec_dtrace": {
+      "type": "integer"
+    },
+    "cpu_nsec_intr": {
+      "type": "integer"
+    }
+  }
+}

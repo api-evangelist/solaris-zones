@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZoneInfo",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Zone name"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand type"
+    },
+    "id": {
+      "type": "integer",
+      "description": "Numeric zone ID"
+    },
+    "uuid": {
+      "type": "string",
+      "description": "Zone UUID"
+    },
+    "isGlobal": {
+      "type": "boolean",
+      "description": "Whether this is a global zone"
+    }
+  }
+}

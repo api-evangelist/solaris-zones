@@ -19,37 +19,37 @@ externalDocs:
   description: Using Unified Archives for System Recovery and Cloning
   url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
 servers:
-  - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
-    description: Oracle Solaris RAD REST endpoint
-    variables:
-      host:
-        default: localhost
-        description: Solaris host running RAD
-      port:
-        default: '6788'
-        description: RAD REST API port
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
 tags:
-  - name: Archive Creation
-    description: Create Unified Archives from zones
-  - name: Archive Deployment
-    description: Deploy zones from Unified Archives
-  - name: Archive Information
-    description: Query archive contents and metadata
-  - name: Zone Recovery
-    description: Recover zones from archives
+- name: Archive Creation
+  description: Create Unified Archives from zones
+- name: Archive Deployment
+  description: Deploy zones from Unified Archives
+- name: Archive Information
+  description: Query archive contents and metadata
+- name: Zone Recovery
+  description: Recover zones from archives
 security:
-  - cookieAuth: []
+- cookieAuth: []
 paths:
   /ZoneManager/_rad_method/create:
     put:
       operationId: createZoneFromArchive
-      summary: Solaris Zones Create a zone from a Unified Archive
+      summary: Solaris Zones Create a Zone From a Unified Archive
       description: >-
         Create and configure a new zone that will be installed from a Unified
         Archive. The zone is created in the configured state and can then be
         installed using the archive as the installation source.
       tags:
-        - Archive Deployment
+      - Archive Deployment
       requestBody:
         required: true
         content:
@@ -57,7 +57,7 @@ paths:
             schema:
               type: object
               required:
-                - name
+              - name
               properties:
                 name:
                   type: string
@@ -69,6 +69,14 @@ paths:
                   type: string
                   description: Zone brand template
                   default: SYSdefault
+            examples:
+              CreatezonefromarchiveRequestExample:
+                summary: Default createZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  path: example_value
+                  template: example_value
       responses:
         '200':
           description: Zone created ready for archive-based installation
@@ -76,23 +84,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Createzonefromarchive200Example:
+                  summary: Default createZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/install:
     put:
       operationId: installZoneFromArchive
-      summary: Solaris Zones Install a zone from a Unified Archive
+      summary: Solaris Zones Install a Zone From a Unified Archive
       description: >-
         Install a configured zone using a Unified Archive as the source. The
         archive path is provided as an install option using -a flag. Supports
         both recovery archives (full system state) and clone archives
         (template-based deployment).
       tags:
-        - Archive Deployment
+      - Archive Deployment
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       requestBody:
         required: true
         content:
@@ -100,7 +122,7 @@ paths:
             schema:
               type: object
               required:
-                - options
+              - options
               properties:
                 options:
                   type: array
@@ -110,10 +132,17 @@ paths:
                     Install options. Use -a to specify the archive path and
                     -c for a system configuration profile.
                   example:
-                    - '-a'
-                    - '/archives/zone-backup.uar'
-                    - '-c'
-                    - '/profiles/zone-sc.xml'
+                  - '-a'
+                  - '/archives/zone-backup.uar'
+                  - '-c'
+                  - '/profiles/zone-sc.xml'
+            examples:
+              InstallzonefromarchiveRequestExample:
+                summary: Default installZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  options:
+                  - example_value
       responses:
         '200':
           description: Zone installation from archive initiated
@@ -121,24 +150,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Installzonefromarchive200Example:
+                  summary: Default installZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/clone:
     put:
       operationId: cloneZoneFromArchive
-      summary: Solaris Zones Clone a zone using a Unified Archive
+      summary: Solaris Zones Clone a Zone Using a Unified Archive
       description: >-
         Clone a zone using a Unified Archive as the source. This creates a new
         zone installation based on the archived zone image, allowing rapid
         deployment of standardized zone configurations.
       tags:
-        - Archive Deployment
+      - Archive Deployment
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       requestBody:
         required: true
         content:
@@ -146,7 +189,7 @@ paths:
             schema:
               type: object
               required:
-                - source
+              - source
               properties:
                 source:
                   type: string
@@ -158,6 +201,14 @@ paths:
                 snapshot:
                   type: string
                   description: ZFS snapshot within the archive to use
+            examples:
+              ClonezonefromarchiveRequestExample:
+                summary: Default cloneZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  source: example_value
+                  archivePath: example_value
+                  snapshot: example_value
       responses:
         '200':
           description: Zone cloned from archive
@@ -165,24 +216,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Clonezonefromarchive200Example:
+                  summary: Default cloneZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/attach:
     put:
       operationId: attachZoneFromArchive
-      summary: Solaris Zones Attach a zone from a Unified Archive
+      summary: Solaris Zones Attach a Zone From a Unified Archive
       description: >-
         Attach a zone using a Unified Archive. Used for restoring a zone from
         an archive on a new or rebuilt system. The archive provides the zone
         root content that is attached to the zone configuration.
       tags:
-        - Zone Recovery
+      - Zone Recovery
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       requestBody:
         content:
           application/json:
@@ -197,8 +262,15 @@ paths:
                     Attach options. Use -a for archive path, -z for zone
                     within the archive.
                   example:
-                    - '-a'
-                    - '/archives/zone-backup.uar'
+                  - '-a'
+                  - '/archives/zone-backup.uar'
+            examples:
+              AttachzonefromarchiveRequestExample:
+                summary: Default attachZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  options:
+                  - example_value
       responses:
         '200':
           description: Zone attached from archive
@@ -206,21 +278,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Attachzonefromarchive200Example:
+                  summary: Default attachZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/exportConfig:
     put:
       operationId: exportZoneConfigForArchive
-      summary: Solaris Zones Export zone configuration for archival
+      summary: Solaris Zones Export Zone Configuration for Archival
       description: >-
         Export the zone configuration as a string suitable for inclusion in
         a Unified Archive or for recreating the zone on another system.
       tags:
-        - Archive Creation
+      - Archive Creation
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       responses:
         '200':
           description: Exported zone configuration
@@ -235,21 +321,31 @@ paths:
                     type: string
                     description: >-
                       Zone configuration in zonecfg export format
+              examples:
+                Exportzoneconfigforarchive200Example:
+                  summary: Default exportZoneConfigForArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/getResources:
     put:
       operationId: getArchiveZoneResources
-      summary: Solaris Zones Get zone resources for archive validation
+      summary: Solaris Zones Get Zone Resources for Archive Validation
       description: >-
         Retrieve all configured resources for a zone to validate compatibility
         before creating an archive or deploying from an archive.
       tags:
-        - Archive Information
+      - Archive Information
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       requestBody:
         content:
           application/json:
@@ -263,6 +359,20 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Property'
+            examples:
+              GetarchivezoneresourcesRequestExample:
+                summary: Default getArchiveZoneResources request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
       responses:
         '200':
           description: Zone resources
@@ -277,22 +387,36 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Resource'
+              examples:
+                Getarchivezoneresources200Example:
+                  summary: Default getArchiveZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - type: example_value
+                      properties:
+                      - {}
+                      parent: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}:
     get:
       operationId: getZoneForArchive
-      summary: Solaris Zones Get zone details for archive operations
+      summary: Solaris Zones Get Zone Details for Archive Operations
       description: >-
         Retrieve zone details to verify state before creating archives or
         deploying from archives. Includes zone brand, state, and UUID.
       tags:
-        - Archive Information
+      - Archive Information
       parameters:
-        - $ref: '#/components/parameters/zoneName'
-        - $ref: '#/components/parameters/radDetail'
+      - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/radDetail'
       responses:
         '200':
           description: Zone details
@@ -305,21 +429,38 @@ paths:
                     type: string
                   payload:
                     $ref: '#/components/schemas/Zone'
+              examples:
+                Getzoneforarchive200Example:
+                  summary: Default getZoneForArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      name: Example Title
+                      brand: example_value
+                      id: abc123
+                      uuid: '500123'
+                      state: configured
+                      auxstate:
+                      - example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /Zone/{zoneName}/_rad_method/detach:
     put:
       operationId: detachZoneForArchive
-      summary: Solaris Zones Detach zone for archival
+      summary: Solaris Zones Detach Zone for Archival
       description: >-
         Detach a zone in preparation for archiving or moving. The zone
         transitions to the configured state with its data preserved.
       tags:
-        - Archive Creation
+      - Archive Creation
       parameters:
-        - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/zoneName'
       responses:
         '200':
           description: Zone detached for archival
@@ -327,10 +468,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Detachzoneforarchive200Example:
+                  summary: Default detachZoneForArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     cookieAuth:
@@ -386,95 +541,112 @@ components:
               type: integer
             message:
               type: string
+          example: example_value
     ZoneResult:
       type: object
       properties:
         status:
           type: string
+          example: example_value
         payload:
           type: object
           properties:
             code:
               type: string
               enum:
-                - NONE
-                - FRAMEWORK_ERROR
-                - SNAPSHOT_ERROR
-                - COMMAND_ERROR
-                - RESOURCE_ALREADY_EXISTS
-                - RESOURCE_NOT_FOUND
-                - RESOURCE_TOO_MANY
-                - RESOURCE_UNKNOWN
-                - ALREADY_EDITING
-                - INCOMPLETE_NO_CONFIG
-                - PROPERTY_UNKNOWN
-                - NOT_EDITING
-                - SYSTEM_ERROR
-                - INVALID_ARGUMENT
-                - INVALID_ZONE_STATE
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
             message:
               type: string
             stdout:
               type: string
             stderr:
               type: string
+          example: example_value
     Zone:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         brand:
           type: string
+          example: example_value
         id:
           type: integer
+          example: abc123
         uuid:
           type: string
           format: uuid
+          example: '500123'
         state:
           type: string
           enum:
-            - configured
-            - incomplete
-            - installed
-            - ready
-            - running
-            - shutting_down
-            - down
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          example: configured
         auxstate:
           type: array
           items:
             type: string
+          example: []
     Resource:
       type: object
       properties:
         type:
           type: string
+          example: example_value
         properties:
           type: array
           items:
             $ref: '#/components/schemas/Property'
+          example: []
         parent:
           type: string
+          example: example_value
     Property:
       type: object
       required:
-        - name
+      - name
       properties:
         name:
           type: string
+          example: Example Title
         value:
           type: string
+          example: example_value
         type:
           type: string
           enum:
-            - simple
-            - list
-            - complex
+          - simple
+          - list
+          - complex
+          example: simple
         listvalue:
           type: array
           items:
             type: string
+          example: []
         complexvalue:
           type: array
           items:
             type: string
+          example: []

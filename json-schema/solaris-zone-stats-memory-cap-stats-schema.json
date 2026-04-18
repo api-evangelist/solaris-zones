@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryCapStats",
+  "type": "object",
+  "description": "Physical memory cap statistics",
+  "properties": {
+    "physcap": {
+      "type": "integer",
+      "description": "Physical memory cap in bytes"
+    },
+    "rss": {
+      "type": "integer",
+      "description": "Current resident set size in bytes"
+    },
+    "nover": {
+      "type": "integer",
+      "description": "Number of times memory went over the cap"
+    },
+    "pagedout": {
+      "type": "integer",
+      "description": "Total bytes paged out due to capping"
+    },
+    "pgpgin": {
+      "type": "integer",
+      "description": "Pages paged in"
+    },
+    "anonpgin": {
+      "type": "integer",
+      "description": "Anonymous pages paged in"
+    }
+  }
+}

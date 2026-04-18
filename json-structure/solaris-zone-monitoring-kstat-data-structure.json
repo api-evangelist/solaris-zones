@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "KstatData",
+  "type": "object",
+  "properties": {
+    "module": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "statistic": {
+      "type": "string"
+    },
+    "instance": {
+      "type": "integer"
+    },
+    "snaptime": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "object"
+    }
+  }
+}

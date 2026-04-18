@@ -1,0 +1,8 @@
+{
+  "ssid": "500123",
+  "description": "A sample description.",
+  "type": "example_value",
+  "unit": "example_value",
+  "interval": 10,
+  "persistent": true
+}

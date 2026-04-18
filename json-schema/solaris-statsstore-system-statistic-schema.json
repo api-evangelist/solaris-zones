@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SystemStatistic",
+  "type": "object",
+  "properties": {
+    "metric": {
+      "type": "string",
+      "description": "System metric name"
+    },
+    "value": {
+      "type": "number",
+      "description": "Current metric value"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement"
+    },
+    "timestamp": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Property",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Property name"
+    },
+    "value": {
+      "type": "string",
+      "description": "Simple property value"
+    },
+    "type": {
+      "type": "string",
+      "description": "Property value type"
+    },
+    "listvalue": {
+      "type": "array",
+      "description": "List of values for list-type properties"
+    },
+    "complexvalue": {
+      "type": "array",
+      "description": "Complex property values"
+    }
+  }
+}

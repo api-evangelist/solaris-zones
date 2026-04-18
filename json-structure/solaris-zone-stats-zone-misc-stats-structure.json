@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ZoneMiscStats",
+  "type": "object",
+  "properties": {
+    "zonename": {
+      "type": "string"
+    },
+    "zone_id": {
+      "type": "integer"
+    },
+    "nprocs": {
+      "type": "integer"
+    },
+    "nlwps": {
+      "type": "integer"
+    },
+    "pr_size": {
+      "type": "integer"
+    },
+    "pr_rss": {
+      "type": "integer"
+    }
+  }
+}

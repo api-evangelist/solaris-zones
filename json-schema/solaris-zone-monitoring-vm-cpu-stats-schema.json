@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VmCpuStats",
+  "type": "object",
+  "properties": {
+    "cpu_nsec_idle": {
+      "type": "integer",
+      "description": "Nanoseconds spent idle"
+    },
+    "cpu_nsec_kernel": {
+      "type": "integer",
+      "description": "Nanoseconds spent in kernel mode"
+    },
+    "cpu_nsec_user": {
+      "type": "integer",
+      "description": "Nanoseconds spent in user mode"
+    },
+    "cpu_nsec_dtrace": {
+      "type": "integer",
+      "description": "Nanoseconds spent in DTrace"
+    },
+    "cpu_nsec_intr": {
+      "type": "integer",
+      "description": "Nanoseconds spent handling interrupts"
+    }
+  }
+}

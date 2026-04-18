@@ -1,0 +1,9 @@
+{
+  "physmem": 10,
+  "freemem": 10,
+  "availrmem": 10,
+  "lotsfree": 10,
+  "desfree": 10,
+  "minfree": 10,
+  "pp_kernel": 10
+}

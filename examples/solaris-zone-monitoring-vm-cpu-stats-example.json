@@ -1,0 +1,7 @@
+{
+  "cpu_nsec_idle": 10,
+  "cpu_nsec_kernel": 10,
+  "cpu_nsec_user": 10,
+  "cpu_nsec_dtrace": 10,
+  "cpu_nsec_intr": 10
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RadInterface",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "URL path to the interface"
+    },
+    "type": {
+      "type": "string",
+      "description": "Interface type name"
+    }
+  }
+}

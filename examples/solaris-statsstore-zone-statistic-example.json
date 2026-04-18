@@ -1,0 +1,8 @@
+{
+  "zoneName": "example_value",
+  "zoneId": "500123",
+  "metric": "example_value",
+  "value": 42.5,
+  "unit": "example_value",
+  "timestamp": "example_value"
+}

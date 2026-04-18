@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "MemoryCapStats",
+  "type": "object",
+  "properties": {
+    "physcap": {
+      "type": "integer"
+    },
+    "rss": {
+      "type": "integer"
+    },
+    "nover": {
+      "type": "integer"
+    },
+    "pagedout": {
+      "type": "integer"
+    },
+    "pgpgin": {
+      "type": "integer"
+    },
+    "anonpgin": {
+      "type": "integer"
+    }
+  }
+}

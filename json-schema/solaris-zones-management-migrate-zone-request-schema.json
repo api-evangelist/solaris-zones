@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MigrateZoneRequest",
+  "type": "object",
+  "properties": {
+    "host": {
+      "type": "string",
+      "description": "Remote host to migrate the zone to"
+    },
+    "type": {
+      "type": "string",
+      "description": "Migration type"
+    },
+    "cipher": {
+      "type": "string",
+      "description": "Encryption cipher for the migration transfer"
+    }
+  }
+}

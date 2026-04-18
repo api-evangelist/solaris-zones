@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KernelZone",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Kernel zone name"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand (solaris-kz for kernel zones)"
+    },
+    "id": {
+      "type": "integer",
+      "description": "Numeric zone ID"
+    },
+    "uuid": {
+      "type": "string",
+      "description": "Zone UUID"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current zone state"
+    },
+    "auxstate": {
+      "type": "array",
+      "description": "Auxiliary zone states"
+    }
+  }
+}

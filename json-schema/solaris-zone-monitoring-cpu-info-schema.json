@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CpuInfo",
+  "type": "object",
+  "properties": {
+    "brand": {
+      "type": "string",
+      "description": "CPU brand string"
+    },
+    "chip_id": {
+      "type": "integer",
+      "description": "Physical chip ID"
+    },
+    "clock_MHz": {
+      "type": "integer",
+      "description": "CPU clock speed in MHz"
+    },
+    "core_id": {
+      "type": "integer",
+      "description": "Core ID within the chip"
+    },
+    "cpu_type": {
+      "type": "string",
+      "description": "CPU type identifier"
+    },
+    "implementation": {
+      "type": "string",
+      "description": "CPU implementation description"
+    },
+    "ncore_per_chip": {
+      "type": "integer",
+      "description": "Number of cores per chip"
+    },
+    "state": {
+      "type": "string",
+      "description": "CPU state (on-line, off-line)"
+    },
+    "vendor_id": {
+      "type": "string",
+      "description": "CPU vendor identifier"
+    }
+  }
+}

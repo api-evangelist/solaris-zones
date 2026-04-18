@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZoneInterface",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "URL path to the zone interface"
+    },
+    "type": {
+      "type": "string",
+      "description": "Interface type (Zone, ZoneInfo, ZoneManager)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Zone name"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current zone state"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand"
+    },
+    "id": {
+      "type": "integer",
+      "description": "Zone numeric ID"
+    }
+  }
+}

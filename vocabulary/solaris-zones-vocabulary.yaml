@@ -1,0 +1,33 @@
+name: solaris-zones API Vocabulary
+provider: solaris-zones
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 141
+schemas: 60
+tags:
+- Archive Creation
+- Archive Deployment
+- Archive Information
+- CPU Statistics
+- Configuration
+- Installation
+- Kernel Statistics
+- Kernel Zone Configuration
+- Kernel Zone Lifecycle
+- Kernel Zone Management
+- Kernel Zone Migration
+- Lifecycle
+- Memory Statistics
+- Migration
+- Resources
+- State Query
+- Statistics Discovery
+- Statistics Retrieval
+- System Statistics
+- Zone Info
+- Zone Manager
+- Zone Migration
+- Zone Recovery
+- Zone State
+- Zone Statistics
+- Zones

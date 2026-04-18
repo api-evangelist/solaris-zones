@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZoneCapStats",
+  "type": "object",
+  "description": "Zone resource cap utilization statistics",
+  "properties": {
+    "zonename": {
+      "type": "string",
+      "description": "Zone name"
+    },
+    "zone_id": {
+      "type": "integer",
+      "description": "Numeric zone ID"
+    },
+    "cpu_cap": {
+      "type": "number",
+      "description": "CPU cap value (percentage of a CPU)"
+    },
+    "cpu_usage": {
+      "type": "number",
+      "description": "Current CPU usage percentage"
+    },
+    "cpu_nwait": {
+      "type": "integer",
+      "description": "Number of times zone waited due to CPU cap"
+    },
+    "memory_cap": {
+      "type": "integer",
+      "description": "Physical memory cap in bytes"
+    },
+    "memory_usage": {
+      "type": "integer",
+      "description": "Current physical memory usage in bytes"
+    },
+    "swap_cap": {
+      "type": "integer",
+      "description": "Swap cap in bytes"
+    },
+    "swap_usage": {
+      "type": "integer",
+      "description": "Current swap usage in bytes"
+    }
+  }
+}

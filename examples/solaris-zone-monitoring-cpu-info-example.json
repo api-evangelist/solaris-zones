@@ -1,0 +1,11 @@
+{
+  "brand": "example_value",
+  "chip_id": "500123",
+  "clock_MHz": 10,
+  "core_id": "500123",
+  "cpu_type": "example_value",
+  "implementation": "example_value",
+  "ncore_per_chip": 10,
+  "state": "example_value",
+  "vendor_id": "500123"
+}

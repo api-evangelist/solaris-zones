@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CpuCapStats",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "integer"
+    },
+    "usage": {
+      "type": "integer"
+    },
+    "nwait": {
+      "type": "integer"
+    },
+    "below": {
+      "type": "integer"
+    },
+    "above": {
+      "type": "integer"
+    },
+    "maxusage": {
+      "type": "integer"
+    },
+    "zonename": {
+      "type": "string"
+    }
+  }
+}

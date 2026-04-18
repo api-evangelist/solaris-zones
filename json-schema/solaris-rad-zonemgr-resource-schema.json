@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Resource",
+  "type": "object",
+  "description": "A zone configuration resource such as anet, fs, capped-cpu, etc.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Resource type identifier"
+    },
+    "properties": {
+      "type": "array",
+      "description": "List of properties for this resource"
+    },
+    "parent": {
+      "type": "string",
+      "description": "Parent resource reference for nested resources"
+    }
+  }
+}

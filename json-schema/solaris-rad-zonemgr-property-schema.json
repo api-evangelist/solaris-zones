@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Property",
+  "type": "object",
+  "description": "A zone resource property with support for simple, list, and complex values",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Property name"
+    },
+    "value": {
+      "type": "string",
+      "description": "Simple property value"
+    },
+    "type": {
+      "type": "string",
+      "description": "Property value type"
+    },
+    "listValue": {
+      "type": "array",
+      "description": "List of values for list-type properties"
+    },
+    "complexValue": {
+      "type": "array",
+      "description": "Complex structured values"
+    }
+  }
+}

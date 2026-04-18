@@ -1,0 +1,8 @@
+{
+  "module": "example_value",
+  "name": "Example Title",
+  "statistic": "example_value",
+  "instance": 10,
+  "snaptime": 10,
+  "data": "example_value"
+}

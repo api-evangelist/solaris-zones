@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KstatData",
+  "type": "object",
+  "properties": {
+    "module": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "statistic": {
+      "type": "string"
+    },
+    "instance": {
+      "type": "integer"
+    },
+    "snaptime": {
+      "type": "integer",
+      "description": "Snapshot time in nanoseconds"
+    },
+    "data": {
+      "type": "object",
+      "description": "Key-value pairs of statistic data"
+    }
+  }
+}

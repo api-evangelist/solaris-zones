@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StatisticMetadata",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "type": {
+      "type": "string",
+      "description": "Data type"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement (e.g., bytes, percent, count)"
+    },
+    "interval": {
+      "type": "integer",
+      "description": "Collection interval in seconds"
+    },
+    "persistent": {
+      "type": "boolean",
+      "description": "Whether historical data is retained"
+    }
+  }
+}

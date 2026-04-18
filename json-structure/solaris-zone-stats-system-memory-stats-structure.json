@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SystemMemoryStats",
+  "type": "object",
+  "properties": {
+    "physmem": {
+      "type": "integer"
+    },
+    "freemem": {
+      "type": "integer"
+    },
+    "availrmem": {
+      "type": "integer"
+    },
+    "lotsfree": {
+      "type": "integer"
+    },
+    "desfree": {
+      "type": "integer"
+    },
+    "minfree": {
+      "type": "integer"
+    },
+    "pp_kernel": {
+      "type": "integer"
+    }
+  }
+}

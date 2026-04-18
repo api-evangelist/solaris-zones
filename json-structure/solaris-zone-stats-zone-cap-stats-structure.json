@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ZoneCapStats",
+  "type": "object",
+  "properties": {
+    "zonename": {
+      "type": "string"
+    },
+    "zone_id": {
+      "type": "integer"
+    },
+    "cpu_cap": {
+      "type": "number"
+    },
+    "cpu_usage": {
+      "type": "number"
+    },
+    "cpu_nwait": {
+      "type": "integer"
+    },
+    "memory_cap": {
+      "type": "integer"
+    },
+    "memory_usage": {
+      "type": "integer"
+    },
+    "swap_cap": {
+      "type": "integer"
+    },
+    "swap_usage": {
+      "type": "integer"
+    }
+  }
+}

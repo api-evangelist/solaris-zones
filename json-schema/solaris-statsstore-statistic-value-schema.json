@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StatisticValue",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier"
+    },
+    "value": {
+      "type": "string",
+      "description": "Current value (type depends on the statistic)"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "When the value was recorded"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement"
+    }
+  }
+}

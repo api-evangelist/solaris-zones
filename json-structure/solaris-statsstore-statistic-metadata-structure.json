@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "StatisticMetadata",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "integer"
+    },
+    "persistent": {
+      "type": "boolean"
+    }
+  }
+}

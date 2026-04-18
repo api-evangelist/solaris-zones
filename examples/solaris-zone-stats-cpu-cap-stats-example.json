@@ -1,0 +1,9 @@
+{
+  "value": 10,
+  "usage": 10,
+  "nwait": 10,
+  "below": 10,
+  "above": 10,
+  "maxusage": 10,
+  "zonename": "example_value"
+}

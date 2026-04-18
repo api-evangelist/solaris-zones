@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ZoneStatistic",
+  "type": "object",
+  "properties": {
+    "zoneName": {
+      "type": "string"
+    },
+    "zoneId": {
+      "type": "integer"
+    },
+    "metric": {
+      "type": "string"
+    },
+    "value": {
+      "type": "number"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    }
+  }
+}

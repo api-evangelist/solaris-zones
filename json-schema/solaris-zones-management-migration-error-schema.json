@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MigrationError",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string",
+      "description": "The operation that failed"
+    },
+    "error": {
+      "type": "string",
+      "description": "System or zone configuration error"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message"
+    }
+  }
+}

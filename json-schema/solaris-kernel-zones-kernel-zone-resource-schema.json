@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KernelZoneResource",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Resource type. Kernel zone specific types include dedicated-cpu and capped-memory for virtual hardware allocation."
+    },
+    "properties": {
+      "type": "array",
+      "description": "Resource property values"
+    },
+    "parent": {
+      "type": "string",
+      "description": "Parent resource reference"
+    }
+  }
+}

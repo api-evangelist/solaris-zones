@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateZoneRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the new zone"
+    },
+    "path": {
+      "type": "string",
+      "description": "Zone root path"
+    },
+    "template": {
+      "type": "string",
+      "description": "Zone brand template (e.g., SYSdefault)"
+    }
+  }
+}

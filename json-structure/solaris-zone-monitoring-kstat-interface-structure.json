@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "KstatInterface",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string"
+    },
+    "module": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "statistic": {
+      "type": "string"
+    },
+    "instance": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvacuationMigrationResult",
+  "type": "object",
+  "properties": {
+    "zoneName": {
+      "type": "string",
+      "description": "Name of the zone"
+    },
+    "evacuated": {
+      "type": "boolean",
+      "description": "Whether the zone was successfully evacuated"
+    },
+    "evacuationTarget": {
+      "type": "string",
+      "description": "Destination host"
+    },
+    "migrationStatus": {
+      "type": "string",
+      "description": "Migration status"
+    }
+  }
+}

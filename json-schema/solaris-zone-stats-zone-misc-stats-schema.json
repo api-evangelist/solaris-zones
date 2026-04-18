@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZoneMiscStats",
+  "type": "object",
+  "description": "Zone miscellaneous statistics",
+  "properties": {
+    "zonename": {
+      "type": "string"
+    },
+    "zone_id": {
+      "type": "integer"
+    },
+    "nprocs": {
+      "type": "integer",
+      "description": "Number of processes in the zone"
+    },
+    "nlwps": {
+      "type": "integer",
+      "description": "Number of lightweight processes in the zone"
+    },
+    "pr_size": {
+      "type": "integer",
+      "description": "Total process size in bytes"
+    },
+    "pr_rss": {
+      "type": "integer",
+      "description": "Total resident set size in bytes"
+    }
+  }
+}

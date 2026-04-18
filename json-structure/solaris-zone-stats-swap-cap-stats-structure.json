@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SwapCapStats",
+  "type": "object",
+  "properties": {
+    "swapcap": {
+      "type": "integer"
+    },
+    "usage": {
+      "type": "integer"
+    },
+    "nover": {
+      "type": "integer"
+    }
+  }
+}

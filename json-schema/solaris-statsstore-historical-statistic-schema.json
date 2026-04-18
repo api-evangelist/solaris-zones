@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HistoricalStatistic",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier"
+    },
+    "dataPoints": {
+      "type": "array",
+      "description": "Time series data points"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement"
+    }
+  }
+}

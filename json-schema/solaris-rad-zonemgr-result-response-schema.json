@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResultResponse",
+  "type": "object",
+  "description": "Standard RAD response wrapper for operation results",
+  "properties": {
+    "status": {
+      "type": "string"
+    }
+  }
+}
