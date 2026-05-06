@@ -4,229 +4,54 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Solaris Zones
 providerId: solaris-zones
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Containers
   - Kernel Zones
   - Operating Systems
   - Oracle
-  - RAD
-  - Resource Management
   - Solaris
-  - StatsStore
   - Virtualization
-  - Zones
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Solaris Zones is a built-in OS feature of Oracle Solaris (administered via zoneadm/zonecfg
+  and the RAD Zone Management REST API). It is not a hosted, separately metered API product; it has no
+  per-call price, public sandbox tier, or developer plan. Cost is incurred at the Oracle Solaris OS subscription
+  level (Oracle Premier Support for Operating Systems / SPARC hardware) and at the Oracle Solaris Cloud
+  / OCI deployment level.
+sources:
+  - https://docs.oracle.com/cd/E37838_01/html/E61038/index.html
+  - https://www.oracle.com/solaris/
+notes: Solaris Zones APIs (RAD, libzonestat, StatsStore) are local-host or per-host endpoints inside an
+  Oracle Solaris install and have no per-call billing. The "plan" here represents the parent Oracle Solaris
+  OS subscription that includes Zones; specific subscription SKU pricing is published only via Oracle
+  Sales / Oracle Store and is not reproducible. reconciled is false because we did not retrieve a live
+  Oracle Solaris price page.
 plans:
-  - id: solaris-zones-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Solaris Zones API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Solaris Zones Management API
-      - name: Zone Configuration API
-      - name: Zone Administration API
-      - name: Zone Monitoring API
-      - name: RAD Zone Management REST API
-      - name: Zones Monitoring Statistics API (libzonestat)
-      - name: Oracle Solaris Kernel Zones API
-      - name: Oracle Solaris StatsStore and Analytics API
-  - id: solaris-zones-pro
-    name: Professional
-    type: paid
-    description: Production tier for Solaris Zones. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Solaris Zones Management API
-      - name: Zone Configuration API
-      - name: Zone Administration API
-      - name: Zone Monitoring API
-      - name: RAD Zone Management REST API
-      - name: Zones Monitoring Statistics API (libzonestat)
-      - name: Oracle Solaris Kernel Zones API
-      - name: Oracle Solaris StatsStore and Analytics API
-      - name: Oracle Solaris Unified Archives Zones API
-  - id: solaris-zones-enterprise
-    name: Enterprise
+  - id: solaris-zones-included-with-oracle-solaris
+    name: Included with Oracle Solaris Subscription
     type: enterprise
-    description: Custom-negotiated tier for Solaris Zones. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    description: Solaris Zones is shipped as a feature of Oracle Solaris (10 / 11) and is licensed under
+      the Oracle Solaris Premier Support / OS subscription that the customer holds for their SPARC or
+      x86 systems. There is no separate Zones SKU, no per-zone fee, and no per-API-call charge for the
+      RAD Zone Management REST API or libzonestat.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Oracle Solaris OS Subscription
+        name: oracle_solaris_subscription
+        type: subscription
+        metric: varies
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
+        timeFrame: year
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://solaris-host.example.com/api/v1
-          - https://solaris-host.example.com/api/v1/zones
-          - https://solaris-host.example.com/api/v1/zones/admin
-          - https://solaris-host.example.com/api/v1/zones/monitoring
-          - https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-          - https://solaris-host.example.com/api/v1/zones/stats
-          - https://solaris-host.example.com/api/v1/zones/kernel
-          - https://solaris-host.example.com/api/v1/statsstore
-          - https://solaris-host.example.com/api/v1/zones/archives
-        unit: 1
-        price: custom
+        price: contact sales
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Solaris Zones Management API
-      - name: Zone Configuration API
-      - name: Zone Administration API
-      - name: Zone Monitoring API
+      - name: Solaris Zones (zoneadm / zonecfg)
+      - name: Oracle Solaris Kernel Zones
       - name: RAD Zone Management REST API
-      - name: Zones Monitoring Statistics API (libzonestat)
-      - name: Oracle Solaris Kernel Zones API
-      - name: Oracle Solaris StatsStore and Analytics API
-      - name: Oracle Solaris Unified Archives Zones API
+      - name: libzonestat / Zones Monitoring Statistics
+      - name: Oracle Solaris StatsStore
+      - name: Oracle Solaris Unified Archives
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

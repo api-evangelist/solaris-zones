@@ -4,131 +4,36 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Solaris Zones
 providerId: solaris-zones
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Containers
-  - Kernel Zones
-  - Operating Systems
-  - Oracle
-  - RAD
-  - Resource Management
   - Solaris
-  - StatsStore
-  - Virtualization
   - Zones
+  - Operating Systems
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Solaris Zones API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+description: Solaris Zones APIs are local administrative interfaces (RAD over HTTPS to the local host,
+  zoneadm/zonecfg, libzonestat). They do not have a public, network-facing rate-limit policy; throughput
+  is bounded by the Solaris host's CPU, memory, and the SMF service backing the RAD module rather than
+  by a published per-second cap.
+sources:
+  - https://docs.oracle.com/cd/E37838_01/html/E61038/index.html
+notes: Oracle does not publish per-second / per-minute API rate limits for the RAD Zone Management REST
+  API, libzonestat, or Solaris StatsStore. Effective throughput is host-bound. reconciled is false because
+  no public Oracle limits page was retrieved.
+responseCodes: {}
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Solaris Zones Management API
-      - Zone Configuration API
-      - Zone Administration API
-      - Zone Monitoring API
-      - RAD Zone Management REST API
-      - Zones Monitoring Statistics API (libzonestat)
-      - Oracle Solaris Kernel Zones API
-      - Oracle Solaris StatsStore and Analytics API
-      - Oracle Solaris Unified Archives Zones API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Solaris Zones Management API
-      - Zone Configuration API
-      - Zone Administration API
-      - Zone Monitoring API
-      - RAD Zone Management REST API
-      - Zones Monitoring Statistics API (libzonestat)
-      - Oracle Solaris Kernel Zones API
-      - Oracle Solaris StatsStore and Analytics API
-      - Oracle Solaris Unified Archives Zones API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Solaris Zones Management API
-      - Zone Configuration API
-      - Zone Administration API
-      - Zone Monitoring API
-      - RAD Zone Management REST API
-      - Zones Monitoring Statistics API (libzonestat)
-      - Oracle Solaris Kernel Zones API
-      - Oracle Solaris StatsStore and Analytics API
-      - Oracle Solaris Unified Archives Zones API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Solaris Zones Management API
-      - Zone Configuration API
-      - Zone Administration API
-      - Zone Monitoring API
-      - RAD Zone Management REST API
-      - Zones Monitoring Statistics API (libzonestat)
-      - Oracle Solaris Kernel Zones API
-      - Oracle Solaris StatsStore and Analytics API
-      - Oracle Solaris Unified Archives Zones API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Solaris Zones Management API
-      - Zone Configuration API
-      - Zone Administration API
-      - Zone Monitoring API
-      - RAD Zone Management REST API
-      - Zones Monitoring Statistics API (libzonestat)
-      - Oracle Solaris Kernel Zones API
-      - Oracle Solaris StatsStore and Analytics API
-      - Oracle Solaris Unified Archives Zones API
+  - name: Host-bound administrative API
+    scope: host
+    metric: varies
+    limit: 'bound by host CPU/memory and SMF service capacity; no published per-second cap'
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Local administrative API
+    description: Solaris Zones APIs are administrative interfaces consumed locally on the Solaris host
+      (or via authenticated RAD-over-HTTPS to the host). Rate is gated by host resource availability and
+      SMF service responsiveness rather than by a centralized API-management quota.
+  - name: Authentication and authorization
+    description: Access is gated by Solaris user accounts, role-based access control (RBAC), and TLS-authenticated
+      RAD client connections; this implicitly limits abusive call rates.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
