@@ -1,0 +1,209 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris RAD Zone Management REST API — Zone Migration
+  description: 'Solaris Zones Oracle Solaris RAD Zone Management REST API — Zone Migration. 4 operations. Lead operation:
+    Solaris Zones Migrate a Zone to a Remote Host. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Zone Migration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-rad-zonemgr-zone-migration
+    baseUri: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Oracle Solaris RAD Zone Management REST API — Zone Migration business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Zone-zoneName-migrate
+      path: /Zone/{zoneName}/migrate
+      operations:
+      - name: migratezone
+        method: PUT
+        description: Solaris Zones Migrate a Zone to a Remote Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ZoneManager-cancelEvacuate
+      path: /ZoneManager/cancelEvacuate
+      operations:
+      - name: cancelevacuate
+        method: PUT
+        description: Solaris Zones Cancel Zone Evacuation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: ZoneManager-evacuate
+      path: /ZoneManager/evacuate
+      operations:
+      - name: evacuate
+        method: PUT
+        description: Solaris Zones Perform Zone Evacuation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: ZoneManager-initEvacuate
+      path: /ZoneManager/initEvacuate
+      operations:
+      - name: initevacuate
+        method: PUT
+        description: Solaris Zones Initialize Zone Evacuation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_cookie
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-rad-zonemgr-zone-migration-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris RAD Zone Management REST API — Zone Migration. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/migrate
+      name: zone-zonename-migrate
+      description: REST surface for Zone-zoneName-migrate.
+      operations:
+      - method: PUT
+        name: migratezone
+        description: Solaris Zones Migrate a Zone to a Remote Host
+        call: solaris-rad-zonemgr-zone-migration.migratezone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zonemanager/cancelevacuate
+      name: zonemanager-cancelevacuate
+      description: REST surface for ZoneManager-cancelEvacuate.
+      operations:
+      - method: PUT
+        name: cancelevacuate
+        description: Solaris Zones Cancel Zone Evacuation
+        call: solaris-rad-zonemgr-zone-migration.cancelevacuate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zonemanager/evacuate
+      name: zonemanager-evacuate
+      description: REST surface for ZoneManager-evacuate.
+      operations:
+      - method: PUT
+        name: evacuate
+        description: Solaris Zones Perform Zone Evacuation
+        call: solaris-rad-zonemgr-zone-migration.evacuate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zonemanager/initevacuate
+      name: zonemanager-initevacuate
+      description: REST surface for ZoneManager-initEvacuate.
+      operations:
+      - method: PUT
+        name: initevacuate
+        description: Solaris Zones Initialize Zone Evacuation
+        call: solaris-rad-zonemgr-zone-migration.initevacuate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-rad-zonemgr-zone-migration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris RAD Zone Management REST API — Zone Migration. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-migrate-zone-remote
+      description: Solaris Zones Migrate a Zone to a Remote Host
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-rad-zonemgr-zone-migration.migratezone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-cancel-zone-evacuation
+      description: Solaris Zones Cancel Zone Evacuation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-rad-zonemgr-zone-migration.cancelevacuate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-perform-zone-evacuation
+      description: Solaris Zones Perform Zone Evacuation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-rad-zonemgr-zone-migration.evacuate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-initialize-zone-evacuation
+      description: Solaris Zones Initialize Zone Evacuation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-rad-zonemgr-zone-migration.initevacuate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

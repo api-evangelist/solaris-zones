@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris Unified Archives Zones API — Zone Recovery
+  description: 'Solaris Zones Oracle Solaris Unified Archives Zones API — Zone Recovery. 1 operations. Lead operation: Solaris
+    Zones Attach a Zone From a Unified Archive. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Zone Recovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-unified-archives-zone-recovery
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Oracle Solaris Unified Archives Zones API — Zone Recovery business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Zone-zoneName-_rad_method-attach
+      path: /Zone/{zoneName}/_rad_method/attach
+      operations:
+      - name: attachzonefromarchive
+        method: PUT
+        description: Solaris Zones Attach a Zone From a Unified Archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-unified-archives-zone-recovery-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Zone Recovery. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/attach
+      name: zone-zonename-rad-method-attach
+      description: REST surface for Zone-zoneName-_rad_method-attach.
+      operations:
+      - method: PUT
+        name: attachzonefromarchive
+        description: Solaris Zones Attach a Zone From a Unified Archive
+        call: solaris-unified-archives-zone-recovery.attachzonefromarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-unified-archives-zone-recovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Zone Recovery. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-attach-zone-unified
+      description: Solaris Zones Attach a Zone From a Unified Archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-zone-recovery.attachzonefromarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

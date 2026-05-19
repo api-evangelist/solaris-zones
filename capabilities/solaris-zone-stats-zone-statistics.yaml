@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Monitoring Statistics API — Zone Statistics
+  description: 'Solaris Zones Monitoring Statistics API — Zone Statistics. 2 operations. Lead operation: Solaris Zones Get
+    Zone Resource Cap Statistics. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Zone Statistics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-stats-zone-statistics
+    baseUri: https://{host}:{port}/api
+    description: Solaris Zones Monitoring Statistics API — Zone Statistics business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: com.oracle.solaris.rad.kstat-2.0-Kstat-zones,{zoneName},zone_caps,{zoneId}
+      path: /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}
+      operations:
+      - name: getzonecapstatistics
+        method: GET
+        description: Solaris Zones Get Zone Resource Cap Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zoneName
+          in: path
+          type: string
+          description: Zone name
+          required: true
+        - name: zoneId
+          in: path
+          type: integer
+          description: Numeric zone ID
+          required: true
+    - name: com.oracle.solaris.rad.kstat-2.0-Kstat-zones,{zoneName},zone_misc,{zoneId}
+      path: /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_misc,{zoneId}
+      operations:
+      - name: getzonemiscstatistics
+        method: GET
+        description: Solaris Zones Get Zone Miscellaneous Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zoneName
+          in: path
+          type: string
+          required: true
+        - name: zoneId
+          in: path
+          type: integer
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-stats-zone-statistics-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Monitoring Statistics API — Zone Statistics. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0/kstat/zones-zonename-zone-caps-zoneid
+      name: com-oracle-solaris-rad-kstat-2-0-kstat-zones-zonename-zone-caps-zoneid
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0-Kstat-zones,{zoneName},zone_caps,{zoneId}.
+      operations:
+      - method: GET
+        name: getzonecapstatistics
+        description: Solaris Zones Get Zone Resource Cap Statistics
+        call: solaris-zone-stats-zone-statistics.getzonecapstatistics
+        with:
+          zoneName: rest.zoneName
+          zoneId: rest.zoneId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0/kstat/zones-zonename-zone-misc-zoneid
+      name: com-oracle-solaris-rad-kstat-2-0-kstat-zones-zonename-zone-misc-zoneid
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0-Kstat-zones,{zoneName},zone_misc,{zoneId}.
+      operations:
+      - method: GET
+        name: getzonemiscstatistics
+        description: Solaris Zones Get Zone Miscellaneous Statistics
+        call: solaris-zone-stats-zone-statistics.getzonemiscstatistics
+        with:
+          zoneName: rest.zoneName
+          zoneId: rest.zoneId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-stats-zone-statistics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Monitoring Statistics API — Zone Statistics. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-get-zone-resource
+      description: Solaris Zones Get Zone Resource Cap Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-stats-zone-statistics.getzonecapstatistics
+      with:
+        zoneName: tools.zoneName
+        zoneId: tools.zoneId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-zone-miscellaneous
+      description: Solaris Zones Get Zone Miscellaneous Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-stats-zone-statistics.getzonemiscstatistics
+      with:
+        zoneName: tools.zoneName
+        zoneId: tools.zoneId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,220 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Solaris Zone Monitoring API — Kernel Statistics
+  description: 'Solaris Zones Solaris Zone Monitoring API — Kernel Statistics. 4 operations. Lead operation: Solaris Zones
+    List Kernel Statistics Interfaces. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Kernel Statistics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-monitoring-kernel-statistics
+    baseUri: https://{host}:{port}/api
+    description: Solaris Zones Solaris Zone Monitoring API — Kernel Statistics business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: com.oracle.solaris.rad.kstat-2.0
+      path: /com.oracle.solaris.rad.kstat/2.0
+      operations:
+      - name: listkstatinterfaces
+        method: GET
+        description: Solaris Zones List Kernel Statistics Interfaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: com.oracle.solaris.rad.kstat-2.0-Kstat-misc,cpu_info0,cpu_info,{cpuId}
+      path: /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}
+      operations:
+      - name: getcpuinfo
+        method: GET
+        description: Solaris Zones Get Cpu Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cpuId
+          in: path
+          type: integer
+          description: CPU number
+          required: true
+    - name: com.oracle.solaris.rad.kstat-2.0-Kstat-misc,vm,cpu,{cpuId}
+      path: /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,{cpuId}
+      operations:
+      - name: getvmcpustats
+        method: GET
+        description: Solaris Zones Get Vm Cpu Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cpuId
+          in: path
+          type: integer
+          description: CPU number
+          required: true
+    - name: com.oracle.solaris.rad.kstat-2.0-Kstat-module},{name},{statistic},{instance
+      path: /com.oracle.solaris.rad.kstat/2.0/Kstat/{module},{name},{statistic},{instance}
+      operations:
+      - name: getkstat
+        method: GET
+        description: Solaris Zones Get a Specific Kernel Statistic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: module
+          in: path
+          type: string
+          description: Kstat module name (e.g., misc, cpu, zones)
+          required: true
+        - name: name
+          in: path
+          type: string
+          description: Kstat name (e.g., cpu_info0, vm)
+          required: true
+        - name: statistic
+          in: path
+          type: string
+          description: Statistic name (e.g., cpu_info, cpu)
+          required: true
+        - name: instance
+          in: path
+          type: string
+          description: Instance identifier (e.g., CPU number, zone ID)
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-monitoring-kernel-statistics-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Solaris Zone Monitoring API — Kernel Statistics. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0
+      name: com-oracle-solaris-rad-kstat-2-0
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0.
+      operations:
+      - method: GET
+        name: listkstatinterfaces
+        description: Solaris Zones List Kernel Statistics Interfaces
+        call: solaris-zone-monitoring-kernel-statistics.listkstatinterfaces
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0/kstat/misc-cpu-info0-cpu-info-cpuid
+      name: com-oracle-solaris-rad-kstat-2-0-kstat-misc-cpu-info0-cpu-info-cpuid
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0-Kstat-misc,cpu_info0,cpu_info,{cpuId}.
+      operations:
+      - method: GET
+        name: getcpuinfo
+        description: Solaris Zones Get Cpu Information
+        call: solaris-zone-monitoring-kernel-statistics.getcpuinfo
+        with:
+          cpuId: rest.cpuId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0/kstat/misc-vm-cpu-cpuid
+      name: com-oracle-solaris-rad-kstat-2-0-kstat-misc-vm-cpu-cpuid
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0-Kstat-misc,vm,cpu,{cpuId}.
+      operations:
+      - method: GET
+        name: getvmcpustats
+        description: Solaris Zones Get Vm Cpu Statistics
+        call: solaris-zone-monitoring-kernel-statistics.getvmcpustats
+        with:
+          cpuId: rest.cpuId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0/kstat/{module-name-statistic-instance}
+      name: com-oracle-solaris-rad-kstat-2-0-kstat-module-name-statistic-instance
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0-Kstat-module},{name},{statistic},{instance.
+      operations:
+      - method: GET
+        name: getkstat
+        description: Solaris Zones Get a Specific Kernel Statistic
+        call: solaris-zone-monitoring-kernel-statistics.getkstat
+        with:
+          module: rest.module
+          name: rest.name
+          statistic: rest.statistic
+          instance: rest.instance
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-monitoring-kernel-statistics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Solaris Zone Monitoring API — Kernel Statistics. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-list-kernel-statistics
+      description: Solaris Zones List Kernel Statistics Interfaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-monitoring-kernel-statistics.listkstatinterfaces
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-cpu-information
+      description: Solaris Zones Get Cpu Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-monitoring-kernel-statistics.getcpuinfo
+      with:
+        cpuId: tools.cpuId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-vm-cpu
+      description: Solaris Zones Get Vm Cpu Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-monitoring-kernel-statistics.getvmcpustats
+      with:
+        cpuId: tools.cpuId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-specific-kernel
+      description: Solaris Zones Get a Specific Kernel Statistic
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-monitoring-kernel-statistics.getkstat
+      with:
+        module: tools.module
+        name: tools.name
+        statistic: tools.statistic
+        instance: tools.instance
+      outputParameters:
+      - type: object
+        mapping: $.

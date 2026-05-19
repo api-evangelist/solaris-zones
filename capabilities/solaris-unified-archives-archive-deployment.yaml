@@ -1,0 +1,168 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Deployment
+  description: 'Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Deployment. 3 operations. Lead operation:
+    Solaris Zones Clone a Zone Using a Unified Archive. Self-contained Naftiko capability covering one Solaris Zones business
+    surface.'
+  tags:
+  - Solaris Zones
+  - Archive Deployment
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-unified-archives-archive-deployment
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Deployment business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Zone-zoneName-_rad_method-clone
+      path: /Zone/{zoneName}/_rad_method/clone
+      operations:
+      - name: clonezonefromarchive
+        method: PUT
+        description: Solaris Zones Clone a Zone Using a Unified Archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-install
+      path: /Zone/{zoneName}/_rad_method/install
+      operations:
+      - name: installzonefromarchive
+        method: PUT
+        description: Solaris Zones Install a Zone From a Unified Archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ZoneManager-_rad_method-create
+      path: /ZoneManager/_rad_method/create
+      operations:
+      - name: createzonefromarchive
+        method: PUT
+        description: Solaris Zones Create a Zone From a Unified Archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-unified-archives-archive-deployment-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Deployment. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/clone
+      name: zone-zonename-rad-method-clone
+      description: REST surface for Zone-zoneName-_rad_method-clone.
+      operations:
+      - method: PUT
+        name: clonezonefromarchive
+        description: Solaris Zones Clone a Zone Using a Unified Archive
+        call: solaris-unified-archives-archive-deployment.clonezonefromarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/install
+      name: zone-zonename-rad-method-install
+      description: REST surface for Zone-zoneName-_rad_method-install.
+      operations:
+      - method: PUT
+        name: installzonefromarchive
+        description: Solaris Zones Install a Zone From a Unified Archive
+        call: solaris-unified-archives-archive-deployment.installzonefromarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zonemanager/rad-method/create
+      name: zonemanager-rad-method-create
+      description: REST surface for ZoneManager-_rad_method-create.
+      operations:
+      - method: PUT
+        name: createzonefromarchive
+        description: Solaris Zones Create a Zone From a Unified Archive
+        call: solaris-unified-archives-archive-deployment.createzonefromarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-unified-archives-archive-deployment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Deployment. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-clone-zone-using
+      description: Solaris Zones Clone a Zone Using a Unified Archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-archive-deployment.clonezonefromarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-install-zone-unified
+      description: Solaris Zones Install a Zone From a Unified Archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-archive-deployment.installzonefromarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-create-zone-unified
+      description: Solaris Zones Create a Zone From a Unified Archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-archive-deployment.createzonefromarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

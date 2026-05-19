@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris StatsStore and Analytics API — System Statistics
+  description: 'Solaris Zones Oracle Solaris StatsStore and Analytics API — System Statistics. 1 operations. Lead operation:
+    Solaris Zones Read System-wide Statistics. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - System Statistics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-statsstore-system-statistics
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+    description: Solaris Zones Oracle Solaris StatsStore and Analytics API — System Statistics business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Store-_rad_method-readSystemStats
+      path: /Store/_rad_method/readSystemStats
+      operations:
+      - name: readsystemstatistics
+        method: PUT
+        description: Solaris Zones Read System-wide Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-statsstore-system-statistics-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris StatsStore and Analytics API — System Statistics. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/store/rad-method/readsystemstats
+      name: store-rad-method-readsystemstats
+      description: REST surface for Store-_rad_method-readSystemStats.
+      operations:
+      - method: PUT
+        name: readsystemstatistics
+        description: Solaris Zones Read System-wide Statistics
+        call: solaris-statsstore-system-statistics.readsystemstatistics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-statsstore-system-statistics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris StatsStore and Analytics API — System Statistics. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-read-system-wide
+      description: Solaris Zones Read System-wide Statistics
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-statsstore-system-statistics.readsystemstatistics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,292 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Solaris Zone Configuration API — Resources
+  description: 'Solaris Zones Solaris Zone Configuration API — Resources. 6 operations. Lead operation: Solaris Zones Add
+    a Resource to Zone Configuration. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Resources
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-configuration-resources
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Solaris Zone Configuration API — Resources business capability. Self-contained, no shared references.
+    resources:
+    - name: Zone-zoneName-_rad_method-addResource
+      path: /Zone/{zoneName}/_rad_method/addResource
+      operations:
+      - name: addzoneresource
+        method: PUT
+        description: Solaris Zones Add a Resource to Zone Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-clearResourceProperties
+      path: /Zone/{zoneName}/_rad_method/clearResourceProperties
+      operations:
+      - name: clearzoneresourceproperties
+        method: PUT
+        description: Solaris Zones Clear Properties on a Zone Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-getResourceProperties
+      path: /Zone/{zoneName}/_rad_method/getResourceProperties
+      operations:
+      - name: getzoneresourceproperties
+        method: PUT
+        description: Solaris Zones Get Properties of a Zone Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-getResources
+      path: /Zone/{zoneName}/_rad_method/getResources
+      operations:
+      - name: getzoneresources
+        method: PUT
+        description: Solaris Zones Query Zone Resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-removeResources
+      path: /Zone/{zoneName}/_rad_method/removeResources
+      operations:
+      - name: removezoneresources
+        method: PUT
+        description: Solaris Zones Remove Resources From Zone Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-setResourceProperties
+      path: /Zone/{zoneName}/_rad_method/setResourceProperties
+      operations:
+      - name: setzoneresourceproperties
+        method: PUT
+        description: Solaris Zones Set Properties on a Zone Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-configuration-resources-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Solaris Zone Configuration API — Resources. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/addresource
+      name: zone-zonename-rad-method-addresource
+      description: REST surface for Zone-zoneName-_rad_method-addResource.
+      operations:
+      - method: PUT
+        name: addzoneresource
+        description: Solaris Zones Add a Resource to Zone Configuration
+        call: solaris-zone-configuration-resources.addzoneresource
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/clearresourceproperties
+      name: zone-zonename-rad-method-clearresourceproperties
+      description: REST surface for Zone-zoneName-_rad_method-clearResourceProperties.
+      operations:
+      - method: PUT
+        name: clearzoneresourceproperties
+        description: Solaris Zones Clear Properties on a Zone Resource
+        call: solaris-zone-configuration-resources.clearzoneresourceproperties
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/getresourceproperties
+      name: zone-zonename-rad-method-getresourceproperties
+      description: REST surface for Zone-zoneName-_rad_method-getResourceProperties.
+      operations:
+      - method: PUT
+        name: getzoneresourceproperties
+        description: Solaris Zones Get Properties of a Zone Resource
+        call: solaris-zone-configuration-resources.getzoneresourceproperties
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/getresources
+      name: zone-zonename-rad-method-getresources
+      description: REST surface for Zone-zoneName-_rad_method-getResources.
+      operations:
+      - method: PUT
+        name: getzoneresources
+        description: Solaris Zones Query Zone Resources
+        call: solaris-zone-configuration-resources.getzoneresources
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/removeresources
+      name: zone-zonename-rad-method-removeresources
+      description: REST surface for Zone-zoneName-_rad_method-removeResources.
+      operations:
+      - method: PUT
+        name: removezoneresources
+        description: Solaris Zones Remove Resources From Zone Configuration
+        call: solaris-zone-configuration-resources.removezoneresources
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/setresourceproperties
+      name: zone-zonename-rad-method-setresourceproperties
+      description: REST surface for Zone-zoneName-_rad_method-setResourceProperties.
+      operations:
+      - method: PUT
+        name: setzoneresourceproperties
+        description: Solaris Zones Set Properties on a Zone Resource
+        call: solaris-zone-configuration-resources.setzoneresourceproperties
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-configuration-resources-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Solaris Zone Configuration API — Resources. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-add-resource-zone
+      description: Solaris Zones Add a Resource to Zone Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.addzoneresource
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-clear-properties-zone
+      description: Solaris Zones Clear Properties on a Zone Resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.clearzoneresourceproperties
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-properties-zone
+      description: Solaris Zones Get Properties of a Zone Resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.getzoneresourceproperties
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-query-zone-resources
+      description: Solaris Zones Query Zone Resources
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.getzoneresources
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-remove-resources-zone
+      description: Solaris Zones Remove Resources From Zone Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.removezoneresources
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-set-properties-zone
+      description: Solaris Zones Set Properties on a Zone Resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-configuration-resources.setzoneresourceproperties
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

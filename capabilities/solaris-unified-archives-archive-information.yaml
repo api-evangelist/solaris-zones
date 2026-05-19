@@ -1,0 +1,116 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Information
+  description: 'Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Information. 2 operations. Lead operation:
+    Solaris Zones Get Zone Details for Archive Operations. Self-contained Naftiko capability covering one Solaris Zones business
+    surface.'
+  tags:
+  - Solaris Zones
+  - Archive Information
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-unified-archives-archive-information
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Information business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Zone-zoneName
+      path: /Zone/{zoneName}
+      operations:
+      - name: getzoneforarchive
+        method: GET
+        description: Solaris Zones Get Zone Details for Archive Operations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-getResources
+      path: /Zone/{zoneName}/_rad_method/getResources
+      operations:
+      - name: getarchivezoneresources
+        method: PUT
+        description: Solaris Zones Get Zone Resources for Archive Validation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-unified-archives-archive-information-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Information. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}
+      name: zone-zonename
+      description: REST surface for Zone-zoneName.
+      operations:
+      - method: GET
+        name: getzoneforarchive
+        description: Solaris Zones Get Zone Details for Archive Operations
+        call: solaris-unified-archives-archive-information.getzoneforarchive
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/getresources
+      name: zone-zonename-rad-method-getresources
+      description: REST surface for Zone-zoneName-_rad_method-getResources.
+      operations:
+      - method: PUT
+        name: getarchivezoneresources
+        description: Solaris Zones Get Zone Resources for Archive Validation
+        call: solaris-unified-archives-archive-information.getarchivezoneresources
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-unified-archives-archive-information-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris Unified Archives Zones API — Archive Information. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-get-zone-details
+      description: Solaris Zones Get Zone Details for Archive Operations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-archive-information.getzoneforarchive
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-get-zone-resources
+      description: Solaris Zones Get Zone Resources for Archive Validation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-unified-archives-archive-information.getarchivezoneresources
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

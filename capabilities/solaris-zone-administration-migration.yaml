@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Solaris Zone Administration API — Migration
+  description: 'Solaris Zones Solaris Zone Administration API — Migration. 4 operations. Lead operation: Solaris Zones Attach
+    a Zone. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Migration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-administration-migration
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Solaris Zone Administration API — Migration business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: Zone-zoneName-_rad_method-attach
+      path: /Zone/{zoneName}/_rad_method/attach
+      operations:
+      - name: attachzone
+        method: PUT
+        description: Solaris Zones Attach a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-detach
+      path: /Zone/{zoneName}/_rad_method/detach
+      operations:
+      - name: detachzone
+        method: PUT
+        description: Solaris Zones Detach a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-migrate
+      path: /Zone/{zoneName}/_rad_method/migrate
+      operations:
+      - name: migratezone
+        method: PUT
+        description: Solaris Zones Migrate Zone to a Remote Host
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-move
+      path: /Zone/{zoneName}/_rad_method/move
+      operations:
+      - name: movezone
+        method: PUT
+        description: Solaris Zones Move a Zone to a New Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-administration-migration-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Solaris Zone Administration API — Migration. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/attach
+      name: zone-zonename-rad-method-attach
+      description: REST surface for Zone-zoneName-_rad_method-attach.
+      operations:
+      - method: PUT
+        name: attachzone
+        description: Solaris Zones Attach a Zone
+        call: solaris-zone-administration-migration.attachzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/detach
+      name: zone-zonename-rad-method-detach
+      description: REST surface for Zone-zoneName-_rad_method-detach.
+      operations:
+      - method: PUT
+        name: detachzone
+        description: Solaris Zones Detach a Zone
+        call: solaris-zone-administration-migration.detachzone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/migrate
+      name: zone-zonename-rad-method-migrate
+      description: REST surface for Zone-zoneName-_rad_method-migrate.
+      operations:
+      - method: PUT
+        name: migratezone
+        description: Solaris Zones Migrate Zone to a Remote Host
+        call: solaris-zone-administration-migration.migratezone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/move
+      name: zone-zonename-rad-method-move
+      description: REST surface for Zone-zoneName-_rad_method-move.
+      operations:
+      - method: PUT
+        name: movezone
+        description: Solaris Zones Move a Zone to a New Path
+        call: solaris-zone-administration-migration.movezone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-administration-migration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Solaris Zone Administration API — Migration. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-attach-zone
+      description: Solaris Zones Attach a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-migration.attachzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-detach-zone
+      description: Solaris Zones Detach a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-migration.detachzone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-migrate-zone-remote
+      description: Solaris Zones Migrate Zone to a Remote Host
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-migration.migratezone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-move-zone-new
+      description: Solaris Zones Move a Zone to a New Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-migration.movezone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

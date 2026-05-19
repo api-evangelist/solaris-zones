@@ -1,0 +1,157 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris StatsStore and Analytics API — Statistics Discovery
+  description: 'Solaris Zones Oracle Solaris StatsStore and Analytics API — Statistics Discovery. 3 operations. Lead operation:
+    Solaris Zones List Statsstore Interfaces. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Statistics Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-statsstore-statistics-discovery
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+    description: Solaris Zones Oracle Solaris StatsStore and Analytics API — Statistics Discovery business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: root
+      path: /
+      operations:
+      - name: listsstoreinterfaces
+        method: GET
+        description: Solaris Zones List Statsstore Interfaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Store-_rad_method-describe
+      path: /Store/_rad_method/describe
+      operations:
+      - name: describestatistic
+        method: PUT
+        description: Solaris Zones Describe a Statistic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Store-_rad_method-list
+      path: /Store/_rad_method/list
+      operations:
+      - name: liststatistics
+        method: PUT
+        description: Solaris Zones List Available Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-statsstore-statistics-discovery-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris StatsStore and Analytics API — Statistics Discovery. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1
+      name: root
+      description: REST surface for root.
+      operations:
+      - method: GET
+        name: listsstoreinterfaces
+        description: Solaris Zones List Statsstore Interfaces
+        call: solaris-statsstore-statistics-discovery.listsstoreinterfaces
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/store/rad-method/describe
+      name: store-rad-method-describe
+      description: REST surface for Store-_rad_method-describe.
+      operations:
+      - method: PUT
+        name: describestatistic
+        description: Solaris Zones Describe a Statistic
+        call: solaris-statsstore-statistics-discovery.describestatistic
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/store/rad-method/list
+      name: store-rad-method-list
+      description: REST surface for Store-_rad_method-list.
+      operations:
+      - method: PUT
+        name: liststatistics
+        description: Solaris Zones List Available Statistics
+        call: solaris-statsstore-statistics-discovery.liststatistics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-statsstore-statistics-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris StatsStore and Analytics API — Statistics Discovery. One tool
+      per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-list-statsstore-interfaces
+      description: Solaris Zones List Statsstore Interfaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-statsstore-statistics-discovery.listsstoreinterfaces
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-describe-statistic
+      description: Solaris Zones Describe a Statistic
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-statsstore-statistics-discovery.describestatistic
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-list-available-statistics
+      description: Solaris Zones List Available Statistics
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-statsstore-statistics-discovery.liststatistics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Oracle Solaris Kernel Zones API — Kernel Zone Configuration
+  description: 'Solaris Zones Oracle Solaris Kernel Zones API — Kernel Zone Configuration. 4 operations. Lead operation: Solaris
+    Zones Add Resource to Kernel Zone. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Kernel Zone Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-kernel-zones-kernel-zone-configuration
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Oracle Solaris Kernel Zones API — Kernel Zone Configuration business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: Zone-zoneName-_rad_method-addResource
+      path: /Zone/{zoneName}/_rad_method/addResource
+      operations:
+      - name: addkernelzoneresource
+        method: PUT
+        description: Solaris Zones Add Resource to Kernel Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-commitConfig
+      path: /Zone/{zoneName}/_rad_method/commitConfig
+      operations:
+      - name: commitkernelzoneconfig
+        method: PUT
+        description: Solaris Zones Commit Kernel Zone Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-editConfig
+      path: /Zone/{zoneName}/_rad_method/editConfig
+      operations:
+      - name: editkernelzoneconfig
+        method: PUT
+        description: Solaris Zones Begin Editing Kernel Zone Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-getResources
+      path: /Zone/{zoneName}/_rad_method/getResources
+      operations:
+      - name: getkernelzoneresources
+        method: PUT
+        description: Solaris Zones Query Kernel Zone Resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-kernel-zones-kernel-zone-configuration-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Oracle Solaris Kernel Zones API — Kernel Zone Configuration. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/addresource
+      name: zone-zonename-rad-method-addresource
+      description: REST surface for Zone-zoneName-_rad_method-addResource.
+      operations:
+      - method: PUT
+        name: addkernelzoneresource
+        description: Solaris Zones Add Resource to Kernel Zone
+        call: solaris-kernel-zones-kernel-zone-configuration.addkernelzoneresource
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/commitconfig
+      name: zone-zonename-rad-method-commitconfig
+      description: REST surface for Zone-zoneName-_rad_method-commitConfig.
+      operations:
+      - method: PUT
+        name: commitkernelzoneconfig
+        description: Solaris Zones Commit Kernel Zone Configuration
+        call: solaris-kernel-zones-kernel-zone-configuration.commitkernelzoneconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/editconfig
+      name: zone-zonename-rad-method-editconfig
+      description: REST surface for Zone-zoneName-_rad_method-editConfig.
+      operations:
+      - method: PUT
+        name: editkernelzoneconfig
+        description: Solaris Zones Begin Editing Kernel Zone Configuration
+        call: solaris-kernel-zones-kernel-zone-configuration.editkernelzoneconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/getresources
+      name: zone-zonename-rad-method-getresources
+      description: REST surface for Zone-zoneName-_rad_method-getResources.
+      operations:
+      - method: PUT
+        name: getkernelzoneresources
+        description: Solaris Zones Query Kernel Zone Resources
+        call: solaris-kernel-zones-kernel-zone-configuration.getkernelzoneresources
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-kernel-zones-kernel-zone-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Oracle Solaris Kernel Zones API — Kernel Zone Configuration. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-add-resource-kernel
+      description: Solaris Zones Add Resource to Kernel Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-kernel-zones-kernel-zone-configuration.addkernelzoneresource
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-commit-kernel-zone
+      description: Solaris Zones Commit Kernel Zone Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-kernel-zones-kernel-zone-configuration.commitkernelzoneconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-begin-editing-kernel
+      description: Solaris Zones Begin Editing Kernel Zone Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-kernel-zones-kernel-zone-configuration.editkernelzoneconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-query-kernel-zone
+      description: Solaris Zones Query Kernel Zone Resources
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-kernel-zones-kernel-zone-configuration.getkernelzoneresources
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

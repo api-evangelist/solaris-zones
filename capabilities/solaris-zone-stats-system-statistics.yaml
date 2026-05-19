@@ -1,0 +1,73 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Monitoring Statistics API — System Statistics
+  description: 'Solaris Zones Monitoring Statistics API — System Statistics. 1 operations. Lead operation: Solaris Zones List
+    All Kernel Statistics Interfaces. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - System Statistics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-stats-system-statistics
+    baseUri: https://{host}:{port}/api
+    description: Solaris Zones Monitoring Statistics API — System Statistics business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: com.oracle.solaris.rad.kstat-2.0
+      path: /com.oracle.solaris.rad.kstat/2.0
+      operations:
+      - name: listkstatinterfaces
+        method: GET
+        description: Solaris Zones List All Kernel Statistics Interfaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-stats-system-statistics-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Monitoring Statistics API — System Statistics. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/com-oracle-solaris-rad-kstat/2-0
+      name: com-oracle-solaris-rad-kstat-2-0
+      description: REST surface for com.oracle.solaris.rad.kstat-2.0.
+      operations:
+      - method: GET
+        name: listkstatinterfaces
+        description: Solaris Zones List All Kernel Statistics Interfaces
+        call: solaris-zone-stats-system-statistics.listkstatinterfaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-stats-system-statistics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Monitoring Statistics API — System Statistics. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-list-all-kernel
+      description: Solaris Zones List All Kernel Statistics Interfaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: solaris-zone-stats-system-statistics.listkstatinterfaces
+      outputParameters:
+      - type: object
+        mapping: $.

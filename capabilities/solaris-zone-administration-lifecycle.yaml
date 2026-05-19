@@ -1,0 +1,337 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Solaris Zones Solaris Zone Administration API — Lifecycle
+  description: 'Solaris Zones Solaris Zone Administration API — Lifecycle. 8 operations. Lead operation: Solaris Zones Boot
+    a Zone. Self-contained Naftiko capability covering one Solaris Zones business surface.'
+  tags:
+  - Solaris Zones
+  - Lifecycle
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SOLARIS_ZONES_API_KEY: SOLARIS_ZONES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: solaris-zone-administration-lifecycle
+    baseUri: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+    description: Solaris Zones Solaris Zone Administration API — Lifecycle business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: Zone-zoneName-_rad_method-boot
+      path: /Zone/{zoneName}/_rad_method/boot
+      operations:
+      - name: bootzone
+        method: PUT
+        description: Solaris Zones Boot a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-halt
+      path: /Zone/{zoneName}/_rad_method/halt
+      operations:
+      - name: haltzone
+        method: PUT
+        description: Solaris Zones Halt a Zone Immediately
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-mark
+      path: /Zone/{zoneName}/_rad_method/mark
+      operations:
+      - name: markzone
+        method: PUT
+        description: Solaris Zones Mark Zone to a Specified State
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Zone-zoneName-_rad_method-ready
+      path: /Zone/{zoneName}/_rad_method/ready
+      operations:
+      - name: readyzone
+        method: PUT
+        description: Solaris Zones Prepare Zone for Running
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-reboot
+      path: /Zone/{zoneName}/_rad_method/reboot
+      operations:
+      - name: rebootzone
+        method: PUT
+        description: Solaris Zones Reboot a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-savecore
+      path: /Zone/{zoneName}/_rad_method/savecore
+      operations:
+      - name: savecorezone
+        method: PUT
+        description: Solaris Zones Save Zone Core Dump
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Zone-zoneName-_rad_method-shutdown
+      path: /Zone/{zoneName}/_rad_method/shutdown
+      operations:
+      - name: shutdownzone
+        method: PUT
+        description: Solaris Zones Gracefully Shut Down a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: Zone-zoneName-_rad_method-suspend
+      path: /Zone/{zoneName}/_rad_method/suspend
+      operations:
+      - name: suspendzone
+        method: PUT
+        description: Solaris Zones Suspend a Zone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: _rad_session
+      value: '{{env.SOLARIS_ZONES_API_KEY}}'
+      placement: cookie
+  exposes:
+  - type: rest
+    namespace: solaris-zone-administration-lifecycle-rest
+    port: 8080
+    description: REST adapter for Solaris Zones Solaris Zone Administration API — Lifecycle. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/zone/{zonename}/rad-method/boot
+      name: zone-zonename-rad-method-boot
+      description: REST surface for Zone-zoneName-_rad_method-boot.
+      operations:
+      - method: PUT
+        name: bootzone
+        description: Solaris Zones Boot a Zone
+        call: solaris-zone-administration-lifecycle.bootzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/halt
+      name: zone-zonename-rad-method-halt
+      description: REST surface for Zone-zoneName-_rad_method-halt.
+      operations:
+      - method: PUT
+        name: haltzone
+        description: Solaris Zones Halt a Zone Immediately
+        call: solaris-zone-administration-lifecycle.haltzone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/mark
+      name: zone-zonename-rad-method-mark
+      description: REST surface for Zone-zoneName-_rad_method-mark.
+      operations:
+      - method: PUT
+        name: markzone
+        description: Solaris Zones Mark Zone to a Specified State
+        call: solaris-zone-administration-lifecycle.markzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/ready
+      name: zone-zonename-rad-method-ready
+      description: REST surface for Zone-zoneName-_rad_method-ready.
+      operations:
+      - method: PUT
+        name: readyzone
+        description: Solaris Zones Prepare Zone for Running
+        call: solaris-zone-administration-lifecycle.readyzone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/reboot
+      name: zone-zonename-rad-method-reboot
+      description: REST surface for Zone-zoneName-_rad_method-reboot.
+      operations:
+      - method: PUT
+        name: rebootzone
+        description: Solaris Zones Reboot a Zone
+        call: solaris-zone-administration-lifecycle.rebootzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/savecore
+      name: zone-zonename-rad-method-savecore
+      description: REST surface for Zone-zoneName-_rad_method-savecore.
+      operations:
+      - method: PUT
+        name: savecorezone
+        description: Solaris Zones Save Zone Core Dump
+        call: solaris-zone-administration-lifecycle.savecorezone
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/shutdown
+      name: zone-zonename-rad-method-shutdown
+      description: REST surface for Zone-zoneName-_rad_method-shutdown.
+      operations:
+      - method: PUT
+        name: shutdownzone
+        description: Solaris Zones Gracefully Shut Down a Zone
+        call: solaris-zone-administration-lifecycle.shutdownzone
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/zone/{zonename}/rad-method/suspend
+      name: zone-zonename-rad-method-suspend
+      description: REST surface for Zone-zoneName-_rad_method-suspend.
+      operations:
+      - method: PUT
+        name: suspendzone
+        description: Solaris Zones Suspend a Zone
+        call: solaris-zone-administration-lifecycle.suspendzone
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: solaris-zone-administration-lifecycle-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Solaris Zones Solaris Zone Administration API — Lifecycle. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: solaris-zones-boot-zone
+      description: Solaris Zones Boot a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.bootzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-halt-zone-immediately
+      description: Solaris Zones Halt a Zone Immediately
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.haltzone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-mark-zone-specified
+      description: Solaris Zones Mark Zone to a Specified State
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.markzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-prepare-zone-running
+      description: Solaris Zones Prepare Zone for Running
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.readyzone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-reboot-zone
+      description: Solaris Zones Reboot a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.rebootzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-save-zone-core
+      description: Solaris Zones Save Zone Core Dump
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.savecorezone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-gracefully-shut-down
+      description: Solaris Zones Gracefully Shut Down a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.shutdownzone
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: solaris-zones-suspend-zone
+      description: Solaris Zones Suspend a Zone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: solaris-zone-administration-lifecycle.suspendzone
+      outputParameters:
+      - type: object
+        mapping: $.
