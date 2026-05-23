@@ -1,0 +1,33 @@
+{
+  "operationId": "livelyMigrateKernelZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/migrate",
+  "summary": "Solaris Zones Live Migrate a Kernel Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "LivelymigratekernelzoneRequestExample",
+      "example": {
+        "host": "example_value",
+        "type": "live",
+        "cipher": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Livelymigratekernelzone200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

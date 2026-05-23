@@ -1,0 +1,27 @@
+{
+  "operationId": "createEphemeralConfig",
+  "method": "PUT",
+  "path": "/ZoneManager/_rad_method/createConfig",
+  "summary": "Solaris Zones Create Ephemeral Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateephemeralconfigRequestExample",
+      "example": {
+        "name": "Example Title",
+        "template": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createephemeralconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

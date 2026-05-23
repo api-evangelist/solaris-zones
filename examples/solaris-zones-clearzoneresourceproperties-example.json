@@ -1,0 +1,47 @@
+{
+  "operationId": "clearZoneResourceProperties",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/clearResourceProperties",
+  "summary": "Solaris Zones Clear Properties on a Zone Resource",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ClearzoneresourcepropertiesRequestExample",
+      "example": {
+        "type": "example_value",
+        "filter": [
+          {
+            "name": "Example Title",
+            "value": "example_value",
+            "type": "simple",
+            "listvalue": [
+              {}
+            ],
+            "complexvalue": [
+              {}
+            ]
+          }
+        ],
+        "properties": [
+          "example_value"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Clearzoneresourceproperties200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

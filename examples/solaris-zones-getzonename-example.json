@@ -1,0 +1,18 @@
+{
+  "operationId": "getZoneName",
+  "method": "GET",
+  "path": "/Zone/{zoneName}/name",
+  "summary": "Solaris Zones Get Zone Name Property",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzonename200Example",
+      "example": {
+        "status": "example_value",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

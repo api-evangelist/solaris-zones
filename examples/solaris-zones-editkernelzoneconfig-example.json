@@ -1,0 +1,31 @@
+{
+  "operationId": "editKernelZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/editConfig",
+  "summary": "Solaris Zones Begin Editing Kernel Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "EditkernelzoneconfigRequestExample",
+      "example": {
+        "liveMode": true
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Editkernelzoneconfig200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

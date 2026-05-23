@@ -1,0 +1,27 @@
+{
+  "operationId": "listAllZones",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.zonemgr/1.6",
+  "summary": "Solaris Zones List All Zones With Status",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listallzones200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "href": "example_value",
+            "type": "example_value",
+            "name": "Example Title",
+            "state": "example_value",
+            "brand": "example_value",
+            "id": "abc123"
+          }
+        ]
+      }
+    }
+  ]
+}

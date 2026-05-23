@@ -1,0 +1,35 @@
+{
+  "operationId": "readSystemStatistics",
+  "method": "PUT",
+  "path": "/Store/_rad_method/readSystemStats",
+  "summary": "Solaris Zones Read System-wide Statistics",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReadsystemstatisticsRequestExample",
+      "example": {
+        "metrics": [
+          "cpu-utilization"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Readsystemstatistics200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "metric": "example_value",
+            "value": 42.5,
+            "unit": "example_value",
+            "timestamp": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

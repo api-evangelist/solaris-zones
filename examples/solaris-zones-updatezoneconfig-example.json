@@ -1,0 +1,31 @@
+{
+  "operationId": "updateZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/update",
+  "summary": "Solaris Zones Process Zonecfg-format Commands",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatezoneconfigRequestExample",
+      "example": {
+        "commands": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatezoneconfig200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

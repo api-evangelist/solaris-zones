@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RadInterface",
+  "title": "RadInterface",
+  "type": "object",
+  "description": "A RAD interface entry describing an available management object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "Relative URI to the interface",
+      "examples": [
+        "Zone/testzone1"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "Interface type name",
+      "examples": [
+        "Zone",
+        "ZoneManager",
+        "ZoneInfo"
+      ]
+    }
+  }
+}

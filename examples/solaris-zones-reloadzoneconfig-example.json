@@ -1,0 +1,23 @@
+{
+  "operationId": "reloadZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/reloadConfig",
+  "summary": "Solaris Zones Reload Zone Configuration From Disk",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Reloadzoneconfig200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

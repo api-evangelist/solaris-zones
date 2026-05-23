@@ -1,0 +1,23 @@
+{
+  "operationId": "listZoneInterfaces",
+  "method": "GET",
+  "path": "/",
+  "summary": "Solaris Zones List All Zone Management Interfaces",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listzoneinterfaces200Example",
+      "example": {
+        "status": "success",
+        "payload": [
+          {
+            "href": "example_value",
+            "type": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

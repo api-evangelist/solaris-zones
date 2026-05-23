@@ -1,0 +1,18 @@
+{
+  "operationId": "getZoneBrand",
+  "method": "GET",
+  "path": "/Zone/{zoneName}/brand",
+  "summary": "Solaris Zones Get Zone Brand",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzonebrand200Example",
+      "example": {
+        "status": "example_value",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

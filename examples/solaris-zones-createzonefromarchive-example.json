@@ -1,0 +1,33 @@
+{
+  "operationId": "createZoneFromArchive",
+  "method": "PUT",
+  "path": "/ZoneManager/_rad_method/create",
+  "summary": "Solaris Zones Create a Zone From a Unified Archive",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatezonefromarchiveRequestExample",
+      "example": {
+        "name": "Example Title",
+        "path": "example_value",
+        "template": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createzonefromarchive200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

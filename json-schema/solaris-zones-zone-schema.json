@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Zone",
+  "title": "Zone",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "brand": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "id": {
+      "type": "integer",
+      "example": "abc123"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "example": "500123"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "configured",
+        "incomplete",
+        "installed",
+        "ready",
+        "running",
+        "shutting_down",
+        "down"
+      ],
+      "example": "configured"
+    },
+    "auxstate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "operationId": "exportZoneConfigForArchive",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/exportConfig",
+  "summary": "Solaris Zones Export Zone Configuration for Archival",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Exportzoneconfigforarchive200Example",
+      "example": {
+        "status": "example_value",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

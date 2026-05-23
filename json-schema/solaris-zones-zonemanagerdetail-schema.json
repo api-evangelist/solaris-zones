@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneManagerDetail",
+  "title": "ZoneManagerDetail",
+  "type": "object",
+  "description": "ZoneManager singleton providing system-wide zone management",
+  "properties": {
+    "evacuationState": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Current evacuation state, null when no evacuation is active",
+      "enum": [
+        "none",
+        "initialized",
+        "evacuating",
+        "completed",
+        null
+      ],
+      "example": "none"
+    }
+  }
+}

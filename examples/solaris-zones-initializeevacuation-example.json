@@ -1,0 +1,27 @@
+{
+  "operationId": "initializeEvacuation",
+  "method": "PUT",
+  "path": "/ZoneManager/_rad_method/initEvacuate",
+  "summary": "Solaris Zones Initialize Zone Evacuation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InitializeevacuationRequestExample",
+      "example": {
+        "host": "example_value",
+        "cipher": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Initializeevacuation200Example",
+      "example": {
+        "status": "success",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

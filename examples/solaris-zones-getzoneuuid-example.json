@@ -1,0 +1,18 @@
+{
+  "operationId": "getZoneUuid",
+  "method": "GET",
+  "path": "/Zone/{zoneName}/uuid",
+  "summary": "Solaris Zones Get Zone Uuid",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneuuid200Example",
+      "example": {
+        "status": "example_value",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

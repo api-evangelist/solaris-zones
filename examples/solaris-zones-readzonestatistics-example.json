@@ -1,0 +1,40 @@
+{
+  "operationId": "readZoneStatistics",
+  "method": "PUT",
+  "path": "/Store/_rad_method/readZoneStats",
+  "summary": "Solaris Zones Read Zone-specific Statistics",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReadzonestatisticsRequestExample",
+      "example": {
+        "zones": [
+          "example_value"
+        ],
+        "metrics": [
+          "cpu"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Readzonestatistics200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "zoneName": "example_value",
+            "zoneId": "500123",
+            "metric": "example_value",
+            "value": 42.5,
+            "unit": "example_value",
+            "timestamp": "2026-01-15T10:30:00Z"
+          }
+        ]
+      }
+    }
+  ]
+}

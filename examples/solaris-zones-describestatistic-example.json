@@ -1,0 +1,33 @@
+{
+  "operationId": "describeStatistic",
+  "method": "PUT",
+  "path": "/Store/_rad_method/describe",
+  "summary": "Solaris Zones Describe a Statistic",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "DescribestatisticRequestExample",
+      "example": {
+        "ssid": "500123"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Describestatistic200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "ssid": "500123",
+          "description": "A sample description.",
+          "type": "counter",
+          "unit": "example_value",
+          "interval": 10,
+          "persistent": true
+        }
+      }
+    }
+  ]
+}

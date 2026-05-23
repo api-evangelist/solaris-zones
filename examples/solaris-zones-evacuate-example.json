@@ -1,0 +1,30 @@
+{
+  "operationId": "evacuate",
+  "method": "PUT",
+  "path": "/ZoneManager/evacuate",
+  "summary": "Solaris Zones Perform Zone Evacuation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "EvacuateRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Evacuate200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "status": "success",
+          "returning": true,
+          "migrationResults": "example_value"
+        }
+      }
+    }
+  ]
+}

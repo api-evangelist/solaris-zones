@@ -1,0 +1,23 @@
+{
+  "operationId": "listSstoreInterfaces",
+  "method": "GET",
+  "path": "/",
+  "summary": "Solaris Zones List Statsstore Interfaces",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listsstoreinterfaces200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "href": "example_value",
+            "type": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "operationId": "evacuateZones",
+  "method": "PUT",
+  "path": "/ZoneManager/_rad_method/evacuate",
+  "summary": "Solaris Zones Evacuate Zones to Remote Host",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Evacuatezones200Example",
+      "example": {
+        "status": "success",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

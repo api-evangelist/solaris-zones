@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StatisticMetadata",
+  "title": "StatisticMetadata",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier",
+      "example": "500123"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description",
+      "example": "A sample description."
+    },
+    "type": {
+      "type": "string",
+      "description": "Data type",
+      "enum": [
+        "counter",
+        "gauge",
+        "histogram",
+        "string"
+      ],
+      "example": "counter"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement (e.g., bytes, percent, count)",
+      "example": "example_value"
+    },
+    "interval": {
+      "type": "integer",
+      "description": "Collection interval in seconds",
+      "example": 10
+    },
+    "persistent": {
+      "type": "boolean",
+      "description": "Whether historical data is retained",
+      "example": true
+    }
+  }
+}

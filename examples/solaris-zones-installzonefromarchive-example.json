@@ -1,0 +1,33 @@
+{
+  "operationId": "installZoneFromArchive",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/install",
+  "summary": "Solaris Zones Install a Zone From a Unified Archive",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InstallzonefromarchiveRequestExample",
+      "example": {
+        "options": [
+          "example_value"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Installzonefromarchive200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

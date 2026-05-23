@@ -1,0 +1,26 @@
+{
+  "operationId": "listZoneInfo",
+  "method": "GET",
+  "path": "/ZoneInfo",
+  "summary": "Solaris Zones List Zone Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listzoneinfo200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "name": "Example Title",
+            "brand": "example_value",
+            "id": "abc123",
+            "uuid": "500123",
+            "isGlobal": true
+          }
+        ]
+      }
+    }
+  ]
+}

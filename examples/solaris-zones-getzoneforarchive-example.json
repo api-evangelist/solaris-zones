@@ -1,0 +1,27 @@
+{
+  "operationId": "getZoneForArchive",
+  "method": "GET",
+  "path": "/Zone/{zoneName}",
+  "summary": "Solaris Zones Get Zone Details for Archive Operations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneforarchive200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "name": "Example Title",
+          "brand": "example_value",
+          "id": "abc123",
+          "uuid": "500123",
+          "state": "configured",
+          "auxstate": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ]
+}

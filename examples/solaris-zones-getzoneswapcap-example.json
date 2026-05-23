@@ -1,0 +1,22 @@
+{
+  "operationId": "getZoneSwapCap",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},swapcap,{zoneId}",
+  "summary": "Solaris Zones Get Zone Swap Cap Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneswapcap200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "swapcap": 10,
+          "usage": 10,
+          "nover": 10
+        }
+      }
+    }
+  ]
+}

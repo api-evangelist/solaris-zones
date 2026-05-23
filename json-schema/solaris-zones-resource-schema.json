@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Resource",
+  "title": "Resource",
+  "type": "object",
+  "description": "A zone configuration resource such as anet, fs, capped-cpu, etc.",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Resource type identifier",
+      "enum": [
+        "admin",
+        "anet",
+        "attr",
+        "capped-cpu",
+        "capped-memory",
+        "dataset",
+        "dedicated-cpu",
+        "device",
+        "fs",
+        "ib-vhca",
+        "keysource",
+        "net",
+        "npiv",
+        "rctl",
+        "rootzpool",
+        "smf-dependency",
+        "verified-boot",
+        "virtual-cpu",
+        "zpool"
+      ],
+      "example": "admin"
+    },
+    "properties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Property"
+      },
+      "description": "List of properties for this resource",
+      "example": []
+    },
+    "parent": {
+      "type": "string",
+      "description": "Parent resource reference for nested resources",
+      "example": "example_value"
+    }
+  }
+}

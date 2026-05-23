@@ -1,0 +1,35 @@
+{
+  "operationId": "readStatistics",
+  "method": "PUT",
+  "path": "/Store/_rad_method/read",
+  "summary": "Solaris Zones Read Current Statistics Values",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReadstatisticsRequestExample",
+      "example": {
+        "ssids": [
+          "example_value"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Readstatistics200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "ssid": "500123",
+            "value": "example_value",
+            "timestamp": "2026-01-15T10:30:00Z",
+            "unit": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

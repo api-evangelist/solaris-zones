@@ -1,0 +1,39 @@
+{
+  "operationId": "readHistoricalStatistics",
+  "method": "PUT",
+  "path": "/Store/_rad_method/readHistory",
+  "summary": "Solaris Zones Read Historical Statistics",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReadhistoricalstatisticsRequestExample",
+      "example": {
+        "ssids": [
+          "example_value"
+        ],
+        "start": "2026-01-15T10:30:00Z",
+        "end": "2026-01-15T10:30:00Z",
+        "step": 10
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Readhistoricalstatistics200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "ssid": "500123",
+            "dataPoints": [
+              {}
+            ],
+            "unit": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

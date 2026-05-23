@@ -1,0 +1,18 @@
+{
+  "operationId": "getZoneState",
+  "method": "GET",
+  "path": "/Zone/{zoneName}/state",
+  "summary": "Solaris Zones Get Current Zone State",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzonestate200Example",
+      "example": {
+        "status": "example_value",
+        "payload": "configured"
+      }
+    }
+  ]
+}

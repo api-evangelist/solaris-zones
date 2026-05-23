@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CpuCapStats",
+  "title": "CpuCapStats",
+  "type": "object",
+  "description": "CPU cap statistics",
+  "properties": {
+    "value": {
+      "type": "integer",
+      "format": "int64",
+      "description": "CPU cap value in microseconds per second",
+      "example": 10
+    },
+    "usage": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Current CPU usage in microseconds per second",
+      "example": 10
+    },
+    "nwait": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Number of times threads waited due to cap",
+      "example": 10
+    },
+    "below": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Time spent below the cap in nanoseconds",
+      "example": 10
+    },
+    "above": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Time spent above the cap in nanoseconds",
+      "example": 10
+    },
+    "maxusage": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Maximum CPU usage observed",
+      "example": 10
+    },
+    "zonename": {
+      "type": "string",
+      "description": "Zone name",
+      "example": "example_value"
+    }
+  }
+}

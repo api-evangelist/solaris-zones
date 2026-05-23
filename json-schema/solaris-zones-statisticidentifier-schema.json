@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StatisticIdentifier",
+  "title": "StatisticIdentifier",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier in hierarchical namespace format (e.g., //:class:zones/zone-name/utilization/cpu)",
+      "example": "500123"
+    },
+    "type": {
+      "type": "string",
+      "description": "Statistic data type",
+      "enum": [
+        "counter",
+        "gauge",
+        "histogram",
+        "string"
+      ],
+      "example": "counter"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description",
+      "example": "A sample description."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "operationId": "getZoneInfo",
+  "method": "GET",
+  "path": "/ZoneInfo",
+  "summary": "Solaris Zones Get Executing Zone Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneinfo200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "name": "Example Title",
+          "id": "abc123",
+          "uuid": "500123",
+          "brand": "example_value",
+          "isGlobal": true
+        }
+      }
+    }
+  ]
+}

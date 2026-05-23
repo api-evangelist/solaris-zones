@@ -1,0 +1,23 @@
+{
+  "operationId": "rebootKernelZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/reboot",
+  "summary": "Solaris Zones Reboot a Kernel Zone",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Rebootkernelzone200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

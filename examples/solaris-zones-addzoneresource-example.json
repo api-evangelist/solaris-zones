@@ -1,0 +1,37 @@
+{
+  "operationId": "addZoneResource",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/addResource",
+  "summary": "Solaris Zones Add a Resource to Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "AddzoneresourceRequestExample",
+      "example": {
+        "payload": {
+          "type": "admin",
+          "properties": [
+            {}
+          ],
+          "parent": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Addzoneresource200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

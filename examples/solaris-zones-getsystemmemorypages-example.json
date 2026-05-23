@@ -1,0 +1,26 @@
+{
+  "operationId": "getSystemMemoryPages",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0",
+  "summary": "Solaris Zones Get System Memory Page Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsystemmemorypages200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "physmem": 10,
+          "freemem": 10,
+          "availrmem": 10,
+          "lotsfree": 10,
+          "desfree": 10,
+          "minfree": 10,
+          "pp_kernel": 10
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "operationId": "deleteZone",
+  "method": "PUT",
+  "path": "/ZoneManager/delete",
+  "summary": "Solaris Zones Delete a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "DeletezoneRequestExample",
+      "example": {
+        "payload": {
+          "name": "Example Title"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Deletezone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

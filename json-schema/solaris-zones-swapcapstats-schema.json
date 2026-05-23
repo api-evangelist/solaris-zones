@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SwapCapStats",
+  "title": "SwapCapStats",
+  "type": "object",
+  "description": "Swap cap statistics",
+  "properties": {
+    "swapcap": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Swap cap in bytes",
+      "example": 10
+    },
+    "usage": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Current swap usage in bytes",
+      "example": 10
+    },
+    "nover": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Number of times swap exceeded the cap",
+      "example": 10
+    }
+  }
+}

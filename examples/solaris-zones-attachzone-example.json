@@ -1,0 +1,35 @@
+{
+  "operationId": "attachZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/attach",
+  "summary": "Solaris Zones Attach a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "AttachzoneRequestExample",
+      "example": {
+        "payload": {
+          "options": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Attachzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

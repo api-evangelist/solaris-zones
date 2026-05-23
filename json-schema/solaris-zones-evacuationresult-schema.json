@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EvacuationResult",
+  "title": "EvacuationResult",
+  "type": "object",
+  "description": "Result of a zone evacuation operation",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Overall evacuation status",
+      "enum": [
+        "success",
+        "fail",
+        "partial_fail"
+      ],
+      "example": "success"
+    },
+    "returning": {
+      "type": "boolean",
+      "description": "Whether zones are being returned from a previous evacuation",
+      "example": true
+    },
+    "migrationResults": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/EvacuationMigrationResult"
+      },
+      "description": "Per-zone migration results keyed by zone name",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "operationId": "bootKernelZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/boot",
+  "summary": "Solaris Zones Boot a Kernel Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "BootkernelzoneRequestExample",
+      "example": {
+        "options": [
+          "example_value"
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Bootkernelzone200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

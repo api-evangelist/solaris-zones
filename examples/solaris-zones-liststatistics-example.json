@@ -1,0 +1,32 @@
+{
+  "operationId": "listStatistics",
+  "method": "PUT",
+  "path": "/Store/_rad_method/list",
+  "summary": "Solaris Zones List Available Statistics",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ListstatisticsRequestExample",
+      "example": {
+        "pattern": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Liststatistics200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "ssid": "500123",
+            "type": "counter",
+            "description": "A sample description."
+          }
+        ]
+      }
+    }
+  ]
+}

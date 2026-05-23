@@ -1,0 +1,27 @@
+{
+  "operationId": "getZone",
+  "method": "GET",
+  "path": "/Zone/{zoneName}",
+  "summary": "Solaris Zones Get Zone Details",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "name": "Example Title",
+          "id": "abc123",
+          "uuid": "500123",
+          "state": "configured",
+          "brand": "solaris",
+          "auxstate": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ]
+}

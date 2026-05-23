@@ -1,0 +1,28 @@
+{
+  "operationId": "getCpuInfo",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}",
+  "summary": "Solaris Zones Get Cpu Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcpuinfo200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "brand": "example_value",
+          "chip_id": "500123",
+          "clock_MHz": 10,
+          "core_id": "500123",
+          "cpu_type": "example_value",
+          "implementation": "example_value",
+          "ncore_per_chip": 10,
+          "state": "example_value",
+          "vendor_id": "500123"
+        }
+      }
+    }
+  ]
+}

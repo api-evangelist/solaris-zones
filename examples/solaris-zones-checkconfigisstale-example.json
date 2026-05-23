@@ -1,0 +1,18 @@
+{
+  "operationId": "checkConfigIsStale",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/configIsStale",
+  "summary": "Solaris Zones Check if Configuration Has Been Externally Modified",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Checkconfigisstale200Example",
+      "example": {
+        "status": "example_value",
+        "payload": true
+      }
+    }
+  ]
+}

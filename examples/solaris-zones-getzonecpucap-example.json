@@ -1,0 +1,26 @@
+{
+  "operationId": "getZoneCpuCap",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{zoneName},cpucaps_zone_{zoneId},{zoneId}",
+  "summary": "Solaris Zones Get Zone Cpu Cap Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzonecpucap200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "value": 10,
+          "usage": 10,
+          "nwait": 10,
+          "below": 10,
+          "above": 10,
+          "maxusage": 10,
+          "zonename": "example_value"
+        }
+      }
+    }
+  ]
+}

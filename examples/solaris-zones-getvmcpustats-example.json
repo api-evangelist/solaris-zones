@@ -1,0 +1,24 @@
+{
+  "operationId": "getVmCpuStats",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,{cpuId}",
+  "summary": "Solaris Zones Get Vm Cpu Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getvmcpustats200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "cpu_nsec_idle": 10,
+          "cpu_nsec_kernel": 10,
+          "cpu_nsec_user": 10,
+          "cpu_nsec_dtrace": 10,
+          "cpu_nsec_intr": 10
+        }
+      }
+    }
+  ]
+}

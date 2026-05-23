@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneResult",
+  "title": "ZoneResult",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "FRAMEWORK_ERROR",
+            "SNAPSHOT_ERROR",
+            "COMMAND_ERROR",
+            "RESOURCE_ALREADY_EXISTS",
+            "RESOURCE_NOT_FOUND",
+            "RESOURCE_TOO_MANY",
+            "RESOURCE_UNKNOWN",
+            "ALREADY_EDITING",
+            "INCOMPLETE_NO_CONFIG",
+            "PROPERTY_UNKNOWN",
+            "NOT_EDITING",
+            "SYSTEM_ERROR",
+            "INVALID_ARGUMENT",
+            "INVALID_ZONE_STATE"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "stderr": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

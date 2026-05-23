@@ -1,0 +1,18 @@
+{
+  "operationId": "getZoneId",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/id",
+  "summary": "Solaris Zones Get Zone Numeric Id",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneid200Example",
+      "example": {
+        "status": "example_value",
+        "payload": 10
+      }
+    }
+  ]
+}

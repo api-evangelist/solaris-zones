@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KstatData",
+  "title": "KstatData",
+  "type": "object",
+  "properties": {
+    "module": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Title"
+    },
+    "statistic": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "instance": {
+      "type": "integer",
+      "example": 10
+    },
+    "snaptime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Snapshot time in nanoseconds",
+      "example": 10
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Key-value pairs of statistic data",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "provider": "Solaris Zones",
+  "providerId": "solaris-zones",
+  "kind": "json-structure",
+  "description": "Structural overview of the Solaris Zones API surface; extracted from openapi/.",
+  "schemaCount": 10,
+  "operationCount": 34,
+  "schemas": [
+    {
+      "name": "RadInterface",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ZoneManagerDetail",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ZoneDetail",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "state",
+        "brand"
+      ]
+    },
+    {
+      "name": "ZoneInfo",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Resource",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "Property",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Result",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ResultResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "EvacuationResult",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "EvacuationMigrationResult",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/",
+      "operationId": "listZoneInterfaces",
+      "summary": "Solaris Zones List All Zone Management Interfaces",
+      "tags": [
+        "Zone Manager"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ZoneManager",
+      "operationId": "getZoneManager",
+      "summary": "Solaris Zones Get the Zonemanager Singleton",
+      "tags": [
+        "Zone Manager"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/create",
+      "operationId": "createZone",
+      "summary": "Solaris Zones Create a New Zone",
+      "tags": [
+        "Zone Manager"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/delete",
+      "operationId": "deleteZone",
+      "summary": "Solaris Zones Delete a Zone",
+      "tags": [
+        "Zone Manager"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/importConfig",
+      "operationId": "importZoneConfig",
+      "summary": "Solaris Zones Import Zone Configuration",
+      "tags": [
+        "Zone Manager"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/initEvacuate",
+      "operationId": "initEvacuate",
+      "summary": "Solaris Zones Initialize Zone Evacuation",
+      "tags": [
+        "Zone Migration"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/evacuate",
+      "operationId": "evacuate",
+      "summary": "Solaris Zones Perform Zone Evacuation",
+      "tags": [
+        "Zone Migration"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/ZoneManager/cancelEvacuate",
+      "operationId": "cancelEvacuate",
+      "summary": "Solaris Zones Cancel Zone Evacuation",
+      "tags": [
+        "Zone Migration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/Zone/{zoneName}",
+      "operationId": "getZone",
+      "summary": "Solaris Zones Get Zone Details",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/boot",
+      "operationId": "bootZone",
+      "summary": "Solaris Zones Boot a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/shutdown",
+      "operationId": "shutdownZone",
+      "summary": "Solaris Zones Shutdown a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/halt",
+      "operationId": "haltZone",
+      "summary": "Solaris Zones Halt a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/reboot",
+      "operationId": "rebootZone",
+      "summary": "Solaris Zones Reboot a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/install",
+      "operationId": "installZone",
+      "summary": "Solaris Zones Install a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/uninstall",
+      "operationId": "uninstallZone",
+      "summary": "Solaris Zones Uninstall a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/clone",
+      "operationId": "cloneZone",
+      "summary": "Solaris Zones Clone a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/attach",
+      "operationId": "attachZone",
+      "summary": "Solaris Zones Attach a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/detach",
+      "operationId": "detachZone",
+      "summary": "Solaris Zones Detach a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/suspend",
+      "operationId": "suspendZone",
+      "summary": "Solaris Zones Suspend a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/ready",
+      "operationId": "readyZone",
+      "summary": "Solaris Zones Ready a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/verify",
+      "operationId": "verifyZone",
+      "summary": "Solaris Zones Verify Zone Configuration",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/editConfig",
+      "operationId": "editZoneConfig",
+      "summary": "Solaris Zones Begin Editing Zone Configuration",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/commitConfig",
+      "operationId": "commitZoneConfig",
+      "summary": "Solaris Zones Commit Zone Configuration Changes",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/cancelConfig",
+      "operationId": "cancelZoneConfig",
+      "summary": "Solaris Zones Cancel Zone Configuration Changes",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/exportConfig",
+      "operationId": "exportZoneConfig",
+      "summary": "Solaris Zones Export Zone Configuration",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/apply",
+      "operationId": "applyZoneConfig",
+      "summary": "Solaris Zones Apply Configuration to Running Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/getResources",
+      "operationId": "getZoneResources",
+      "summary": "Solaris Zones Get Zone Resources",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/addResource",
+      "operationId": "addZoneResource",
+      "summary": "Solaris Zones Add a Resource to Zone Configuration",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/removeResources",
+      "operationId": "removeZoneResources",
+      "summary": "Solaris Zones Remove Resources From Zone Configuration",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/setResourceProperties",
+      "operationId": "setZoneResourceProperties",
+      "summary": "Solaris Zones Set Resource Properties",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/migrate",
+      "operationId": "migrateZone",
+      "summary": "Solaris Zones Migrate a Zone to a Remote Host",
+      "tags": [
+        "Zone Migration"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/rename",
+      "operationId": "renameZone",
+      "summary": "Solaris Zones Rename a Zone",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/Zone/{zoneName}/move",
+      "operationId": "moveZone",
+      "summary": "Solaris Zones Move Zone to New Path",
+      "tags": [
+        "Zones"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ZoneInfo",
+      "operationId": "getZoneInfo",
+      "summary": "Solaris Zones Get Executing Zone Information",
+      "tags": [
+        "Zone Info"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HistoricalStatistic",
+  "title": "HistoricalStatistic",
+  "type": "object",
+  "properties": {
+    "ssid": {
+      "type": "string",
+      "description": "Statistics identifier",
+      "example": "500123"
+    },
+    "dataPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          }
+        }
+      },
+      "description": "Time series data points",
+      "example": []
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneStatistic",
+  "title": "ZoneStatistic",
+  "type": "object",
+  "properties": {
+    "zoneName": {
+      "type": "string",
+      "description": "Zone name",
+      "example": "example_value"
+    },
+    "zoneId": {
+      "type": "integer",
+      "description": "Numeric zone ID",
+      "example": "500123"
+    },
+    "metric": {
+      "type": "string",
+      "description": "Metric name",
+      "example": "example_value"
+    },
+    "value": {
+      "type": "number",
+      "description": "Current metric value",
+      "example": 42.5
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement",
+      "example": "example_value"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the value was recorded",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "operationId": "addKernelZoneResource",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/addResource",
+  "summary": "Solaris Zones Add Resource to Kernel Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "AddkernelzoneresourceRequestExample",
+      "example": {
+        "type": "dedicated-cpu",
+        "properties": [
+          {
+            "name": "Example Title",
+            "value": "example_value",
+            "type": "simple",
+            "listvalue": {},
+            "complexvalue": {}
+          }
+        ],
+        "parent": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Addkernelzoneresource200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

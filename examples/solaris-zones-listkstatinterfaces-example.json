@@ -1,0 +1,26 @@
+{
+  "operationId": "listKstatInterfaces",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0",
+  "summary": "Solaris Zones List Kernel Statistics Interfaces",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listkstatinterfaces200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "href": "example_value",
+            "module": "example_value",
+            "name": "Example Title",
+            "statistic": "example_value",
+            "instance": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KernelZone",
+  "title": "KernelZone",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Kernel zone name",
+      "example": "Example Title"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand (solaris-kz for kernel zones)",
+      "enum": [
+        "solaris-kz"
+      ],
+      "example": "solaris-kz"
+    },
+    "id": {
+      "type": "integer",
+      "description": "Numeric zone ID",
+      "example": "abc123"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Zone UUID",
+      "example": "500123"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "configured",
+        "incomplete",
+        "installed",
+        "ready",
+        "running",
+        "shutting_down",
+        "down"
+      ],
+      "description": "Current zone state",
+      "example": "configured"
+    },
+    "auxstate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Auxiliary zone states",
+      "example": []
+    }
+  }
+}

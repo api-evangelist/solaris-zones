@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MigrationError",
+  "title": "MigrationError",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string",
+      "enum": [
+        "FRAMEWORK",
+        "CONNECT",
+        "INIT_CRYPTO",
+        "CONFIG_CHECK",
+        "CONFIGURE",
+        "ATTACH",
+        "BOOT",
+        "MIGRATE_INITIAL",
+        "MIGRATE",
+        "SUSPEND",
+        "RESTART",
+        "HALT",
+        "DETACH",
+        "UNCONFIGURE",
+        "COMPLETE",
+        "CANCEL"
+      ],
+      "description": "The operation that failed",
+      "example": "FRAMEWORK"
+    },
+    "error": {
+      "type": "string",
+      "description": "System or zone configuration error",
+      "example": "example_value"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message",
+      "example": "example_value"
+    }
+  }
+}

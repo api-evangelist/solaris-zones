@@ -1,0 +1,31 @@
+{
+  "operationId": "cancelZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/cancelConfig",
+  "summary": "Solaris Zones Cancel Zone Configuration Changes",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CancelzoneconfigRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Cancelzoneconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

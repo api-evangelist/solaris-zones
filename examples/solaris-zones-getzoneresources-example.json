@@ -1,0 +1,45 @@
+{
+  "operationId": "getZoneResources",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/getResources",
+  "summary": "Solaris Zones Get Zone Resources",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetzoneresourcesRequestExample",
+      "example": {
+        "payload": {
+          "type": "example_value",
+          "filter": [
+            {
+              "name": "Example Title",
+              "value": "example_value",
+              "type": "simple",
+              "listValue": {},
+              "complexValue": {}
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneresources200Example",
+      "example": {
+        "status": "success",
+        "payload": [
+          {
+            "type": "admin",
+            "properties": [
+              {}
+            ],
+            "parent": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Property",
+  "title": "Property",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Property name. Key kernel zone properties include ncpus, physical, locked, swap, lower-link, allowed-address.",
+      "example": "Example Title"
+    },
+    "value": {
+      "type": "string",
+      "description": "Property value",
+      "example": "example_value"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "simple",
+        "list",
+        "complex"
+      ],
+      "example": "simple"
+    },
+    "listvalue": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "complexvalue": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "operationId": "checkConfigIsLive",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/configIsLive",
+  "summary": "Solaris Zones Check if Live Configuration Mode Is Enabled",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Checkconfigislive200Example",
+      "example": {
+        "status": "example_value",
+        "payload": true
+      }
+    }
+  ]
+}

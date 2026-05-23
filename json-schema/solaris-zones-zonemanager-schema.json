@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneManager",
+  "title": "ZoneManager",
+  "type": "object",
+  "properties": {
+    "evacuationState": {
+      "$ref": "#/components/schemas/EvacuationResult",
+      "description": "Current evacuation state if any"
+    }
+  }
+}

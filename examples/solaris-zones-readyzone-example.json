@@ -1,0 +1,31 @@
+{
+  "operationId": "readyZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/ready",
+  "summary": "Solaris Zones Ready a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReadyzoneRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Readyzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

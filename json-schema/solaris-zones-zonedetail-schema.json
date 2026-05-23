@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneDetail",
+  "title": "ZoneDetail",
+  "type": "object",
+  "description": "Detailed information about a specific Solaris zone",
+  "required": [
+    "name",
+    "state",
+    "brand"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Zone name",
+      "examples": [
+        "testzone1"
+      ]
+    },
+    "id": {
+      "type": "integer",
+      "description": "Zone numeric ID assigned by the kernel when the zone is running",
+      "examples": [
+        2
+      ]
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier for the zone",
+      "example": "500123"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current zone state",
+      "enum": [
+        "configured",
+        "incomplete",
+        "installed",
+        "ready",
+        "running",
+        "shutting_down",
+        "down"
+      ],
+      "example": "configured"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand determining the runtime environment",
+      "enum": [
+        "solaris",
+        "solaris10",
+        "solaris-kz",
+        "labeled"
+      ],
+      "examples": [
+        "solaris"
+      ]
+    },
+    "auxstate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Auxiliary state information for the zone",
+      "example": []
+    }
+  }
+}

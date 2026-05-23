@@ -1,0 +1,31 @@
+{
+  "operationId": "editZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/editConfig",
+  "summary": "Solaris Zones Begin Editing Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "EditzoneconfigRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Editzoneconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

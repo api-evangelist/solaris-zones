@@ -1,0 +1,36 @@
+{
+  "operationId": "migrateZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/migrate",
+  "summary": "Solaris Zones Migrate a Zone to a Remote Host",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "MigratezoneRequestExample",
+      "example": {
+        "payload": {
+          "remoteHost": "example_value",
+          "migrationType": "live",
+          "password": "example_value",
+          "cipher": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Migratezone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

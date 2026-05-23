@@ -1,0 +1,25 @@
+{
+  "operationId": "getKstat",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/{module},{name},{statistic},{instance}",
+  "summary": "Solaris Zones Get a Specific Kernel Statistic",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getkstat200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "module": "example_value",
+          "name": "Example Title",
+          "statistic": "example_value",
+          "instance": 10,
+          "snaptime": 10,
+          "data": "example_value"
+        }
+      }
+    }
+  ]
+}

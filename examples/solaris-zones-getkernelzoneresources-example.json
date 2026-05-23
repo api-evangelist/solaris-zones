@@ -1,0 +1,47 @@
+{
+  "operationId": "getKernelZoneResources",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/getResources",
+  "summary": "Solaris Zones Query Kernel Zone Resources",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetkernelzoneresourcesRequestExample",
+      "example": {
+        "type": "example_value",
+        "filter": [
+          {
+            "name": "Example Title",
+            "value": "example_value",
+            "type": "simple",
+            "listvalue": [
+              {}
+            ],
+            "complexvalue": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getkernelzoneresources200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          {
+            "type": "dedicated-cpu",
+            "properties": [
+              {}
+            ],
+            "parent": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

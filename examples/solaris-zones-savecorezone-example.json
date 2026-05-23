@@ -1,0 +1,23 @@
+{
+  "operationId": "savecoreZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/savecore",
+  "summary": "Solaris Zones Save Zone Core Dump",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Savecorezone200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

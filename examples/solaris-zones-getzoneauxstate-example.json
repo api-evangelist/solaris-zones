@@ -1,0 +1,20 @@
+{
+  "operationId": "getZoneAuxState",
+  "method": "GET",
+  "path": "/Zone/{zoneName}/auxstate",
+  "summary": "Solaris Zones Get Zone Auxiliary States",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzoneauxstate200Example",
+      "example": {
+        "status": "example_value",
+        "payload": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

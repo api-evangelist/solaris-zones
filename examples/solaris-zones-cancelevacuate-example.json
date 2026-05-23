@@ -1,0 +1,31 @@
+{
+  "operationId": "cancelEvacuate",
+  "method": "PUT",
+  "path": "/ZoneManager/cancelEvacuate",
+  "summary": "Solaris Zones Cancel Zone Evacuation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CancelevacuateRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Cancelevacuate200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

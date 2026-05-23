@@ -1,0 +1,35 @@
+{
+  "operationId": "rebootZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/reboot",
+  "summary": "Solaris Zones Reboot a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RebootzoneRequestExample",
+      "example": {
+        "payload": {
+          "options": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Rebootzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

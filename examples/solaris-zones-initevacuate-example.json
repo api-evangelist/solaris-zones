@@ -1,0 +1,34 @@
+{
+  "operationId": "initEvacuate",
+  "method": "PUT",
+  "path": "/ZoneManager/initEvacuate",
+  "summary": "Solaris Zones Initialize Zone Evacuation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InitevacuateRequestExample",
+      "example": {
+        "payload": {
+          "remoteHost": "example_value",
+          "password": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Initevacuate200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

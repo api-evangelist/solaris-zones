@@ -1,0 +1,27 @@
+{
+  "operationId": "getZoneCapStats",
+  "method": "GET",
+  "path": "/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}",
+  "summary": "Solaris Zones Get Zone Resource Cap Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getzonecapstats200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "zonename": "example_value",
+          "zone_id": "500123",
+          "cpu_cap": 42.5,
+          "cpu_usage": 42.5,
+          "memory_cap": 10,
+          "memory_usage": 10,
+          "swap_cap": 10,
+          "swap_usage": 10
+        }
+      }
+    }
+  ]
+}

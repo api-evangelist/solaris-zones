@@ -1,0 +1,31 @@
+{
+  "operationId": "verifyZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/verify",
+  "summary": "Solaris Zones Verify Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "VerifyzoneRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Verifyzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KstatInterface",
+  "title": "KstatInterface",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "URL path to the kstat interface",
+      "example": "example_value"
+    },
+    "module": {
+      "type": "string",
+      "description": "Kstat module name",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "description": "Kstat name",
+      "example": "Example Title"
+    },
+    "statistic": {
+      "type": "string",
+      "description": "Statistic name",
+      "example": "example_value"
+    },
+    "instance": {
+      "type": "string",
+      "description": "Instance identifier",
+      "example": "example_value"
+    }
+  }
+}

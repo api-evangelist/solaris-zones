@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EvacuationMigrationResult",
+  "title": "EvacuationMigrationResult",
+  "type": "object",
+  "description": "Migration result for an individual zone during evacuation",
+  "properties": {
+    "zoneName": {
+      "type": "string",
+      "description": "Name of the evacuated zone",
+      "example": "example_value"
+    },
+    "evacuated": {
+      "type": "boolean",
+      "description": "Whether the zone was successfully evacuated",
+      "example": true
+    },
+    "evacuationTarget": {
+      "type": "string",
+      "description": "Remote host where the zone was migrated",
+      "example": "example_value"
+    },
+    "migrationStatus": {
+      "type": "string",
+      "description": "Status of the individual zone migration",
+      "example": "example_value"
+    },
+    "migrationError": {
+      "type": "object",
+      "description": "Error details if migration failed",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "description": "The migration operation that failed"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error description"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

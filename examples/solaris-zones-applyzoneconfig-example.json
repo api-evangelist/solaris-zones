@@ -1,0 +1,31 @@
+{
+  "operationId": "applyZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/apply",
+  "summary": "Solaris Zones Apply Configuration to Running Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ApplyzoneconfigRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Applyzoneconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

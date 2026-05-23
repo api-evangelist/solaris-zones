@@ -1,0 +1,26 @@
+{
+  "operationId": "exportZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/exportConfig",
+  "summary": "Solaris Zones Export Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ExportzoneconfigRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Exportzoneconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

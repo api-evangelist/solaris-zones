@@ -1,0 +1,31 @@
+{
+  "operationId": "markZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/mark",
+  "summary": "Solaris Zones Mark Zone to a Specified State",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "MarkzoneRequestExample",
+      "example": {
+        "state": "configured"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Markzone200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

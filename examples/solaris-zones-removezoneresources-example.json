@@ -1,0 +1,42 @@
+{
+  "operationId": "removeZoneResources",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/removeResources",
+  "summary": "Solaris Zones Remove Resources From Zone Configuration",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RemovezoneresourcesRequestExample",
+      "example": {
+        "payload": {
+          "type": "example_value",
+          "filter": [
+            {
+              "name": "Example Title",
+              "value": "example_value",
+              "type": "simple",
+              "listValue": {},
+              "complexValue": {}
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Removezoneresources200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

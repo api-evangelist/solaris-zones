@@ -1,0 +1,35 @@
+{
+  "operationId": "installZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/install",
+  "summary": "Solaris Zones Install a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "InstallzoneRequestExample",
+      "example": {
+        "payload": {
+          "options": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Installzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

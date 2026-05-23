@@ -1,0 +1,18 @@
+{
+  "operationId": "cancelEvacuation",
+  "method": "PUT",
+  "path": "/ZoneManager/_rad_method/cancelEvacuate",
+  "summary": "Solaris Zones Cancel Zone Evacuation in Progress",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Cancelevacuation200Example",
+      "example": {
+        "status": "success",
+        "payload": "example_value"
+      }
+    }
+  ]
+}

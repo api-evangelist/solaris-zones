@@ -1,0 +1,23 @@
+{
+  "operationId": "commitKernelZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/_rad_method/commitConfig",
+  "summary": "Solaris Zones Commit Kernel Zone Configuration",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Commitkernelzoneconfig200Example",
+      "example": {
+        "status": "example_value",
+        "payload": {
+          "code": "NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

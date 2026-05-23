@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Result",
+  "title": "Result",
+  "type": "object",
+  "description": "Operation result from a zone management command",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Error code if the operation failed",
+      "enum": [
+        "ZEC_NONE",
+        "ZEC_FRAMEWORK_ERROR",
+        "ZEC_SNAPSHOT_ERROR",
+        "ZEC_COMMAND_ERROR",
+        "ZEC_RESOURCE_ALREADY_EXISTS",
+        "ZEC_RESOURCE_NOT_FOUND",
+        "ZEC_RESOURCE_TOO_MANY",
+        "ZEC_RESOURCE_UNKNOWN",
+        "ZEC_ALREADY_EDITING",
+        "ZEC_INCOMPLETE_NO_CONFIG",
+        "ZEC_PROPERTY_UNKNOWN",
+        "ZEC_NOT_EDITING",
+        "ZEC_SYSTEM_ERROR",
+        "ZEC_INVALID_ARGUMENT",
+        "ZEC_INVALID_ZONE_STATE"
+      ],
+      "example": "ZEC_NONE"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error or status message",
+      "example": "example_value"
+    },
+    "stdout": {
+      "type": "string",
+      "description": "Standard output from the zone administration command",
+      "example": "example_value"
+    },
+    "stderr": {
+      "type": "string",
+      "description": "Standard error output from the zone administration command",
+      "example": "example_value"
+    }
+  }
+}

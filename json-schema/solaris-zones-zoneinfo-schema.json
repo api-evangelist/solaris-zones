@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZoneInfo",
+  "title": "ZoneInfo",
+  "type": "object",
+  "description": "Read-only snapshot of the executing zone information",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the executing zone",
+      "examples": [
+        "global"
+      ]
+    },
+    "id": {
+      "type": "integer",
+      "description": "Numeric zone ID",
+      "examples": [
+        0
+      ]
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Zone UUID",
+      "example": "500123"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Zone brand type",
+      "examples": [
+        "solaris"
+      ]
+    },
+    "isGlobal": {
+      "type": "boolean",
+      "description": "Whether this is the global zone",
+      "examples": [
+        true
+      ]
+    }
+  }
+}

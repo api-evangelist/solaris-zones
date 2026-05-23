@@ -1,0 +1,31 @@
+{
+  "operationId": "haltZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/halt",
+  "summary": "Solaris Zones Halt a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "HaltzoneRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Haltzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

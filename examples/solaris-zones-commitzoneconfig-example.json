@@ -1,0 +1,31 @@
+{
+  "operationId": "commitZoneConfig",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/commitConfig",
+  "summary": "Solaris Zones Commit Zone Configuration Changes",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CommitzoneconfigRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Commitzoneconfig200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

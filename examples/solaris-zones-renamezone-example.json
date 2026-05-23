@@ -1,0 +1,33 @@
+{
+  "operationId": "renameZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/rename",
+  "summary": "Solaris Zones Rename a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RenamezoneRequestExample",
+      "example": {
+        "payload": {
+          "newName": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Renamezone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

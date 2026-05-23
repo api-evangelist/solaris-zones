@@ -1,0 +1,35 @@
+{
+  "operationId": "createZone",
+  "method": "PUT",
+  "path": "/ZoneManager/create",
+  "summary": "Solaris Zones Create a New Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatezoneRequestExample",
+      "example": {
+        "payload": {
+          "name": "Example Title",
+          "path": "example_value",
+          "template": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

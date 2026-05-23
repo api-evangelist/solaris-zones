@@ -1,0 +1,51 @@
+{
+  "operationId": "setZoneResourceProperties",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/setResourceProperties",
+  "summary": "Solaris Zones Set Resource Properties",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "SetzoneresourcepropertiesRequestExample",
+      "example": {
+        "payload": {
+          "type": "example_value",
+          "filter": [
+            {
+              "name": "Example Title",
+              "value": "example_value",
+              "type": "simple",
+              "listValue": {},
+              "complexValue": {}
+            }
+          ],
+          "properties": [
+            {
+              "name": "Example Title",
+              "value": "example_value",
+              "type": "simple",
+              "listValue": {},
+              "complexValue": {}
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Setzoneresourceproperties200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

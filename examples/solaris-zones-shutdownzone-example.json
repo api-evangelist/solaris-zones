@@ -1,0 +1,35 @@
+{
+  "operationId": "shutdownZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/shutdown",
+  "summary": "Solaris Zones Shutdown a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ShutdownzoneRequestExample",
+      "example": {
+        "payload": {
+          "options": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Shutdownzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

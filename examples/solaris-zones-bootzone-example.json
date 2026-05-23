@@ -1,0 +1,35 @@
+{
+  "operationId": "bootZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/boot",
+  "summary": "Solaris Zones Boot a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "BootzoneRequestExample",
+      "example": {
+        "payload": {
+          "options": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Bootzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}

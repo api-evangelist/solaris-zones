@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResultResponse",
+  "title": "ResultResponse",
+  "type": "object",
+  "description": "Standard RAD response wrapper for operation results",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error"
+      ],
+      "example": "success"
+    },
+    "payload": {
+      "$ref": "#/components/schemas/Result"
+    }
+  }
+}

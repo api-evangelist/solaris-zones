@@ -1,0 +1,31 @@
+{
+  "operationId": "suspendZone",
+  "method": "PUT",
+  "path": "/Zone/{zoneName}/suspend",
+  "summary": "Solaris Zones Suspend a Zone",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "SuspendzoneRequestExample",
+      "example": {
+        "payload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Suspendzone200Example",
+      "example": {
+        "status": "success",
+        "payload": {
+          "code": "ZEC_NONE",
+          "message": "example_value",
+          "stdout": "example_value",
+          "stderr": "example_value"
+        }
+      }
+    }
+  ]
+}
