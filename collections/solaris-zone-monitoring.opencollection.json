@@ -1,0 +1,261 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Solaris Zone Monitoring API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zone State",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Current State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the current lifecycle state of a zone (configured, installed, ready, running, shutting_down, down)."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Numeric Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the numeric ID assigned to a zone. Only available when the zone is in running or ready state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Auxiliary States",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/auxstate",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve auxiliary state flags for a zone. These provide additional status information beyond the primary lifecycle state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones List All Zones With Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all zones on the system with their current state and properties. Use _rad_detail for full zone information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kernel Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones List Kernel Statistics Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all available kernel statistics interfaces. These provide access to CPU, memory, network, and I/O statistics per zone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get a Specific Kernel Statistic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/:module,:name,:statistic,:instance",
+            "params": [
+              {
+                "name": "module",
+                "value": "example_value",
+                "type": "path",
+                "description": "Kstat module name (e.g., misc, cpu, zones)"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "path",
+                "description": "Kstat name (e.g., cpu_info0, vm)"
+              },
+              {
+                "name": "statistic",
+                "value": "example_value",
+                "type": "path",
+                "description": "Statistic name (e.g., cpu_info, cpu)"
+              },
+              {
+                "name": "instance",
+                "value": "example_value",
+                "type": "path",
+                "description": "Instance identifier (e.g., CPU number, zone ID)"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific kernel statistic by module, name, statistic, and instance identifier. The four-tuple uniquely identifies a kernel statistics entry."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Cpu Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed CPU information for a specific CPU. Useful for monitoring CPU allocation and usage across zones."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Vm Cpu Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve virtual machine CPU statistics for a specific CPU. Provides CPU utilization data relevant to zone performance monitoring."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Zone Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Resource Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,:zoneName,zone_caps,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path",
+                "description": "Name of the zone"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path",
+                "description": "Numeric zone ID"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve resource cap statistics for a specific zone including capped CPU and memory utilization data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

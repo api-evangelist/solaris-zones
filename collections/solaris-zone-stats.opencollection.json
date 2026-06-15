@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Monitoring Statistics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones List All Kernel Statistics Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Discover all available kernel statistics interfaces. Provides access to CPU, memory, network, and zone-specific resource utilization data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Zone Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Resource Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,:zoneName,zone_caps,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path",
+                "description": "Zone name"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path",
+                "description": "Numeric zone ID"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve resource cap statistics for a specific zone including CPU cap, memory cap, and swap cap utilization. Shows the configured limits and current usage."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Miscellaneous Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,:zoneName,zone_misc,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve miscellaneous statistics for a specific zone including process counts, lightweight process counts, and other zone-level metrics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Memory Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Physical Memory Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,:zoneId,physcap,:zoneId",
+            "params": [
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path",
+                "description": "Numeric zone ID"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve physical memory capping statistics for a zone including the configured cap, current RSS, number of page-outs due to capping, and time spent in page-out."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Swap Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,:zoneId,swapcap,:zoneId",
+            "params": [
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve swap space capping statistics for a zone including the configured swap cap and current swap usage."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get System Memory Page Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve system-wide memory page statistics including total physical pages, free pages, and page sizes. Provides context for zone memory allocation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CPU Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Cpu Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,:zoneName,cpucaps_zone_:zoneId,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve CPU capping statistics for a specific zone including the configured CPU cap value, current usage, and time spent being capped."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Cpu Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU identifier number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific CPU including model, clock speed, vendor, and state. Useful for understanding the physical resources available to zones."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

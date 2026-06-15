@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris StatsStore and Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statistics Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones List Statsstore Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Discover all available StatsStore interfaces and the hierarchical namespace of statistics identifiers (SSIDs)."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones List Available Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List statistics identifiers (SSIDs) matching the given pattern. SSIDs follow a hierarchical namespace format like //:class:module/statistic-name. Supports glob-style wildcards."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Describe a Statistic",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/describe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get metadata about a statistic including its description, data type, unit, and collection interval."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Statistics Retrieval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Read Current Statistics Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read the current values of one or more statistics identified by their SSIDs. Returns the most recent recorded values."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Read Historical Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/readHistory",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read historical statistics data within a specified time range. The StatsStore maintains historical data at configurable retention intervals."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Zone Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Read Zone-specific Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/readZoneStats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read resource utilization statistics for one or more zones. Provides a convenient way to query zone-specific data without constructing full SSID paths."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Read System-wide Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0/Store/_rad_method/readSystemStats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read system-wide performance statistics including total CPU, memory, I/O, and network utilization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

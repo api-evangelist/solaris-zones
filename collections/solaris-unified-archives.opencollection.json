@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Unified Archives Zones API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Archive Deployment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Create a Zone From a Unified Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create and configure a new zone that will be installed from a Unified Archive. The zone is created in the configured state and can then be installed using the archive as the installation source."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Install a Zone From a Unified Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/install",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install a configured zone using a Unified Archive as the source. The archive path is provided as an install option using -a flag. Supports both recovery archives (full system state) and clone archives (template-based deployment)."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Clone a Zone Using a Unified Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/clone",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clone a zone using a Unified Archive as the source. This creates a new zone installation based on the archived zone image, allowing rapid deployment of standardized zone configurations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Zone Recovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Attach a Zone From a Unified Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/attach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a zone using a Unified Archive. Used for restoring a zone from an archive on a new or rebuilt system. The archive provides the zone root content that is attached to the zone configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Archive Creation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Export Zone Configuration for Archival",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/exportConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ]
+          },
+          "docs": "Export the zone configuration as a string suitable for inclusion in a Unified Archive or for recreating the zone on another system."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Detach Zone for Archival",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/detach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ]
+          },
+          "docs": "Detach a zone in preparation for archiving or moving. The zone transitions to the configured state with its data preserved."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Archive Information",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Resources for Archive Validation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/getResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve all configured resources for a zone to validate compatibility before creating an archive or deploying from an archive."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Details for Archive Operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve zone details to verify state before creating archives or deploying from archives. Includes zone brand, state, and UUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

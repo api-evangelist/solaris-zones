@@ -1,0 +1,332 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Solaris Zone Configuration API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Begin Editing Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/editConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a configuration editing transaction for the specified zone. All subsequent resource and property changes are staged until commitConfig is called. Set liveMode to true to apply changes to a running zone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Commit Zone Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/commitConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Commit all staged configuration changes made since editConfig was called. If the configuration was modified externally since the editing session began, a SNAPSHOT_ERROR is returned."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Cancel Zone Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/cancelConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Discard all staged configuration changes and end the editing session. The zone configuration reverts to its state before editConfig was called."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Reload Zone Configuration From Disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/reloadConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Reload the zone configuration from persistent storage, discarding any in-memory cached version. Useful when external changes have been made."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Check if Live Configuration Mode Is Enabled",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/configIsLive",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Check whether the current editing session has live reconfiguration mode enabled."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Check if Configuration Has Been Externally Modified",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/configIsStale",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Check whether the zone configuration has been modified externally since the current editing session began."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Process Zonecfg-format Commands",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/update",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process configuration commands in zonecfg(1M) format. Allows batch configuration updates using the familiar command syntax."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Apply Configuration to a Running Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/apply",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ]
+          },
+          "docs": "Apply the current zone configuration to a running zone without requiring a reboot. Only effective when changes are compatible with live reconfiguration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Query Zone Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/getResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve resources configured for the zone, optionally filtered by resource type and property values. Returns an array of Resource objects with their properties."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Add a Resource to Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/addResource",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new resource to the zone configuration. Must be called within an editing session (after editConfig). The resource is staged until commitConfig is called."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Remove Resources From Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/removeResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove resources matching the specified filter from the zone configuration. Must be called within an editing session."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Properties of a Zone Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/getResourceProperties",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve specific properties from a zone resource identified by type and filter criteria."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Set Properties on a Zone Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/setResourceProperties",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set property values on a zone resource identified by type and filter criteria. Must be called within an editing session."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Clear Properties on a Zone Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/clearResourceProperties",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone to configure"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clear (reset to default) property values on a zone resource. Must be called within an editing session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
