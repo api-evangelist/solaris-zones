@@ -3,16 +3,10 @@
   "feeds": [
     {
       "source": "https://blogs.oracle.com/solaris/",
-      "error": "HTTPError"
-    },
-    {
-      "source": "https://www.oracle.com/support/",
-      "feed_url": "https://www.oracle.com/support/",
-      "title": "",
       "saved": 0,
-      "method": "none"
+      "error": "HTTP 403 Forbidden"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:11:49Z",
+  "post_count": 0
 }
