@@ -1,0 +1,34 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/solaris-kernel-zones-openapi.yml, openapi/solaris-rad-zonemgr-openapi.yml, openapi/solaris-statsstore-openapi.yml,
+  openapi/solaris-unified-archives-openapi.yml, openapi/solaris-zone-administration-openapi.yml,
+  openapi/solaris-zone-configuration-openapi.yml, openapi/solaris-zone-monitoring-openapi.yml,
+  openapi/solaris-zone-stats-openapi.yml, openapi/solaris-zones-management-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - cookie
+schemes:
+- name: cookieAuth
+  type: apiKey
+  in: cookie
+  parameter: _rad_session
+  description: RAD session cookie obtained via authentication
+  sources:
+  - openapi/solaris-kernel-zones-openapi.yml
+  - openapi/solaris-statsstore-openapi.yml
+  - openapi/solaris-unified-archives-openapi.yml
+  - openapi/solaris-zone-administration-openapi.yml
+  - openapi/solaris-zone-configuration-openapi.yml
+  - openapi/solaris-zone-monitoring-openapi.yml
+  - openapi/solaris-zone-stats-openapi.yml
+  - openapi/solaris-zones-management-openapi.yml
+- name: cookieAuth
+  type: apiKey
+  in: cookie
+  parameter: _rad_cookie
+  description: RAD session cookie obtained through authentication. Use the RAD authentication
+    endpoint to establish a session and obtain the cookie.
+  sources:
+  - openapi/solaris-rad-zonemgr-openapi.yml
