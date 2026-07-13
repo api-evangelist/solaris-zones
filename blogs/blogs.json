@@ -2,11 +2,13 @@
   "repo": "solaris-zones",
   "feeds": [
     {
-      "source": "https://blogs.oracle.com/solaris/",
+      "source": "https://www.oracle.com/support/",
+      "feed_url": "https://www.oracle.com/support/",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 403 Forbidden"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T13:11:49Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0
 }
