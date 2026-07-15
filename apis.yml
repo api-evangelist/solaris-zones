@@ -212,6 +212,8 @@ apis:
         email: solaris-support@oracle.com
         url: https://www.oracle.com/solaris/support/
 common:
+  - type: AgenticAccess
+    url: agentic-access/solaris-zones-agentic-access.yml
   - type: DomainSecurity
     url: security/solaris-zones-domain-security.yml
   - type: Authentication
