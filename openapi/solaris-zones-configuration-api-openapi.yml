@@ -1,0 +1,458 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Configuration API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Configuration
+  description: Zone configuration editing and commit operations
+paths:
+  /Zone/{zoneName}/_rad_method/editConfig:
+    put:
+      operationId: editZoneConfig
+      summary: Solaris Zones Begin Editing Zone Configuration
+      description: Start a configuration editing transaction for the specified zone. All subsequent resource and property changes are staged until commitConfig is called. Set liveMode to true to apply changes to a running zone.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                liveMode:
+                  type: boolean
+                  default: false
+                  description: Enable live reconfiguration mode to apply changes to a running zone without requiring reboot
+            examples:
+              EditzoneconfigRequestExample:
+                summary: Default editZoneConfig request
+                x-microcks-default: true
+                value:
+                  liveMode: true
+      responses:
+        '200':
+          description: Configuration editing session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Editzoneconfig200Example:
+                  summary: Default editZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Already in editing mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Editzoneconfig409Example:
+                  summary: Default editZoneConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/commitConfig:
+    put:
+      operationId: commitZoneConfig
+      summary: Solaris Zones Commit Zone Configuration Changes
+      description: Commit all staged configuration changes made since editConfig was called. If the configuration was modified externally since the editing session began, a SNAPSHOT_ERROR is returned.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration committed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Commitzoneconfig200Example:
+                  summary: Default commitZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Configuration was externally modified (snapshot error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Commitzoneconfig409Example:
+                  summary: Default commitZoneConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/cancelConfig:
+    put:
+      operationId: cancelZoneConfig
+      summary: Solaris Zones Cancel Zone Configuration Changes
+      description: Discard all staged configuration changes and end the editing session. The zone configuration reverts to its state before editConfig was called.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration changes cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Cancelzoneconfig200Example:
+                  summary: Default cancelZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/reloadConfig:
+    put:
+      operationId: reloadZoneConfig
+      summary: Solaris Zones Reload Zone Configuration From Disk
+      description: Reload the zone configuration from persistent storage, discarding any in-memory cached version. Useful when external changes have been made.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration reloaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Reloadzoneconfig200Example:
+                  summary: Default reloadZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/configIsLive:
+    put:
+      operationId: checkConfigIsLive
+      summary: Solaris Zones Check if Live Configuration Mode Is Enabled
+      description: Check whether the current editing session has live reconfiguration mode enabled.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Live mode status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+              examples:
+                Checkconfigislive200Example:
+                  summary: Default checkConfigIsLive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/configIsStale:
+    put:
+      operationId: checkConfigIsStale
+      summary: Solaris Zones Check if Configuration Has Been Externally Modified
+      description: Check whether the zone configuration has been modified externally since the current editing session began.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Stale status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+              examples:
+                Checkconfigisstale200Example:
+                  summary: Default checkConfigIsStale 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/update:
+    put:
+      operationId: updateZoneConfig
+      summary: Solaris Zones Process Zonecfg-format Commands
+      description: Process configuration commands in zonecfg(1M) format. Allows batch configuration updates using the familiar command syntax.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - commands
+              properties:
+                commands:
+                  type: string
+                  description: Zone configuration commands in zonecfg(1M) format, separated by semicolons
+            examples:
+              UpdatezoneconfigRequestExample:
+                summary: Default updateZoneConfig request
+                x-microcks-default: true
+                value:
+                  commands: example_value
+      responses:
+        '200':
+          description: Commands processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Updatezoneconfig200Example:
+                  summary: Default updateZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/apply:
+    put:
+      operationId: applyZoneConfig
+      summary: Solaris Zones Apply Configuration to a Running Zone
+      description: Apply the current zone configuration to a running zone without requiring a reboot. Only effective when changes are compatible with live reconfiguration.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration applied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Applyzoneconfig200Example:
+                  summary: Default applyZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

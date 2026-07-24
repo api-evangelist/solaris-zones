@@ -1,0 +1,219 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation State Query API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: State Query
+  description: Zone state and property queries
+paths:
+  /Zone/{zoneName}/_rad_method/verify:
+    put:
+      operationId: verifyZone
+      summary: Solaris Zones Verify Zone Configuration
+      description: Verify that the zone configuration is complete and correct. Checks resource dependencies and property validity. Equivalent to zoneadm verify.
+      tags:
+      - State Query
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Verifyzone200Example:
+                  summary: Default verifyZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/state:
+    get:
+      operationId: getZoneState
+      summary: Solaris Zones Get Current Zone State
+      description: Retrieve the current lifecycle state of the zone.
+      tags:
+      - State Query
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    enum:
+                    - configured
+                    - incomplete
+                    - installed
+                    - ready
+                    - running
+                    - shutting_down
+                    - down
+              examples:
+                Getzonestate200Example:
+                  summary: Default getZoneState 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: configured
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/auxstate:
+    get:
+      operationId: getZoneAuxState
+      summary: Solaris Zones Get Zone Auxiliary States
+      description: Retrieve auxiliary state information for the zone.
+      tags:
+      - State Query
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone auxiliary states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                Getzoneauxstate200Example:
+                  summary: Default getZoneAuxState 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - example_value
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

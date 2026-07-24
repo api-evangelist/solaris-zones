@@ -1,0 +1,241 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Statistics Retrieval API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Statistics Retrieval
+  description: Retrieve current and historical statistics data
+paths:
+  /Store/_rad_method/read:
+    put:
+      operationId: readStatistics
+      summary: Solaris Zones Read Current Statistics Values
+      description: Read the current values of one or more statistics identified by their SSIDs. Returns the most recent recorded values.
+      tags:
+      - Statistics Retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ssids
+              properties:
+                ssids:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of SSID strings to read. Supports wildcards.
+                  example:
+                  - //:class:zones/utilization/cpu
+                  - //:class:zones/utilization/memory-rss
+            examples:
+              ReadstatisticsRequestExample:
+                summary: Default readStatistics request
+                x-microcks-default: true
+                value:
+                  ssids:
+                  - example_value
+      responses:
+        '200':
+          description: Statistics values
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StatisticValue'
+              examples:
+                Readstatistics200Example:
+                  summary: Default readStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - ssid: '500123'
+                      value: example_value
+                      timestamp: '2026-01-15T10:30:00Z'
+                      unit: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Store/_rad_method/readHistory:
+    put:
+      operationId: readHistoricalStatistics
+      summary: Solaris Zones Read Historical Statistics
+      description: Read historical statistics data within a specified time range. The StatsStore maintains historical data at configurable retention intervals.
+      tags:
+      - Statistics Retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ssids
+              properties:
+                ssids:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of SSID strings to retrieve history for
+                start:
+                  type: string
+                  format: date-time
+                  description: Start of the time range (ISO 8601)
+                end:
+                  type: string
+                  format: date-time
+                  description: End of the time range (ISO 8601)
+                step:
+                  type: integer
+                  description: Interval step in seconds between data points
+            examples:
+              ReadhistoricalstatisticsRequestExample:
+                summary: Default readHistoricalStatistics request
+                x-microcks-default: true
+                value:
+                  ssids:
+                  - example_value
+                  start: '2026-01-15T10:30:00Z'
+                  end: '2026-01-15T10:30:00Z'
+                  step: 10
+      responses:
+        '200':
+          description: Historical statistics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HistoricalStatistic'
+              examples:
+                Readhistoricalstatistics200Example:
+                  summary: Default readHistoricalStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - ssid: '500123'
+                      dataPoints:
+                      - {}
+                      unit: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    HistoricalStatistic:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier
+          example: '500123'
+        dataPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              value:
+                oneOf:
+                - type: number
+                - type: integer
+          description: Time series data points
+          example: []
+        unit:
+          type: string
+          description: Unit of measurement
+          example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    StatisticValue:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier
+          example: '500123'
+        value:
+          description: Current value (type depends on the statistic)
+          oneOf:
+          - type: number
+          - type: string
+          - type: integer
+          example: example_value
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+          example: '2026-01-15T10:30:00Z'
+        unit:
+          type: string
+          description: Unit of measurement
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

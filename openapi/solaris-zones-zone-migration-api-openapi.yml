@@ -1,0 +1,419 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Migration API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Zone Migration
+  description: Live and cold zone migration operations between Solaris hosts
+paths:
+  /ZoneManager/initEvacuate:
+    put:
+      operationId: initEvacuate
+      summary: Solaris Zones Initialize Zone Evacuation
+      description: Initialize an evacuation session to migrate all eligible zones from this host to a remote system. Added in version 1.4 of the zonemgr module.
+      tags:
+      - Zone Migration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - remoteHost
+                  properties:
+                    remoteHost:
+                      type: string
+                      description: Target host for zone evacuation
+                    password:
+                      type: string
+                      description: Authentication credential for the remote host
+            examples:
+              InitevacuateRequestExample:
+                summary: Default initEvacuate request
+                x-microcks-default: true
+                value:
+                  payload:
+                    remoteHost: example_value
+                    password: example_value
+      responses:
+        '200':
+          description: Evacuation initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Initevacuate200Example:
+                  summary: Default initEvacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/evacuate:
+    put:
+      operationId: evacuate
+      summary: Solaris Zones Perform Zone Evacuation
+      description: Execute the evacuation of all eligible zones to the previously configured remote host. Must be preceded by initEvacuate.
+      tags:
+      - Zone Migration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              EvacuateRequestExample:
+                summary: Default evacuate request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Evacuation completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/EvacuationResult'
+              examples:
+                Evacuate200Example:
+                  summary: Default evacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      status: success
+                      returning: true
+                      migrationResults: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/cancelEvacuate:
+    put:
+      operationId: cancelEvacuate
+      summary: Solaris Zones Cancel Zone Evacuation
+      description: Cancel an in-progress evacuation operation. Zones that have already been migrated will remain on the remote host.
+      tags:
+      - Zone Migration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              CancelevacuateRequestExample:
+                summary: Default cancelEvacuate request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Evacuation cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Cancelevacuate200Example:
+                  summary: Default cancelEvacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/migrate:
+    put:
+      operationId: migrateZone
+      summary: Solaris Zones Migrate a Zone to a Remote Host
+      description: Migrate the specified zone to a remote Solaris host. Supports both live migration (zone continues running during transfer) and cold migration (zone is halted first). Added in version 1.1.
+      tags:
+      - Zone Migration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - remoteHost
+                  - migrationType
+                  properties:
+                    remoteHost:
+                      type: string
+                      description: Target host URI for migration
+                    migrationType:
+                      type: string
+                      enum:
+                      - live
+                      - cold
+                      description: Type of migration to perform
+                    password:
+                      type: string
+                      description: Authentication credential for the remote host
+                    cipher:
+                      type: string
+                      description: Encryption cipher for migration data transfer
+            examples:
+              MigratezoneRequestExample:
+                summary: Default migrateZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    remoteHost: example_value
+                    migrationType: live
+                    password: example_value
+                    cipher: example_value
+      responses:
+        '200':
+          description: Migration completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Migratezone200Example:
+                  summary: Default migrateZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+  schemas:
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
+    EvacuationMigrationResult:
+      type: object
+      description: Migration result for an individual zone during evacuation
+      properties:
+        zoneName:
+          type: string
+          description: Name of the evacuated zone
+          example: example_value
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+          example: true
+        evacuationTarget:
+          type: string
+          description: Remote host where the zone was migrated
+          example: example_value
+        migrationStatus:
+          type: string
+          description: Status of the individual zone migration
+          example: example_value
+        migrationError:
+          type: object
+          description: Error details if migration failed
+          properties:
+            operation:
+              type: string
+              description: The migration operation that failed
+            message:
+              type: string
+              description: Error description
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+    EvacuationResult:
+      type: object
+      description: Result of a zone evacuation operation
+      properties:
+        status:
+          type: string
+          description: Overall evacuation status
+          enum:
+          - success
+          - fail
+          - partial_fail
+          example: success
+        returning:
+          type: boolean
+          description: Whether zones are being returned from a previous evacuation
+          example: true
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+          example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the Solaris zone
+      schema:
+        type: string
+        examples:
+        - testzone1
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

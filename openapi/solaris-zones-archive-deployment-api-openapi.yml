@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Archive Deployment API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Archive Deployment
+  description: Deploy zones from Unified Archives
+paths:
+  /ZoneManager/_rad_method/create:
+    put:
+      operationId: createZoneFromArchive
+      summary: Solaris Zones Create a Zone From a Unified Archive
+      description: Create and configure a new zone that will be installed from a Unified Archive. The zone is created in the configured state and can then be installed using the archive as the installation source.
+      tags:
+      - Archive Deployment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: Name for the new zone
+                path:
+                  type: string
+                  description: Zone root path
+                template:
+                  type: string
+                  description: Zone brand template
+                  default: SYSdefault
+            examples:
+              CreatezonefromarchiveRequestExample:
+                summary: Default createZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  path: example_value
+                  template: example_value
+      responses:
+        '200':
+          description: Zone created ready for archive-based installation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Createzonefromarchive200Example:
+                  summary: Default createZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installZoneFromArchive
+      summary: Solaris Zones Install a Zone From a Unified Archive
+      description: Install a configured zone using a Unified Archive as the source. The archive path is provided as an install option using -a flag. Supports both recovery archives (full system state) and clone archives (template-based deployment).
+      tags:
+      - Archive Deployment
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - options
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Install options. Use -a to specify the archive path and -c for a system configuration profile.
+                  example:
+                  - -a
+                  - /archives/zone-backup.uar
+                  - -c
+                  - /profiles/zone-sc.xml
+            examples:
+              InstallzonefromarchiveRequestExample:
+                summary: Default installZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  options:
+                  - example_value
+      responses:
+        '200':
+          description: Zone installation from archive initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Installzonefromarchive200Example:
+                  summary: Default installZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/clone:
+    put:
+      operationId: cloneZoneFromArchive
+      summary: Solaris Zones Clone a Zone Using a Unified Archive
+      description: Clone a zone using a Unified Archive as the source. This creates a new zone installation based on the archived zone image, allowing rapid deployment of standardized zone configurations.
+      tags:
+      - Archive Deployment
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - source
+              properties:
+                source:
+                  type: string
+                  description: Source zone name within the archive to clone from
+                archivePath:
+                  type: string
+                  description: Path to the Unified Archive file
+                snapshot:
+                  type: string
+                  description: ZFS snapshot within the archive to use
+            examples:
+              ClonezonefromarchiveRequestExample:
+                summary: Default cloneZoneFromArchive request
+                x-microcks-default: true
+                value:
+                  source: example_value
+                  archivePath: example_value
+                  snapshot: example_value
+      responses:
+        '200':
+          description: Zone cloned from archive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Clonezonefromarchive200Example:
+                  summary: Default cloneZoneFromArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

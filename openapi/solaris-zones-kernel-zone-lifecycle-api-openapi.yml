@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Lifecycle API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Kernel Zone Lifecycle
+  description: Kernel zone boot, halt, suspend, and resume operations
+paths:
+  /Zone/{zoneName}/_rad_method/install:
+    put:
+      operationId: installKernelZone
+      summary: Solaris Zones Install a Kernel Zone
+      description: Install a configured kernel zone. This provisions the zone with its own Solaris kernel, creating an independent operating environment with hardware-assisted virtualization support.
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional install arguments
+            examples:
+              InstallkernelzoneRequestExample:
+                summary: Default installKernelZone request
+                x-microcks-default: true
+                value:
+                  options:
+                  - example_value
+      responses:
+        '200':
+          description: Kernel zone installation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Installkernelzone200Example:
+                  summary: Default installKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/boot:
+    put:
+      operationId: bootKernelZone
+      summary: Solaris Zones Boot a Kernel Zone
+      description: Boot a kernel zone. Unlike native zones, kernel zones boot their own kernel providing full OS isolation.
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: array
+                  items:
+                    type: string
+                  description: Optional boot arguments
+            examples:
+              BootkernelzoneRequestExample:
+                summary: Default bootKernelZone request
+                x-microcks-default: true
+                value:
+                  options:
+                  - example_value
+      responses:
+        '200':
+          description: Kernel zone boot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Bootkernelzone200Example:
+                  summary: Default bootKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/halt:
+    put:
+      operationId: haltKernelZone
+      summary: Solaris Zones Halt a Kernel Zone
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone halted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Haltkernelzone200Example:
+                  summary: Default haltKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/shutdown:
+    put:
+      operationId: shutdownKernelZone
+      summary: Solaris Zones Gracefully Shut Down a Kernel Zone
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone shutdown initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Shutdownkernelzone200Example:
+                  summary: Default shutdownKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/reboot:
+    put:
+      operationId: rebootKernelZone
+      summary: Solaris Zones Reboot a Kernel Zone
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone reboot initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Rebootkernelzone200Example:
+                  summary: Default rebootKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/suspend:
+    put:
+      operationId: suspendKernelZone
+      summary: Solaris Zones Suspend a Kernel Zone
+      description: Suspend a running kernel zone, saving its complete state including the kernel zone's own kernel state for later resumption.
+      tags:
+      - Kernel Zone Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Kernel zone suspended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Suspendkernelzone200Example:
+                  summary: Default suspendKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

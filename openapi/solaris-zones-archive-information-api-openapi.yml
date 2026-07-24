@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Archive Information API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Archive Information
+  description: Query archive contents and metadata
+paths:
+  /Zone/{zoneName}/_rad_method/getResources:
+    put:
+      operationId: getArchiveZoneResources
+      summary: Solaris Zones Get Zone Resources for Archive Validation
+      description: Retrieve all configured resources for a zone to validate compatibility before creating an archive or deploying from an archive.
+      tags:
+      - Archive Information
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Optional resource type filter
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+            examples:
+              GetarchivezoneresourcesRequestExample:
+                summary: Default getArchiveZoneResources request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+      responses:
+        '200':
+          description: Zone resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resource'
+              examples:
+                Getarchivezoneresources200Example:
+                  summary: Default getArchiveZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - type: example_value
+                      properties:
+                      - {}
+                      parent: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}:
+    get:
+      operationId: getZoneForArchive
+      summary: Solaris Zones Get Zone Details for Archive Operations
+      description: Retrieve zone details to verify state before creating archives or deploying from archives. Includes zone brand, state, and UUID.
+      tags:
+      - Archive Information
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/Zone'
+              examples:
+                Getzoneforarchive200Example:
+                  summary: Default getZoneForArchive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      name: Example Title
+                      brand: example_value
+                      id: abc123
+                      uuid: '500123'
+                      state: configured
+                      auxstate:
+                      - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Zone:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Title
+        brand:
+          type: string
+          example: example_value
+        id:
+          type: integer
+          example: abc123
+        uuid:
+          type: string
+          format: uuid
+          example: '500123'
+        state:
+          type: string
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          example: configured
+        auxstate:
+          type: array
+          items:
+            type: string
+          example: []
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: example_value
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          example: []
+        parent:
+          type: string
+          example: example_value
+    Property:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Example Title
+        value:
+          type: string
+          example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          example: []
+  responses:
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

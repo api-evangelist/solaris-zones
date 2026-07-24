@@ -1,0 +1,254 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation CPU Statistics API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: CPU Statistics
+  description: CPU utilization and allocation statistics
+paths:
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{zoneName},cpucaps_zone_{zoneId},{zoneId}:
+    get:
+      operationId: getZoneCpuCap
+      summary: Solaris Zones Get Zone Cpu Cap Statistics
+      description: Retrieve CPU capping statistics for a specific zone including the configured CPU cap value, current usage, and time spent being capped.
+      tags:
+      - CPU Statistics
+      parameters:
+      - name: zoneName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuCapStats'
+              examples:
+                Getzonecpucap200Example:
+                  summary: Default getZoneCpuCap 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      value: 10
+                      usage: 10
+                      nwait: 10
+                      below: 10
+                      above: 10
+                      maxusage: 10
+                      zonename: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
+    get:
+      operationId: getCpuInfo
+      summary: Solaris Zones Get Cpu Information
+      description: Retrieve detailed information about a specific CPU including model, clock speed, vendor, and state. Useful for understanding the physical resources available to zones.
+      tags:
+      - CPU Statistics
+      parameters:
+      - name: cpuId
+        in: path
+        required: true
+        description: CPU identifier number
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuInfo'
+              examples:
+                Getcpuinfo200Example:
+                  summary: Default getCpuInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      brand: example_value
+                      chip_id: '500123'
+                      clock_MHz: 10
+                      core_id: '500123'
+                      cpu_type: example_value
+                      implementation: example_value
+                      ncore_per_chip: 10
+                      state: on-line
+                      vendor_id: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+          example: example_value
+        chip_id:
+          type: integer
+          example: '500123'
+        clock_MHz:
+          type: integer
+          example: 10
+        core_id:
+          type: integer
+          example: '500123'
+        cpu_type:
+          type: string
+          example: example_value
+        implementation:
+          type: string
+          example: example_value
+        ncore_per_chip:
+          type: integer
+          example: 10
+        state:
+          type: string
+          enum:
+          - on-line
+          - off-line
+          - powered-off
+          - no-intr
+          - spare
+          example: on-line
+        vendor_id:
+          type: string
+          example: '500123'
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    CpuCapStats:
+      type: object
+      description: CPU cap statistics
+      properties:
+        value:
+          type: integer
+          format: int64
+          description: CPU cap value in microseconds per second
+          example: 10
+        usage:
+          type: integer
+          format: int64
+          description: Current CPU usage in microseconds per second
+          example: 10
+        nwait:
+          type: integer
+          format: int64
+          description: Number of times threads waited due to cap
+          example: 10
+        below:
+          type: integer
+          format: int64
+          description: Time spent below the cap in nanoseconds
+          example: 10
+        above:
+          type: integer
+          format: int64
+          description: Time spent above the cap in nanoseconds
+          example: 10
+        maxusage:
+          type: integer
+          format: int64
+          description: Maximum CPU usage observed
+          example: 10
+        zonename:
+          type: string
+          description: Zone name
+          example: example_value
+  responses:
+    NotFound:
+      description: Statistic or zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

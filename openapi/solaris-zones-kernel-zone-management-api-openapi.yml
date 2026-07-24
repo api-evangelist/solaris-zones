@@ -1,0 +1,267 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Management API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Kernel Zone Management
+  description: Create and manage kernel zones
+paths:
+  /ZoneManager/_rad_method/create:
+    put:
+      operationId: createKernelZone
+      summary: Solaris Zones Create a Kernel Zone
+      description: Create a new kernel zone using the solaris-kz brand template. Kernel zones run their own kernel and provide enhanced isolation through hardware-assisted virtualization.
+      tags:
+      - Kernel Zone Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: Unique kernel zone name
+                  example: kzone1
+                path:
+                  type: string
+                  description: Zone root path
+                  example: /zones/kzone1
+                template:
+                  type: string
+                  description: Must be SYSsolaris-kz for kernel zones
+                  default: SYSsolaris-kz
+                  enum:
+                  - SYSsolaris-kz
+            examples:
+              CreatekernelzoneRequestExample:
+                summary: Default createKernelZone request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  path: example_value
+                  template: SYSsolaris-kz
+      responses:
+        '200':
+          description: Kernel zone created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Createkernelzone200Example:
+                  summary: Default createKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}:
+    get:
+      operationId: getKernelZone
+      summary: Solaris Zones Get Kernel Zone Details
+      description: Retrieve detailed information about a kernel zone including its brand (solaris-kz), state, UUID, and auxiliary states. The brand property confirms this is a kernel zone.
+      tags:
+      - Kernel Zone Management
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Kernel zone details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/KernelZone'
+              examples:
+                Getkernelzone200Example:
+                  summary: Default getKernelZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      name: Example Title
+                      brand: solaris-kz
+                      id: abc123
+                      uuid: '500123'
+                      state: configured
+                      auxstate:
+                      - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    KernelZone:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Kernel zone name
+          example: Example Title
+        brand:
+          type: string
+          description: Zone brand (solaris-kz for kernel zones)
+          enum:
+          - solaris-kz
+          example: solaris-kz
+        id:
+          type: integer
+          description: Numeric zone ID
+          example: abc123
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+          example: '500123'
+        state:
+          type: string
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          description: Current zone state
+          example: configured
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary zone states
+          example: []
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

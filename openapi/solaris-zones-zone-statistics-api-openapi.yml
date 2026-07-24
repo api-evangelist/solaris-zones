@@ -1,0 +1,367 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Statistics API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Zone Statistics
+  description: Per-zone resource utilization statistics
+paths:
+  /Store/_rad_method/readZoneStats:
+    put:
+      operationId: readZoneStatistics
+      summary: Solaris Zones Read Zone-specific Statistics
+      description: Read resource utilization statistics for one or more zones. Provides a convenient way to query zone-specific data without constructing full SSID paths.
+      tags:
+      - Zone Statistics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                zones:
+                  type: array
+                  items:
+                    type: string
+                  description: Zone names to retrieve statistics for (empty for all zones)
+                metrics:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - cpu
+                    - memory-rss
+                    - memory-vm
+                    - memory-locked
+                    - swap
+                    - nprocs
+                    - nlwps
+                    - network-bytes-in
+                    - network-bytes-out
+                  description: Metrics to retrieve
+            examples:
+              ReadzonestatisticsRequestExample:
+                summary: Default readZoneStatistics request
+                x-microcks-default: true
+                value:
+                  zones:
+                  - example_value
+                  metrics:
+                  - cpu
+      responses:
+        '200':
+          description: Zone statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneStatistic'
+              examples:
+                Readzonestatistics200Example:
+                  summary: Default readZoneStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - zoneName: example_value
+                      zoneId: '500123'
+                      metric: example_value
+                      value: 42.5
+                      unit: example_value
+                      timestamp: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
+    get:
+      operationId: getZoneCapStats
+      summary: Solaris Zones Get Zone Resource Cap Statistics
+      description: Retrieve resource cap statistics for a specific zone including capped CPU and memory utilization data.
+      tags:
+      - Zone Statistics
+      parameters:
+      - name: zoneName
+        in: path
+        required: true
+        description: Name of the zone
+        schema:
+          type: string
+        example: example_value
+      - name: zoneId
+        in: path
+        required: true
+        description: Numeric zone ID
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneCapStats'
+              examples:
+                Getzonecapstats200Example:
+                  summary: Default getZoneCapStats 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      zonename: example_value
+                      zone_id: '500123'
+                      cpu_cap: 42.5
+                      cpu_usage: 42.5
+                      memory_cap: 10
+                      memory_usage: 10
+                      swap_cap: 10
+                      swap_usage: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_misc,{zoneId}:
+    get:
+      operationId: getZoneMiscStatistics
+      summary: Solaris Zones Get Zone Miscellaneous Statistics
+      description: Retrieve miscellaneous statistics for a specific zone including process counts, lightweight process counts, and other zone-level metrics.
+      tags:
+      - Zone Statistics
+      parameters:
+      - name: zoneName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail_2'
+      responses:
+        '200':
+          description: Zone miscellaneous statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneMiscStats'
+              examples:
+                Getzonemiscstatistics200Example:
+                  summary: Default getZoneMiscStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      zonename: example_value
+                      zone_id: '500123'
+                      nprocs: 10
+                      nlwps: 10
+                      pr_size: 10
+                      pr_rss: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ZoneCapStats:
+      type: object
+      properties:
+        zonename:
+          type: string
+          description: Zone name
+          example: example_value
+        zone_id:
+          type: integer
+          description: Numeric zone ID
+          example: '500123'
+        cpu_cap:
+          type: number
+          description: CPU cap value
+          example: 42.5
+        cpu_usage:
+          type: number
+          description: Current CPU usage
+          example: 42.5
+        memory_cap:
+          type: integer
+          format: int64
+          description: Memory cap in bytes
+          example: 10
+        memory_usage:
+          type: integer
+          format: int64
+          description: Current memory usage in bytes
+          example: 10
+        swap_cap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+          example: 10
+        swap_usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+          example: 10
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneMiscStats:
+      type: object
+      description: Zone miscellaneous statistics
+      properties:
+        zonename:
+          type: string
+          example: example_value
+        zone_id:
+          type: integer
+          example: '500123'
+        nprocs:
+          type: integer
+          description: Number of processes in the zone
+          example: 10
+        nlwps:
+          type: integer
+          description: Number of lightweight processes in the zone
+          example: 10
+        pr_size:
+          type: integer
+          format: int64
+          description: Total process size in bytes
+          example: 10
+        pr_rss:
+          type: integer
+          format: int64
+          description: Total resident set size in bytes
+          example: 10
+    ZoneStatistic:
+      type: object
+      properties:
+        zoneName:
+          type: string
+          description: Zone name
+          example: example_value
+        zoneId:
+          type: integer
+          description: Numeric zone ID
+          example: '500123'
+        metric:
+          type: string
+          description: Metric name
+          example: example_value
+        value:
+          type: number
+          description: Current metric value
+          example: 42.5
+        unit:
+          type: string
+          description: Unit of measurement
+          example: example_value
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+          example: '2026-01-15T10:30:00Z'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound_2:
+      description: Statistic or zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Returns detailed property information when present
+      schema:
+        type: boolean
+    radDetail_2:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

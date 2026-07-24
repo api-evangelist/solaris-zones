@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Memory Statistics API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Memory Statistics
+  description: Memory and swap utilization statistics
+paths:
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},physcap,{zoneId}:
+    get:
+      operationId: getZonePhysicalMemoryCap
+      summary: Solaris Zones Get Zone Physical Memory Cap Statistics
+      description: Retrieve physical memory capping statistics for a zone including the configured cap, current RSS, number of page-outs due to capping, and time spent in page-out.
+      tags:
+      - Memory Statistics
+      parameters:
+      - name: zoneId
+        in: path
+        required: true
+        description: Numeric zone ID
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Physical memory cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/MemoryCapStats'
+              examples:
+                Getzonephysicalmemorycap200Example:
+                  summary: Default getZonePhysicalMemoryCap 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      physcap: 10
+                      rss: 10
+                      nover: 10
+                      pagedout: 10
+                      pgpgin: 10
+                      anonpgin: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,{zoneId},swapcap,{zoneId}:
+    get:
+      operationId: getZoneSwapCap
+      summary: Solaris Zones Get Zone Swap Cap Statistics
+      description: Retrieve swap space capping statistics for a zone including the configured swap cap and current swap usage.
+      tags:
+      - Memory Statistics
+      parameters:
+      - name: zoneId
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Swap cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/SwapCapStats'
+              examples:
+                Getzoneswapcap200Example:
+                  summary: Default getZoneSwapCap 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      swapcap: 10
+                      usage: 10
+                      nover: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0:
+    get:
+      operationId: getSystemMemoryPages
+      summary: Solaris Zones Get System Memory Page Statistics
+      description: Retrieve system-wide memory page statistics including total physical pages, free pages, and page sizes. Provides context for zone memory allocation.
+      tags:
+      - Memory Statistics
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: System memory statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/SystemMemoryStats'
+              examples:
+                Getsystemmemorypages200Example:
+                  summary: Default getSystemMemoryPages 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      physmem: 10
+                      freemem: 10
+                      availrmem: 10
+                      lotsfree: 10
+                      desfree: 10
+                      minfree: 10
+                      pp_kernel: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    SystemMemoryStats:
+      type: object
+      properties:
+        physmem:
+          type: integer
+          format: int64
+          description: Total physical memory pages
+          example: 10
+        freemem:
+          type: integer
+          format: int64
+          description: Free memory pages
+          example: 10
+        availrmem:
+          type: integer
+          format: int64
+          description: Available real memory pages
+          example: 10
+        lotsfree:
+          type: integer
+          format: int64
+          description: Lotsfree threshold
+          example: 10
+        desfree:
+          type: integer
+          format: int64
+          description: Desfree threshold
+          example: 10
+        minfree:
+          type: integer
+          format: int64
+          description: Minfree threshold
+          example: 10
+        pp_kernel:
+          type: integer
+          format: int64
+          description: Pages used by kernel
+          example: 10
+    SwapCapStats:
+      type: object
+      description: Swap cap statistics
+      properties:
+        swapcap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+          example: 10
+        usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+          example: 10
+        nover:
+          type: integer
+          format: int64
+          description: Number of times swap exceeded the cap
+          example: 10
+    MemoryCapStats:
+      type: object
+      description: Physical memory cap statistics
+      properties:
+        physcap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+          example: 10
+        rss:
+          type: integer
+          format: int64
+          description: Current resident set size in bytes
+          example: 10
+        nover:
+          type: integer
+          format: int64
+          description: Number of times memory went over the cap
+          example: 10
+        pagedout:
+          type: integer
+          format: int64
+          description: Total bytes paged out due to capping
+          example: 10
+        pgpgin:
+          type: integer
+          format: int64
+          description: Pages paged in
+          example: 10
+        anonpgin:
+          type: integer
+          format: int64
+          description: Anonymous pages paged in
+          example: 10
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Statistic or zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html

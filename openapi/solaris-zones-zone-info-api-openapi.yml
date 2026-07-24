@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Info API
+  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+security:
+- cookieAuth: []
+tags:
+- name: Zone Info
+  description: Read-only zone information and status queries
+paths:
+  /ZoneInfo:
+    get:
+      operationId: getZoneInfo
+      summary: Solaris Zones Get Executing Zone Information
+      description: Returns read-only information about the zone in which the RAD daemon is currently executing, including whether it is the global zone.
+      tags:
+      - Zone Info
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone information returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/ZoneInfo'
+              examples:
+                Getzoneinfo200Example:
+                  summary: Default getZoneInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      name: Example Title
+                      id: abc123
+                      uuid: '500123'
+                      brand: example_value
+                      isGlobal: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+  schemas:
+    ZoneInfo:
+      type: object
+      description: Read-only snapshot of the executing zone information
+      properties:
+        name:
+          type: string
+          description: Name of the executing zone
+          examples:
+          - global
+        id:
+          type: integer
+          description: Numeric zone ID
+          examples:
+          - 0
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+          example: '500123'
+        brand:
+          type: string
+          description: Zone brand type
+          examples:
+          - solaris
+        isGlobal:
+          type: boolean
+          description: Whether this is the global zone
+          examples:
+          - true
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+externalDocs:
+  description: Oracle Solaris Kernel Zones Documentation
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
