@@ -1,216 +1,1480 @@
 name: Solaris Zones
 description: API for managing Solaris Zones (containers) and virtualization on Oracle Solaris systems.
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
 created: '2024'
 modified: '2026-05-19'
 url: https://docs.oracle.com/en/operating-systems/solaris.html
 specificationVersion: '0.18'
 apis:
-  - name: Solaris Zones Management API
-    description: Core API for creating, managing, and monitoring Solaris Zones.
-    image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
-    humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
-    baseURL: https://solaris-host.example.com/api/v1
-    tags:
-      - Containers
-      - Oracle
-      - Solaris
-      - Virtualization
-      - Zones
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
-      - type: OpenAPI
-        url: openapi/solaris-zones-management-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Zone Configuration API
-    description: API endpoints for zone configuration and resource management.
-    humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
-    baseURL: https://solaris-host.example.com/api/v1/zones
-    tags:
-      - Configuration
-      - Networking
-      - Resources
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61040/
-      - type: OpenAPI
-        url: openapi/solaris-zone-configuration-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Zone Administration API
-    description: API for zone lifecycle management including install, boot, halt, and delete operations.
-    humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
-    baseURL: https://solaris-host.example.com/api/v1/zones/admin
-    tags:
-      - Administration
-      - Lifecycle
-      - Management
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
-      - type: OpenAPI
-        url: openapi/solaris-zone-administration-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Zone Monitoring API
-    description: API for monitoring zone status, resource usage, and performance metrics.
-    humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
-    baseURL: https://solaris-host.example.com/api/v1/zones/monitoring
-    tags:
-      - Metrics
-      - Monitoring
-      - Performance
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
-      - type: OpenAPI
-        url: openapi/solaris-zone-monitoring-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: RAD Zone Management REST API
-    description: >-
-      Remote Administration Daemon REST API for programmatic zone management via the com.oracle.solaris.rad.zonemgr
-      module, supporting zone creation, configuration, migration, and lifecycle operations over HTTP/JSON.
-    humanURL: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
-    baseURL: https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr
-    tags:
-      - Management
-      - RAD
-      - Remote Administration
-      - REST API
-      - Zones
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
-      - type: OpenAPI
-        url: openapi/solaris-rad-zonemgr-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Zones Monitoring Statistics API (libzonestat)
-    description: >-
-      The libzonestat.so.1 C library API used to retrieve and compute zone-related resource utilization information
-      including physical memory, virtual memory, and CPU resources with sorting and filtering options.
-    humanURL: https://docs.oracle.com/cd/E37838_01/html/E61043/
-    baseURL: https://solaris-host.example.com/api/v1/zones/stats
-    tags:
-      - CPU
-      - Libzonestat
-      - Memory
-      - Monitoring
-      - Resource Utilization
-      - Statistics
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61043/
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
-      - type: OpenAPI
-        url: openapi/solaris-zone-stats-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Oracle Solaris Kernel Zones API
-    description: >-
-      API for creating and managing Oracle Solaris Kernel Zones, which are non-global zones with their own kernel
-      providing greater independence and enhanced security isolation.
-    humanURL: >-
+- aid: solaris-zones:solaris-zones-archive-creation-api
+  name: Solaris Zones Archive Creation API
+  description: Create Unified Archives from zones
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Archive Creation
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-archive-creation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
       https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
-    baseURL: https://solaris-host.example.com/api/v1/zones/kernel
-    tags:
-      - Isolation
-      - Kernel Zones
-      - Security
-      - Virtualization
-    properties:
-      - type: Documentation
-        url: >-
-          https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
-      - type: OpenAPI
-        url: openapi/solaris-kernel-zones-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Oracle Solaris StatsStore and Analytics API
-    description: >-
-      REST API and web interface for accessing the Oracle Solaris 11.4 StatsStore, providing consolidated zone resource
-      statistics, system performance data, and historical analytics via CLI, C, Python, and RAD interfaces.
-    humanURL: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
-    baseURL: https://solaris-host.example.com/api/v1/statsstore
-    tags:
-      - Analytics
-      - Monitoring
-      - Performance
-      - REST API
-      - StatsStore
-      - Web Interface
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
-      - type: OpenAPI
-        url: openapi/solaris-statsstore-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
-  - name: Oracle Solaris Unified Archives Zones API
-    description: >-
-      API for creating, deploying, and managing Unified Archives for zone system recovery, cloning, and migration across
-      Oracle Solaris systems.
-    humanURL: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
-    baseURL: https://solaris-host.example.com/api/v1/zones/archives
-    tags:
-      - Backup
-      - Cloning
-      - Migration
-      - Recovery
-      - Unified Archives
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
-      - type: Documentation
-        url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
-      - type: OpenAPI
-        url: openapi/solaris-unified-archives-openapi.yml
-    contact:
-      - FN: Oracle Solaris Support
-        email: solaris-support@oracle.com
-        url: https://www.oracle.com/solaris/support/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-archive-deployment-api
+  name: Solaris Zones Archive Deployment API
+  description: Deploy zones from Unified Archives
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Archive Deployment
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-archive-deployment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-archive-information-api
+  name: Solaris Zones Archive Information API
+  description: Query archive contents and metadata
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Archive Information
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-archive-information-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-configuration-api
+  name: Solaris Zones Configuration API
+  description: Zone configuration editing and commit operations
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-cpu-statistics-api
+  name: Solaris Zones CPU Statistics API
+  description: CPU utilization and allocation statistics
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - CPU Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-cpu-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-installation-api
+  name: Solaris Zones Installation API
+  description: Zone install and uninstall operations
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Installation
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-installation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-kernel-statistics-api
+  name: Solaris Zones Kernel Statistics API
+  description: Kernel statistics via kstat module
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Kernel Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-kernel-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-kernel-zone-configuration-api
+  name: Solaris Zones Kernel Zone Configuration API
+  description: Configure kernel zone resources and properties
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Kernel Zone Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-kernel-zone-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-kernel-zone-lifecycle-api
+  name: Solaris Zones Kernel Zone Lifecycle API
+  description: Kernel zone boot, halt, suspend, and resume operations
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Kernel Zone Lifecycle
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-kernel-zone-lifecycle-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-kernel-zone-management-api
+  name: Solaris Zones Kernel Zone Management API
+  description: Create and manage kernel zones
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Kernel Zone Management
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-kernel-zone-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-kernel-zone-migration-api
+  name: Solaris Zones Kernel Zone Migration API
+  description: Live migration of kernel zones between hosts
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Kernel Zone Migration
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-kernel-zone-migration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-lifecycle-api
+  name: Solaris Zones Lifecycle API
+  description: Zone lifecycle state transitions
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Lifecycle
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-lifecycle-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-memory-statistics-api
+  name: Solaris Zones Memory Statistics API
+  description: Memory and swap utilization statistics
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Memory Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-memory-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-migration-api
+  name: Solaris Zones Migration API
+  description: Zone attach, detach, move, and migration operations
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Migration
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-migration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-resources-api
+  name: Solaris Zones Resources API
+  description: Zone resource management (net, device, fs, rctl, etc.)
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-state-query-api
+  name: Solaris Zones State Query API
+  description: Zone state and property queries
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - State Query
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-state-query-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-statistics-discovery-api
+  name: Solaris Zones Statistics Discovery API
+  description: Discover available statistics and namespaces
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Statistics Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-statistics-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-statistics-retrieval-api
+  name: Solaris Zones Statistics Retrieval API
+  description: Retrieve current and historical statistics data
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Statistics Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-statistics-retrieval-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-system-statistics-api
+  name: Solaris Zones System Statistics API
+  description: System-wide performance statistics
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - System Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-system-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-info-api
+  name: Solaris Zones Zone Info API
+  description: Read-only zone information and status queries
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone Info
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-manager-api
+  name: Solaris Zones Zone Manager API
+  description: System-wide zone management operations including creation, deletion, and evacuation
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone Manager
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-manager-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-migration-api
+  name: Solaris Zones Zone Migration API
+  description: Live and cold zone migration operations between Solaris hosts
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone Migration
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-migration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-recovery-api
+  name: Solaris Zones Zone Recovery API
+  description: Recover zones from archives
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone Recovery
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-recovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-state-api
+  name: Solaris Zones Zone State API
+  description: Zone state monitoring via zonemgr module
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone State
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-state-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zone-statistics-api
+  name: Solaris Zones Zone Statistics API
+  description: Per-zone resource utilization statistics
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zone Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zone-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
+- aid: solaris-zones:solaris-zones-zones-api
+  name: Solaris Zones Zones API
+  description: Individual zone operations including configuration, lifecycle, and resource management
+  humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  baseURL: https://solaris-host.example.com/api/v1
+  tags:
+  - Zones
+  properties:
+  - type: OpenAPI
+    url: openapi/solaris-zones-zones-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html
+  - type: Documentation
+    url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
 common:
   - type: AgenticAccess
     url: agentic-access/solaris-zones-agentic-access.yml
