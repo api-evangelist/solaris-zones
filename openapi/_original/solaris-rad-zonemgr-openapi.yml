@@ -1,0 +1,2435 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Oracle Solaris RAD Zone Management REST API
+  description: >-
+    REST API for the Oracle Solaris Remote Administration Daemon (RAD)
+    com.oracle.solaris.rad.zonemgr module. Provides programmatic access to
+    Solaris Zones lifecycle management including creation, configuration,
+    migration, monitoring, and administrative operations over HTTP/JSON.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  termsOfService: https://www.oracle.com/legal/terms.html
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/downloads/licenses/standard-license.html
+externalDocs:
+  description: RAD Client User's Guide - REST API Reference
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html
+servers:
+- url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD Server
+  variables:
+    radserver:
+      default: radserver.example.com
+      description: Hostname or IP of the Solaris RAD server
+tags:
+- name: Zone Info
+  description: Read-only zone information and status queries
+- name: Zone Manager
+  description: System-wide zone management operations including creation, deletion, and evacuation
+- name: Zone Migration
+  description: Live and cold zone migration operations between Solaris hosts
+- name: Zones
+  description: Individual zone operations including configuration, lifecycle, and resource management
+security:
+- cookieAuth: []
+paths:
+  /:
+    get:
+      operationId: listZoneInterfaces
+      summary: Solaris Zones List All Zone Management Interfaces
+      description: >-
+        Returns a list of all available zone management interfaces including
+        ZoneManager, Zone instances, ZoneInfo, and migration connections.
+        Use the _rad_detail query parameter to get full property details.
+      tags:
+      - Zone Manager
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of zone management interfaces returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RadInterface'
+              examples:
+                Listzoneinterfaces200Example:
+                  summary: Default listZoneInterfaces 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                    - href: example_value
+                      type: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager:
+    get:
+      operationId: getZoneManager
+      summary: Solaris Zones Get the Zonemanager Singleton
+      description: >-
+        Returns the ZoneManager interface which provides system-wide zone
+        management capabilities including zone creation, deletion, and
+        evacuation state information.
+      tags:
+      - Zone Manager
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: ZoneManager details returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/ZoneManagerDetail'
+              examples:
+                Getzonemanager200Example:
+                  summary: Default getZoneManager 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      evacuationState: none
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/create:
+    put:
+      operationId: createZone
+      summary: Solaris Zones Create a New Zone
+      description: >-
+        Creates a new Solaris zone with the specified name, zone path, and
+        optional template. The zone is created in the configured state and
+        must be installed and booted separately.
+      tags:
+      - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - name
+                  - path
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the zone to create
+                      examples:
+                      - testzone1
+                    path:
+                      type: string
+                      description: File system path for the zone root
+                      examples:
+                      - /system/zones/testzone1
+                    template:
+                      type: string
+                      description: Optional zone template name to use
+                      examples:
+                      - SYSdefault
+            examples:
+              CreatezoneRequestExample:
+                summary: Default createZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    name: Example Title
+                    path: example_value
+                    template: example_value
+      responses:
+        '200':
+          description: Zone created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Createzone200Example:
+                  summary: Default createZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/delete:
+    put:
+      operationId: deleteZone
+      summary: Solaris Zones Delete a Zone
+      description: >-
+        Permanently deletes a zone from the system. The zone must be in the
+        configured state before it can be deleted.
+      tags:
+      - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the zone to delete
+            examples:
+              DeletezoneRequestExample:
+                summary: Default deleteZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    name: Example Title
+      responses:
+        '200':
+          description: Zone deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Deletezone200Example:
+                  summary: Default deleteZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/importConfig:
+    put:
+      operationId: importZoneConfig
+      summary: Solaris Zones Import Zone Configuration
+      description: >-
+        Import a zone configuration from zonecfg(8) format text, creating
+        a new zone with the specified configuration.
+      tags:
+      - Zone Manager
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - name
+                  - config
+                  properties:
+                    name:
+                      type: string
+                      description: Name for the new zone
+                    config:
+                      type: string
+                      description: Zone configuration in zonecfg export format
+            examples:
+              ImportzoneconfigRequestExample:
+                summary: Default importZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload:
+                    name: Example Title
+                    config: example_value
+      responses:
+        '200':
+          description: Zone configuration imported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Importzoneconfig200Example:
+                  summary: Default importZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/initEvacuate:
+    put:
+      operationId: initEvacuate
+      summary: Solaris Zones Initialize Zone Evacuation
+      description: >-
+        Initialize an evacuation session to migrate all eligible zones from
+        this host to a remote system. Added in version 1.4 of the zonemgr module.
+      tags:
+      - Zone Migration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - remoteHost
+                  properties:
+                    remoteHost:
+                      type: string
+                      description: Target host for zone evacuation
+                    password:
+                      type: string
+                      description: Authentication credential for the remote host
+            examples:
+              InitevacuateRequestExample:
+                summary: Default initEvacuate request
+                x-microcks-default: true
+                value:
+                  payload:
+                    remoteHost: example_value
+                    password: example_value
+      responses:
+        '200':
+          description: Evacuation initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Initevacuate200Example:
+                  summary: Default initEvacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/evacuate:
+    put:
+      operationId: evacuate
+      summary: Solaris Zones Perform Zone Evacuation
+      description: >-
+        Execute the evacuation of all eligible zones to the previously
+        configured remote host. Must be preceded by initEvacuate.
+      tags:
+      - Zone Migration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              EvacuateRequestExample:
+                summary: Default evacuate request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Evacuation completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/EvacuationResult'
+              examples:
+                Evacuate200Example:
+                  summary: Default evacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      status: success
+                      returning: true
+                      migrationResults: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneManager/cancelEvacuate:
+    put:
+      operationId: cancelEvacuate
+      summary: Solaris Zones Cancel Zone Evacuation
+      description: >-
+        Cancel an in-progress evacuation operation. Zones that have already
+        been migrated will remain on the remote host.
+      tags:
+      - Zone Migration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              CancelevacuateRequestExample:
+                summary: Default cancelEvacuate request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Evacuation cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Cancelevacuate200Example:
+                  summary: Default cancelEvacuate 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}:
+    get:
+      operationId: getZone
+      summary: Solaris Zones Get Zone Details
+      description: >-
+        Returns detailed information about a specific zone including its
+        current state, brand, UUID, auxiliary states, and configuration.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone details returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/ZoneDetail'
+              examples:
+                Getzone200Example:
+                  summary: Default getZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      name: Example Title
+                      id: abc123
+                      uuid: '500123'
+                      state: configured
+                      brand: solaris
+                      auxstate:
+                      - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/boot:
+    put:
+      operationId: bootZone
+      summary: Solaris Zones Boot a Zone
+      description: >-
+        Boot the specified zone. The zone must be in the installed state.
+        After booting, the zone transitions to the running state.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    options:
+                      type: array
+                      items:
+                        type: string
+                      description: Optional boot arguments
+            examples:
+              BootzoneRequestExample:
+                summary: Default bootZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    options:
+                    - example_value
+      responses:
+        '200':
+          description: Zone boot initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Bootzone200Example:
+                  summary: Default bootZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/shutdown:
+    put:
+      operationId: shutdownZone
+      summary: Solaris Zones Shutdown a Zone
+      description: >-
+        Gracefully shut down the specified zone by running the shutdown
+        scripts within the zone before halting it.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    options:
+                      type: array
+                      items:
+                        type: string
+                      description: Optional shutdown arguments
+            examples:
+              ShutdownzoneRequestExample:
+                summary: Default shutdownZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    options:
+                    - example_value
+      responses:
+        '200':
+          description: Zone shutdown initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Shutdownzone200Example:
+                  summary: Default shutdownZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/halt:
+    put:
+      operationId: haltZone
+      summary: Solaris Zones Halt a Zone
+      description: >-
+        Immediately halt the specified zone without running shutdown scripts.
+        The zone transitions from running to installed state.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              HaltzoneRequestExample:
+                summary: Default haltZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone halted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Haltzone200Example:
+                  summary: Default haltZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/reboot:
+    put:
+      operationId: rebootZone
+      summary: Solaris Zones Reboot a Zone
+      description: >-
+        Reboot the specified zone. This is equivalent to a halt followed
+        by a boot operation.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    options:
+                      type: array
+                      items:
+                        type: string
+                      description: Optional reboot arguments
+            examples:
+              RebootzoneRequestExample:
+                summary: Default rebootZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    options:
+                    - example_value
+      responses:
+        '200':
+          description: Zone reboot initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Rebootzone200Example:
+                  summary: Default rebootZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/install:
+    put:
+      operationId: installZone
+      summary: Solaris Zones Install a Zone
+      description: >-
+        Install the specified zone. The zone must be in the configured state.
+        After installation, the zone transitions to the installed state and
+        can be booted.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    options:
+                      type: array
+                      items:
+                        type: string
+                      description: Optional install arguments
+            examples:
+              InstallzoneRequestExample:
+                summary: Default installZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    options:
+                    - example_value
+      responses:
+        '200':
+          description: Zone install initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Installzone200Example:
+                  summary: Default installZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/uninstall:
+    put:
+      operationId: uninstallZone
+      summary: Solaris Zones Uninstall a Zone
+      description: >-
+        Uninstall the specified zone, removing all zone data from disk.
+        The zone transitions from installed back to configured state.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              UninstallzoneRequestExample:
+                summary: Default uninstallZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone uninstalled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Uninstallzone200Example:
+                  summary: Default uninstallZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/clone:
+    put:
+      operationId: cloneZone
+      summary: Solaris Zones Clone a Zone
+      description: >-
+        Clone the specified zone from an existing zone or snapshot,
+        providing a fast method to create zone instances with
+        identical configurations.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - sourceZone
+                  properties:
+                    sourceZone:
+                      type: string
+                      description: Name of the source zone to clone from
+                    snapshot:
+                      type: string
+                      description: Optional ZFS snapshot to clone from
+            examples:
+              ClonezoneRequestExample:
+                summary: Default cloneZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    sourceZone: example_value
+                    snapshot: example_value
+      responses:
+        '200':
+          description: Zone cloned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Clonezone200Example:
+                  summary: Default cloneZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/attach:
+    put:
+      operationId: attachZone
+      summary: Solaris Zones Attach a Zone
+      description: >-
+        Attach a previously detached zone, making it available for use
+        on this system. Validates the zone configuration against the
+        current system.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    options:
+                      type: array
+                      items:
+                        type: string
+                      description: Optional attach arguments
+            examples:
+              AttachzoneRequestExample:
+                summary: Default attachZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    options:
+                    - example_value
+      responses:
+        '200':
+          description: Zone attached successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Attachzone200Example:
+                  summary: Default attachZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/detach:
+    put:
+      operationId: detachZone
+      summary: Solaris Zones Detach a Zone
+      description: >-
+        Detach the specified zone from this system, preparing it for
+        migration or relocation to another system.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              DetachzoneRequestExample:
+                summary: Default detachZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone detached successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Detachzone200Example:
+                  summary: Default detachZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/suspend:
+    put:
+      operationId: suspendZone
+      summary: Solaris Zones Suspend a Zone
+      description: >-
+        Suspend the specified running zone, saving its state to disk.
+        The zone can later be resumed to continue execution from the
+        point of suspension.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              SuspendzoneRequestExample:
+                summary: Default suspendZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone suspended successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Suspendzone200Example:
+                  summary: Default suspendZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/ready:
+    put:
+      operationId: readyZone
+      summary: Solaris Zones Ready a Zone
+      description: >-
+        Transition the zone to the ready state, which sets up the virtual
+        platform for the zone but does not start any processes within it.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              ReadyzoneRequestExample:
+                summary: Default readyZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone readied successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Readyzone200Example:
+                  summary: Default readyZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/verify:
+    put:
+      operationId: verifyZone
+      summary: Solaris Zones Verify Zone Configuration
+      description: >-
+        Verify that the zone configuration is valid and that all required
+        resources are available on the system.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              VerifyzoneRequestExample:
+                summary: Default verifyZone request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone verification result returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Verifyzone200Example:
+                  summary: Default verifyZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/editConfig:
+    put:
+      operationId: editZoneConfig
+      summary: Solaris Zones Begin Editing Zone Configuration
+      description: >-
+        Initiate a configuration editing session for the specified zone.
+        Takes a snapshot of the current configuration that can be modified
+        and then committed or cancelled.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              EditzoneconfigRequestExample:
+                summary: Default editZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Configuration editing session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Editzoneconfig200Example:
+                  summary: Default editZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/commitConfig:
+    put:
+      operationId: commitZoneConfig
+      summary: Solaris Zones Commit Zone Configuration Changes
+      description: >-
+        Save all pending configuration changes made during the current
+        editing session. The changes are written to persistent storage.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              CommitzoneconfigRequestExample:
+                summary: Default commitZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Configuration committed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Commitzoneconfig200Example:
+                  summary: Default commitZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/cancelConfig:
+    put:
+      operationId: cancelZoneConfig
+      summary: Solaris Zones Cancel Zone Configuration Changes
+      description: >-
+        Discard all pending configuration changes and end the current
+        editing session without saving.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              CancelzoneconfigRequestExample:
+                summary: Default cancelZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Configuration editing cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Cancelzoneconfig200Example:
+                  summary: Default cancelZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/exportConfig:
+    put:
+      operationId: exportZoneConfig
+      summary: Solaris Zones Export Zone Configuration
+      description: >-
+        Export the zone configuration in zonecfg(8) format text that can
+        be used to recreate the zone on another system using importConfig.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              ExportzoneconfigRequestExample:
+                summary: Default exportZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Zone configuration exported
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    type: string
+                    description: Zone configuration in zonecfg export format
+              examples:
+                Exportzoneconfig200Example:
+                  summary: Default exportZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/apply:
+    put:
+      operationId: applyZoneConfig
+      summary: Solaris Zones Apply Configuration to Running Zone
+      description: >-
+        Apply committed configuration changes to a running zone without
+        requiring a reboot. Not all configuration changes support live
+        application.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+            examples:
+              ApplyzoneconfigRequestExample:
+                summary: Default applyZoneConfig request
+                x-microcks-default: true
+                value:
+                  payload: example_value
+      responses:
+        '200':
+          description: Configuration applied to running zone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Applyzoneconfig200Example:
+                  summary: Default applyZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/getResources:
+    put:
+      operationId: getZoneResources
+      summary: Solaris Zones Get Zone Resources
+      description: >-
+        Retrieve resources configured for the zone that match the specified
+        filter criteria. Resources include anet, capped-cpu, capped-memory,
+        fs, device, and other zone resource types.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: Resource type to filter by
+                      examples:
+                      - anet
+                      - capped-cpu
+                      - capped-memory
+                      - fs
+                      - device
+                    filter:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Property'
+                      description: Property filters to match against
+            examples:
+              GetzoneresourcesRequestExample:
+                summary: Default getZoneResources request
+                x-microcks-default: true
+                value:
+                  payload:
+                    type: example_value
+                    filter:
+                    - name: Example Title
+                      value: example_value
+                      type: simple
+                      listValue: {}
+                      complexValue: {}
+      responses:
+        '200':
+          description: Matching resources returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resource'
+              examples:
+                Getzoneresources200Example:
+                  summary: Default getZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                    - type: admin
+                      properties:
+                      - {}
+                      parent: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/addResource:
+    put:
+      operationId: addZoneResource
+      summary: Solaris Zones Add a Resource to Zone Configuration
+      description: >-
+        Add a new resource to the zone configuration. The zone must be in
+        an editing session started with editConfig. Changes are not
+        persisted until commitConfig is called.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  $ref: '#/components/schemas/Resource'
+            examples:
+              AddzoneresourceRequestExample:
+                summary: Default addZoneResource request
+                x-microcks-default: true
+                value:
+                  payload:
+                    type: admin
+                    properties:
+                    - {}
+                    parent: example_value
+      responses:
+        '200':
+          description: Resource added to zone configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Addzoneresource200Example:
+                  summary: Default addZoneResource 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/removeResources:
+    put:
+      operationId: removeZoneResources
+      summary: Solaris Zones Remove Resources From Zone Configuration
+      description: >-
+        Remove resources matching the specified filter from the zone
+        configuration. Requires an active editing session.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - type
+                  properties:
+                    type:
+                      type: string
+                      description: Resource type to remove
+                    filter:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Property'
+                      description: Property filters to identify resources to remove
+            examples:
+              RemovezoneresourcesRequestExample:
+                summary: Default removeZoneResources request
+                x-microcks-default: true
+                value:
+                  payload:
+                    type: example_value
+                    filter:
+                    - name: Example Title
+                      value: example_value
+                      type: simple
+                      listValue: {}
+                      complexValue: {}
+      responses:
+        '200':
+          description: Matching resources removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Removezoneresources200Example:
+                  summary: Default removeZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/setResourceProperties:
+    put:
+      operationId: setZoneResourceProperties
+      summary: Solaris Zones Set Resource Properties
+      description: >-
+        Modify properties of zone resources matching the specified filter.
+        Requires an active editing session.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - type
+                  - properties
+                  properties:
+                    type:
+                      type: string
+                      description: Resource type to modify
+                    filter:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Property'
+                      description: Property filters to identify target resources
+                    properties:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Property'
+                      description: Properties to set on matching resources
+            examples:
+              SetzoneresourcepropertiesRequestExample:
+                summary: Default setZoneResourceProperties request
+                x-microcks-default: true
+                value:
+                  payload:
+                    type: example_value
+                    filter:
+                    - name: Example Title
+                      value: example_value
+                      type: simple
+                      listValue: {}
+                      complexValue: {}
+                    properties:
+                    - name: Example Title
+                      value: example_value
+                      type: simple
+                      listValue: {}
+                      complexValue: {}
+      responses:
+        '200':
+          description: Resource properties updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Setzoneresourceproperties200Example:
+                  summary: Default setZoneResourceProperties 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/migrate:
+    put:
+      operationId: migrateZone
+      summary: Solaris Zones Migrate a Zone to a Remote Host
+      description: >-
+        Migrate the specified zone to a remote Solaris host. Supports both
+        live migration (zone continues running during transfer) and cold
+        migration (zone is halted first). Added in version 1.1.
+      tags:
+      - Zone Migration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - remoteHost
+                  - migrationType
+                  properties:
+                    remoteHost:
+                      type: string
+                      description: Target host URI for migration
+                    migrationType:
+                      type: string
+                      enum:
+                      - live
+                      - cold
+                      description: Type of migration to perform
+                    password:
+                      type: string
+                      description: Authentication credential for the remote host
+                    cipher:
+                      type: string
+                      description: Encryption cipher for migration data transfer
+            examples:
+              MigratezoneRequestExample:
+                summary: Default migrateZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    remoteHost: example_value
+                    migrationType: live
+                    password: example_value
+                    cipher: example_value
+      responses:
+        '200':
+          description: Migration completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Migratezone200Example:
+                  summary: Default migrateZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/rename:
+    put:
+      operationId: renameZone
+      summary: Solaris Zones Rename a Zone
+      description: >-
+        Rename the specified zone. The zone must not be running when
+        this operation is performed.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - newName
+                  properties:
+                    newName:
+                      type: string
+                      description: New name for the zone
+            examples:
+              RenamezoneRequestExample:
+                summary: Default renameZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    newName: example_value
+      responses:
+        '200':
+          description: Zone renamed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Renamezone200Example:
+                  summary: Default renameZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/move:
+    put:
+      operationId: moveZone
+      summary: Solaris Zones Move Zone to New Path
+      description: >-
+        Move the zone root to a new file system path on the same host.
+        The zone must not be running.
+      tags:
+      - Zones
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  type: object
+                  required:
+                  - newPath
+                  properties:
+                    newPath:
+                      type: string
+                      description: New file system path for the zone root
+            examples:
+              MovezoneRequestExample:
+                summary: Default moveZone request
+                x-microcks-default: true
+                value:
+                  payload:
+                    newPath: example_value
+      responses:
+        '200':
+          description: Zone moved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Movezone200Example:
+                  summary: Default moveZone 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      code: ZEC_NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Zone not found
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ZoneInfo:
+    get:
+      operationId: getZoneInfo
+      summary: Solaris Zones Get Executing Zone Information
+      description: >-
+        Returns read-only information about the zone in which the RAD
+        daemon is currently executing, including whether it is the global zone.
+      tags:
+      - Zone Info
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone information returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - success
+                  payload:
+                    $ref: '#/components/schemas/ZoneInfo'
+              examples:
+                Getzoneinfo200Example:
+                  summary: Default getZoneInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    status: success
+                    payload:
+                      name: Example Title
+                      id: abc123
+                      uuid: '500123'
+                      brand: example_value
+                      isGlobal: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_cookie
+      description: >-
+        RAD session cookie obtained through authentication. Use the RAD
+        authentication endpoint to establish a session and obtain the cookie.
+
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the Solaris zone
+      schema:
+        type: string
+        examples:
+        - testzone1
+
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: >-
+        When present, returns detailed property information for each
+        interface or object in the response.
+      schema:
+        type: boolean
+        default: true
+
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+
+  schemas:
+    RadInterface:
+      type: object
+      description: A RAD interface entry describing an available management object
+      properties:
+        href:
+          type: string
+          description: Relative URI to the interface
+          examples:
+          - Zone/testzone1
+        type:
+          type: string
+          description: Interface type name
+          examples:
+          - Zone
+          - ZoneManager
+          - ZoneInfo
+
+    ZoneManagerDetail:
+      type: object
+      description: ZoneManager singleton providing system-wide zone management
+      properties:
+        evacuationState:
+          type:
+          - string
+          - 'null'
+          description: Current evacuation state, null when no evacuation is active
+          enum:
+          - none
+          - initialized
+          - evacuating
+          - completed
+          - 
+
+          example: none
+    ZoneDetail:
+      type: object
+      description: Detailed information about a specific Solaris zone
+      required:
+      - name
+      - state
+      - brand
+      properties:
+        name:
+          type: string
+          description: Zone name
+          examples:
+          - testzone1
+        id:
+          type: integer
+          description: Zone numeric ID assigned by the kernel when the zone is running
+          examples:
+          - 2
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier for the zone
+          example: '500123'
+        state:
+          type: string
+          description: Current zone state
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          example: configured
+        brand:
+          type: string
+          description: Zone brand determining the runtime environment
+          enum:
+          - solaris
+          - solaris10
+          - solaris-kz
+          - labeled
+          examples:
+          - solaris
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary state information for the zone
+
+          example: []
+    ZoneInfo:
+      type: object
+      description: Read-only snapshot of the executing zone information
+      properties:
+        name:
+          type: string
+          description: Name of the executing zone
+          examples:
+          - global
+        id:
+          type: integer
+          description: Numeric zone ID
+          examples:
+          - 0
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+          example: '500123'
+        brand:
+          type: string
+          description: Zone brand type
+          examples:
+          - solaris
+        isGlobal:
+          type: boolean
+          description: Whether this is the global zone
+          examples:
+          - true
+
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+
+          example: example_value
+    Property:
+      type: object
+      description: A zone resource property with support for simple, list, and complex values
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          examples:
+          - lower-link
+          - ncpus
+          - physical
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          description: Property value type
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listValue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexValue:
+          type: array
+          items:
+            type: string
+          description: Complex structured values
+
+          example: []
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+
+    EvacuationResult:
+      type: object
+      description: Result of a zone evacuation operation
+      properties:
+        status:
+          type: string
+          description: Overall evacuation status
+          enum:
+          - success
+          - fail
+          - partial_fail
+          example: success
+        returning:
+          type: boolean
+          description: Whether zones are being returned from a previous evacuation
+          example: true
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+
+          example: example_value
+    EvacuationMigrationResult:
+      type: object
+      description: Migration result for an individual zone during evacuation
+      properties:
+        zoneName:
+          type: string
+          description: Name of the evacuated zone
+          example: example_value
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+          example: true
+        evacuationTarget:
+          type: string
+          description: Remote host where the zone was migrated
+          example: example_value
+        migrationStatus:
+          type: string
+          description: Status of the individual zone migration
+          example: example_value
+        migrationError:
+          type: object
+          description: Error details if migration failed
+          properties:
+            operation:
+              type: string
+              description: The migration operation that failed
+            message:
+              type: string
+              description: Error description
+          example: example_value

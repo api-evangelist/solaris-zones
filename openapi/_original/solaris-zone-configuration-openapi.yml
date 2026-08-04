@@ -1,0 +1,1016 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Solaris Zone Configuration API
+  description: >-
+    REST API for configuring Oracle Solaris Zones via the RAD zonemgr module.
+    Provides operations for editing zone configurations, managing zone resources
+    (network interfaces, devices, file systems, resource controls), and
+    committing configuration changes. Corresponds to the zonecfg(1M) command
+    functionality exposed through the RAD REST interface.
+  version: '1.6'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Configuration Resources
+  url: https://docs.oracle.com/cd/E37838_01/html/E61040/
+servers:
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+tags:
+- name: Configuration
+  description: Zone configuration editing and commit operations
+- name: Resources
+  description: Zone resource management (net, device, fs, rctl, etc.)
+security:
+- cookieAuth: []
+paths:
+  /Zone/{zoneName}/_rad_method/editConfig:
+    put:
+      operationId: editZoneConfig
+      summary: Solaris Zones Begin Editing Zone Configuration
+      description: >-
+        Start a configuration editing transaction for the specified zone.
+        All subsequent resource and property changes are staged until
+        commitConfig is called. Set liveMode to true to apply changes to
+        a running zone.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                liveMode:
+                  type: boolean
+                  default: false
+                  description: >-
+                    Enable live reconfiguration mode to apply changes to a
+                    running zone without requiring reboot
+            examples:
+              EditzoneconfigRequestExample:
+                summary: Default editZoneConfig request
+                x-microcks-default: true
+                value:
+                  liveMode: true
+      responses:
+        '200':
+          description: Configuration editing session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Editzoneconfig200Example:
+                  summary: Default editZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Already in editing mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Editzoneconfig409Example:
+                  summary: Default editZoneConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/commitConfig:
+    put:
+      operationId: commitZoneConfig
+      summary: Solaris Zones Commit Zone Configuration Changes
+      description: >-
+        Commit all staged configuration changes made since editConfig was
+        called. If the configuration was modified externally since the editing
+        session began, a SNAPSHOT_ERROR is returned.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration committed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Commitzoneconfig200Example:
+                  summary: Default commitZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Configuration was externally modified (snapshot error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Commitzoneconfig409Example:
+                  summary: Default commitZoneConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/cancelConfig:
+    put:
+      operationId: cancelZoneConfig
+      summary: Solaris Zones Cancel Zone Configuration Changes
+      description: >-
+        Discard all staged configuration changes and end the editing session.
+        The zone configuration reverts to its state before editConfig was called.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration changes cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Cancelzoneconfig200Example:
+                  summary: Default cancelZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/reloadConfig:
+    put:
+      operationId: reloadZoneConfig
+      summary: Solaris Zones Reload Zone Configuration From Disk
+      description: >-
+        Reload the zone configuration from persistent storage, discarding any
+        in-memory cached version. Useful when external changes have been made.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration reloaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Reloadzoneconfig200Example:
+                  summary: Default reloadZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/configIsLive:
+    put:
+      operationId: checkConfigIsLive
+      summary: Solaris Zones Check if Live Configuration Mode Is Enabled
+      description: >-
+        Check whether the current editing session has live reconfiguration
+        mode enabled.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Live mode status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+              examples:
+                Checkconfigislive200Example:
+                  summary: Default checkConfigIsLive 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/configIsStale:
+    put:
+      operationId: checkConfigIsStale
+      summary: Solaris Zones Check if Configuration Has Been Externally Modified
+      description: >-
+        Check whether the zone configuration has been modified externally since
+        the current editing session began.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Stale status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: boolean
+              examples:
+                Checkconfigisstale200Example:
+                  summary: Default checkConfigIsStale 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/update:
+    put:
+      operationId: updateZoneConfig
+      summary: Solaris Zones Process Zonecfg-format Commands
+      description: >-
+        Process configuration commands in zonecfg(1M) format. Allows batch
+        configuration updates using the familiar command syntax.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - commands
+              properties:
+                commands:
+                  type: string
+                  description: >-
+                    Zone configuration commands in zonecfg(1M) format,
+                    separated by semicolons
+            examples:
+              UpdatezoneconfigRequestExample:
+                summary: Default updateZoneConfig request
+                x-microcks-default: true
+                value:
+                  commands: example_value
+      responses:
+        '200':
+          description: Commands processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Updatezoneconfig200Example:
+                  summary: Default updateZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/getResources:
+    put:
+      operationId: getZoneResources
+      summary: Solaris Zones Query Zone Resources
+      description: >-
+        Retrieve resources configured for the zone, optionally filtered by
+        resource type and property values. Returns an array of Resource
+        objects with their properties.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    Resource type filter (e.g., net, device, fs, rctl, attr,
+                    dataset, dedicated-cpu, capped-memory, capped-cpu, anet)
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter criteria
+            examples:
+              GetzoneresourcesRequestExample:
+                summary: Default getZoneResources request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+      responses:
+        '200':
+          description: List of matching resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resource'
+              examples:
+                Getzoneresources200Example:
+                  summary: Default getZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - type: net
+                      properties:
+                      - {}
+                      parent: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/addResource:
+    put:
+      operationId: addZoneResource
+      summary: Solaris Zones Add a Resource to Zone Configuration
+      description: >-
+        Add a new resource to the zone configuration. Must be called within
+        an editing session (after editConfig). The resource is staged until
+        commitConfig is called.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+            examples:
+              AddzoneresourceRequestExample:
+                summary: Default addZoneResource request
+                x-microcks-default: true
+                value:
+                  type: net
+                  properties:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue: {}
+                    complexvalue: {}
+                  parent: example_value
+      responses:
+        '200':
+          description: Resource added to staged configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Addzoneresource200Example:
+                  summary: Default addZoneResource 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Resource already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Addzoneresource409Example:
+                  summary: Default addZoneResource 409 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/removeResources:
+    put:
+      operationId: removeZoneResources
+      summary: Solaris Zones Remove Resources From Zone Configuration
+      description: >-
+        Remove resources matching the specified filter from the zone
+        configuration. Must be called within an editing session.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  description: Resource type to remove
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify resources to remove
+            examples:
+              RemovezoneresourcesRequestExample:
+                summary: Default removeZoneResources request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+      responses:
+        '200':
+          description: Resources removed from staged configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Removezoneresources200Example:
+                  summary: Default removeZoneResources 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/getResourceProperties:
+    put:
+      operationId: getZoneResourceProperties
+      summary: Solaris Zones Get Properties of a Zone Resource
+      description: >-
+        Retrieve specific properties from a zone resource identified by type
+        and filter criteria.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    type: string
+                  description: Names of properties to retrieve
+            examples:
+              GetzoneresourcepropertiesRequestExample:
+                summary: Default getZoneResourceProperties request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+                  properties:
+                  - example_value
+      responses:
+        '200':
+          description: Resource properties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+              examples:
+                Getzoneresourceproperties200Example:
+                  summary: Default getZoneResourceProperties 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - name: Example Title
+                      value: example_value
+                      type: simple
+                      listvalue:
+                      - {}
+                      complexvalue:
+                      - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/setResourceProperties:
+    put:
+      operationId: setZoneResourceProperties
+      summary: Solaris Zones Set Properties on a Zone Resource
+      description: >-
+        Set property values on a zone resource identified by type and filter
+        criteria. Must be called within an editing session.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - properties
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Properties to set
+            examples:
+              SetzoneresourcepropertiesRequestExample:
+                summary: Default setZoneResourceProperties request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+                  properties:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+      responses:
+        '200':
+          description: Resource properties updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Setzoneresourceproperties200Example:
+                  summary: Default setZoneResourceProperties 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/clearResourceProperties:
+    put:
+      operationId: clearZoneResourceProperties
+      summary: Solaris Zones Clear Properties on a Zone Resource
+      description: >-
+        Clear (reset to default) property values on a zone resource. Must be
+        called within an editing session.
+      tags:
+      - Resources
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - properties
+              properties:
+                type:
+                  type: string
+                  description: Resource type
+                filter:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Property'
+                  description: Property filter to identify the resource
+                properties:
+                  type: array
+                  items:
+                    type: string
+                  description: Names of properties to clear
+            examples:
+              ClearzoneresourcepropertiesRequestExample:
+                summary: Default clearZoneResourceProperties request
+                x-microcks-default: true
+                value:
+                  type: example_value
+                  filter:
+                  - name: Example Title
+                    value: example_value
+                    type: simple
+                    listvalue:
+                    - {}
+                    complexvalue:
+                    - {}
+                  properties:
+                  - example_value
+      responses:
+        '200':
+          description: Resource properties cleared
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Clearzoneresourceproperties200Example:
+                  summary: Default clearZoneResourceProperties 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /Zone/{zoneName}/_rad_method/apply:
+    put:
+      operationId: applyZoneConfig
+      summary: Solaris Zones Apply Configuration to a Running Zone
+      description: >-
+        Apply the current zone configuration to a running zone without
+        requiring a reboot. Only effective when changes are compatible with
+        live reconfiguration.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Configuration applied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneResult'
+              examples:
+                Applyzoneconfig200Example:
+                  summary: Default applyZoneConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      code: NONE
+                      message: example_value
+                      stdout: example_value
+                      stderr: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
+    Resource:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: >-
+            Resource type name. Common types include: net, anet, device, fs,
+            dataset, rctl, attr, dedicated-cpu, capped-memory, capped-cpu,
+            admin, security-flags
+          enum:
+          - net
+          - anet
+          - device
+          - fs
+          - dataset
+          - rctl
+          - attr
+          - dedicated-cpu
+          - capped-memory
+          - capped-cpu
+          - admin
+          - security-flags
+          - suspend
+          example: net
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: Resource properties
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference
+          example: example_value
+    Property:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          example: Example Title
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          description: Property value type
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          description: Complex property values
+          example: []

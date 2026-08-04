@@ -1,0 +1,710 @@
+openapi: 3.1.0
+info:
+  title: Solaris Zones Solaris Zone Monitoring API
+  description: >-
+    REST API for monitoring Oracle Solaris zone status, resource usage, and
+    performance metrics. Provides access to zone state information, resource
+    utilization statistics via the RAD kstat module and zonestat functionality,
+    including CPU usage, memory consumption, and network statistics per zone.
+  version: '2.0'
+  contact:
+    name: Oracle Solaris Support
+    url: https://www.oracle.com/solaris/support/
+    email: solaris-support@oracle.com
+  license:
+    name: Oracle Technology Network License
+    url: https://www.oracle.com/legal/terms.html
+externalDocs:
+  description: Oracle Solaris Zone Monitoring
+  url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html
+servers:
+- url: https://{host}:{port}/api
+  description: Oracle Solaris RAD REST endpoint
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+tags:
+- name: Kernel Statistics
+  description: Kernel statistics via kstat module
+- name: Zone State
+  description: Zone state monitoring via zonemgr module
+- name: Zone Statistics
+  description: Zone resource utilization statistics
+security:
+- cookieAuth: []
+paths:
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/state:
+    get:
+      operationId: getZoneState
+      summary: Solaris Zones Get Zone Current State
+      description: >-
+        Retrieve the current lifecycle state of a zone (configured, installed,
+        ready, running, shutting_down, down).
+      tags:
+      - Zone State
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: string
+                    enum:
+                    - configured
+                    - incomplete
+                    - installed
+                    - ready
+                    - running
+                    - shutting_down
+                    - down
+              examples:
+                Getzonestate200Example:
+                  summary: Default getZoneState 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: configured
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/id:
+    get:
+      operationId: getZoneId
+      summary: Solaris Zones Get Zone Numeric Id
+      description: >-
+        Retrieve the numeric ID assigned to a zone. Only available when the
+        zone is in running or ready state.
+      tags:
+      - Zone State
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone numeric ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: integer
+              examples:
+                Getzoneid200Example:
+                  summary: Default getZoneId 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.zonemgr/1.6/Zone/{zoneName}/auxstate:
+    get:
+      operationId: getZoneAuxState
+      summary: Solaris Zones Get Zone Auxiliary States
+      description: >-
+        Retrieve auxiliary state flags for a zone. These provide additional
+        status information beyond the primary lifecycle state.
+      tags:
+      - Zone State
+      parameters:
+      - $ref: '#/components/parameters/zoneName'
+      responses:
+        '200':
+          description: Zone auxiliary states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                Getzoneauxstate200Example:
+                  summary: Default getZoneAuxState 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.zonemgr/1.6:
+    get:
+      operationId: listAllZones
+      summary: Solaris Zones List All Zones With Status
+      description: >-
+        Retrieve a list of all zones on the system with their current state
+        and properties. Use _rad_detail for full zone information.
+      tags:
+      - Zone State
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of all zone interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneInterface'
+              examples:
+                Listallzones200Example:
+                  summary: Default listAllZones 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - href: example_value
+                      type: example_value
+                      name: Example Title
+                      state: example_value
+                      brand: example_value
+                      id: abc123
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0:
+    get:
+      operationId: listKstatInterfaces
+      summary: Solaris Zones List Kernel Statistics Interfaces
+      description: >-
+        Retrieve a list of all available kernel statistics interfaces. These
+        provide access to CPU, memory, network, and I/O statistics per zone.
+      tags:
+      - Kernel Statistics
+      parameters:
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: List of kstat interfaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KstatInterface'
+              examples:
+                Listkstatinterfaces200Example:
+                  summary: Default listKstatInterfaces 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                    - href: example_value
+                      module: example_value
+                      name: Example Title
+                      statistic: example_value
+                      instance: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/{module},{name},{statistic},{instance}:
+    get:
+      operationId: getKstat
+      summary: Solaris Zones Get a Specific Kernel Statistic
+      description: >-
+        Retrieve a specific kernel statistic by module, name, statistic, and
+        instance identifier. The four-tuple uniquely identifies a kernel
+        statistics entry.
+      tags:
+      - Kernel Statistics
+      parameters:
+      - name: module
+        in: path
+        required: true
+        description: Kstat module name (e.g., misc, cpu, zones)
+        schema:
+          type: string
+        example: example_value
+      - name: name
+        in: path
+        required: true
+        description: Kstat name (e.g., cpu_info0, vm)
+        schema:
+          type: string
+        example: Example Title
+      - name: statistic
+        in: path
+        required: true
+        description: Statistic name (e.g., cpu_info, cpu)
+        schema:
+          type: string
+        example: example_value
+      - name: instance
+        in: path
+        required: true
+        description: Instance identifier (e.g., CPU number, zone ID)
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Kernel statistic data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/KstatData'
+              examples:
+                Getkstat200Example:
+                  summary: Default getKstat 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      module: example_value
+                      name: Example Title
+                      statistic: example_value
+                      instance: 10
+                      snaptime: 10
+                      data: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
+    get:
+      operationId: getZoneCapStats
+      summary: Solaris Zones Get Zone Resource Cap Statistics
+      description: >-
+        Retrieve resource cap statistics for a specific zone including capped
+        CPU and memory utilization data.
+      tags:
+      - Zone Statistics
+      parameters:
+      - name: zoneName
+        in: path
+        required: true
+        description: Name of the zone
+        schema:
+          type: string
+        example: example_value
+      - name: zoneId
+        in: path
+        required: true
+        description: Numeric zone ID
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: Zone cap statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/ZoneCapStats'
+              examples:
+                Getzonecapstats200Example:
+                  summary: Default getZoneCapStats 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      zonename: example_value
+                      zone_id: '500123'
+                      cpu_cap: 42.5
+                      cpu_usage: 42.5
+                      memory_cap: 10
+                      memory_usage: 10
+                      swap_cap: 10
+                      swap_usage: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{cpuId}:
+    get:
+      operationId: getCpuInfo
+      summary: Solaris Zones Get Cpu Information
+      description: >-
+        Retrieve detailed CPU information for a specific CPU. Useful for
+        monitoring CPU allocation and usage across zones.
+      tags:
+      - Kernel Statistics
+      parameters:
+      - name: cpuId
+        in: path
+        required: true
+        description: CPU number
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: CPU information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/CpuInfo'
+              examples:
+                Getcpuinfo200Example:
+                  summary: Default getCpuInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      brand: example_value
+                      chip_id: '500123'
+                      clock_MHz: 10
+                      core_id: '500123'
+                      cpu_type: example_value
+                      implementation: example_value
+                      ncore_per_chip: 10
+                      state: example_value
+                      vendor_id: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,{cpuId}:
+    get:
+      operationId: getVmCpuStats
+      summary: Solaris Zones Get Vm Cpu Statistics
+      description: >-
+        Retrieve virtual machine CPU statistics for a specific CPU. Provides
+        CPU utilization data relevant to zone performance monitoring.
+      tags:
+      - Kernel Statistics
+      parameters:
+      - name: cpuId
+        in: path
+        required: true
+        description: CPU number
+        schema:
+          type: integer
+        example: '500123'
+      - $ref: '#/components/parameters/radDetail'
+      responses:
+        '200':
+          description: VM CPU statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/VmCpuStats'
+              examples:
+                Getvmcpustats200Example:
+                  summary: Default getVmCpuStats 200 response
+                  x-microcks-default: true
+                  value:
+                    status: example_value
+                    payload:
+                      cpu_nsec_idle: 10
+                      cpu_nsec_kernel: 10
+                      cpu_nsec_user: 10
+                      cpu_nsec_dtrace: 10
+                      cpu_nsec_intr: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rad_session
+      description: RAD session cookie obtained via authentication
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Returns detailed property information when present
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    ZoneInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the zone interface
+          example: example_value
+        type:
+          type: string
+          description: Interface type (Zone, ZoneInfo, ZoneManager)
+          example: example_value
+        name:
+          type: string
+          description: Zone name
+          example: Example Title
+        state:
+          type: string
+          description: Current zone state
+          example: example_value
+        brand:
+          type: string
+          description: Zone brand
+          example: example_value
+        id:
+          type: integer
+          description: Zone numeric ID
+          example: abc123
+    KstatInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the kstat interface
+          example: example_value
+        module:
+          type: string
+          description: Kstat module name
+          example: example_value
+        name:
+          type: string
+          description: Kstat name
+          example: Example Title
+        statistic:
+          type: string
+          description: Statistic name
+          example: example_value
+        instance:
+          type: string
+          description: Instance identifier
+          example: example_value
+    KstatData:
+      type: object
+      properties:
+        module:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Example Title
+        statistic:
+          type: string
+          example: example_value
+        instance:
+          type: integer
+          example: 10
+        snaptime:
+          type: integer
+          format: int64
+          description: Snapshot time in nanoseconds
+          example: 10
+        data:
+          type: object
+          additionalProperties: true
+          description: Key-value pairs of statistic data
+          example: example_value
+    ZoneCapStats:
+      type: object
+      properties:
+        zonename:
+          type: string
+          description: Zone name
+          example: example_value
+        zone_id:
+          type: integer
+          description: Numeric zone ID
+          example: '500123'
+        cpu_cap:
+          type: number
+          description: CPU cap value
+          example: 42.5
+        cpu_usage:
+          type: number
+          description: Current CPU usage
+          example: 42.5
+        memory_cap:
+          type: integer
+          format: int64
+          description: Memory cap in bytes
+          example: 10
+        memory_usage:
+          type: integer
+          format: int64
+          description: Current memory usage in bytes
+          example: 10
+        swap_cap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+          example: 10
+        swap_usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+          example: 10
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+          example: example_value
+        chip_id:
+          type: integer
+          description: Physical chip ID
+          example: '500123'
+        clock_MHz:
+          type: integer
+          description: CPU clock speed in MHz
+          example: 10
+        core_id:
+          type: integer
+          description: Core ID within the chip
+          example: '500123'
+        cpu_type:
+          type: string
+          description: CPU type identifier
+          example: example_value
+        implementation:
+          type: string
+          description: CPU implementation description
+          example: example_value
+        ncore_per_chip:
+          type: integer
+          description: Number of cores per chip
+          example: 10
+        state:
+          type: string
+          description: CPU state (on-line, off-line)
+          example: example_value
+        vendor_id:
+          type: string
+          description: CPU vendor identifier
+          example: '500123'
+    VmCpuStats:
+      type: object
+      properties:
+        cpu_nsec_idle:
+          type: integer
+          format: int64
+          description: Nanoseconds spent idle
+          example: 10
+        cpu_nsec_kernel:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in kernel mode
+          example: 10
+        cpu_nsec_user:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in user mode
+          example: 10
+        cpu_nsec_dtrace:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in DTrace
+          example: 10
+        cpu_nsec_intr:
+          type: integer
+          format: int64
+          description: Nanoseconds spent handling interrupts
+          example: 10
