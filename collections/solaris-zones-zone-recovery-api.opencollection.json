@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Recovery API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zone Recovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Attach a Zone From a Unified Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/attach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a zone using a Unified Archive. Used for restoring a zone from an archive on a new or rebuilt system. The archive provides the zone root content that is attached to the zone configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

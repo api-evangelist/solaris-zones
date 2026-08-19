@@ -1,0 +1,961 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Oracle Solaris Kernel Archive Creation Zones API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "When present, returns detailed property information for each interface or object in the response."
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific zone including its current state, brand, UUID, auxiliary states, and configuration."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Boot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/boot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Boot the specified zone. The zone must be in the installed state. After booting, the zone transitions to the running state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Shutdown a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/shutdown",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gracefully shut down the specified zone by running the shutdown scripts within the zone before halting it."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Halt a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/halt",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Immediately halt the specified zone without running shutdown scripts. The zone transitions from running to installed state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Reboot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/reboot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reboot the specified zone. This is equivalent to a halt followed by a boot operation."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Install a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/install",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install the specified zone. The zone must be in the configured state. After installation, the zone transitions to the installed state and can be booted."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Uninstall a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/uninstall",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uninstall the specified zone, removing all zone data from disk. The zone transitions from installed back to configured state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Clone a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/clone",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clone the specified zone from an existing zone or snapshot, providing a fast method to create zone instances with identical configurations."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Attach a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/attach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a previously detached zone, making it available for use on this system. Validates the zone configuration against the current system."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Detach a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/detach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Detach the specified zone from this system, preparing it for migration or relocation to another system."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Suspend a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/suspend",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Suspend the specified running zone, saving its state to disk. The zone can later be resumed to continue execution from the point of suspension."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Ready a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/ready",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transition the zone to the ready state, which sets up the virtual platform for the zone but does not start any processes within it."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Verify Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/verify",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify that the zone configuration is valid and that all required resources are available on the system."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Begin Editing Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/editConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a configuration editing session for the specified zone. Takes a snapshot of the current configuration that can be modified and then committed or cancelled."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Commit Zone Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/commitConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save all pending configuration changes made during the current editing session. The changes are written to persistent storage."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Cancel Zone Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/cancelConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Discard all pending configuration changes and end the current editing session without saving."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Export Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/exportConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export the zone configuration in zonecfg(8) format text that can be used to recreate the zone on another system using importConfig."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Apply Configuration to Running Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/apply",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply committed configuration changes to a running zone without requiring a reboot. Not all configuration changes support live application."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/getResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve resources configured for the zone that match the specified filter criteria. Resources include anet, capped-cpu, capped-memory, fs, device, and other zone resource types."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Add a Resource to Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/addResource",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new resource to the zone configuration. The zone must be in an editing session started with editConfig. Changes are not persisted until commitConfig is called."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Remove Resources From Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/removeResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove resources matching the specified filter from the zone configuration. Requires an active editing session."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Set Resource Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/setResourceProperties",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify properties of zone resources matching the specified filter. Requires an active editing session."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Rename a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/rename",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename the specified zone. The zone must not be running when this operation is performed."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Move Zone to New Path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/move",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Solaris zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move the zone root to a new file system path on the same host. The zone must not be running."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Name Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/name",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the name property of a specific zone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the current state of a zone. States include configured, incomplete, installed, ready, running, shutting_down, and down."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Brand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/brand",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the brand type of a zone (e.g., solaris, solaris-kz, solaris10)."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Numeric Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the numeric zone ID. Only available when the zone is in running or ready state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Uuid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/uuid",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Retrieve the universally unique identifier for the zone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Boot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/boot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Boot a zone, transitioning it from installed or ready state to running state. Equivalent to zoneadm boot."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Halt a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/halt",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Immediately halt a running zone. Equivalent to zoneadm halt. Does not run shutdown scripts."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Gracefully Shut Down a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/shutdown",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Gracefully shut down a running zone by running shutdown scripts. Equivalent to zoneadm shutdown."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Reboot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/reboot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Reboot a running zone. Equivalent to zoneadm reboot."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Install a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/install",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install a configured zone, transitioning it from configured to installed state. Equivalent to zoneadm install."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Uninstall a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/uninstall",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Uninstall an installed zone, removing its file system content. Equivalent to zoneadm uninstall."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Clone a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/clone",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clone an existing zone to create a new zone with the same configuration and content. Equivalent to zoneadm clone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Attach a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/attach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach a previously detached zone. Equivalent to zoneadm attach."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Detach a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/detach",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Detach a zone from the system for migration or archival. Equivalent to zoneadm detach."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Suspend a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/suspend",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Suspend a running zone, saving its state for later resumption."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Prepare a Zone for Running",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/ready",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Transition a zone to the ready state without booting it. Equivalent to zoneadm ready."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Verify Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/verify",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Verify the zone configuration for correctness. Equivalent to zoneadm verify."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Migrate a Zone to a Remote Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/migrate",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Migrate a zone to a remote host. Supports live and cold migration types. Available since API version 1.1."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Export Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/exportConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Export the zone configuration as a string that can be saved or imported into another system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

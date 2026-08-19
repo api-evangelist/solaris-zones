@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Memory Statistics API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Memory Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Physical Memory Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,:zoneId,physcap,:zoneId",
+            "params": [
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path",
+                "description": "Numeric zone ID"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve physical memory capping statistics for a zone including the configured cap, current RSS, number of page-outs due to capping, and time spent in page-out."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Swap Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/memory_cap,:zoneId,swapcap,:zoneId",
+            "params": [
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve swap space capping statistics for a zone including the configured swap cap and current swap usage."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get System Memory Page Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/unix,0,system_pages,0",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve system-wide memory page statistics including total physical pages, free pages, and page sizes. Provides context for zone memory allocation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

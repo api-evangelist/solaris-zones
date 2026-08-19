@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Configuration API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kernel Zone Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Begin Editing Kernel Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/editConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a configuration editing session for a kernel zone. Kernel zones support additional resource types such as virtual CPUs (dedicated-cpu), virtual memory, and virtual I/O devices."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Add Resource to Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/addResource",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a resource to the kernel zone configuration. Kernel zones support additional resource types including dedicated-cpu for virtual CPU allocation, capped-memory for memory limits, and virtual I/O devices."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Commit Kernel Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/commitConfig",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ]
+          },
+          "docs": "Solaris Zones Commit Kernel Zone Configuration"
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Query Kernel Zone Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/getResources",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve resources configured for the kernel zone including CPU, memory, I/O devices, and networking."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

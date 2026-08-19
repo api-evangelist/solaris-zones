@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Management API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kernel Zone Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Create a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new kernel zone using the solaris-kz brand template. Kernel zones run their own kernel and provide enhanced isolation through hardware-assisted virtualization."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Kernel Zone Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a kernel zone including its brand (solaris-kz), state, UUID, and auxiliary states. The brand property confirms this is a kernel zone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

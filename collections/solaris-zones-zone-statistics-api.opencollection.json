@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Statistics API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zone Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Read Zone-specific Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Store/_rad_method/readZoneStats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Read resource utilization statistics for one or more zones. Provides a convenient way to query zone-specific data without constructing full SSID paths."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Resource Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,:zoneName,zone_caps,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path",
+                "description": "Name of the zone"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path",
+                "description": "Numeric zone ID"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve resource cap statistics for a specific zone including capped CPU and memory utilization data."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Miscellaneous Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/zones,:zoneName,zone_misc,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve miscellaneous statistics for a specific zone including process counts, lightweight process counts, and other zone-level metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

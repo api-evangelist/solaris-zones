@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Statistics API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kernel Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones List Kernel Statistics Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all available kernel statistics interfaces. These provide access to CPU, memory, network, and I/O statistics per zone."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get a Specific Kernel Statistic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/:module,:name,:statistic,:instance",
+            "params": [
+              {
+                "name": "module",
+                "value": "example_value",
+                "type": "path",
+                "description": "Kstat module name (e.g., misc, cpu, zones)"
+              },
+              {
+                "name": "name",
+                "value": "Example Title",
+                "type": "path",
+                "description": "Kstat name (e.g., cpu_info0, vm)"
+              },
+              {
+                "name": "statistic",
+                "value": "example_value",
+                "type": "path",
+                "description": "Statistic name (e.g., cpu_info, cpu)"
+              },
+              {
+                "name": "instance",
+                "value": "example_value",
+                "type": "path",
+                "description": "Instance identifier (e.g., CPU number, zone ID)"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific kernel statistic by module, name, statistic, and instance identifier. The four-tuple uniquely identifies a kernel statistics entry."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Cpu Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed CPU information for a specific CPU. Useful for monitoring CPU allocation and usage across zones."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Vm Cpu Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,vm,cpu,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Returns detailed property information when present"
+              }
+            ]
+          },
+          "docs": "Retrieve virtual machine CPU statistics for a specific CPU. Provides CPU utilization data relevant to zone performance monitoring."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

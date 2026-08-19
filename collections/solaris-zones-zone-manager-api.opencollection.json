@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Manager API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Zone Manager",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones List All Zone Management Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "When present, returns detailed property information for each interface or object in the response."
+              }
+            ]
+          },
+          "docs": "Returns a list of all available zone management interfaces including ZoneManager, Zone instances, ZoneInfo, and migration connections. Use the _rad_detail query parameter to get full property details."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get the Zonemanager Singleton",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager",
+            "params": [
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "When present, returns detailed property information for each interface or object in the response."
+              }
+            ]
+          },
+          "docs": "Returns the ZoneManager interface which provides system-wide zone management capabilities including zone creation, deletion, and evacuation state information."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Create a New Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Solaris zone with the specified name, zone path, and optional template. The zone is created in the configured state and must be installed and booted separately."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Delete a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Permanently deletes a zone from the system. The zone must be in the configured state before it can be deleted."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Import Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/importConfig",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Import a zone configuration from zonecfg(8) format text, creating a new zone with the specified configuration."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Create a New Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new zone with the specified name, zone path, and brand template. The zone is created in the configured state."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Delete a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete an existing zone. The zone must be in the configured or installed state before it can be deleted."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Create Ephemeral Zone Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/createConfig",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a temporary zone configuration for editing before committing. Used for staged configuration changes."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Import a Zone From Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/importConfig",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Import a zone definition from an exported configuration. Used for restoring or cloning zone configurations."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Initialize Zone Evacuation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/initEvacuate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initialize evacuation of zones from the current host to a remote host. Must be called before evacuate(). Available since API version 1.4."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Evacuate Zones to Remote Host",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/evacuate"
+          },
+          "docs": "Perform zone evacuation to a previously initialized remote host. Migrates all eligible zones. Available since API version 1.4."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Cancel Zone Evacuation in Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/ZoneManager/_rad_method/cancelEvacuate"
+          },
+          "docs": "Cancel an ongoing zone evacuation operation. Available since API version 1.4."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

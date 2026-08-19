@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation CPU Statistics API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CPU Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Get Zone Cpu Cap Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,:zoneName,cpucaps_zone_:zoneId,:zoneId",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "zoneId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve CPU capping statistics for a specific zone including the configured CPU cap value, current usage, and time spent being capped."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Get Cpu Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,:cpuId",
+            "params": [
+              {
+                "name": "cpuId",
+                "value": "500123",
+                "type": "path",
+                "description": "CPU identifier number"
+              },
+              {
+                "name": "_rad_detail",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed property information"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific CPU including model, clock speed, vendor, and state. Useful for understanding the physical resources available to zones."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

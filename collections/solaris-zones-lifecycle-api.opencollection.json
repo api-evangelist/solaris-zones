@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Lifecycle API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lifecycle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Boot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/boot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Boot an installed or ready zone, transitioning it to the running state. Equivalent to zoneadm boot."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Halt a Zone Immediately",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/halt",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Immediately halt a running zone without running shutdown scripts. The zone transitions to the installed state. Equivalent to zoneadm halt."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Gracefully Shut Down a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/shutdown",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gracefully shut down a running zone by executing shutdown scripts and cleanly stopping services. Equivalent to zoneadm shutdown."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Reboot a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/reboot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reboot a running zone. The zone is halted and then booted again. Equivalent to zoneadm reboot."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Prepare Zone for Running",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/ready",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Transition the zone to the ready state where virtual platform and networking are set up but the zone is not yet booted. Equivalent to zoneadm ready."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Suspend a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/suspend",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Suspend a running zone, saving its state to persistent storage for later resumption. The zone can be resumed by booting it."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Mark Zone to a Specified State",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/mark",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Forcefully mark a zone to a specific state when normal state transitions are not possible. Used for recovery. Equivalent to zoneadm mark."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Save Zone Core Dump",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/savecore",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the zone"
+              }
+            ]
+          },
+          "docs": "Save a kernel crash dump from a zone. Equivalent to zoneadm savecore."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

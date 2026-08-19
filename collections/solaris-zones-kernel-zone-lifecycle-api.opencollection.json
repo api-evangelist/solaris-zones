@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Lifecycle API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "_rad_session",
+      "value": "{{_rad_session}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kernel Zone Lifecycle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Solaris Zones Install a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/install",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install a configured kernel zone. This provisions the zone with its own Solaris kernel, creating an independent operating environment with hardware-assisted virtualization support."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Boot a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/boot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Boot a kernel zone. Unlike native zones, kernel zones boot their own kernel providing full OS isolation."
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Halt a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/halt",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ]
+          },
+          "docs": "Solaris Zones Halt a Kernel Zone"
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Gracefully Shut Down a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/shutdown",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ]
+          },
+          "docs": "Solaris Zones Gracefully Shut Down a Kernel Zone"
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Reboot a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/reboot",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ]
+          },
+          "docs": "Solaris Zones Reboot a Kernel Zone"
+        },
+        {
+          "info": {
+            "name": "Solaris Zones Suspend a Kernel Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/_rad_method/suspend",
+            "params": [
+              {
+                "name": "zoneName",
+                "value": "",
+                "type": "path",
+                "description": "Kernel zone name"
+              }
+            ]
+          },
+          "docs": "Suspend a running kernel zone, saving its complete state including the kernel zone's own kernel state for later resumption."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
