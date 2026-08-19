@@ -17,7 +17,7 @@ image: https://www.oracle.com/a/ocom/img/cb71-solaris.jpg
 created: '2024'
 modified: '2026-05-19'
 url: https://docs.oracle.com/en/operating-systems/solaris.html
-specificationVersion: '0.18'
+specificationVersion: '0.23'
 apis:
 - aid: solaris-zones:solaris-zones-archive-creation-api
   name: Solaris Zones Archive Creation API
