@@ -305,6 +305,8 @@ apis:
   humanURL: https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html
   baseURL: https://solaris-host.example.com/api/v1
   tags:
+  - Installations
+  tags_raw:
   - Installation
   properties:
   - type: OpenAPI
