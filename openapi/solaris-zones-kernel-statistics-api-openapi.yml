@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Statistics API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
-  version: '1.6'
+  title: Solaris Zones Solaris Zone Monitoring Kernel Statistics API
+  description: REST API for monitoring Oracle Solaris zone status, resource usage, and performance metrics. Provides access to zone state information, resource utilization statistics via the RAD kstat module and zonestat functionality, including CPU usage, memory consumption, and network statistics per zone.
+  version: '2.0'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
@@ -11,7 +11,7 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
 servers:
-- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+- url: https://{host}:{port}/api
   description: Oracle Solaris RAD REST endpoint
   variables:
     host:
@@ -302,43 +302,6 @@ components:
           type: string
           description: CPU vendor identifier
           example: '500123'
-    KstatInterface:
-      type: object
-      properties:
-        href:
-          type: string
-          description: URL path to the kstat interface
-          example: example_value
-        module:
-          type: string
-          description: Kstat module name
-          example: example_value
-        name:
-          type: string
-          description: Kstat name
-          example: Example Title
-        statistic:
-          type: string
-          description: Statistic name
-          example: example_value
-        instance:
-          type: string
-          description: Instance identifier
-          example: example_value
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     KstatData:
       type: object
       properties:
@@ -363,6 +326,43 @@ components:
           type: object
           additionalProperties: true
           description: Key-value pairs of statistic data
+          example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    KstatInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the kstat interface
+          example: example_value
+        module:
+          type: string
+          description: Kstat module name
+          example: example_value
+        name:
+          type: string
+          description: Kstat name
+          example: Example Title
+        statistic:
+          type: string
+          description: Statistic name
+          example: example_value
+        instance:
+          type: string
+          description: Instance identifier
           example: example_value
   responses:
     NotFound:
@@ -392,5 +392,5 @@ components:
       name: _rad_session
       description: RAD session cookie obtained via authentication
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: Oracle Solaris Zone Monitoring
+  url: https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html

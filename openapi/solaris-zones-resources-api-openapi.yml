@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Resources API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  title: Solaris Zones Solaris Zone Configuration Resources API
+  description: REST API for configuring Oracle Solaris Zones via the RAD zonemgr module. Provides operations for editing zone configurations, managing zone resources (network interfaces, devices, file systems, resource controls), and committing configuration changes. Corresponds to the zonecfg(1M) command functionality exposed through the RAD REST interface.
   version: '1.6'
   contact:
     name: Oracle Solaris Support
@@ -470,20 +470,39 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    RadError:
+    Property:
       type: object
+      required:
+      - name
       properties:
-        status:
+        name:
           type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
+          description: Property name
+          example: Example Title
+        value:
+          type: string
+          description: Simple property value
           example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          description: Property value type
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          description: Complex property values
+          example: []
     ZoneResult:
       type: object
       properties:
@@ -551,39 +570,28 @@ components:
           type: string
           description: Parent resource reference
           example: example_value
-    Property:
+    RadError:
       type: object
-      required:
-      - name
       properties:
-        name:
+        status:
           type: string
-          description: Property name
-          example: Example Title
-        value:
-          type: string
-          description: Simple property value
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
           example: example_value
-        type:
-          type: string
-          enum:
-          - simple
-          - list
-          - complex
-          description: Property value type
-          example: simple
-        listvalue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexvalue:
-          type: array
-          items:
-            type: string
-          description: Complex property values
-          example: []
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
   responses:
     NotFound:
       description: Zone or resource not found
@@ -603,14 +611,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone to configure
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey
@@ -618,5 +618,5 @@ components:
       name: _rad_session
       description: RAD session cookie obtained via authentication
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: Oracle Solaris Zone Configuration Resources
+  url: https://docs.oracle.com/cd/E37838_01/html/E61040/

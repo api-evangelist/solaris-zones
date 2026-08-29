@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Archive Deployment API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
-  version: '1.6'
+  title: Solaris Zones Oracle Solaris Unified Archives Zones Archive Deployment API
+  description: REST API for creating, deploying, and managing Unified Archives for Oracle Solaris zone system recovery, cloning, and migration. Unified Archives package one or more system images (zones and global zone) into a single portable archive file that can be used for bare-metal recovery, zone cloning, zone deployment on new systems, and disaster recovery scenarios.
+  version: '1.0'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
@@ -210,21 +210,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
   schemas:
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     ZoneResult:
       type: object
       properties:
@@ -259,6 +253,20 @@ components:
             stderr:
               type: string
           example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
   responses:
     NotFound:
       description: Zone not found
@@ -278,14 +286,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Zone name
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey
@@ -293,5 +293,5 @@ components:
       name: _rad_session
       description: RAD session cookie obtained via authentication
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: Using Unified Archives for System Recovery and Cloning
+  url: https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html

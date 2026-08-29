@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Statistics Discovery API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
-  version: '1.6'
+  title: Solaris Zones Oracle Solaris StatsStore and Analytics Statistics Discovery API
+  description: REST API for accessing the Oracle Solaris 11.4 StatsStore, which provides consolidated system statistics, zone resource utilization data, and historical performance analytics. The StatsStore collects and organizes system-wide and per-zone statistics using a hierarchical namespace of statistics identifiers (SSIDs). Data is accessible via CLI (sstore), the RAD REST interface, the System Web Interface, and programmatic APIs in C and Python.
+  version: '1.0'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
@@ -11,8 +11,8 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
 servers:
-- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
-  description: Oracle Solaris RAD REST endpoint
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+  description: Oracle Solaris RAD REST endpoint for StatsStore
   variables:
     host:
       default: localhost
@@ -20,6 +20,14 @@ servers:
     port:
       default: '6788'
       description: RAD REST API port
+- url: https://{host}:{webport}
+  description: Oracle Solaris System Web Interface
+  variables:
+    host:
+      default: localhost
+    webport:
+      default: '6787'
+      description: System Web Interface HTTPS port
 security:
 - cookieAuth: []
 tags:
@@ -201,20 +209,6 @@ components:
           type: string
           description: Human-readable description
           example: A sample description.
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     StatisticMetadata:
       type: object
       properties:
@@ -247,6 +241,20 @@ components:
           type: boolean
           description: Whether historical data is retained
           example: true
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
   responses:
     Unauthorized:
       description: Authentication required or session expired
@@ -269,5 +277,5 @@ components:
       name: _rad_session
       description: RAD session cookie obtained via authentication
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: Using Oracle Solaris 11.4 StatsStore and System Web Interface
+  url: https://docs.oracle.com/cd/E37838_01/html/E56520/index.html

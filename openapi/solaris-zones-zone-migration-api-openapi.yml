@@ -1,25 +1,23 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Migration API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  title: Solaris Zones Oracle Solaris RAD Zone Management REST Zone Migration API
+  description: REST API for the Oracle Solaris Remote Administration Daemon (RAD) com.oracle.solaris.rad.zonemgr module. Provides programmatic access to Solaris Zones lifecycle management including creation, configuration, migration, monitoring, and administrative operations over HTTP/JSON.
   version: '1.6'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
     email: solaris-support@oracle.com
+  termsOfService: https://www.oracle.com/legal/terms.html
   license:
     name: Oracle Technology Network License
-    url: https://www.oracle.com/legal/terms.html
+    url: https://www.oracle.com/downloads/licenses/standard-license.html
 servers:
-- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
-  description: Oracle Solaris RAD REST endpoint
+- url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD Server
   variables:
-    host:
-      default: localhost
-      description: Solaris host running RAD
-    port:
-      default: '6788'
-      description: RAD REST API port
+    radserver:
+      default: radserver.example.com
+      description: Hostname or IP of the Solaris RAD server
 security:
 - cookieAuth: []
 tags:
@@ -261,42 +259,50 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
   schemas:
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+    EvacuationMigrationResult:
+      type: object
+      description: Migration result for an individual zone during evacuation
+      properties:
+        zoneName:
+          type: string
+          description: Name of the evacuated zone
+          example: example_value
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+          example: true
+        evacuationTarget:
+          type: string
+          description: Remote host where the zone was migrated
+          example: example_value
+        migrationStatus:
+          type: string
+          description: Status of the individual zone migration
+          example: example_value
+        migrationError:
+          type: object
+          description: Error details if migration failed
+          properties:
+            operation:
+              type: string
+              description: The migration operation that failed
+            message:
+              type: string
+              description: Error description
+          example: example_value
     Result:
       type: object
       description: Operation result from a zone management command
@@ -333,49 +339,6 @@ components:
           type: string
           description: Standard error output from the zone administration command
           example: example_value
-    EvacuationMigrationResult:
-      type: object
-      description: Migration result for an individual zone during evacuation
-      properties:
-        zoneName:
-          type: string
-          description: Name of the evacuated zone
-          example: example_value
-        evacuated:
-          type: boolean
-          description: Whether the zone was successfully evacuated
-          example: true
-        evacuationTarget:
-          type: string
-          description: Remote host where the zone was migrated
-          example: example_value
-        migrationStatus:
-          type: string
-          description: Status of the individual zone migration
-          example: example_value
-        migrationError:
-          type: object
-          description: Error details if migration failed
-          properties:
-            operation:
-              type: string
-              description: The migration operation that failed
-            message:
-              type: string
-              description: Error description
-          example: example_value
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
     EvacuationResult:
       type: object
       description: Result of a zone evacuation operation
@@ -398,6 +361,41 @@ components:
             $ref: '#/components/schemas/EvacuationMigrationResult'
           description: Per-zone migration results keyed by zone name
           example: example_value
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
   parameters:
     zoneName:
       name: zoneName
@@ -412,8 +410,8 @@ components:
     cookieAuth:
       type: apiKey
       in: cookie
-      name: _rad_session
-      description: RAD session cookie obtained via authentication
+      name: _rad_cookie
+      description: RAD session cookie obtained through authentication. Use the RAD authentication endpoint to establish a session and obtain the cookie.
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: RAD Client User's Guide - REST API Reference
+  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html

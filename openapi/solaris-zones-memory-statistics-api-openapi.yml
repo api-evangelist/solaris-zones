@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Memory Statistics API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
-  version: '1.6'
+  title: Solaris Zones Monitoring Statistics Memory Statistics API
+  description: REST API for retrieving zone resource utilization statistics on Oracle Solaris 11.4 systems. Provides access to the libzonestat functionality through the RAD REST interface, enabling programmatic retrieval of per-zone resource consumption data including physical memory, virtual memory, CPU utilization, and network I/O with sorting and filtering capabilities.
+  version: '1.0'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
@@ -11,7 +11,7 @@ info:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
 servers:
-- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+- url: https://{host}:{port}/api
   description: Oracle Solaris RAD REST endpoint
   variables:
     host:
@@ -160,20 +160,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     SystemMemoryStats:
       type: object
       properties:
@@ -265,15 +251,29 @@ components:
           format: int64
           description: Anonymous pages paged in
           example: 10
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
   responses:
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Statistic or zone not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Statistic or zone not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
@@ -293,5 +293,5 @@ components:
       name: _rad_session
       description: RAD session cookie obtained via authentication
 externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+  description: Oracle Solaris Zone Monitoring Statistics
+  url: https://docs.oracle.com/cd/E37838_01/html/E61043/

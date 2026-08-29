@@ -1,8 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Statistics API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
-  version: '1.6'
+  title: Solaris Zones Zone Statistics API
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
@@ -10,8 +8,27 @@ info:
   license:
     name: Oracle Technology Network License
     url: https://www.oracle.com/legal/terms.html
+  version: '1.0'
+  description: 'Operations tagged Zone Statistics across 3 of this provider''s published API definitions: solaris-statsstore-openapi.yml, solaris-zone-monitoring-openapi.yml, solaris-zone-stats-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+- url: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+  description: Oracle Solaris RAD REST endpoint for StatsStore
+  variables:
+    host:
+      default: localhost
+      description: Solaris host running RAD
+    port:
+      default: '6788'
+      description: RAD REST API port
+- url: https://{host}:{webport}
+  description: Oracle Solaris System Web Interface
+  variables:
+    host:
+      default: localhost
+    webport:
+      default: '6787'
+      description: System Web Interface HTTPS port
+- url: https://{host}:{port}/api
   description: Oracle Solaris RAD REST endpoint
   variables:
     host:
@@ -101,6 +118,24 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.sstore/1.0
+      description: Oracle Solaris RAD REST endpoint for StatsStore
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port
+    - url: https://{host}:{webport}
+      description: Oracle Solaris System Web Interface
+      variables:
+        host:
+          default: localhost
+        webport:
+          default: '6787'
+          description: System Web Interface HTTPS port
   /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_caps,{zoneId}:
     get:
       operationId: getZoneCapStats
@@ -158,6 +193,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api
+      description: Oracle Solaris RAD REST endpoint
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port
   /com.oracle.solaris.rad.kstat/2.0/Kstat/zones,{zoneName},zone_misc,{zoneId}:
     get:
       operationId: getZoneMiscStatistics
@@ -211,8 +256,60 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api
+      description: Oracle Solaris RAD REST endpoint
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port
 components:
   schemas:
+    ZoneStatistic:
+      type: object
+      properties:
+        zoneName:
+          type: string
+          description: Zone name
+          example: example_value
+        zoneId:
+          type: integer
+          description: Numeric zone ID
+          example: '500123'
+        metric:
+          type: string
+          description: Metric name
+          example: example_value
+        value:
+          type: number
+          description: Current metric value
+          example: 42.5
+        unit:
+          type: string
+          description: Unit of measurement
+          example: example_value
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+          example: '2026-01-15T10:30:00Z'
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     ZoneCapStats:
       type: object
       properties:
@@ -252,20 +349,51 @@ components:
           format: int64
           description: Current swap usage in bytes
           example: 10
-    RadError:
+    ZoneCapStats_2:
       type: object
+      description: Zone resource cap utilization statistics
       properties:
-        status:
+        zonename:
           type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
+          description: Zone name
           example: example_value
+        zone_id:
+          type: integer
+          description: Numeric zone ID
+          example: '500123'
+        cpu_cap:
+          type: number
+          description: CPU cap value (percentage of a CPU)
+          example: 42.5
+        cpu_usage:
+          type: number
+          description: Current CPU usage percentage
+          example: 42.5
+        cpu_nwait:
+          type: integer
+          format: int64
+          description: Number of times zone waited due to CPU cap
+          example: 10
+        memory_cap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+          example: 10
+        memory_usage:
+          type: integer
+          format: int64
+          description: Current physical memory usage in bytes
+          example: 10
+        swap_cap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+          example: 10
+        swap_usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+          example: 10
     ZoneMiscStats:
       type: object
       description: Zone miscellaneous statistics
@@ -294,43 +422,15 @@ components:
           format: int64
           description: Total resident set size in bytes
           example: 10
-    ZoneStatistic:
-      type: object
-      properties:
-        zoneName:
-          type: string
-          description: Zone name
-          example: example_value
-        zoneId:
-          type: integer
-          description: Numeric zone ID
-          example: '500123'
-        metric:
-          type: string
-          description: Metric name
-          example: example_value
-        value:
-          type: number
-          description: Current metric value
-          example: 42.5
-        unit:
-          type: string
-          description: Unit of measurement
-          example: example_value
-        timestamp:
-          type: string
-          format: date-time
-          description: When the value was recorded
-          example: '2026-01-15T10:30:00Z'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -362,6 +462,7 @@ components:
       in: cookie
       name: _rad_session
       description: RAD session cookie obtained via authentication
-externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+x-refined-from:
+- solaris-statsstore-openapi.yml
+- solaris-zone-monitoring-openapi.yml
+- solaris-zone-stats-openapi.yml

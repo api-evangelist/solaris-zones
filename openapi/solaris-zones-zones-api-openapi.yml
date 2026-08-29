@@ -1,25 +1,28 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Solaris Oracle Solaris Kernel Archive Creation Zones API
-  description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
+  title: Solaris Zones API
   version: '1.6'
   contact:
     name: Oracle Solaris Support
     url: https://www.oracle.com/solaris/support/
     email: solaris-support@oracle.com
-  license:
-    name: Oracle Technology Network License
-    url: https://www.oracle.com/legal/terms.html
+  description: 'Operations tagged Zones across 2 of this provider''s published API definitions: solaris-rad-zonemgr-openapi.yml, solaris-zones-management-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+  description: Oracle Solaris RAD Server
+  variables:
+    radserver:
+      default: radserver.example.com
+      description: Hostname or IP of the Solaris RAD server
 - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
-  description: Oracle Solaris RAD REST endpoint
+  description: Oracle Solaris RAD REST endpoint for zone management
   variables:
     host:
       default: localhost
       description: Solaris host running RAD
     port:
       default: '6788'
-      description: RAD REST API port
+      description: RAD REST API port (default HTTPS)
 security:
 - cookieAuth: []
 tags:
@@ -73,6 +76,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/boot:
     put:
       operationId: bootZone
@@ -131,6 +141,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/shutdown:
     put:
       operationId: shutdownZone
@@ -189,6 +206,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/halt:
     put:
       operationId: haltZone
@@ -239,6 +263,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/reboot:
     put:
       operationId: rebootZone
@@ -297,6 +328,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/install:
     put:
       operationId: installZone
@@ -355,6 +393,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/uninstall:
     put:
       operationId: uninstallZone
@@ -405,6 +450,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/clone:
     put:
       operationId: cloneZone
@@ -469,6 +521,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/attach:
     put:
       operationId: attachZone
@@ -527,6 +586,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/detach:
     put:
       operationId: detachZone
@@ -577,6 +643,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/suspend:
     put:
       operationId: suspendZone
@@ -627,6 +700,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/ready:
     put:
       operationId: readyZone
@@ -677,6 +757,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/verify:
     put:
       operationId: verifyZone
@@ -727,6 +814,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/editConfig:
     put:
       operationId: editZoneConfig
@@ -777,6 +871,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/commitConfig:
     put:
       operationId: commitZoneConfig
@@ -827,6 +928,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/cancelConfig:
     put:
       operationId: cancelZoneConfig
@@ -877,6 +985,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/exportConfig:
     put:
       operationId: exportZoneConfig
@@ -931,6 +1046,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/apply:
     put:
       operationId: applyZoneConfig
@@ -981,6 +1103,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/getResources:
     put:
       operationId: getZoneResources
@@ -1065,6 +1194,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/addResource:
     put:
       operationId: addZoneResource
@@ -1122,6 +1258,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/removeResources:
     put:
       operationId: removeZoneResources
@@ -1193,6 +1336,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/setResourceProperties:
     put:
       operationId: setZoneResourceProperties
@@ -1276,6 +1426,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/rename:
     put:
       operationId: renameZone
@@ -1336,6 +1493,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/move:
     put:
       operationId: moveZone
@@ -1396,6 +1560,13 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{radserver}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD Server
+      variables:
+        radserver:
+          default: radserver.example.com
+          description: Hostname or IP of the Solaris RAD server
   /Zone/{zoneName}/name:
     get:
       operationId: getZoneName
@@ -1429,6 +1600,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/state:
     get:
       operationId: getZoneState
@@ -1470,6 +1651,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/brand:
     get:
       operationId: getZoneBrand
@@ -1503,6 +1694,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/id:
     get:
       operationId: getZoneId
@@ -1536,6 +1737,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/uuid:
     get:
       operationId: getZoneUuid
@@ -1570,6 +1781,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/boot:
     put:
       operationId: bootZone
@@ -1622,6 +1843,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/halt:
     put:
       operationId: haltZone
@@ -1656,6 +1887,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/shutdown:
     put:
       operationId: shutdownZone
@@ -1690,6 +1931,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/reboot:
     put:
       operationId: rebootZone
@@ -1724,6 +1975,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/install:
     put:
       operationId: installZone
@@ -1776,6 +2037,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/uninstall:
     put:
       operationId: uninstallZone
@@ -1810,6 +2081,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/clone:
     put:
       operationId: cloneZone
@@ -1866,6 +2147,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/attach:
     put:
       operationId: attachZone
@@ -1918,6 +2209,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/detach:
     put:
       operationId: detachZone
@@ -1952,6 +2253,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/suspend:
     put:
       operationId: suspendZone
@@ -1986,6 +2297,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/ready:
     put:
       operationId: readyZone
@@ -2020,6 +2341,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/verify:
     put:
       operationId: verifyZone
@@ -2054,6 +2385,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/migrate:
     put:
       operationId: migrateZone
@@ -2104,6 +2445,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/exportConfig:
     put:
       operationId: exportZoneConfig
@@ -2140,8 +2491,55 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
+      description: Oracle Solaris RAD REST endpoint for zone management
+      variables:
+        host:
+          default: localhost
+          description: Solaris host running RAD
+        port:
+          default: '6788'
+          description: RAD REST API port (default HTTPS)
 components:
   schemas:
+    Property:
+      type: object
+      description: A zone resource property with support for simple, list, and complex values
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          examples:
+          - lower-link
+          - ncpus
+          - physical
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          description: Property value type
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listValue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexValue:
+          type: array
+          items:
+            type: string
+          description: Complex structured values
+          example: []
     ResultResponse:
       type: object
       description: Standard RAD response wrapper for operation results
@@ -2154,136 +2552,6 @@ components:
           example: success
         payload:
           $ref: '#/components/schemas/Result'
-    Result:
-      type: object
-      description: Operation result from a zone management command
-      properties:
-        code:
-          type: string
-          description: Error code if the operation failed
-          enum:
-          - ZEC_NONE
-          - ZEC_FRAMEWORK_ERROR
-          - ZEC_SNAPSHOT_ERROR
-          - ZEC_COMMAND_ERROR
-          - ZEC_RESOURCE_ALREADY_EXISTS
-          - ZEC_RESOURCE_NOT_FOUND
-          - ZEC_RESOURCE_TOO_MANY
-          - ZEC_RESOURCE_UNKNOWN
-          - ZEC_ALREADY_EDITING
-          - ZEC_INCOMPLETE_NO_CONFIG
-          - ZEC_PROPERTY_UNKNOWN
-          - ZEC_NOT_EDITING
-          - ZEC_SYSTEM_ERROR
-          - ZEC_INVALID_ARGUMENT
-          - ZEC_INVALID_ZONE_STATE
-          example: ZEC_NONE
-        message:
-          type: string
-          description: Human-readable error or status message
-          example: example_value
-        stdout:
-          type: string
-          description: Standard output from the zone administration command
-          example: example_value
-        stderr:
-          type: string
-          description: Standard error output from the zone administration command
-          example: example_value
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
-    ZoneResult:
-      type: object
-      properties:
-        status:
-          type: string
-          example: example_value
-        payload:
-          type: object
-          properties:
-            code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
-              description: Error code
-            message:
-              type: string
-              description: Error or success message
-            stdout:
-              type: string
-              description: Standard output from the operation
-            stderr:
-              type: string
-              description: Standard error from the operation
-          example: example_value
-    Resource:
-      type: object
-      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type identifier
-          enum:
-          - admin
-          - anet
-          - attr
-          - capped-cpu
-          - capped-memory
-          - dataset
-          - dedicated-cpu
-          - device
-          - fs
-          - ib-vhca
-          - keysource
-          - net
-          - npiv
-          - rctl
-          - rootzpool
-          - smf-dependency
-          - verified-boot
-          - virtual-cpu
-          - zpool
-          example: admin
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: List of properties for this resource
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference for nested resources
-          example: example_value
     ZoneDetail:
       type: object
       description: Detailed information about a specific Solaris zone
@@ -2335,6 +2603,174 @@ components:
             type: string
           description: Auxiliary state information for the zone
           example: []
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+          example: example_value
+    Zone:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Example Title
+        brand:
+          type: string
+          description: Zone brand type (e.g., solaris, solaris-kz, solaris10)
+          example: example_value
+        id:
+          type: integer
+          description: Numeric zone ID (only when running or ready)
+          example: abc123
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+          example: '500123'
+        state:
+          type: string
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          description: Current zone state
+          example: configured
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary zone states
+          example: []
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+              description: Error code
+            message:
+              type: string
+              description: Error or success message
+            stdout:
+              type: string
+              description: Standard output from the operation
+            stderr:
+              type: string
+              description: Standard error from the operation
+          example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code
+            message:
+              type: string
+              description: Error message
+          example: example_value
     MigrateZoneRequest:
       type: object
       required:
@@ -2356,43 +2792,6 @@ components:
           type: string
           description: Encryption cipher for the migration transfer
           example: example_value
-    Property:
-      type: object
-      description: A zone resource property with support for simple, list, and complex values
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Property name
-          examples:
-          - lower-link
-          - ncpus
-          - physical
-        value:
-          type: string
-          description: Simple property value
-          example: example_value
-        type:
-          type: string
-          description: Property value type
-          enum:
-          - simple
-          - list
-          - complex
-          example: simple
-        listValue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexValue:
-          type: array
-          items:
-            type: string
-          description: Complex structured values
-          example: []
   responses:
     InternalError:
       description: Internal server error
@@ -2412,12 +2811,6 @@ components:
                     type: string
                   message:
                     type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
     Unauthorized:
       description: Authentication required or session expired
       content:
@@ -2440,6 +2833,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -2447,13 +2846,6 @@ components:
           schema:
             $ref: '#/components/schemas/RadError'
   parameters:
-    zoneName_2:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
     radDetail:
       name: _rad_detail
       in: query
@@ -2471,12 +2863,26 @@ components:
         type: string
         examples:
         - testzone1
+    zoneName_2:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+    radDetail_2:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed information including all properties for each interface.
+      schema:
+        type: boolean
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
-      name: _rad_session
-      description: RAD session cookie obtained via authentication
-externalDocs:
-  description: Oracle Solaris Kernel Zones Documentation
-  url: https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html
+      name: _rad_cookie
+      description: RAD session cookie obtained through authentication. Use the RAD authentication endpoint to establish a session and obtain the cookie.
+x-refined-from:
+- solaris-rad-zonemgr-openapi.yml
+- solaris-zones-management-openapi.yml
