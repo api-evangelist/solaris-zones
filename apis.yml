@@ -1544,6 +1544,17 @@ maintainers:
 tags:
 - Containers
 - Kernel Zones
+- Operating System
+- Oracle
+- RAD
+- Resource Management
+- Solaris
+- StatsStore
+- Virtualization
+- Zones
+tags_raw:
+- Containers
+- Kernel Zones
 - Operating Systems
 - Oracle
 - RAD
