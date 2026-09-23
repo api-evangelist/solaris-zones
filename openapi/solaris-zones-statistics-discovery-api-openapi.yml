@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris StatsStore and Analytics Statistics Discovery API
+  title: Solaris Zones Oracle Solaris StatsStore and Analytics…
   description: REST API for accessing the Oracle Solaris 11.4 StatsStore, which provides consolidated system statistics, zone resource utilization data, and historical performance analytics. The StatsStore collects and organizes system-wide and per-zone statistics using a hierarchical namespace of statistics identifiers (SSIDs). Data is accessible via CLI (sstore), the RAD REST interface, the System Web Interface, and programmatic APIs in C and Python.
   version: '1.0'
   contact:
@@ -189,26 +189,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    StatisticIdentifier:
-      type: object
-      properties:
-        ssid:
-          type: string
-          description: Statistics identifier in hierarchical namespace format (e.g., //:class:zones/zone-name/utilization/cpu)
-          example: '500123'
-        type:
-          type: string
-          description: Statistic data type
-          enum:
-          - counter
-          - gauge
-          - histogram
-          - string
-          example: counter
-        description:
-          type: string
-          description: Human-readable description
-          example: A sample description.
     StatisticMetadata:
       type: object
       properties:
@@ -255,6 +235,26 @@ components:
             message:
               type: string
           example: example_value
+    StatisticIdentifier:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier in hierarchical namespace format (e.g., //:class:zones/zone-name/utilization/cpu)
+          example: '500123'
+        type:
+          type: string
+          description: Statistic data type
+          enum:
+          - counter
+          - gauge
+          - histogram
+          - string
+          example: counter
+        description:
+          type: string
+          description: Human-readable description
+          example: A sample description.
   responses:
     Unauthorized:
       description: Authentication required or session expired

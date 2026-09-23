@@ -424,6 +424,14 @@ components:
             message:
               type: string
           example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
   responses:
     NotFound:
       description: Zone not found
@@ -437,14 +445,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

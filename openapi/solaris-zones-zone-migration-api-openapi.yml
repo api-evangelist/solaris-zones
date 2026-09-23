@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris RAD Zone Management REST Zone Migration API
+  title: Solaris Zones Oracle Solaris RAD Zone Management REST Zone…
   description: REST API for the Oracle Solaris Remote Administration Daemon (RAD) com.oracle.solaris.rad.zonemgr module. Provides programmatic access to Solaris Zones lifecycle management including creation, configuration, migration, monitoring, and administrative operations over HTTP/JSON.
   version: '1.6'
   contact:
@@ -259,108 +259,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  schemas:
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
-    EvacuationMigrationResult:
-      type: object
-      description: Migration result for an individual zone during evacuation
-      properties:
-        zoneName:
-          type: string
-          description: Name of the evacuated zone
-          example: example_value
-        evacuated:
-          type: boolean
-          description: Whether the zone was successfully evacuated
-          example: true
-        evacuationTarget:
-          type: string
-          description: Remote host where the zone was migrated
-          example: example_value
-        migrationStatus:
-          type: string
-          description: Status of the individual zone migration
-          example: example_value
-        migrationError:
-          type: object
-          description: Error details if migration failed
-          properties:
-            operation:
-              type: string
-              description: The migration operation that failed
-            message:
-              type: string
-              description: Error description
-          example: example_value
-    Result:
-      type: object
-      description: Operation result from a zone management command
-      properties:
-        code:
-          type: string
-          description: Error code if the operation failed
-          enum:
-          - ZEC_NONE
-          - ZEC_FRAMEWORK_ERROR
-          - ZEC_SNAPSHOT_ERROR
-          - ZEC_COMMAND_ERROR
-          - ZEC_RESOURCE_ALREADY_EXISTS
-          - ZEC_RESOURCE_NOT_FOUND
-          - ZEC_RESOURCE_TOO_MANY
-          - ZEC_RESOURCE_UNKNOWN
-          - ZEC_ALREADY_EDITING
-          - ZEC_INCOMPLETE_NO_CONFIG
-          - ZEC_PROPERTY_UNKNOWN
-          - ZEC_NOT_EDITING
-          - ZEC_SYSTEM_ERROR
-          - ZEC_INVALID_ARGUMENT
-          - ZEC_INVALID_ZONE_STATE
-          example: ZEC_NONE
-        message:
-          type: string
-          description: Human-readable error or status message
-          example: example_value
-        stdout:
-          type: string
-          description: Standard output from the zone administration command
-          example: example_value
-        stderr:
-          type: string
-          description: Standard error output from the zone administration command
-          example: example_value
-    EvacuationResult:
-      type: object
-      description: Result of a zone evacuation operation
-      properties:
-        status:
-          type: string
-          description: Overall evacuation status
-          enum:
-          - success
-          - fail
-          - partial_fail
-          example: success
-        returning:
-          type: boolean
-          description: Whether zones are being returned from a previous evacuation
-          example: true
-        migrationResults:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EvacuationMigrationResult'
-          description: Per-zone migration results keyed by zone name
-          example: example_value
   responses:
     InternalError:
       description: Internal server error
@@ -406,6 +304,108 @@ components:
         type: string
         examples:
         - testzone1
+  schemas:
+    EvacuationMigrationResult:
+      type: object
+      description: Migration result for an individual zone during evacuation
+      properties:
+        zoneName:
+          type: string
+          description: Name of the evacuated zone
+          example: example_value
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+          example: true
+        evacuationTarget:
+          type: string
+          description: Remote host where the zone was migrated
+          example: example_value
+        migrationStatus:
+          type: string
+          description: Status of the individual zone migration
+          example: example_value
+        migrationError:
+          type: object
+          description: Error details if migration failed
+          properties:
+            operation:
+              type: string
+              description: The migration operation that failed
+            message:
+              type: string
+              description: Error description
+          example: example_value
+    EvacuationResult:
+      type: object
+      description: Result of a zone evacuation operation
+      properties:
+        status:
+          type: string
+          description: Overall evacuation status
+          enum:
+          - success
+          - fail
+          - partial_fail
+          example: success
+        returning:
+          type: boolean
+          description: Whether zones are being returned from a previous evacuation
+          example: true
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
   securitySchemes:
     cookieAuth:
       type: apiKey

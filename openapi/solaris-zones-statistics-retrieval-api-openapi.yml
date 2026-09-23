@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris StatsStore and Analytics Statistics Retrieval API
+  title: Solaris Zones Oracle Solaris StatsStore and Analytics…
   description: REST API for accessing the Oracle Solaris 11.4 StatsStore, which provides consolidated system statistics, zone resource utilization data, and historical performance analytics. The StatsStore collects and organizes system-wide and per-zone statistics using a hierarchical namespace of statistics identifiers (SSIDs). Data is accessible via CLI (sstore), the RAD REST interface, the System Web Interface, and programmatic APIs in C and Python.
   version: '1.0'
   contact:
@@ -168,14 +168,21 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     HistoricalStatistic:
       type: object
       properties:
@@ -201,20 +208,6 @@ components:
           type: string
           description: Unit of measurement
           example: example_value
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     StatisticValue:
       type: object
       properties:
@@ -238,6 +231,13 @@ components:
           type: string
           description: Unit of measurement
           example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   securitySchemes:
     cookieAuth:
       type: apiKey

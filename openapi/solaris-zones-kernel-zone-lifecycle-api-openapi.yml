@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Kernel Zones Kernel Zone Lifecycle API
+  title: Solaris Zones Oracle Solaris Kernel Zones Kernel Zone…
   description: REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.
   version: '1.6'
   contact:
@@ -313,6 +313,14 @@ components:
             message:
               type: string
           example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
   responses:
     NotFound:
       description: Zone not found
@@ -326,14 +334,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Kernel zone name
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

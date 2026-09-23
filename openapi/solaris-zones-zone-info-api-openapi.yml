@@ -120,22 +120,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
-    radDetail_2:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed information including all properties for each interface.
-      schema:
-        type: boolean
   schemas:
     ZoneInfo:
       type: object
@@ -206,6 +190,22 @@ components:
               type: string
               description: Error message
           example: example_value
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
+    radDetail_2:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed information including all properties for each interface.
+      schema:
+        type: boolean
   securitySchemes:
     cookieAuth:
       type: apiKey

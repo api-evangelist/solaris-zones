@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Solaris Zones Oracle Solaris Unified Archives Zones Archive Information API
+  title: Solaris Zones Oracle Solaris Unified Archives Zones Archive…
   description: REST API for creating, deploying, and managing Unified Archives for Oracle Solaris zone system recovery, cloning, and migration. Unified Archives package one or more system images (zones and global zone) into a single portable archive file that can be used for bare-metal recovery, zone cloning, zone deployment on new systems, and disaster recovery scenarios.
   version: '1.0'
   contact:
@@ -199,20 +199,6 @@ components:
           items:
             type: string
           example: []
-    Resource:
-      type: object
-      properties:
-        type:
-          type: string
-          example: example_value
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          example: []
-        parent:
-          type: string
-          example: example_value
     RadError:
       type: object
       properties:
@@ -227,6 +213,35 @@ components:
             message:
               type: string
           example: example_value
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: example_value
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          example: []
+        parent:
+          type: string
+          example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
   responses:
     NotFound:
       description: Zone not found
@@ -240,21 +255,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: Include detailed property information
-      schema:
-        type: boolean
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Zone name
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

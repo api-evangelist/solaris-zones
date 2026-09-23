@@ -57,7 +57,8 @@
     "tag 'Zone Manager' spans 2 source specs (solaris-rad-zonemgr-openapi.yml, solaris-zones-management-openapi.yml): per-path servers applied",
     "tag 'Zones' spans 2 source specs (solaris-rad-zonemgr-openapi.yml, solaris-zones-management-openapi.yml): per-path servers applied",
     "tag 'System Statistics' spans 2 source specs (solaris-statsstore-openapi.yml, solaris-zone-stats-openapi.yml): per-path servers applied",
-    "tag 'Zone Statistics' spans 3 source specs (solaris-statsstore-openapi.yml, solaris-zone-monitoring-openapi.yml, solaris-zone-stats-openapi.yml): per-path servers applied"
+    "tag 'Zone Statistics' spans 3 source specs (solaris-statsstore-openapi.yml, solaris-zone-monitoring-openapi.yml, solaris-zone-stats-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "solaris-zones-archive-creation-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -268,6 +268,20 @@ paths:
           description: RAD REST API port
 components:
   schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     ZoneStatistic:
       type: object
       properties:
@@ -296,20 +310,6 @@ components:
           format: date-time
           description: When the value was recorded
           example: '2026-01-15T10:30:00Z'
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     ZoneCapStats:
       type: object
       properties:
@@ -348,6 +348,34 @@ components:
           type: integer
           format: int64
           description: Current swap usage in bytes
+          example: 10
+    ZoneMiscStats:
+      type: object
+      description: Zone miscellaneous statistics
+      properties:
+        zonename:
+          type: string
+          example: example_value
+        zone_id:
+          type: integer
+          example: '500123'
+        nprocs:
+          type: integer
+          description: Number of processes in the zone
+          example: 10
+        nlwps:
+          type: integer
+          description: Number of lightweight processes in the zone
+          example: 10
+        pr_size:
+          type: integer
+          format: int64
+          description: Total process size in bytes
+          example: 10
+        pr_rss:
+          type: integer
+          format: int64
+          description: Total resident set size in bytes
           example: 10
     ZoneCapStats_2:
       type: object
@@ -393,34 +421,6 @@ components:
           type: integer
           format: int64
           description: Current swap usage in bytes
-          example: 10
-    ZoneMiscStats:
-      type: object
-      description: Zone miscellaneous statistics
-      properties:
-        zonename:
-          type: string
-          example: example_value
-        zone_id:
-          type: integer
-          example: '500123'
-        nprocs:
-          type: integer
-          description: Number of processes in the zone
-          example: 10
-        nlwps:
-          type: integer
-          description: Number of lightweight processes in the zone
-          example: 10
-        pr_size:
-          type: integer
-          format: int64
-          description: Total process size in bytes
-          example: 10
-        pr_rss:
-          type: integer
-          format: int64
-          description: Total resident set size in bytes
           example: 10
   responses:
     Unauthorized:

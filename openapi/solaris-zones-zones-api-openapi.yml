@@ -2502,296 +2502,6 @@ paths:
           default: '6788'
           description: RAD REST API port (default HTTPS)
 components:
-  schemas:
-    Property:
-      type: object
-      description: A zone resource property with support for simple, list, and complex values
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Property name
-          examples:
-          - lower-link
-          - ncpus
-          - physical
-        value:
-          type: string
-          description: Simple property value
-          example: example_value
-        type:
-          type: string
-          description: Property value type
-          enum:
-          - simple
-          - list
-          - complex
-          example: simple
-        listValue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexValue:
-          type: array
-          items:
-            type: string
-          description: Complex structured values
-          example: []
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
-    ZoneDetail:
-      type: object
-      description: Detailed information about a specific Solaris zone
-      required:
-      - name
-      - state
-      - brand
-      properties:
-        name:
-          type: string
-          description: Zone name
-          examples:
-          - testzone1
-        id:
-          type: integer
-          description: Zone numeric ID assigned by the kernel when the zone is running
-          examples:
-          - 2
-        uuid:
-          type: string
-          format: uuid
-          description: Universally unique identifier for the zone
-          example: '500123'
-        state:
-          type: string
-          description: Current zone state
-          enum:
-          - configured
-          - incomplete
-          - installed
-          - ready
-          - running
-          - shutting_down
-          - down
-          example: configured
-        brand:
-          type: string
-          description: Zone brand determining the runtime environment
-          enum:
-          - solaris
-          - solaris10
-          - solaris-kz
-          - labeled
-          examples:
-          - solaris
-        auxstate:
-          type: array
-          items:
-            type: string
-          description: Auxiliary state information for the zone
-          example: []
-    Result:
-      type: object
-      description: Operation result from a zone management command
-      properties:
-        code:
-          type: string
-          description: Error code if the operation failed
-          enum:
-          - ZEC_NONE
-          - ZEC_FRAMEWORK_ERROR
-          - ZEC_SNAPSHOT_ERROR
-          - ZEC_COMMAND_ERROR
-          - ZEC_RESOURCE_ALREADY_EXISTS
-          - ZEC_RESOURCE_NOT_FOUND
-          - ZEC_RESOURCE_TOO_MANY
-          - ZEC_RESOURCE_UNKNOWN
-          - ZEC_ALREADY_EDITING
-          - ZEC_INCOMPLETE_NO_CONFIG
-          - ZEC_PROPERTY_UNKNOWN
-          - ZEC_NOT_EDITING
-          - ZEC_SYSTEM_ERROR
-          - ZEC_INVALID_ARGUMENT
-          - ZEC_INVALID_ZONE_STATE
-          example: ZEC_NONE
-        message:
-          type: string
-          description: Human-readable error or status message
-          example: example_value
-        stdout:
-          type: string
-          description: Standard output from the zone administration command
-          example: example_value
-        stderr:
-          type: string
-          description: Standard error output from the zone administration command
-          example: example_value
-    Resource:
-      type: object
-      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type identifier
-          enum:
-          - admin
-          - anet
-          - attr
-          - capped-cpu
-          - capped-memory
-          - dataset
-          - dedicated-cpu
-          - device
-          - fs
-          - ib-vhca
-          - keysource
-          - net
-          - npiv
-          - rctl
-          - rootzpool
-          - smf-dependency
-          - verified-boot
-          - virtual-cpu
-          - zpool
-          example: admin
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: List of properties for this resource
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference for nested resources
-          example: example_value
-    Zone:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Zone name
-          example: Example Title
-        brand:
-          type: string
-          description: Zone brand type (e.g., solaris, solaris-kz, solaris10)
-          example: example_value
-        id:
-          type: integer
-          description: Numeric zone ID (only when running or ready)
-          example: abc123
-        uuid:
-          type: string
-          format: uuid
-          description: Zone UUID
-          example: '500123'
-        state:
-          type: string
-          enum:
-          - configured
-          - incomplete
-          - installed
-          - ready
-          - running
-          - shutting_down
-          - down
-          description: Current zone state
-          example: configured
-        auxstate:
-          type: array
-          items:
-            type: string
-          description: Auxiliary zone states
-          example: []
-    ZoneResult:
-      type: object
-      properties:
-        status:
-          type: string
-          example: example_value
-        payload:
-          type: object
-          properties:
-            code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
-              description: Error code
-            message:
-              type: string
-              description: Error or success message
-            stdout:
-              type: string
-              description: Standard output from the operation
-            stderr:
-              type: string
-              description: Standard error from the operation
-          example: example_value
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
-    MigrateZoneRequest:
-      type: object
-      required:
-      - host
-      - type
-      properties:
-        host:
-          type: string
-          description: Remote host to migrate the zone to
-          example: example_value
-        type:
-          type: string
-          enum:
-          - live
-          - cold
-          description: Migration type
-          example: live
-        cipher:
-          type: string
-          description: Encryption cipher for the migration transfer
-          example: example_value
   responses:
     InternalError:
       description: Internal server error
@@ -2845,15 +2555,297 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
+  schemas:
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+          example: example_value
+    ZoneDetail:
+      type: object
+      description: Detailed information about a specific Solaris zone
+      required:
+      - name
+      - state
+      - brand
+      properties:
+        name:
+          type: string
+          description: Zone name
+          examples:
+          - testzone1
+        id:
+          type: integer
+          description: Zone numeric ID assigned by the kernel when the zone is running
+          examples:
+          - 2
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier for the zone
+          example: '500123'
+        state:
+          type: string
+          description: Current zone state
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          example: configured
+        brand:
+          type: string
+          description: Zone brand determining the runtime environment
+          enum:
+          - solaris
+          - solaris10
+          - solaris-kz
+          - labeled
+          examples:
+          - solaris
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary state information for the zone
+          example: []
+    Property:
+      type: object
+      description: A zone resource property with support for simple, list, and complex values
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          examples:
+          - lower-link
+          - ncpus
+          - physical
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          description: Property value type
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listValue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexValue:
+          type: array
+          items:
+            type: string
+          description: Complex structured values
+          example: []
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+              description: Error code
+            message:
+              type: string
+              description: Error or success message
+            stdout:
+              type: string
+              description: Standard output from the operation
+            stderr:
+              type: string
+              description: Standard error from the operation
+          example: example_value
+    Zone:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Example Title
+        brand:
+          type: string
+          description: Zone brand type (e.g., solaris, solaris-kz, solaris10)
+          example: example_value
+        id:
+          type: integer
+          description: Numeric zone ID (only when running or ready)
+          example: abc123
+        uuid:
+          type: string
+          format: uuid
+          description: Zone UUID
+          example: '500123'
+        state:
+          type: string
+          enum:
+          - configured
+          - incomplete
+          - installed
+          - ready
+          - running
+          - shutting_down
+          - down
+          description: Current zone state
+          example: configured
+        auxstate:
+          type: array
+          items:
+            type: string
+          description: Auxiliary zone states
+          example: []
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code
+            message:
+              type: string
+              description: Error message
+          example: example_value
+    MigrateZoneRequest:
+      type: object
+      required:
+      - host
+      - type
+      properties:
+        host:
+          type: string
+          description: Remote host to migrate the zone to
+          example: example_value
+        type:
+          type: string
+          enum:
+          - live
+          - cold
+          description: Migration type
+          example: live
+        cipher:
+          type: string
+          description: Encryption cipher for the migration transfer
+          example: example_value
   parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
     zoneName:
       name: zoneName
       in: path
@@ -2863,6 +2855,14 @@ components:
         type: string
         examples:
         - testzone1
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
     zoneName_2:
       name: zoneName
       in: path

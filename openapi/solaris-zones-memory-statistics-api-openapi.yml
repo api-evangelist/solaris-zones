@@ -160,6 +160,54 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    MemoryCapStats:
+      type: object
+      description: Physical memory cap statistics
+      properties:
+        physcap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+          example: 10
+        rss:
+          type: integer
+          format: int64
+          description: Current resident set size in bytes
+          example: 10
+        nover:
+          type: integer
+          format: int64
+          description: Number of times memory went over the cap
+          example: 10
+        pagedout:
+          type: integer
+          format: int64
+          description: Total bytes paged out due to capping
+          example: 10
+        pgpgin:
+          type: integer
+          format: int64
+          description: Pages paged in
+          example: 10
+        anonpgin:
+          type: integer
+          format: int64
+          description: Anonymous pages paged in
+          example: 10
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     SystemMemoryStats:
       type: object
       properties:
@@ -217,54 +265,6 @@ components:
           format: int64
           description: Number of times swap exceeded the cap
           example: 10
-    MemoryCapStats:
-      type: object
-      description: Physical memory cap statistics
-      properties:
-        physcap:
-          type: integer
-          format: int64
-          description: Physical memory cap in bytes
-          example: 10
-        rss:
-          type: integer
-          format: int64
-          description: Current resident set size in bytes
-          example: 10
-        nover:
-          type: integer
-          format: int64
-          description: Number of times memory went over the cap
-          example: 10
-        pagedout:
-          type: integer
-          format: int64
-          description: Total bytes paged out due to capping
-          example: 10
-        pgpgin:
-          type: integer
-          format: int64
-          description: Pages paged in
-          example: 10
-        anonpgin:
-          type: integer
-          format: int64
-          description: Anonymous pages paged in
-          example: 10
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
   responses:
     NotFound:
       description: Statistic or zone not found

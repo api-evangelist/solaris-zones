@@ -371,14 +371,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone to configure
-      schema:
-        type: string
   schemas:
     ZoneResult:
       type: object
@@ -428,6 +420,14 @@ components:
             message:
               type: string
           example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
   responses:
     NotFound:
       description: Zone or resource not found

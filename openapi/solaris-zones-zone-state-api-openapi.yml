@@ -184,7 +184,49 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Returns detailed property information when present
+      schema:
+        type: boolean
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     ZoneInterface:
       type: object
       properties:
@@ -212,48 +254,6 @@ components:
           type: integer
           description: Zone numeric ID
           example: abc123
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: Returns detailed property information when present
-      schema:
-        type: boolean
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

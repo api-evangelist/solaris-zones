@@ -235,34 +235,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    VmCpuStats:
-      type: object
-      properties:
-        cpu_nsec_idle:
-          type: integer
-          format: int64
-          description: Nanoseconds spent idle
-          example: 10
-        cpu_nsec_kernel:
-          type: integer
-          format: int64
-          description: Nanoseconds spent in kernel mode
-          example: 10
-        cpu_nsec_user:
-          type: integer
-          format: int64
-          description: Nanoseconds spent in user mode
-          example: 10
-        cpu_nsec_dtrace:
-          type: integer
-          format: int64
-          description: Nanoseconds spent in DTrace
-          example: 10
-        cpu_nsec_intr:
-          type: integer
-          format: int64
-          description: Nanoseconds spent handling interrupts
-          example: 10
     CpuInfo:
       type: object
       properties:
@@ -302,6 +274,34 @@ components:
           type: string
           description: CPU vendor identifier
           example: '500123'
+    VmCpuStats:
+      type: object
+      properties:
+        cpu_nsec_idle:
+          type: integer
+          format: int64
+          description: Nanoseconds spent idle
+          example: 10
+        cpu_nsec_kernel:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in kernel mode
+          example: 10
+        cpu_nsec_user:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in user mode
+          example: 10
+        cpu_nsec_dtrace:
+          type: integer
+          format: int64
+          description: Nanoseconds spent in DTrace
+          example: 10
+        cpu_nsec_intr:
+          type: integer
+          format: int64
+          description: Nanoseconds spent handling interrupts
+          example: 10
     KstatData:
       type: object
       properties:
