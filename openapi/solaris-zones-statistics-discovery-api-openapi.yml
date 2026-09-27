@@ -189,6 +189,40 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    StatisticIdentifier:
+      type: object
+      properties:
+        ssid:
+          type: string
+          description: Statistics identifier in hierarchical namespace format (e.g., //:class:zones/zone-name/utilization/cpu)
+          example: '500123'
+        type:
+          type: string
+          description: Statistic data type
+          enum:
+          - counter
+          - gauge
+          - histogram
+          - string
+          example: counter
+        description:
+          type: string
+          description: Human-readable description
+          example: A sample description.
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     StatisticMetadata:
       type: object
       properties:
@@ -221,40 +255,6 @@ components:
           type: boolean
           description: Whether historical data is retained
           example: true
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
-    StatisticIdentifier:
-      type: object
-      properties:
-        ssid:
-          type: string
-          description: Statistics identifier in hierarchical namespace format (e.g., //:class:zones/zone-name/utilization/cpu)
-          example: '500123'
-        type:
-          type: string
-          description: Statistic data type
-          enum:
-          - counter
-          - gauge
-          - histogram
-          - string
-          example: counter
-        description:
-          type: string
-          description: Human-readable description
-          example: A sample description.
   responses:
     Unauthorized:
       description: Authentication required or session expired

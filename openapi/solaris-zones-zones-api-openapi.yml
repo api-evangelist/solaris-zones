@@ -1793,7 +1793,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/boot:
     put:
-      operationId: bootZone
+      operationId: putZoneByZoneNameRadMethodBoot
       summary: Solaris Zones Boot a Zone
       description: Boot a zone, transitioning it from installed or ready state to running state. Equivalent to zoneadm boot.
       tags:
@@ -1843,6 +1843,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: bootZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -1855,7 +1857,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/halt:
     put:
-      operationId: haltZone
+      operationId: putZoneByZoneNameRadMethodHalt
       summary: Solaris Zones Halt a Zone
       description: Immediately halt a running zone. Equivalent to zoneadm halt. Does not run shutdown scripts.
       tags:
@@ -1887,6 +1889,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: haltZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -1899,7 +1903,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/shutdown:
     put:
-      operationId: shutdownZone
+      operationId: putZoneByZoneNameRadMethodShutdown
       summary: Solaris Zones Gracefully Shut Down a Zone
       description: Gracefully shut down a running zone by running shutdown scripts. Equivalent to zoneadm shutdown.
       tags:
@@ -1931,6 +1935,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: shutdownZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -1943,7 +1949,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/reboot:
     put:
-      operationId: rebootZone
+      operationId: putZoneByZoneNameRadMethodReboot
       summary: Solaris Zones Reboot a Zone
       description: Reboot a running zone. Equivalent to zoneadm reboot.
       tags:
@@ -1975,6 +1981,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: rebootZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -1987,7 +1995,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/install:
     put:
-      operationId: installZone
+      operationId: putZoneByZoneNameRadMethodInstall
       summary: Solaris Zones Install a Zone
       description: Install a configured zone, transitioning it from configured to installed state. Equivalent to zoneadm install.
       tags:
@@ -2037,6 +2045,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: installZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2049,7 +2059,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/uninstall:
     put:
-      operationId: uninstallZone
+      operationId: putZoneByZoneNameRadMethodUninstall
       summary: Solaris Zones Uninstall a Zone
       description: Uninstall an installed zone, removing its file system content. Equivalent to zoneadm uninstall.
       tags:
@@ -2081,6 +2091,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: uninstallZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2093,7 +2105,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/clone:
     put:
-      operationId: cloneZone
+      operationId: putZoneByZoneNameRadMethodClone
       summary: Solaris Zones Clone a Zone
       description: Clone an existing zone to create a new zone with the same configuration and content. Equivalent to zoneadm clone.
       tags:
@@ -2147,6 +2159,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: cloneZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2159,7 +2173,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/attach:
     put:
-      operationId: attachZone
+      operationId: putZoneByZoneNameRadMethodAttach
       summary: Solaris Zones Attach a Zone
       description: Attach a previously detached zone. Equivalent to zoneadm attach.
       tags:
@@ -2209,6 +2223,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: attachZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2221,7 +2237,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/detach:
     put:
-      operationId: detachZone
+      operationId: putZoneByZoneNameRadMethodDetach
       summary: Solaris Zones Detach a Zone
       description: Detach a zone from the system for migration or archival. Equivalent to zoneadm detach.
       tags:
@@ -2253,6 +2269,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: detachZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2265,7 +2283,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/suspend:
     put:
-      operationId: suspendZone
+      operationId: putZoneByZoneNameRadMethodSuspend
       summary: Solaris Zones Suspend a Zone
       description: Suspend a running zone, saving its state for later resumption.
       tags:
@@ -2297,6 +2315,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: suspendZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2309,7 +2329,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/ready:
     put:
-      operationId: readyZone
+      operationId: putZoneByZoneNameRadMethodReady
       summary: Solaris Zones Prepare a Zone for Running
       description: Transition a zone to the ready state without booting it. Equivalent to zoneadm ready.
       tags:
@@ -2341,6 +2361,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: readyZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2353,7 +2375,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/verify:
     put:
-      operationId: verifyZone
+      operationId: putZoneByZoneNameRadMethodVerify
       summary: Solaris Zones Verify Zone Configuration
       description: Verify the zone configuration for correctness. Equivalent to zoneadm verify.
       tags:
@@ -2385,6 +2407,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: verifyZone
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2457,7 +2481,7 @@ paths:
           description: RAD REST API port (default HTTPS)
   /Zone/{zoneName}/_rad_method/exportConfig:
     put:
-      operationId: exportZoneConfig
+      operationId: putZoneByZoneNameRadMethodExportConfig
       summary: Solaris Zones Export Zone Configuration
       description: Export the zone configuration as a string that can be saved or imported into another system.
       tags:
@@ -2491,6 +2515,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: exportZoneConfig
     servers:
     - url: https://{host}:{port}/api/com.oracle.solaris.rad.zonemgr/1.6
       description: Oracle Solaris RAD REST endpoint for zone management
@@ -2537,14 +2563,14 @@ components:
                 properties:
                   message:
                     type: string
-    NotFound:
-      description: Zone or resource not found
+    Unauthorized_2:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized_2:
-      description: Authentication required or session expired
+    NotFound:
+      description: Zone or resource not found
       content:
         application/json:
           schema:
@@ -2556,46 +2582,6 @@ components:
           schema:
             $ref: '#/components/schemas/RadError'
   schemas:
-    Resource:
-      type: object
-      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type identifier
-          enum:
-          - admin
-          - anet
-          - attr
-          - capped-cpu
-          - capped-memory
-          - dataset
-          - dedicated-cpu
-          - device
-          - fs
-          - ib-vhca
-          - keysource
-          - net
-          - npiv
-          - rctl
-          - rootzpool
-          - smf-dependency
-          - verified-boot
-          - virtual-cpu
-          - zpool
-          example: admin
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: List of properties for this resource
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference for nested resources
-          example: example_value
     ZoneDetail:
       type: object
       description: Detailed information about a specific Solaris zone
@@ -2647,6 +2633,94 @@ components:
             type: string
           description: Auxiliary state information for the zone
           example: []
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+          example: example_value
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
     Property:
       type: object
       description: A zone resource property with support for simple, list, and complex values
@@ -2684,91 +2758,21 @@ components:
             type: string
           description: Complex structured values
           example: []
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
-    Result:
-      type: object
-      description: Operation result from a zone management command
-      properties:
-        code:
-          type: string
-          description: Error code if the operation failed
-          enum:
-          - ZEC_NONE
-          - ZEC_FRAMEWORK_ERROR
-          - ZEC_SNAPSHOT_ERROR
-          - ZEC_COMMAND_ERROR
-          - ZEC_RESOURCE_ALREADY_EXISTS
-          - ZEC_RESOURCE_NOT_FOUND
-          - ZEC_RESOURCE_TOO_MANY
-          - ZEC_RESOURCE_UNKNOWN
-          - ZEC_ALREADY_EDITING
-          - ZEC_INCOMPLETE_NO_CONFIG
-          - ZEC_PROPERTY_UNKNOWN
-          - ZEC_NOT_EDITING
-          - ZEC_SYSTEM_ERROR
-          - ZEC_INVALID_ARGUMENT
-          - ZEC_INVALID_ZONE_STATE
-          example: ZEC_NONE
-        message:
-          type: string
-          description: Human-readable error or status message
-          example: example_value
-        stdout:
-          type: string
-          description: Standard output from the zone administration command
-          example: example_value
-        stderr:
-          type: string
-          description: Standard error output from the zone administration command
-          example: example_value
-    ZoneResult:
+    RadError:
       type: object
       properties:
         status:
           type: string
-          example: example_value
+          example: failure
         payload:
           type: object
           properties:
             code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
+              type: integer
               description: Error code
             message:
               type: string
-              description: Error or success message
-            stdout:
-              type: string
-              description: Standard output from the operation
-            stderr:
-              type: string
-              description: Standard error from the operation
+              description: Error message
           example: example_value
     Zone:
       type: object
@@ -2808,22 +2812,6 @@ components:
             type: string
           description: Auxiliary zone states
           example: []
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
     MigrateZoneRequest:
       type: object
       required:
@@ -2845,7 +2833,53 @@ components:
           type: string
           description: Encryption cipher for the migration transfer
           example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+              description: Error code
+            message:
+              type: string
+              description: Error or success message
+            stdout:
+              type: string
+              description: Standard output from the operation
+            stderr:
+              type: string
+              description: Standard error from the operation
+          example: example_value
   parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
     zoneName:
       name: zoneName
       in: path
@@ -2855,21 +2889,6 @@ components:
         type: string
         examples:
         - testzone1
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
-    zoneName_2:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
     radDetail_2:
       name: _rad_detail
       in: query
@@ -2877,6 +2896,13 @@ components:
       description: When present, returns detailed information including all properties for each interface.
       schema:
         type: boolean
+    zoneName_2:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

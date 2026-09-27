@@ -233,7 +233,99 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    Property:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name. Key kernel zone properties include ncpus, physical, locked, swap, lower-link, allowed-address.
+          example: Example Title
+        value:
+          type: string
+          description: Property value
+          example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          example: []
+    KernelZoneResource:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type. Kernel zone specific types include dedicated-cpu and capped-memory for virtual hardware allocation.
+          enum:
+          - dedicated-cpu
+          - capped-memory
+          - capped-cpu
+          - anet
+          - device
+          - fs
+          - suspend
+          - security-flags
+          - attr
+          example: dedicated-cpu
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: Resource property values
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference
+          example: example_value
     ZoneResult:
       type: object
       properties:
@@ -268,79 +360,6 @@ components:
             stderr:
               type: string
           example: example_value
-    KernelZoneResource:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type. Kernel zone specific types include dedicated-cpu and capped-memory for virtual hardware allocation.
-          enum:
-          - dedicated-cpu
-          - capped-memory
-          - capped-cpu
-          - anet
-          - device
-          - fs
-          - suspend
-          - security-flags
-          - attr
-          example: dedicated-cpu
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: Resource property values
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference
-          example: example_value
-    Property:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Property name. Key kernel zone properties include ncpus, physical, locked, swap, lower-link, allowed-address.
-          example: Example Title
-        value:
-          type: string
-          description: Property value
-          example: example_value
-        type:
-          type: string
-          enum:
-          - simple
-          - list
-          - complex
-          example: simple
-        listvalue:
-          type: array
-          items:
-            type: string
-          example: []
-        complexvalue:
-          type: array
-          items:
-            type: string
-          example: []
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
   parameters:
     zoneName:
       name: zoneName
@@ -349,25 +368,6 @@ components:
       description: Kernel zone name
       schema:
         type: string
-  responses:
-    NotFound:
-      description: Zone not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   securitySchemes:
     cookieAuth:
       type: apiKey

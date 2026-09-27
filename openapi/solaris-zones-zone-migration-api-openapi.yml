@@ -294,82 +294,7 @@ components:
                 properties:
                   message:
                     type: string
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the Solaris zone
-      schema:
-        type: string
-        examples:
-        - testzone1
   schemas:
-    EvacuationMigrationResult:
-      type: object
-      description: Migration result for an individual zone during evacuation
-      properties:
-        zoneName:
-          type: string
-          description: Name of the evacuated zone
-          example: example_value
-        evacuated:
-          type: boolean
-          description: Whether the zone was successfully evacuated
-          example: true
-        evacuationTarget:
-          type: string
-          description: Remote host where the zone was migrated
-          example: example_value
-        migrationStatus:
-          type: string
-          description: Status of the individual zone migration
-          example: example_value
-        migrationError:
-          type: object
-          description: Error details if migration failed
-          properties:
-            operation:
-              type: string
-              description: The migration operation that failed
-            message:
-              type: string
-              description: Error description
-          example: example_value
-    EvacuationResult:
-      type: object
-      description: Result of a zone evacuation operation
-      properties:
-        status:
-          type: string
-          description: Overall evacuation status
-          enum:
-          - success
-          - fail
-          - partial_fail
-          example: success
-        returning:
-          type: boolean
-          description: Whether zones are being returned from a previous evacuation
-          example: true
-        migrationResults:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EvacuationMigrationResult'
-          description: Per-zone migration results keyed by zone name
-          example: example_value
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
     Result:
       type: object
       description: Operation result from a zone management command
@@ -406,6 +331,81 @@ components:
           type: string
           description: Standard error output from the zone administration command
           example: example_value
+    EvacuationMigrationResult:
+      type: object
+      description: Migration result for an individual zone during evacuation
+      properties:
+        zoneName:
+          type: string
+          description: Name of the evacuated zone
+          example: example_value
+        evacuated:
+          type: boolean
+          description: Whether the zone was successfully evacuated
+          example: true
+        evacuationTarget:
+          type: string
+          description: Remote host where the zone was migrated
+          example: example_value
+        migrationStatus:
+          type: string
+          description: Status of the individual zone migration
+          example: example_value
+        migrationError:
+          type: object
+          description: Error details if migration failed
+          properties:
+            operation:
+              type: string
+              description: The migration operation that failed
+            message:
+              type: string
+              description: Error description
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
+    EvacuationResult:
+      type: object
+      description: Result of a zone evacuation operation
+      properties:
+        status:
+          type: string
+          description: Overall evacuation status
+          enum:
+          - success
+          - fail
+          - partial_fail
+          example: success
+        returning:
+          type: boolean
+          description: Whether zones are being returned from a previous evacuation
+          example: true
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+          example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the Solaris zone
+      schema:
+        type: string
+        examples:
+        - testzone1
   securitySchemes:
     cookieAuth:
       type: apiKey

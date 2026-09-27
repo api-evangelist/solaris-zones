@@ -133,41 +133,26 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
-    ZoneResult:
-      type: object
-      properties:
-        status:
-          type: string
-          example: example_value
-        payload:
-          type: object
-          properties:
-            code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
-            message:
-              type: string
-            stdout:
-              type: string
-            stderr:
-              type: string
-          example: example_value
     RadError:
       type: object
       properties:
@@ -222,14 +207,41 @@ components:
             type: string
           description: Auxiliary zone states
           example: []
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
   parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Kernel zone name
-      schema:
-        type: string
     radDetail:
       name: _rad_detail
       in: query
@@ -237,25 +249,13 @@ components:
       description: Include detailed property information
       schema:
         type: boolean
-  responses:
-    NotFound:
-      description: Zone not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

@@ -138,35 +138,48 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
-    Property:
+    Resource:
       type: object
-      required:
-      - name
       properties:
-        name:
-          type: string
-          example: Example Title
-        value:
-          type: string
-          example: example_value
         type:
           type: string
-          enum:
-          - simple
-          - list
-          - complex
-          example: simple
-        listvalue:
+          example: example_value
+        properties:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Property'
           example: []
-        complexvalue:
-          type: array
-          items:
-            type: string
-          example: []
+        parent:
+          type: string
+          example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
     Zone:
       type: object
       properties:
@@ -199,42 +212,35 @@ components:
           items:
             type: string
           example: []
-    RadError:
+    Property:
       type: object
+      required:
+      - name
       properties:
-        status:
+        name:
           type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
+          example: Example Title
+        value:
+          type: string
           example: example_value
-    Resource:
-      type: object
-      properties:
         type:
           type: string
-          example: example_value
-        properties:
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listvalue:
           type: array
           items:
-            $ref: '#/components/schemas/Property'
+            type: string
           example: []
-        parent:
-          type: string
-          example: example_value
+        complexvalue:
+          type: array
+          items:
+            type: string
+          example: []
   parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Zone name
-      schema:
-        type: string
     radDetail:
       name: _rad_detail
       in: query
@@ -242,19 +248,13 @@ components:
       description: Include detailed property information
       schema:
         type: boolean
-  responses:
-    NotFound:
-      description: Zone not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

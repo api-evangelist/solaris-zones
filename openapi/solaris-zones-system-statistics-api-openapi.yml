@@ -177,6 +177,13 @@ paths:
           default: '6788'
           description: RAD REST API port
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
     RadError:
       type: object
@@ -211,13 +218,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   parameters:
     radDetail:
       name: _rad_detail

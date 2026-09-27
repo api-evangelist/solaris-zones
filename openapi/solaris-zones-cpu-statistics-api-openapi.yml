@@ -170,20 +170,6 @@ components:
         vendor_id:
           type: string
           example: '500123'
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     CpuCapStats:
       type: object
       description: CPU cap statistics
@@ -222,15 +208,29 @@ components:
           type: string
           description: Zone name
           example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
   responses:
-    NotFound:
-      description: Statistic or zone not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Statistic or zone not found
       content:
         application/json:
           schema:

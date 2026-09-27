@@ -504,53 +504,6 @@ components:
             stderr:
               type: string
           example: example_value
-    Property:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Property name
-          example: Example Title
-        value:
-          type: string
-          description: Simple property value
-          example: example_value
-        type:
-          type: string
-          enum:
-          - simple
-          - list
-          - complex
-          description: Property value type
-          example: simple
-        listvalue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexvalue:
-          type: array
-          items:
-            type: string
-          description: Complex property values
-          example: []
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     Resource:
       type: object
       required:
@@ -584,23 +537,62 @@ components:
           type: string
           description: Parent resource reference
           example: example_value
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone to configure
-      schema:
-        type: string
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+          example: example_value
+    Property:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          example: Example Title
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          description: Property value type
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          description: Complex property values
+          example: []
   responses:
-    NotFound:
-      description: Zone or resource not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Zone or resource not found
       content:
         application/json:
           schema:
@@ -611,6 +603,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

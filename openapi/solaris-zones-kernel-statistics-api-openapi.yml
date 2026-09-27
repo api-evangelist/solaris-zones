@@ -274,6 +274,54 @@ components:
           type: string
           description: CPU vendor identifier
           example: '500123'
+    KstatInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the kstat interface
+          example: example_value
+        module:
+          type: string
+          description: Kstat module name
+          example: example_value
+        name:
+          type: string
+          description: Kstat name
+          example: Example Title
+        statistic:
+          type: string
+          description: Statistic name
+          example: example_value
+        instance:
+          type: string
+          description: Instance identifier
+          example: example_value
+    KstatData:
+      type: object
+      properties:
+        module:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Example Title
+        statistic:
+          type: string
+          example: example_value
+        instance:
+          type: integer
+          example: 10
+        snaptime:
+          type: integer
+          format: int64
+          description: Snapshot time in nanoseconds
+          example: 10
+        data:
+          type: object
+          additionalProperties: true
+          description: Key-value pairs of statistic data
+          example: example_value
     VmCpuStats:
       type: object
       properties:
@@ -302,31 +350,6 @@ components:
           format: int64
           description: Nanoseconds spent handling interrupts
           example: 10
-    KstatData:
-      type: object
-      properties:
-        module:
-          type: string
-          example: example_value
-        name:
-          type: string
-          example: Example Title
-        statistic:
-          type: string
-          example: example_value
-        instance:
-          type: integer
-          example: 10
-        snaptime:
-          type: integer
-          format: int64
-          description: Snapshot time in nanoseconds
-          example: 10
-        data:
-          type: object
-          additionalProperties: true
-          description: Key-value pairs of statistic data
-          example: example_value
     RadError:
       type: object
       properties:
@@ -341,38 +364,15 @@ components:
             message:
               type: string
           example: example_value
-    KstatInterface:
-      type: object
-      properties:
-        href:
-          type: string
-          description: URL path to the kstat interface
-          example: example_value
-        module:
-          type: string
-          description: Kstat module name
-          example: example_value
-        name:
-          type: string
-          description: Kstat name
-          example: Example Title
-        statistic:
-          type: string
-          description: Statistic name
-          example: example_value
-        instance:
-          type: string
-          description: Instance identifier
-          example: example_value
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
