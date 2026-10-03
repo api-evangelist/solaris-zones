@@ -82,15 +82,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Zone not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
@@ -144,14 +152,6 @@ components:
             stderr:
               type: string
           example: example_value
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Zone name
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

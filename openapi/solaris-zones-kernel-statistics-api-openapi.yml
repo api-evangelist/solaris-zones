@@ -274,29 +274,6 @@ components:
           type: string
           description: CPU vendor identifier
           example: '500123'
-    KstatInterface:
-      type: object
-      properties:
-        href:
-          type: string
-          description: URL path to the kstat interface
-          example: example_value
-        module:
-          type: string
-          description: Kstat module name
-          example: example_value
-        name:
-          type: string
-          description: Kstat name
-          example: Example Title
-        statistic:
-          type: string
-          description: Statistic name
-          example: example_value
-        instance:
-          type: string
-          description: Instance identifier
-          example: example_value
     KstatData:
       type: object
       properties:
@@ -350,6 +327,29 @@ components:
           format: int64
           description: Nanoseconds spent handling interrupts
           example: 10
+    KstatInterface:
+      type: object
+      properties:
+        href:
+          type: string
+          description: URL path to the kstat interface
+          example: example_value
+        module:
+          type: string
+          description: Kstat module name
+          example: example_value
+        name:
+          type: string
+          description: Kstat name
+          example: Example Title
+        statistic:
+          type: string
+          description: Statistic name
+          example: example_value
+        instance:
+          type: string
+          description: Instance identifier
+          example: example_value
     RadError:
       type: object
       properties:
@@ -365,14 +365,14 @@ components:
               type: string
           example: example_value
   responses:
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:

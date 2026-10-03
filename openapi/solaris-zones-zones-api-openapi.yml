@@ -2528,60 +2528,120 @@ paths:
           default: '6788'
           description: RAD REST API port (default HTTPS)
 components:
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone or resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   schemas:
+    Result:
+      type: object
+      description: Operation result from a zone management command
+      properties:
+        code:
+          type: string
+          description: Error code if the operation failed
+          enum:
+          - ZEC_NONE
+          - ZEC_FRAMEWORK_ERROR
+          - ZEC_SNAPSHOT_ERROR
+          - ZEC_COMMAND_ERROR
+          - ZEC_RESOURCE_ALREADY_EXISTS
+          - ZEC_RESOURCE_NOT_FOUND
+          - ZEC_RESOURCE_TOO_MANY
+          - ZEC_RESOURCE_UNKNOWN
+          - ZEC_ALREADY_EDITING
+          - ZEC_INCOMPLETE_NO_CONFIG
+          - ZEC_PROPERTY_UNKNOWN
+          - ZEC_NOT_EDITING
+          - ZEC_SYSTEM_ERROR
+          - ZEC_INVALID_ARGUMENT
+          - ZEC_INVALID_ZONE_STATE
+          example: ZEC_NONE
+        message:
+          type: string
+          description: Human-readable error or status message
+          example: example_value
+        stdout:
+          type: string
+          description: Standard output from the zone administration command
+          example: example_value
+        stderr:
+          type: string
+          description: Standard error output from the zone administration command
+          example: example_value
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+          example: example_value
+    Property:
+      type: object
+      description: A zone resource property with support for simple, list, and complex values
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Property name
+          examples:
+          - lower-link
+          - ncpus
+          - physical
+        value:
+          type: string
+          description: Simple property value
+          example: example_value
+        type:
+          type: string
+          description: Property value type
+          enum:
+          - simple
+          - list
+          - complex
+          example: simple
+        listValue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexValue:
+          type: array
+          items:
+            type: string
+          description: Complex structured values
+          example: []
     ZoneDetail:
       type: object
       description: Detailed information about a specific Solaris zone
@@ -2633,82 +2693,6 @@ components:
             type: string
           description: Auxiliary state information for the zone
           example: []
-    Resource:
-      type: object
-      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type identifier
-          enum:
-          - admin
-          - anet
-          - attr
-          - capped-cpu
-          - capped-memory
-          - dataset
-          - dedicated-cpu
-          - device
-          - fs
-          - ib-vhca
-          - keysource
-          - net
-          - npiv
-          - rctl
-          - rootzpool
-          - smf-dependency
-          - verified-boot
-          - virtual-cpu
-          - zpool
-          example: admin
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: List of properties for this resource
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference for nested resources
-          example: example_value
-    Result:
-      type: object
-      description: Operation result from a zone management command
-      properties:
-        code:
-          type: string
-          description: Error code if the operation failed
-          enum:
-          - ZEC_NONE
-          - ZEC_FRAMEWORK_ERROR
-          - ZEC_SNAPSHOT_ERROR
-          - ZEC_COMMAND_ERROR
-          - ZEC_RESOURCE_ALREADY_EXISTS
-          - ZEC_RESOURCE_NOT_FOUND
-          - ZEC_RESOURCE_TOO_MANY
-          - ZEC_RESOURCE_UNKNOWN
-          - ZEC_ALREADY_EDITING
-          - ZEC_INCOMPLETE_NO_CONFIG
-          - ZEC_PROPERTY_UNKNOWN
-          - ZEC_NOT_EDITING
-          - ZEC_SYSTEM_ERROR
-          - ZEC_INVALID_ARGUMENT
-          - ZEC_INVALID_ZONE_STATE
-          example: ZEC_NONE
-        message:
-          type: string
-          description: Human-readable error or status message
-          example: example_value
-        stdout:
-          type: string
-          description: Standard output from the zone administration command
-          example: example_value
-        stderr:
-          type: string
-          description: Standard error output from the zone administration command
-          example: example_value
     ResultResponse:
       type: object
       description: Standard RAD response wrapper for operation results
@@ -2721,59 +2705,6 @@ components:
           example: success
         payload:
           $ref: '#/components/schemas/Result'
-    Property:
-      type: object
-      description: A zone resource property with support for simple, list, and complex values
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Property name
-          examples:
-          - lower-link
-          - ncpus
-          - physical
-        value:
-          type: string
-          description: Simple property value
-          example: example_value
-        type:
-          type: string
-          description: Property value type
-          enum:
-          - simple
-          - list
-          - complex
-          example: simple
-        listValue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexValue:
-          type: array
-          items:
-            type: string
-          description: Complex structured values
-          example: []
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
     Zone:
       type: object
       properties:
@@ -2833,6 +2764,22 @@ components:
           type: string
           description: Encryption cipher for the migration transfer
           example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code
+            message:
+              type: string
+              description: Error message
+          example: example_value
     ZoneResult:
       type: object
       properties:
@@ -2872,14 +2819,6 @@ components:
               description: Standard error from the operation
           example: example_value
   parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
     zoneName:
       name: zoneName
       in: path
@@ -2889,13 +2828,14 @@ components:
         type: string
         examples:
         - testzone1
-    radDetail_2:
+    radDetail:
       name: _rad_detail
       in: query
       required: false
-      description: When present, returns detailed information including all properties for each interface.
+      description: When present, returns detailed property information for each interface or object in the response.
       schema:
         type: boolean
+        default: true
     zoneName_2:
       name: zoneName
       in: path
@@ -2903,6 +2843,66 @@ components:
       description: Name of the zone
       schema:
         type: string
+    radDetail_2:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed information including all properties for each interface.
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   securitySchemes:
     cookieAuth:
       type: apiKey

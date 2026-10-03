@@ -94,8 +94,8 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
@@ -106,12 +106,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Kernel zone name
+      schema:
+        type: string
   schemas:
     RadError:
       type: object
@@ -161,14 +169,6 @@ components:
             stderr:
               type: string
           example: example_value
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Kernel zone name
-      schema:
-        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

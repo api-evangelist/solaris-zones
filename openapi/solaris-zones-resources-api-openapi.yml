@@ -469,41 +469,59 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
-    ZoneResult:
+    Property:
       type: object
+      required:
+      - name
       properties:
-        status:
+        name:
           type: string
+          description: Property name
+          example: Example Title
+        value:
+          type: string
+          description: Simple property value
           example: example_value
-        payload:
-          type: object
-          properties:
-            code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
-            message:
-              type: string
-            stdout:
-              type: string
-            stderr:
-              type: string
-          example: example_value
+        type:
+          type: string
+          enum:
+          - simple
+          - list
+          - complex
+          description: Property value type
+          example: simple
+        listvalue:
+          type: array
+          items:
+            type: string
+          description: List of values for list-type properties
+          example: []
+        complexvalue:
+          type: array
+          items:
+            type: string
+          description: Complex property values
+          example: []
     Resource:
       type: object
       required:
@@ -551,58 +569,40 @@ components:
             message:
               type: string
           example: example_value
-    Property:
+    ZoneResult:
       type: object
-      required:
-      - name
       properties:
-        name:
+        status:
           type: string
-          description: Property name
-          example: Example Title
-        value:
-          type: string
-          description: Simple property value
           example: example_value
-        type:
-          type: string
-          enum:
-          - simple
-          - list
-          - complex
-          description: Property value type
-          example: simple
-        listvalue:
-          type: array
-          items:
-            type: string
-          description: List of values for list-type properties
-          example: []
-        complexvalue:
-          type: array
-          items:
-            type: string
-          description: Complex property values
-          example: []
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone or resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+            message:
+              type: string
+            stdout:
+              type: string
+            stderr:
+              type: string
+          example: example_value
   parameters:
     zoneName:
       name: zoneName
