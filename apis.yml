@@ -1440,6 +1440,9 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
 common:
+- type: CapabilityMap
+  url: capabilities/solaris-zones-capability-edges.yml
+  name: Solaris Zones Business Capability Map
 - type: AgenticAccess
   url: agentic-access/solaris-zones-agentic-access.yml
 - type: DomainSecurity

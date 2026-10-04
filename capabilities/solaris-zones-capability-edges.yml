@@ -1,0 +1,182 @@
+slug: solaris-zones
+provider: Solaris Zones
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 17
+edges:
+- tag: Zones
+  spec_file: solaris-zones-zones-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.88
+  evidence: '"Boot a Zone", "Install a Zone", "Uninstall a Zone", "Clone a Zone", "Attach a Zone", "Suspend
+    a Zone"'
+  reason: Full lifecycle control of OS virtualisation containers (boot, install, clone, suspend) — operation
+    of compute infrastructure. Unambiguously infrastructure management, not application or tenant management.
+- tag: Zone Manager
+  spec_file: solaris-zones-zone-manager-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: '"Create a New Zone", "Delete a Zone", "Import Zone Configuration", "Evacuate Zones to Remote
+    Host"'
+  reason: 'Lifecycle management of Solaris zones (OS-level virtualisation containers) — provisioning and
+    decommissioning of compute resources, squarely IT infrastructure management. Not SaaS tenant provisioning:
+    zones are host compute partitions, not multi-tenant customers.'
+- tag: Installation
+  spec_file: solaris-zones-installation-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /Zone/{zoneName}/_rad_method/install  installZone  Solaris Zones Install a Zone; 'Uninstall
+    a Zone'; 'Clone a Zone'
+  reason: Operations install, uninstall and clone Solaris zones (OS-level virtualization containers) on
+    server infrastructure. This is compute infrastructure provisioning — IT Infrastructure Management.
+    No business-domain capability is realised; the vendor is an OS virtualization devtool.
+- tag: Kernel Zone Configuration
+  spec_file: solaris-zones-kernel-zone-configuration-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: addKernelZoneResource  Solaris Zones Add Resource to Kernel Zone; 'Commit Kernel Zone Configuration'
+  reason: Editing and committing resource configuration (network interfaces, devices, filesystems) of
+    virtualized compute units — infrastructure configuration, mapping to IT Infrastructure Management.
+- tag: Kernel Zone Lifecycle
+  spec_file: solaris-zones-kernel-zone-lifecycle-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: installKernelZone / bootKernelZone / haltKernelZone / 'Gracefully Shut Down a Kernel Zone'
+  reason: Boot/halt/shutdown/suspend of virtual machines (kernel zones) on Solaris hosts. Pure compute
+    infrastructure lifecycle operation; 'Lifecycle' here is VM state, not customer or product lifecycle.
+- tag: Kernel Zone Management
+  spec_file: solaris-zones-kernel-zone-management-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /ZoneManager/_rad_method/create  createKernelZone  Solaris Zones Create a Kernel Zone
+  reason: Creates and inspects kernel zones — hardware-assisted virtual machines — which is compute infrastructure
+    provisioning under IT Infrastructure Management.
+- tag: Lifecycle
+  spec_file: solaris-zones-lifecycle-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: bootZone  Solaris Zones Boot a Zone; 'Prepare Zone for Running'; 'Save Zone Core Dump'
+  reason: Zone run-state transitions (boot, halt, ready, suspend, mark, savecore) correspond to zoneadm(1M)
+    — operating virtualized compute infrastructure, not any business lifecycle.
+- tag: Resources
+  spec_file: solaris-zones-resources-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: managing zone resources (network interfaces, devices, file systems, resource controls), and
+    committing configuration changes
+  reason: '''Resources'' here means compute/network/storage resources of a zone configuration, not human
+    or financial resources. Infrastructure configuration management.'
+- tag: Kernel Zone Migration
+  spec_file: solaris-zones-kernel-zone-migration-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.78
+  evidence: livelyMigrateKernelZone  Solaris Zones Live Migrate a Kernel Zone
+  reason: Live migration of a virtual machine between physical hosts is a compute infrastructure operation.
+    'Migration' here is workload relocation, not data migration or any business process.
+- tag: Migration
+  spec_file: solaris-zones-migration-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.78
+  evidence: attachZone / detachZone / 'Move a Zone to a New Path' / 'Migrate Zone to a Remote Host'
+  reason: Attach, detach, move and migrate zones between hosts and paths — relocation of virtualized compute
+    workloads, i.e. IT Infrastructure Management.
+- tag: Zone Migration
+  spec_file: solaris-zones-zone-migration-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.78
+  evidence: '"PUT /Zone/{zoneName}/migrate migrateZone Solaris Zones Migrate a Zone to a Remote Host";
+    "Perform Zone Evacuation"'
+  reason: Live migration and evacuation of virtualised compute workloads between hosts — infrastructure
+    (compute) management operations.
+- tag: Kernel Statistics
+  spec_file: solaris-zones-kernel-statistics-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.72
+  evidence: REST API for monitoring Oracle Solaris zone status, resource usage, and performance metrics
+    ... including CPU usage, memory consumption, and network statistics per zone
+  reason: Read-only kstat retrieval of CPU/VM statistics for infrastructure monitoring — day-to-day IT
+    operations monitoring rather than a business capability. Slight ambiguity between IT Operations (monitoring)
+    and IT Infrastructure Management.
+- tag: Memory Statistics
+  spec_file: solaris-zones-memory-statistics-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.72
+  evidence: getZonePhysicalMemoryCap  Solaris Zones Get Zone Physical Memory Cap Statistics; 'per-zone
+    resource consumption data including physical memory, virtual memory, CPU utilization'
+  reason: Retrieval of per-zone memory/swap utilisation metrics for infrastructure monitoring — IT Operations
+    monitoring. Not a business capability.
+- tag: Archive Deployment
+  spec_file: solaris-zones-archive-deployment-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: Solaris Zones Create a Zone From a Unified Archive; Install a Zone From a Unified Archive;
+    Clone a Zone Using a Unified Archive
+  reason: Provisioning, installing and cloning virtualised zones on Solaris hosts is compute infrastructure
+    management, not SaaS product deployment.
+- tag: Configuration
+  spec_file: solaris-zones-configuration-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: Begin Editing Zone Configuration; Commit Zone Configuration Changes; 'managing zone resources
+    (network interfaces, devices, file systems, resource controls)'
+  reason: Configuration of virtualised compute zones including network, device and filesystem resources
+    is server/infrastructure administration.
+- tag: Zone State
+  spec_file: solaris-zones-zone-state-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"REST API for monitoring Oracle Solaris zone status, resource usage, and performance metrics";
+    "List All Zones With Status"'
+  reason: Read-only status and state monitoring of running compute containers — IT operations monitoring.
+    No business-domain meaning for 'state' here.
+- tag: Zone Statistics
+  spec_file: solaris-zones-zone-statistics-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"Read Zone-specific Statistics"; "Get Zone Resource Cap Statistics"; schemas ZoneCapStats,
+    ZoneMiscStats'
+  reason: Per-zone resource utilisation metrics from kstat — infrastructure monitoring telemetry within
+    IT operations.
