@@ -695,6 +695,22 @@ paths:
           description: RAD REST API port (default HTTPS)
 components:
   schemas:
+    ZoneManagerDetail:
+      type: object
+      description: ZoneManager singleton providing system-wide zone management
+      properties:
+        evacuationState:
+          type:
+          - string
+          - 'null'
+          description: Current evacuation state, null when no evacuation is active
+          enum:
+          - none
+          - initialized
+          - evacuating
+          - completed
+          - null
+          example: none
     Result:
       type: object
       description: Operation result from a zone management command
@@ -743,22 +759,6 @@ components:
           example: success
         payload:
           $ref: '#/components/schemas/Result'
-    ZoneManagerDetail:
-      type: object
-      description: ZoneManager singleton providing system-wide zone management
-      properties:
-        evacuationState:
-          type:
-          - string
-          - 'null'
-          description: Current evacuation state, null when no evacuation is active
-          enum:
-          - none
-          - initialized
-          - evacuating
-          - completed
-          - null
-          example: none
     RadInterface:
       type: object
       description: A RAD interface entry describing an available management object
@@ -796,12 +796,17 @@ components:
           example: example_value
         migrationError:
           $ref: '#/components/schemas/MigrationError'
-    ZoneManager:
+    RadInterface_2:
       type: object
       properties:
-        evacuationState:
-          $ref: '#/components/schemas/EvacuationResult'
-          description: Current evacuation state if any
+        href:
+          type: string
+          description: URL path to the interface
+          example: example_value
+        type:
+          type: string
+          description: Interface type name
+          example: example_value
     CreateZoneRequest:
       type: object
       required:
@@ -820,18 +825,26 @@ components:
           description: Zone brand template (e.g., SYSdefault)
           default: SYSdefault
           example: example_value
-    RadResult:
+    EvacuationResult:
       type: object
       properties:
         status:
           type: string
           enum:
-          - success
-          - failure
-          example: success
-        payload:
+          - SUCCESS
+          - FAIL
+          - PARTIAL_FAIL
+          description: Overall evacuation status
+          example: SUCCESS
+        returning:
+          type: boolean
+          description: Whether this is a return evacuation
+          example: true
+        migrationResults:
           type: object
-          description: Result payload
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
           example: example_value
     MigrationError:
       type: object
@@ -865,6 +878,12 @@ components:
           type: string
           description: Human-readable error message
           example: example_value
+    ZoneManager:
+      type: object
+      properties:
+        evacuationState:
+          $ref: '#/components/schemas/EvacuationResult'
+          description: Current evacuation state if any
     RadError:
       type: object
       properties:
@@ -881,37 +900,18 @@ components:
               type: string
               description: Error message
           example: example_value
-    EvacuationResult:
+    RadResult:
       type: object
       properties:
         status:
           type: string
           enum:
-          - SUCCESS
-          - FAIL
-          - PARTIAL_FAIL
-          description: Overall evacuation status
-          example: SUCCESS
-        returning:
-          type: boolean
-          description: Whether this is a return evacuation
-          example: true
-        migrationResults:
+          - success
+          - failure
+          example: success
+        payload:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EvacuationMigrationResult'
-          description: Per-zone migration results keyed by zone name
-          example: example_value
-    RadInterface_2:
-      type: object
-      properties:
-        href:
-          type: string
-          description: URL path to the interface
-          example: example_value
-        type:
-          type: string
-          description: Interface type name
+          description: Result payload
           example: example_value
   responses:
     Unauthorized:
@@ -948,14 +948,14 @@ components:
                     type: string
                   message:
                     type: string
-    BadRequest:
-      description: Invalid request parameters
+    Unauthorized_2:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized_2:
-      description: Authentication required or session expired
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:

@@ -177,13 +177,6 @@ paths:
           default: '6788'
           description: RAD REST API port
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   schemas:
     SystemStatistic:
       type: object
@@ -218,6 +211,13 @@ components:
             message:
               type: string
           example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   parameters:
     radDetail:
       name: _rad_detail

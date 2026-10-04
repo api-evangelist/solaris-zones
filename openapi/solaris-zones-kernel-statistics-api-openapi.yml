@@ -235,70 +235,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CpuInfo:
-      type: object
-      properties:
-        brand:
-          type: string
-          description: CPU brand string
-          example: example_value
-        chip_id:
-          type: integer
-          description: Physical chip ID
-          example: '500123'
-        clock_MHz:
-          type: integer
-          description: CPU clock speed in MHz
-          example: 10
-        core_id:
-          type: integer
-          description: Core ID within the chip
-          example: '500123'
-        cpu_type:
-          type: string
-          description: CPU type identifier
-          example: example_value
-        implementation:
-          type: string
-          description: CPU implementation description
-          example: example_value
-        ncore_per_chip:
-          type: integer
-          description: Number of cores per chip
-          example: 10
-        state:
-          type: string
-          description: CPU state (on-line, off-line)
-          example: example_value
-        vendor_id:
-          type: string
-          description: CPU vendor identifier
-          example: '500123'
-    KstatData:
-      type: object
-      properties:
-        module:
-          type: string
-          example: example_value
-        name:
-          type: string
-          example: Example Title
-        statistic:
-          type: string
-          example: example_value
-        instance:
-          type: integer
-          example: 10
-        snaptime:
-          type: integer
-          format: int64
-          description: Snapshot time in nanoseconds
-          example: 10
-        data:
-          type: object
-          additionalProperties: true
-          description: Key-value pairs of statistic data
-          example: example_value
     VmCpuStats:
       type: object
       properties:
@@ -350,6 +286,31 @@ components:
           type: string
           description: Instance identifier
           example: example_value
+    KstatData:
+      type: object
+      properties:
+        module:
+          type: string
+          example: example_value
+        name:
+          type: string
+          example: Example Title
+        statistic:
+          type: string
+          example: example_value
+        instance:
+          type: integer
+          example: 10
+        snaptime:
+          type: integer
+          format: int64
+          description: Snapshot time in nanoseconds
+          example: 10
+        data:
+          type: object
+          additionalProperties: true
+          description: Key-value pairs of statistic data
+          example: example_value
     RadError:
       type: object
       properties:
@@ -364,15 +325,54 @@ components:
             message:
               type: string
           example: example_value
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+          example: example_value
+        chip_id:
+          type: integer
+          description: Physical chip ID
+          example: '500123'
+        clock_MHz:
+          type: integer
+          description: CPU clock speed in MHz
+          example: 10
+        core_id:
+          type: integer
+          description: Core ID within the chip
+          example: '500123'
+        cpu_type:
+          type: string
+          description: CPU type identifier
+          example: example_value
+        implementation:
+          type: string
+          description: CPU implementation description
+          example: example_value
+        ncore_per_chip:
+          type: integer
+          description: Number of cores per chip
+          example: 10
+        state:
+          type: string
+          description: CPU state (on-line, off-line)
+          example: example_value
+        vendor_id:
+          type: string
+          description: CPU vendor identifier
+          example: '500123'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or session expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

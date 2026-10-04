@@ -132,44 +132,28 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Statistic or zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
   schemas:
-    CpuInfo:
-      type: object
-      properties:
-        brand:
-          type: string
-          description: CPU brand string
-          example: example_value
-        chip_id:
-          type: integer
-          example: '500123'
-        clock_MHz:
-          type: integer
-          example: 10
-        core_id:
-          type: integer
-          example: '500123'
-        cpu_type:
-          type: string
-          example: example_value
-        implementation:
-          type: string
-          example: example_value
-        ncore_per_chip:
-          type: integer
-          example: 10
-        state:
-          type: string
-          enum:
-          - on-line
-          - off-line
-          - powered-off
-          - no-intr
-          - spare
-          example: on-line
-        vendor_id:
-          type: string
-          example: '500123'
     CpuCapStats:
       type: object
       description: CPU cap statistics
@@ -222,27 +206,43 @@ components:
             message:
               type: string
           example: example_value
-  responses:
-    NotFound:
-      description: Statistic or zone not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: Include detailed property information
-      schema:
-        type: boolean
+    CpuInfo:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: CPU brand string
+          example: example_value
+        chip_id:
+          type: integer
+          example: '500123'
+        clock_MHz:
+          type: integer
+          example: 10
+        core_id:
+          type: integer
+          example: '500123'
+        cpu_type:
+          type: string
+          example: example_value
+        implementation:
+          type: string
+          example: example_value
+        ncore_per_chip:
+          type: integer
+          example: 10
+        state:
+          type: string
+          enum:
+          - on-line
+          - off-line
+          - powered-off
+          - no-intr
+          - spare
+          example: on-line
+        vendor_id:
+          type: string
+          example: '500123'
   securitySchemes:
     cookieAuth:
       type: apiKey

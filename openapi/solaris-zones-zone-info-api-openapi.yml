@@ -79,47 +79,6 @@ paths:
           default: radserver.example.com
           description: Hostname or IP of the Solaris RAD server
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   schemas:
     ZoneInfo:
       type: object
@@ -190,6 +149,47 @@ components:
               type: string
               description: Error message
           example: example_value
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   parameters:
     radDetail:
       name: _rad_detail
