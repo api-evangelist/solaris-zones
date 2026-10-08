@@ -1440,6 +1440,12 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
 common:
+- type: Plans
+  url: plans/solaris-zones-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/solaris-zones-rate-limits.yml
+- type: FinOps
+  url: finops/solaris-zones-finops.yml
 - type: CapabilityMap
   url: capabilities/solaris-zones-capability-edges.yml
   name: Solaris Zones Business Capability Map
