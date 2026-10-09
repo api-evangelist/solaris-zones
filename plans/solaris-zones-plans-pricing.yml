@@ -62,3 +62,19 @@ maintainers:
   - FN: Oracle Corporation
     email: solaris-feedback@oracle.com
     url: https://www.oracle.com/solaris/
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  plans:
+  - name: Included with Oracle Solaris Subscription
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
