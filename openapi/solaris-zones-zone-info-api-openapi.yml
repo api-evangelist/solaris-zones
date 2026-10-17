@@ -79,6 +79,63 @@ paths:
           default: radserver.example.com
           description: Hostname or IP of the Solaris RAD server
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
+    radDetail_2:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed information including all properties for each interface.
+      schema:
+        type: boolean
   schemas:
     ZoneInfo:
       type: object
@@ -109,6 +166,22 @@ components:
           description: Whether this is the global zone
           examples:
           - true
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code
+            message:
+              type: string
+              description: Error message
+          example: example_value
     ZoneInfo_2:
       type: object
       properties:
@@ -133,79 +206,6 @@ components:
           type: boolean
           description: Whether this is a global zone
           example: true
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
-    radDetail_2:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed information including all properties for each interface.
-      schema:
-        type: boolean
   securitySchemes:
     cookieAuth:
       type: apiKey

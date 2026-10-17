@@ -694,7 +694,66 @@ paths:
           default: '6788'
           description: RAD REST API port (default HTTPS)
 components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
     ZoneManagerDetail:
       type: object
       description: ZoneManager singleton providing system-wide zone management
@@ -711,6 +770,22 @@ components:
           - completed
           - null
           example: none
+    RadInterface:
+      type: object
+      description: A RAD interface entry describing an available management object
+      properties:
+        href:
+          type: string
+          description: Relative URI to the interface
+          examples:
+          - Zone/testzone1
+        type:
+          type: string
+          description: Interface type name
+          examples:
+          - Zone
+          - ZoneManager
+          - ZoneInfo
     Result:
       type: object
       description: Operation result from a zone management command
@@ -747,34 +822,62 @@ components:
           type: string
           description: Standard error output from the zone administration command
           example: example_value
-    ResultResponse:
+    EvacuationResult:
       type: object
-      description: Standard RAD response wrapper for operation results
       properties:
         status:
           type: string
           enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
-    RadInterface:
+          - SUCCESS
+          - FAIL
+          - PARTIAL_FAIL
+          description: Overall evacuation status
+          example: SUCCESS
+        returning:
+          type: boolean
+          description: Whether this is a return evacuation
+          example: true
+        migrationResults:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EvacuationMigrationResult'
+          description: Per-zone migration results keyed by zone name
+          example: example_value
+    CreateZoneRequest:
       type: object
-      description: A RAD interface entry describing an available management object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name of the new zone
+          example: Example Title
+        path:
+          type: string
+          description: Zone root path
+          example: example_value
+        template:
+          type: string
+          description: Zone brand template (e.g., SYSdefault)
+          default: SYSdefault
+          example: example_value
+    RadInterface_2:
+      type: object
       properties:
         href:
           type: string
-          description: Relative URI to the interface
-          examples:
-          - Zone/testzone1
+          description: URL path to the interface
+          example: example_value
         type:
           type: string
           description: Interface type name
-          examples:
-          - Zone
-          - ZoneManager
-          - ZoneInfo
+          example: example_value
+    ZoneManager:
+      type: object
+      properties:
+        evacuationState:
+          $ref: '#/components/schemas/EvacuationResult'
+          description: Current evacuation state if any
     EvacuationMigrationResult:
       type: object
       properties:
@@ -796,55 +899,18 @@ components:
           example: example_value
         migrationError:
           $ref: '#/components/schemas/MigrationError'
-    RadInterface_2:
-      type: object
-      properties:
-        href:
-          type: string
-          description: URL path to the interface
-          example: example_value
-        type:
-          type: string
-          description: Interface type name
-          example: example_value
-    CreateZoneRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name of the new zone
-          example: Example Title
-        path:
-          type: string
-          description: Zone root path
-          example: example_value
-        template:
-          type: string
-          description: Zone brand template (e.g., SYSdefault)
-          default: SYSdefault
-          example: example_value
-    EvacuationResult:
+    RadResult:
       type: object
       properties:
         status:
           type: string
           enum:
-          - SUCCESS
-          - FAIL
-          - PARTIAL_FAIL
-          description: Overall evacuation status
-          example: SUCCESS
-        returning:
-          type: boolean
-          description: Whether this is a return evacuation
-          example: true
-        migrationResults:
+          - success
+          - failure
+          example: success
+        payload:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EvacuationMigrationResult'
-          description: Per-zone migration results keyed by zone name
+          description: Result payload
           example: example_value
     MigrationError:
       type: object
@@ -878,12 +944,6 @@ components:
           type: string
           description: Human-readable error message
           example: example_value
-    ZoneManager:
-      type: object
-      properties:
-        evacuationState:
-          $ref: '#/components/schemas/EvacuationResult'
-          description: Current evacuation state if any
     RadError:
       type: object
       properties:
@@ -900,66 +960,6 @@ components:
               type: string
               description: Error message
           example: example_value
-    RadResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-          example: success
-        payload:
-          type: object
-          description: Result payload
-          example: example_value
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   parameters:
     radDetail:
       name: _rad_detail

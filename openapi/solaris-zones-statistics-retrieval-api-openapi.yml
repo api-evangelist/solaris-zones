@@ -176,20 +176,6 @@ components:
           schema:
             $ref: '#/components/schemas/RadError'
   schemas:
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-          example: example_value
     HistoricalStatistic:
       type: object
       properties:
@@ -214,6 +200,20 @@ components:
         unit:
           type: string
           description: Unit of measurement
+          example: example_value
+    RadError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        payload:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
           example: example_value
     StatisticValue:
       type: object

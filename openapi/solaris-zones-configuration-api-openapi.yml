@@ -371,33 +371,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone or resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone to configure
-      schema:
-        type: string
   schemas:
     ZoneResult:
       type: object
@@ -447,6 +420,33 @@ components:
             message:
               type: string
           example: example_value
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone to configure
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

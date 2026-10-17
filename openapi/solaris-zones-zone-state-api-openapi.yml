@@ -184,6 +184,21 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Returns detailed property information when present
+      schema:
+        type: boolean
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Authentication required or session expired
@@ -197,21 +212,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: Returns detailed property information when present
-      schema:
-        type: boolean
   schemas:
     ZoneInterface:
       type: object

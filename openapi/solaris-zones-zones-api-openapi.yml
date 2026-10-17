@@ -2528,7 +2528,112 @@ paths:
           default: '6788'
           description: RAD REST API port (default HTTPS)
 components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - error
+              payload:
+                type: object
+                properties:
+                  message:
+                    type: string
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized_2:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone or resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   schemas:
+    Resource:
+      type: object
+      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          description: Resource type identifier
+          enum:
+          - admin
+          - anet
+          - attr
+          - capped-cpu
+          - capped-memory
+          - dataset
+          - dedicated-cpu
+          - device
+          - fs
+          - ib-vhca
+          - keysource
+          - net
+          - npiv
+          - rctl
+          - rootzpool
+          - smf-dependency
+          - verified-boot
+          - virtual-cpu
+          - zpool
+          example: admin
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Property'
+          description: List of properties for this resource
+          example: []
+        parent:
+          type: string
+          description: Parent resource reference for nested resources
+          example: example_value
+    ResultResponse:
+      type: object
+      description: Standard RAD response wrapper for operation results
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          example: success
+        payload:
+          $ref: '#/components/schemas/Result'
     ZoneDetail:
       type: object
       description: Detailed information about a specific Solaris zone
@@ -2617,58 +2722,6 @@ components:
             type: string
           description: Complex structured values
           example: []
-    ResultResponse:
-      type: object
-      description: Standard RAD response wrapper for operation results
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          example: success
-        payload:
-          $ref: '#/components/schemas/Result'
-    Resource:
-      type: object
-      description: A zone configuration resource such as anet, fs, capped-cpu, etc.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          description: Resource type identifier
-          enum:
-          - admin
-          - anet
-          - attr
-          - capped-cpu
-          - capped-memory
-          - dataset
-          - dedicated-cpu
-          - device
-          - fs
-          - ib-vhca
-          - keysource
-          - net
-          - npiv
-          - rctl
-          - rootzpool
-          - smf-dependency
-          - verified-boot
-          - virtual-cpu
-          - zpool
-          example: admin
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/Property'
-          description: List of properties for this resource
-          example: []
-        parent:
-          type: string
-          description: Parent resource reference for nested resources
-          example: example_value
     Result:
       type: object
       description: Operation result from a zone management command
@@ -2704,6 +2757,44 @@ components:
         stderr:
           type: string
           description: Standard error output from the zone administration command
+          example: example_value
+    ZoneResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: example_value
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+              - NONE
+              - FRAMEWORK_ERROR
+              - SNAPSHOT_ERROR
+              - COMMAND_ERROR
+              - RESOURCE_ALREADY_EXISTS
+              - RESOURCE_NOT_FOUND
+              - RESOURCE_TOO_MANY
+              - RESOURCE_UNKNOWN
+              - ALREADY_EDITING
+              - INCOMPLETE_NO_CONFIG
+              - PROPERTY_UNKNOWN
+              - NOT_EDITING
+              - SYSTEM_ERROR
+              - INVALID_ARGUMENT
+              - INVALID_ZONE_STATE
+              description: Error code
+            message:
+              type: string
+              description: Error or success message
+            stdout:
+              type: string
+              description: Standard output from the operation
+            stderr:
+              type: string
+              description: Standard error from the operation
           example: example_value
     Zone:
       type: object
@@ -2743,43 +2834,21 @@ components:
             type: string
           description: Auxiliary zone states
           example: []
-    ZoneResult:
+    RadError:
       type: object
       properties:
         status:
           type: string
-          example: example_value
+          example: failure
         payload:
           type: object
           properties:
             code:
-              type: string
-              enum:
-              - NONE
-              - FRAMEWORK_ERROR
-              - SNAPSHOT_ERROR
-              - COMMAND_ERROR
-              - RESOURCE_ALREADY_EXISTS
-              - RESOURCE_NOT_FOUND
-              - RESOURCE_TOO_MANY
-              - RESOURCE_UNKNOWN
-              - ALREADY_EDITING
-              - INCOMPLETE_NO_CONFIG
-              - PROPERTY_UNKNOWN
-              - NOT_EDITING
-              - SYSTEM_ERROR
-              - INVALID_ARGUMENT
-              - INVALID_ZONE_STATE
+              type: integer
               description: Error code
             message:
               type: string
-              description: Error or success message
-            stdout:
-              type: string
-              description: Standard output from the operation
-            stderr:
-              type: string
-              description: Standard error from the operation
+              description: Error message
           example: example_value
     MigrateZoneRequest:
       type: object
@@ -2802,76 +2871,15 @@ components:
           type: string
           description: Encryption cipher for the migration transfer
           example: example_value
-    RadError:
-      type: object
-      properties:
-        status:
-          type: string
-          example: failure
-        payload:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: Error code
-            message:
-              type: string
-              description: Error message
-          example: example_value
-  responses:
-    Unauthorized:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  message:
-                    type: string
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                enum:
-                - error
-              payload:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  message:
-                    type: string
-    Unauthorized_2:
-      description: Authentication required or session expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone or resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
   parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: When present, returns detailed property information for each interface or object in the response.
+      schema:
+        type: boolean
+        default: true
     zoneName:
       name: zoneName
       in: path
@@ -2881,21 +2889,6 @@ components:
         type: string
         examples:
         - testzone1
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: When present, returns detailed property information for each interface or object in the response.
-      schema:
-        type: boolean
-        default: true
-    zoneName_2:
-      name: zoneName
-      in: path
-      required: true
-      description: Name of the zone
-      schema:
-        type: string
     radDetail_2:
       name: _rad_detail
       in: query
@@ -2903,6 +2896,13 @@ components:
       description: When present, returns detailed information including all properties for each interface.
       schema:
         type: boolean
+    zoneName_2:
+      name: zoneName
+      in: path
+      required: true
+      description: Name of the zone
+      schema:
+        type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

@@ -160,6 +160,59 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SwapCapStats:
+      type: object
+      description: Swap cap statistics
+      properties:
+        swapcap:
+          type: integer
+          format: int64
+          description: Swap cap in bytes
+          example: 10
+        usage:
+          type: integer
+          format: int64
+          description: Current swap usage in bytes
+          example: 10
+        nover:
+          type: integer
+          format: int64
+          description: Number of times swap exceeded the cap
+          example: 10
+    MemoryCapStats:
+      type: object
+      description: Physical memory cap statistics
+      properties:
+        physcap:
+          type: integer
+          format: int64
+          description: Physical memory cap in bytes
+          example: 10
+        rss:
+          type: integer
+          format: int64
+          description: Current resident set size in bytes
+          example: 10
+        nover:
+          type: integer
+          format: int64
+          description: Number of times memory went over the cap
+          example: 10
+        pagedout:
+          type: integer
+          format: int64
+          description: Total bytes paged out due to capping
+          example: 10
+        pgpgin:
+          type: integer
+          format: int64
+          description: Pages paged in
+          example: 10
+        anonpgin:
+          type: integer
+          format: int64
+          description: Anonymous pages paged in
+          example: 10
     SystemMemoryStats:
       type: object
       properties:
@@ -198,59 +251,6 @@ components:
           format: int64
           description: Pages used by kernel
           example: 10
-    MemoryCapStats:
-      type: object
-      description: Physical memory cap statistics
-      properties:
-        physcap:
-          type: integer
-          format: int64
-          description: Physical memory cap in bytes
-          example: 10
-        rss:
-          type: integer
-          format: int64
-          description: Current resident set size in bytes
-          example: 10
-        nover:
-          type: integer
-          format: int64
-          description: Number of times memory went over the cap
-          example: 10
-        pagedout:
-          type: integer
-          format: int64
-          description: Total bytes paged out due to capping
-          example: 10
-        pgpgin:
-          type: integer
-          format: int64
-          description: Pages paged in
-          example: 10
-        anonpgin:
-          type: integer
-          format: int64
-          description: Anonymous pages paged in
-          example: 10
-    SwapCapStats:
-      type: object
-      description: Swap cap statistics
-      properties:
-        swapcap:
-          type: integer
-          format: int64
-          description: Swap cap in bytes
-          example: 10
-        usage:
-          type: integer
-          format: int64
-          description: Current swap usage in bytes
-          example: 10
-        nover:
-          type: integer
-          format: int64
-          description: Number of times swap exceeded the cap
-          example: 10
     RadError:
       type: object
       properties:
@@ -265,6 +265,14 @@ components:
             message:
               type: string
           example: example_value
+  parameters:
+    radDetail:
+      name: _rad_detail
+      in: query
+      required: false
+      description: Include detailed property information
+      schema:
+        type: boolean
   responses:
     Unauthorized:
       description: Authentication required or session expired
@@ -278,14 +286,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RadError'
-  parameters:
-    radDetail:
-      name: _rad_detail
-      in: query
-      required: false
-      description: Include detailed property information
-      schema:
-        type: boolean
   securitySchemes:
     cookieAuth:
       type: apiKey

@@ -210,33 +210,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-    NotFound:
-      description: Zone not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RadError'
-  parameters:
-    zoneName:
-      name: zoneName
-      in: path
-      required: true
-      description: Zone name
-      schema:
-        type: string
   schemas:
     ZoneResult:
       type: object
@@ -286,6 +259,33 @@ components:
             message:
               type: string
           example: example_value
+  parameters:
+    zoneName:
+      name: zoneName
+      in: path
+      required: true
+      description: Zone name
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
+    NotFound:
+      description: Zone not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RadError'
   securitySchemes:
     cookieAuth:
       type: apiKey

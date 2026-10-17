@@ -368,6 +368,34 @@ components:
           format: int64
           description: Current swap usage in bytes
           example: 10
+    ZoneMiscStats:
+      type: object
+      description: Zone miscellaneous statistics
+      properties:
+        zonename:
+          type: string
+          example: example_value
+        zone_id:
+          type: integer
+          example: '500123'
+        nprocs:
+          type: integer
+          description: Number of processes in the zone
+          example: 10
+        nlwps:
+          type: integer
+          description: Number of lightweight processes in the zone
+          example: 10
+        pr_size:
+          type: integer
+          format: int64
+          description: Total process size in bytes
+          example: 10
+        pr_rss:
+          type: integer
+          format: int64
+          description: Total resident set size in bytes
+          example: 10
     ZoneCapStats_2:
       type: object
       description: Zone resource cap utilization statistics
@@ -412,34 +440,6 @@ components:
           type: integer
           format: int64
           description: Current swap usage in bytes
-          example: 10
-    ZoneMiscStats:
-      type: object
-      description: Zone miscellaneous statistics
-      properties:
-        zonename:
-          type: string
-          example: example_value
-        zone_id:
-          type: integer
-          example: '500123'
-        nprocs:
-          type: integer
-          description: Number of processes in the zone
-          example: 10
-        nlwps:
-          type: integer
-          description: Number of lightweight processes in the zone
-          example: 10
-        pr_size:
-          type: integer
-          format: int64
-          description: Total process size in bytes
-          example: 10
-        pr_rss:
-          type: integer
-          format: int64
-          description: Total resident set size in bytes
           example: 10
   parameters:
     radDetail:
