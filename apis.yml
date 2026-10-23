@@ -1440,6 +1440,8 @@ apis:
   - type: Documentation
     url: https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/solaris-zones/overview
 - type: Plans
   url: plans/solaris-zones-plans-pricing.yml
 - type: RateLimits
