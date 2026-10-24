@@ -1,1001 +1,804 @@
 {
+  "info": {
+    "_postman_id": "0441fe24-9669-4fe5-842a-3bcf9a8d3d27",
+    "name": "Solaris Zones Solaris Zone Monitoring Zone State API",
+    "description": "REST API for monitoring Oracle Solaris zone status, resource usage, and performance metrics. Provides access to zone state information, resource utilization statistics via the RAD kstat module and zonestat functionality, including CPU usage, memory consumption, and network statistics per zone.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:15:10.000Z",
+    "updatedAt": "2026-10-22T03:15:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0441fe24-9669-4fe5-842a-3bcf9a8d3d27"
+  },
   "item": [
     {
-      "id": "127a5972-8a07-4c68-a213-803afc997745",
-      "name": "Zone State",
-      "description": {
-        "content": "Zone state monitoring via zonemgr module",
-        "type": "text/plain"
-      },
+      "name": "com.oracle.solaris.rad.zonemgr",
       "item": [
         {
-          "id": "47b89b54-709c-4914-a2ef-fde10eaa64d9",
-          "name": "Solaris Zones Get Zone Current State",
-          "request": {
-            "name": "Solaris Zones Get Zone Current State",
-            "description": {
-              "content": "Retrieve the current lifecycle state of a zone (configured, installed, ready, running, shutting_down, down).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.zonemgr",
-                "1.6",
-                "Zone",
-                ":zoneName",
-                "state"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "1.6",
+          "item": [
             {
-              "id": "1179cac4-3396-45db-b973-efe9ac7b8a68",
-              "name": "Zone state",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "state"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "Zone",
+              "item": [
+                {
+                  "name": "{zoneName}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
+                      "name": "state",
+                      "item": [
+                        {
+                          "name": "Solaris Zones Get Zone Current State",
+                          "id": "4af07898-c41f-490f-8d85-6a0867c11001",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.zonemgr",
+                                "1.6",
+                                "Zone",
+                                ":zoneName",
+                                "state"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "62cfb1ad-bb01-40b0-98db-be61dfe55d7a",
+                                  "key": "zoneName",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the zone"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve the current lifecycle state of a zone (configured, installed, ready, running, shutting_down, down)."
+                          },
+                          "response": [
+                            {
+                              "id": "dcf54462-a231-440b-b6b6-e99d93ed538f",
+                              "name": "Zone state",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "state"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": \"installed\"\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-dcf54462-a231-440b-b6b6-e99d93ed538f"
+                            },
+                            {
+                              "id": "266292d0-6c2a-4b2d-b0a3-891df082be1b",
+                              "name": "Authentication required or session expired",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "state"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-266292d0-6c2a-4b2d-b0a3-891df082be1b"
+                            },
+                            {
+                              "id": "b2817a70-1dce-4ba4-9049-06e773ac4312",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/state",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "state"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-b2817a70-1dce-4ba4-9049-06e773ac4312"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T03:15:11.000Z",
+                          "updatedAt": "2026-10-22T03:15:11.000Z",
+                          "uid": "35240-4af07898-c41f-490f-8d85-6a0867c11001"
+                        }
+                      ],
+                      "id": "4caf045d-bdc9-453e-b286-8241862dada8",
+                      "createdAt": "2026-10-22T03:15:11.000Z",
+                      "updatedAt": "2026-10-22T03:15:11.000Z",
+                      "uid": "35240-4caf045d-bdc9-453e-b286-8241862dada8"
                     },
                     {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
+                      "name": "id",
+                      "item": [
+                        {
+                          "name": "Solaris Zones Get Zone Numeric Id",
+                          "id": "193044b5-7843-4a52-9a61-d108c6ec8e8b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.zonemgr",
+                                "1.6",
+                                "Zone",
+                                ":zoneName",
+                                "id"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6f7231ad-68f6-4a0c-8353-9d50083785b9",
+                                  "key": "zoneName",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the zone"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve the numeric ID assigned to a zone. Only available when the zone is in running or ready state."
+                          },
+                          "response": [
+                            {
+                              "id": "50bf6766-f7cd-43e9-9dec-d49b5786544a",
+                              "name": "Zone numeric ID",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-50bf6766-f7cd-43e9-9dec-d49b5786544a"
+                            },
+                            {
+                              "id": "e7de17ab-521c-42db-8ed5-8859ce2a7605",
+                              "name": "Authentication required or session expired",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-e7de17ab-521c-42db-8ed5-8859ce2a7605"
+                            },
+                            {
+                              "id": "f3aaa044-025e-4f89-8dde-9b0503381207",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-f3aaa044-025e-4f89-8dde-9b0503381207"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T03:15:11.000Z",
+                          "updatedAt": "2026-10-22T03:15:11.000Z",
+                          "uid": "35240-193044b5-7843-4a52-9a61-d108c6ec8e8b"
+                        }
+                      ],
+                      "id": "a74ca48d-2e44-409d-9ddf-d945e3ba10a5",
+                      "createdAt": "2026-10-22T03:15:11.000Z",
+                      "updatedAt": "2026-10-22T03:15:11.000Z",
+                      "uid": "35240-a74ca48d-2e44-409d-9ddf-d945e3ba10a5"
                     },
                     {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "name": "auxstate",
+                      "item": [
+                        {
+                          "name": "Solaris Zones Get Zone Auxiliary States",
+                          "id": "27f7540e-f7fa-4f36-9358-8954ede6b4f8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/auxstate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.zonemgr",
+                                "1.6",
+                                "Zone",
+                                ":zoneName",
+                                "auxstate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "acd04b3a-d1ed-480b-9c60-748fad1ceb9d",
+                                  "key": "zoneName",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the zone"
+                                }
+                              ]
+                            },
+                            "description": "Retrieve auxiliary state flags for a zone. These provide additional status information beyond the primary lifecycle state."
+                          },
+                          "response": [
+                            {
+                              "id": "98cfb9c7-16f9-484e-8176-7ee319bf481a",
+                              "name": "Zone auxiliary states",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/auxstate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "auxstate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-98cfb9c7-16f9-484e-8176-7ee319bf481a"
+                            },
+                            {
+                              "id": "728e130a-7cc0-45c8-a999-12002b633922",
+                              "name": "Authentication required or session expired",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/auxstate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "auxstate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-728e130a-7cc0-45c8-a999-12002b633922"
+                            },
+                            {
+                              "id": "10d5f188-1906-40a9-85c2-93a9609cd80c",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "_rad_session",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6/Zone/:zoneName/auxstate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "com.oracle.solaris.rad.zonemgr",
+                                    "1.6",
+                                    "Zone",
+                                    ":zoneName",
+                                    "auxstate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "zoneName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T03:15:11.000Z",
+                              "updatedAt": "2026-10-22T03:15:11.000Z",
+                              "uid": "35240-10d5f188-1906-40a9-85c2-93a9609cd80c"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T03:15:11.000Z",
+                          "updatedAt": "2026-10-22T03:15:11.000Z",
+                          "uid": "35240-27f7540e-f7fa-4f36-9358-8954ede6b4f8"
+                        }
+                      ],
+                      "id": "70ddac1c-bb8c-40b3-84f3-9d70cf0d03c5",
+                      "createdAt": "2026-10-22T03:15:11.000Z",
+                      "updatedAt": "2026-10-22T03:15:11.000Z",
+                      "uid": "35240-70ddac1c-bb8c-40b3-84f3-9d70cf0d03c5"
                     }
-                  ]
-                },
+                  ],
+                  "id": "9700e72a-4c1b-4cc5-9a6f-8207580232f6",
+                  "createdAt": "2026-10-22T03:15:11.000Z",
+                  "updatedAt": "2026-10-22T03:15:11.000Z",
+                  "uid": "35240-9700e72a-4c1b-4cc5-9a6f-8207580232f6"
+                }
+              ],
+              "id": "5358b152-2795-4371-a270-86ec22aaf2e6",
+              "createdAt": "2026-10-22T03:15:11.000Z",
+              "updatedAt": "2026-10-22T03:15:11.000Z",
+              "uid": "35240-5358b152-2795-4371-a270-86ec22aaf2e6"
+            },
+            {
+              "name": "Solaris Zones List All Zones With Status",
+              "id": "b7e4014a-146a-4404-82ae-8b53d376e067",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": \"configured\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "582a67aa-332b-4922-b084-a00122e2bd3f",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "state"
-                  ],
+                  "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6?_rad_detail=<boolean>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cb3c032b-7d15-4731-814c-70308a7bd966",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "state"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "aee27007-21ff-4619-ad23-f034cb569c99",
-          "name": "Solaris Zones Get Zone Numeric Id",
-          "request": {
-            "name": "Solaris Zones Get Zone Numeric Id",
-            "description": {
-              "content": "Retrieve the numeric ID assigned to a zone. Only available when the zone is in running or ready state.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.zonemgr",
-                "1.6",
-                "Zone",
-                ":zoneName",
-                "id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ecd16966-6301-4519-a4c4-dbffc38f061b",
-              "name": "Zone numeric ID",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": 10\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ccc8e00c-bcfc-4c8c-b870-ae5c28d92e16",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cdbdea46-d27b-4eed-879d-94a41f7a7d8b",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "27225cda-3847-4822-9f20-464ffb715b9b",
-          "name": "Solaris Zones Get Zone Auxiliary States",
-          "request": {
-            "name": "Solaris Zones Get Zone Auxiliary States",
-            "description": {
-              "content": "Retrieve auxiliary state flags for a zone. These provide additional status information beyond the primary lifecycle state.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.zonemgr",
-                "1.6",
-                "Zone",
-                ":zoneName",
-                "auxstate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "24eedc6a-c652-443a-9461-a961f51c1f6f",
-              "name": "Zone auxiliary states",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "auxstate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": [\n    \"example_value\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bfd65db1-8256-478a-b9f0-41633dcca946",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "auxstate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0eebd7c5-21d0-49f8-8012-7a124d52ba84",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6",
-                    "Zone",
-                    ":zoneName",
-                    "auxstate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0058d1ea-412f-4c30-952c-93111511d018",
-          "name": "Solaris Zones List All Zones With Status",
-          "request": {
-            "name": "Solaris Zones List All Zones With Status",
-            "description": {
-              "content": "Retrieve a list of all zones on the system with their current state and properties. Use _rad_detail for full zone information.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.zonemgr",
-                "1.6"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "_rad_detail",
-                  "value": "<boolean>",
-                  "description": "Returns detailed property information when present"
-                }
-              ],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "fa2fbddb-8b31-468e-b064-ad05c6352585",
-              "name": "List of all zone interfaces",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "com.oracle.solaris.rad.zonemgr",
                     "1.6"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Returns detailed property information when present",
                       "key": "_rad_detail",
                       "value": "<boolean>"
                     }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieve a list of all zones on the system with their current state and properties. Use _rad_detail for full zone information."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": [\n    {\n      \"href\": \"example_value\",\n      \"type\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"state\": \"example_value\",\n      \"brand\": \"example_value\",\n      \"id\": \"abc123\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bc652de5-b13c-425a-8d1a-48c85a4d95d4",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.zonemgr",
-                    "1.6"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "3e6450ad-6281-4f0c-85a8-0a10ea990917",
+                  "name": "List of all zone interfaces",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_session",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6?_rad_detail=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "com.oracle.solaris.rad.zonemgr",
+                        "1.6"
+                      ],
+                      "query": [
+                        {
+                          "description": "Returns detailed property information when present",
+                          "key": "_rad_detail",
+                          "value": "<boolean>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"payload\": [\n    {\n      \"href\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"state\": \"<string>\",\n      \"brand\": \"<string>\",\n      \"id\": \"<integer>\"\n    },\n    {\n      \"href\": \"<string>\",\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"state\": \"<string>\",\n      \"brand\": \"<string>\",\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T03:15:11.000Z",
+                  "updatedAt": "2026-10-22T03:15:11.000Z",
+                  "uid": "35240-3e6450ad-6281-4f0c-85a8-0a10ea990917"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "0ba1dc5b-2795-4358-ad17-26a9c559a0f0",
+                  "name": "Authentication required or session expired",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_session",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/com.oracle.solaris.rad.zonemgr/1.6?_rad_detail=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "com.oracle.solaris.rad.zonemgr",
+                        "1.6"
+                      ],
+                      "query": [
+                        {
+                          "description": "Returns detailed property information when present",
+                          "key": "_rad_detail",
+                          "value": "<boolean>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:15:11.000Z",
+                  "updatedAt": "2026-10-22T03:15:11.000Z",
+                  "uid": "35240-0ba1dc5b-2795-4358-ad17-26a9c559a0f0"
                 }
               ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1110,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T03:15:11.000Z",
+              "updatedAt": "2026-10-22T03:15:11.000Z",
+              "uid": "35240-b7e4014a-146a-4404-82ae-8b53d376e067"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0b1a59db-5c55-466c-ad66-8866c7c59a0a",
+          "createdAt": "2026-10-22T03:15:11.000Z",
+          "updatedAt": "2026-10-22T03:15:11.000Z",
+          "uid": "35240-0b1a59db-5c55-466c-ad66-8866c7c59a0a"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Solaris host running RAD",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "host"
-    },
-    {
-      "description": {
-        "content": "RAD REST API port",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "6788",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6",
-      "key": "baseUrl"
+      "id": "1e272077-30ee-4da6-8e40-87d841ae118c",
+      "createdAt": "2026-10-22T03:15:11.000Z",
+      "updatedAt": "2026-10-22T03:15:11.000Z",
+      "uid": "35240-1e272077-30ee-4da6-8e40-87d841ae118c"
     }
   ],
   "auth": {
@@ -1003,25 +806,33 @@
     "apikey": [
       {
         "key": "key",
-        "value": "_rad_session"
+        "value": "_rad_session",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "ddd397d8-e077-42ca-9b57-b9a25c9a1ba5",
-    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone State API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "6788"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{host}}:{{port}}/api"
     }
-  }
+  ]
 }

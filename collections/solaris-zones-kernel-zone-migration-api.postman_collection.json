@@ -1,408 +1,362 @@
 {
+  "info": {
+    "_postman_id": "03affbfa-d8ce-4375-8874-894e5b065ade",
+    "name": "Solaris Zones Oracle Solaris Kernel Zones Kernel Zone\u2026",
+    "description": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:13:47.000Z",
+    "updatedAt": "2026-10-22T03:13:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-03affbfa-d8ce-4375-8874-894e5b065ade"
+  },
   "item": [
     {
-      "id": "5f1f69eb-1174-4bff-8789-087afb1c7d6c",
-      "name": "Kernel Zone Migration",
-      "description": {
-        "content": "Live migration of kernel zones between hosts",
-        "type": "text/plain"
-      },
+      "name": "Zone",
       "item": [
         {
-          "id": "a0d903a3-3613-481f-8660-774b22856b07",
-          "name": "Solaris Zones Live Migrate a Kernel Zone",
-          "request": {
-            "name": "Solaris Zones Live Migrate a Kernel Zone",
-            "description": {
-              "content": "Live migrate a running kernel zone to a remote host. Kernel zones are the primary zone type that supports live migration where the zone continues running while its state is transferred to the destination.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Zone",
-                ":zoneName",
-                "_rad_method",
-                "migrate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Kernel zone name"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"<string>\",\n  \"cipher\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{zoneName}",
+          "item": [
             {
-              "id": "cfe0b53e-0348-488e-b08f-cea8fb81cc6b",
-              "name": "Migration initiated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Kernel zone name"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"host\": \"example_value\",\n  \"type\": \"live\",\n  \"cipher\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "_rad_method",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "migrate",
+                  "item": [
+                    {
+                      "name": "Solaris Zones Live Migrate a Kernel Zone",
+                      "id": "4459d448-aac8-4523-bb66-f57b8f634050",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"cold\",\n  \"cipher\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/migrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "_rad_method",
+                            "migrate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f8565605-2fd9-4cd2-bcf6-738c5dc0ed66",
+                              "key": "zoneName",
+                              "value": "<string>",
+                              "description": "(Required) Kernel zone name"
+                            }
+                          ]
+                        },
+                        "description": "Live migrate a running kernel zone to a remote host. Kernel zones are the primary zone type that supports live migration where the zone continues running while its state is transferred to the destination."
+                      },
+                      "response": [
+                        {
+                          "id": "2cf9fca1-7061-4975-84e6-daa2f919e209",
+                          "name": "Migration initiated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"cold\",\n  \"cipher\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/migrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "migrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"RESOURCE_ALREADY_EXISTS\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:48.000Z",
+                          "updatedAt": "2026-10-22T03:13:48.000Z",
+                          "uid": "35240-2cf9fca1-7061-4975-84e6-daa2f919e209"
+                        },
+                        {
+                          "id": "dd313333-234d-45fe-94f9-4100ab5eaf8f",
+                          "name": "Invalid request",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"cold\",\n  \"cipher\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/migrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "migrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:48.000Z",
+                          "updatedAt": "2026-10-22T03:13:48.000Z",
+                          "uid": "35240-dd313333-234d-45fe-94f9-4100ab5eaf8f"
+                        },
+                        {
+                          "id": "0423addb-a167-406b-ba20-77c40ca035dd",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"cold\",\n  \"cipher\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/migrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "migrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:48.000Z",
+                          "updatedAt": "2026-10-22T03:13:48.000Z",
+                          "uid": "35240-0423addb-a167-406b-ba20-77c40ca035dd"
+                        },
+                        {
+                          "id": "d239ae3a-a110-4360-9e77-52d62972fc31",
+                          "name": "Zone not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"host\": \"<string>\",\n  \"type\": \"cold\",\n  \"cipher\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/migrate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "migrate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:48.000Z",
+                          "updatedAt": "2026-10-22T03:13:48.000Z",
+                          "uid": "35240-d239ae3a-a110-4360-9e77-52d62972fc31"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:13:48.000Z",
+                      "updatedAt": "2026-10-22T03:13:48.000Z",
+                      "uid": "35240-4459d448-aac8-4523-bb66-f57b8f634050"
+                    }
+                  ],
+                  "id": "e9562df1-a1e0-4845-82ab-99c75aa3c3af",
+                  "createdAt": "2026-10-22T03:13:48.000Z",
+                  "updatedAt": "2026-10-22T03:13:48.000Z",
+                  "uid": "35240-e9562df1-a1e0-4845-82ab-99c75aa3c3af"
                 }
               ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"code\": \"NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cd34b656-d9fa-45dc-bcd9-1ec79b4e232b",
-              "name": "Invalid request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Kernel zone name"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"host\": \"example_value\",\n  \"type\": \"live\",\n  \"cipher\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 8257,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8f74cf66-b2f1-4672-8e52-bb141ab364a0",
-              "name": "Authentication required",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Kernel zone name"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"host\": \"example_value\",\n  \"type\": \"live\",\n  \"cipher\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 8257,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eaa707f4-3759-41e0-b6ce-66c8a1b337e3",
-              "name": "Zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Kernel zone name"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"host\": \"example_value\",\n  \"type\": \"live\",\n  \"cipher\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 8257,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "6cdb9fb6-03c6-473c-af82-41decbf555f1",
+              "createdAt": "2026-10-22T03:13:48.000Z",
+              "updatedAt": "2026-10-22T03:13:48.000Z",
+              "uid": "35240-6cdb9fb6-03c6-473c-af82-41decbf555f1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "8145ef5c-0939-461f-8e0c-a9f4f4b80047",
+          "createdAt": "2026-10-22T03:13:48.000Z",
+          "updatedAt": "2026-10-22T03:13:48.000Z",
+          "uid": "35240-8145ef5c-0939-461f-8e0c-a9f4f4b80047"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Solaris host running RAD",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "host"
-    },
-    {
-      "description": {
-        "content": "RAD REST API port",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "6788",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6",
-      "key": "baseUrl"
+      "id": "72271d21-6290-4ba1-9760-cafa42c81abb",
+      "createdAt": "2026-10-22T03:13:48.000Z",
+      "updatedAt": "2026-10-22T03:13:48.000Z",
+      "uid": "35240-72271d21-6290-4ba1-9760-cafa42c81abb"
     }
   ],
   "auth": {
@@ -410,25 +364,33 @@
     "apikey": [
       {
         "key": "key",
-        "value": "_rad_session"
+        "value": "_rad_session",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b82c9aa9-c280-41b4-bfcc-6eed2adef177",
-    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Migration API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "6788"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6"
     }
-  }
+  ]
 }

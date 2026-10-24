@@ -1,994 +1,876 @@
 {
+  "info": {
+    "_postman_id": "1a20677a-1bae-4bb8-976e-0c58f57b3c9d",
+    "name": "Solaris Zones Solaris Zone Administration Installation API",
+    "description": "REST API for Oracle Solaris zone lifecycle management operations via the RAD zonemgr module. Provides administrative operations including install, boot, halt, shutdown, reboot, clone, attach, detach, suspend, move, mark, and savecore. These operations correspond to the zoneadm(1M) command functionality exposed through the RAD REST interface.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:13:06.000Z",
+    "updatedAt": "2026-10-22T03:13:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1a20677a-1bae-4bb8-976e-0c58f57b3c9d"
+  },
   "item": [
     {
-      "id": "1cd3d4a9-5b50-4fd4-a2e9-cf0ef76e2d49",
-      "name": "Installation",
-      "description": {
-        "content": "Zone install and uninstall operations",
-        "type": "text/plain"
-      },
+      "name": "Zone",
       "item": [
         {
-          "id": "573afcfe-84de-49b5-bf67-301ec48a7279",
-          "name": "Solaris Zones Install a Zone",
-          "request": {
-            "name": "Solaris Zones Install a Zone",
-            "description": {
-              "content": "Install a configured zone, provisioning its root file system and packages. Transitions the zone from configured to installed state. Equivalent to zoneadm install.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Zone",
-                ":zoneName",
-                "_rad_method",
-                "install"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{zoneName}",
+          "item": [
             {
-              "id": "5c2dbfd2-0c87-4b0b-8652-764b99738fdc",
-              "name": "Zone installation initiated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "install"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"options\": [\n    \"example_value\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "_rad_method",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"code\": \"NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f12917c7-3bca-4140-a71d-ba70063e409b",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "install"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "install",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "name": "Solaris Zones Install a Zone",
+                      "id": "1e3a3f91-cd55-4ceb-841d-f39c38a71b5b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/install",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "_rad_method",
+                            "install"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1286ed10-0d4a-489c-a610-b54d3bc5464a",
+                              "key": "zoneName",
+                              "value": "<string>",
+                              "description": "(Required) Name of the zone"
+                            }
+                          ]
+                        },
+                        "description": "Install a configured zone, provisioning its root file system and packages. Transitions the zone from configured to installed state. Equivalent to zoneadm install."
+                      },
+                      "response": [
+                        {
+                          "id": "59f7f769-f7b0-4d6e-9bd3-0f84732b79a9",
+                          "name": "Zone installation initiated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/install",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "install"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"COMMAND_ERROR\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-59f7f769-f7b0-4d6e-9bd3-0f84732b79a9"
+                        },
+                        {
+                          "id": "6771d014-bba3-494f-9d55-9c0768efa2a5",
+                          "name": "Authentication required or session expired",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/install",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "install"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-6771d014-bba3-494f-9d55-9c0768efa2a5"
+                        },
+                        {
+                          "id": "7a5f4de4-9e9d-4e72-9b3d-508838afbdf5",
+                          "name": "Zone not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"options\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/install",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "install"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-7a5f4de4-9e9d-4e72-9b3d-508838afbdf5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:13:07.000Z",
+                      "updatedAt": "2026-10-22T03:13:07.000Z",
+                      "uid": "35240-1e3a3f91-cd55-4ceb-841d-f39c38a71b5b"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"options\": [\n    \"example_value\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a853f4d6-6e79-43dc-ab38-6dd8c1663772",
-              "name": "Zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "install"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"options\": [\n    \"example_value\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9090542e-2aa5-4b4b-9536-e60968c4a233",
-          "name": "Solaris Zones Uninstall a Zone",
-          "request": {
-            "name": "Solaris Zones Uninstall a Zone",
-            "description": {
-              "content": "Uninstall a zone, removing its root file system and installed content. The zone returns to the configured state. Equivalent to zoneadm uninstall.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Zone",
-                ":zoneName",
-                "_rad_method",
-                "uninstall"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
+                  "id": "58665e70-e8a7-4609-861e-5ad88cd6eaf0",
+                  "createdAt": "2026-10-22T03:13:07.000Z",
+                  "updatedAt": "2026-10-22T03:13:07.000Z",
+                  "uid": "35240-58665e70-e8a7-4609-861e-5ad88cd6eaf0"
                 },
                 {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"force\": false\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "5d5de012-e4b9-49a5-b33b-b44fb27782fd",
-              "name": "Zone uninstalled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "uninstall"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "uninstall",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "name": "Solaris Zones Uninstall a Zone",
+                      "id": "0353b488-baf7-40d8-ba2b-afdc1efb6e5c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"force\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/uninstall",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "_rad_method",
+                            "uninstall"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f7107f08-ee88-4dde-895b-a6fc9e4c2d24",
+                              "key": "zoneName",
+                              "value": "<string>",
+                              "description": "(Required) Name of the zone"
+                            }
+                          ]
+                        },
+                        "description": "Uninstall a zone, removing its root file system and installed content. The zone returns to the configured state. Equivalent to zoneadm uninstall."
+                      },
+                      "response": [
+                        {
+                          "id": "0fd5f82d-ece1-4f98-ae27-d4726d3f0ed6",
+                          "name": "Zone uninstalled",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"force\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/uninstall",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "uninstall"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"COMMAND_ERROR\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-0fd5f82d-ece1-4f98-ae27-d4726d3f0ed6"
+                        },
+                        {
+                          "id": "4cd763dc-639f-42e9-ae28-7c1f0189aa1a",
+                          "name": "Authentication required or session expired",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"force\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/uninstall",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "uninstall"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-4cd763dc-639f-42e9-ae28-7c1f0189aa1a"
+                        },
+                        {
+                          "id": "e2de89ef-7fd1-42b6-91a8-bf607274ce40",
+                          "name": "Zone not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"force\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/uninstall",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "uninstall"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-e2de89ef-7fd1-42b6-91a8-bf607274ce40"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:13:07.000Z",
+                      "updatedAt": "2026-10-22T03:13:07.000Z",
+                      "uid": "35240-0353b488-baf7-40d8-ba2b-afdc1efb6e5c"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"force\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"code\": \"NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "82f286e9-e7d3-4936-a22b-8a86ea349cfd",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "uninstall"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"force\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f251c7a6-66a5-4e83-a7b1-1089721643bc",
-              "name": "Zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "uninstall"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"force\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eb75e5bb-3e0f-4be8-829c-015f6e97e0eb",
-          "name": "Solaris Zones Clone a Zone",
-          "request": {
-            "name": "Solaris Zones Clone a Zone",
-            "description": {
-              "content": "Install a zone by cloning from an existing zone or ZFS snapshot. The target zone must be in the configured state. Equivalent to zoneadm clone.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Zone",
-                ":zoneName",
-                "_rad_method",
-                "clone"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the zone"
+                  "id": "c753d567-5d26-4bd7-8d0a-602a7016384f",
+                  "createdAt": "2026-10-22T03:13:07.000Z",
+                  "updatedAt": "2026-10-22T03:13:07.000Z",
+                  "uid": "35240-c753d567-5d26-4bd7-8d0a-602a7016384f"
                 },
                 {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "d9e5d356-febc-4a2f-b7e0-327c0222ffe0",
-              "name": "Zone cloned",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "clone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "clone",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "name": "Solaris Zones Clone a Zone",
+                      "id": "b1100ff1-963d-481d-a722-5917ef46da84",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/clone",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "_rad_method",
+                            "clone"
+                          ],
+                          "variable": [
+                            {
+                              "id": "6e8c9ff7-cdbf-4475-bec5-aac192c295bc",
+                              "key": "zoneName",
+                              "value": "<string>",
+                              "description": "(Required) Name of the zone"
+                            }
+                          ]
+                        },
+                        "description": "Install a zone by cloning from an existing zone or ZFS snapshot. The target zone must be in the configured state. Equivalent to zoneadm clone."
+                      },
+                      "response": [
+                        {
+                          "id": "ca9f296d-2f7b-4c16-b89f-3e1721d48b42",
+                          "name": "Zone cloned",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"COMMAND_ERROR\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-ca9f296d-2f7b-4c16-b89f-3e1721d48b42"
+                        },
+                        {
+                          "id": "086057f5-00a2-41ef-98a3-c3a5d50a88a3",
+                          "name": "Invalid request parameters",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-086057f5-00a2-41ef-98a3-c3a5d50a88a3"
+                        },
+                        {
+                          "id": "8e37fb01-71ae-4f78-9452-aab4e316e855",
+                          "name": "Authentication required or session expired",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-8e37fb01-71ae-4f78-9452-aab4e316e855"
+                        },
+                        {
+                          "id": "ced75a59-08ac-483c-aeb9-6ec48e35cad9",
+                          "name": "Zone not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source\": \"<string>\",\n  \"snapshot\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/Zone/:zoneName/_rad_method/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "Zone",
+                                ":zoneName",
+                                "_rad_method",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "zoneName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:13:07.000Z",
+                          "updatedAt": "2026-10-22T03:13:07.000Z",
+                          "uid": "35240-ced75a59-08ac-483c-aeb9-6ec48e35cad9"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:13:07.000Z",
+                      "updatedAt": "2026-10-22T03:13:07.000Z",
+                      "uid": "35240-b1100ff1-963d-481d-a722-5917ef46da84"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"source\": \"example_value\",\n  \"snapshot\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "1508204d-8603-434a-bfbe-3d952dce0c0f",
+                  "createdAt": "2026-10-22T03:13:07.000Z",
+                  "updatedAt": "2026-10-22T03:13:07.000Z",
+                  "uid": "35240-1508204d-8603-434a-bfbe-3d952dce0c0f"
                 }
               ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"code\": \"NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e89f6e9e-b02c-4f8d-b2c3-915cb2fbbd7a",
-              "name": "Invalid request parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "clone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"source\": \"example_value\",\n  \"snapshot\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2167fbc3-e542-4f19-a5f9-c0f741be5638",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "clone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"source\": \"example_value\",\n  \"snapshot\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "73df9d8c-3bf0-4732-ba6d-f4d65f2df1b0",
-              "name": "Zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "_rad_method",
-                    "clone"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"source\": \"example_value\",\n  \"snapshot\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 6658,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "2d073751-de22-4a12-84ce-879f580d4582",
+              "createdAt": "2026-10-22T03:13:07.000Z",
+              "updatedAt": "2026-10-22T03:13:07.000Z",
+              "uid": "35240-2d073751-de22-4a12-84ce-879f580d4582"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "34a21663-60a2-488a-8ad9-bfaff6920380",
+          "createdAt": "2026-10-22T03:13:07.000Z",
+          "updatedAt": "2026-10-22T03:13:07.000Z",
+          "uid": "35240-34a21663-60a2-488a-8ad9-bfaff6920380"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Solaris host running RAD",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "host"
-    },
-    {
-      "description": {
-        "content": "RAD REST API port",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "6788",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6",
-      "key": "baseUrl"
+      "id": "534b684a-ea7a-4d75-a3de-bfbdafc5ee8c",
+      "createdAt": "2026-10-22T03:13:07.000Z",
+      "updatedAt": "2026-10-22T03:13:07.000Z",
+      "uid": "35240-534b684a-ea7a-4d75-a3de-bfbdafc5ee8c"
     }
   ],
   "auth": {
@@ -996,25 +878,33 @@
     "apikey": [
       {
         "key": "key",
-        "value": "_rad_session"
+        "value": "_rad_session",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e00f7cba-37ad-430d-a333-01088378b2b1",
-    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Installation API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "6788"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6"
     }
-  }
+  ]
 }

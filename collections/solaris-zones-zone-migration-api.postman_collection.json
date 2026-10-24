@@ -1,1170 +1,1026 @@
 {
+  "info": {
+    "_postman_id": "8c5341a5-97ea-41bb-b6f7-8005a29eaeec",
+    "name": "Solaris Zones Oracle Solaris RAD Zone Management REST Zone\u2026",
+    "description": "REST API for the Oracle Solaris Remote Administration Daemon (RAD) com.oracle.solaris.rad.zonemgr module. Provides programmatic access to Solaris Zones lifecycle management including creation, configuration, migration, monitoring, and administrative operations over HTTP/JSON.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:14:57.000Z",
+    "updatedAt": "2026-10-22T03:14:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8c5341a5-97ea-41bb-b6f7-8005a29eaeec"
+  },
   "item": [
     {
-      "id": "d5135d4f-fc3e-425c-b1b6-d974c3c092d3",
-      "name": "Zone Migration",
-      "description": {
-        "content": "Live and cold zone migration operations between Solaris hosts",
-        "type": "text/plain"
-      },
+      "name": "ZoneManager",
       "item": [
         {
-          "id": "adc64f77-e82f-4586-a12d-c663c8d6c5bb",
-          "name": "Solaris Zones Initialize Zone Evacuation",
-          "request": {
-            "name": "Solaris Zones Initialize Zone Evacuation",
-            "description": {
-              "content": "Initialize an evacuation session to migrate all eligible zones from this host to a remote system. Added in version 1.4 of the zonemgr module.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ZoneManager",
-                "initEvacuate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "initEvacuate",
+          "item": [
             {
-              "id": "c9de52e7-2971-4320-8ced-8df4da8f20f5",
-              "name": "Evacuation initialized successfully",
-              "originalRequest": {
+              "name": "Solaris Zones Initialize Zone Evacuation",
+              "id": "fbbfd6b6-adf5-469c-9bab-0fb453877e8d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/ZoneManager/initEvacuate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "ZoneManager",
                     "initEvacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"password\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Initialize an evacuation session to migrate all eligible zones from this host to a remote system. Added in version 1.4 of the zonemgr module."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7ffe2d1b-b2a1-4029-9156-c9fa02f4a8bd",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ZoneManager",
-                    "initEvacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
+                  "id": "4c791862-2191-4c2d-a76d-875670b02617",
+                  "name": "Evacuation initialized successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/initEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "initEvacuate"
+                      ]
                     }
-                  ]
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NOT_EDITING\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-4c791862-2191-4c2d-a76d-875670b02617"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"password\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e508fb16-f66a-4cb6-a2df-114437c0fba3",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ZoneManager",
-                    "initEvacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
+                  "id": "17f310c8-4ba9-4b9a-87bc-812f3dc75e84",
+                  "name": "Authentication required or session expired",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/initEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "initEvacuate"
+                      ]
                     }
-                  ]
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-17f310c8-4ba9-4b9a-87bc-812f3dc75e84"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"password\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "c7e3efbd-4843-422e-9cde-b64ca891489f",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"password\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/initEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "initEvacuate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-c7e3efbd-4843-422e-9cde-b64ca891489f"
                 }
               ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T03:14:57.000Z",
+              "updatedAt": "2026-10-22T03:14:57.000Z",
+              "uid": "35240-fbbfd6b6-adf5-469c-9bab-0fb453877e8d"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6191de78-349e-40b6-b8bb-2785e374604b",
+          "createdAt": "2026-10-22T03:14:57.000Z",
+          "updatedAt": "2026-10-22T03:14:57.000Z",
+          "uid": "35240-6191de78-349e-40b6-b8bb-2785e374604b"
         },
         {
-          "id": "aba57565-2866-4d58-bcf2-ff6878471254",
-          "name": "Solaris Zones Perform Zone Evacuation",
-          "request": {
-            "name": "Solaris Zones Perform Zone Evacuation",
-            "description": {
-              "content": "Execute the evacuation of all eligible zones to the previously configured remote host. Must be preceded by initEvacuate.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ZoneManager",
-                "evacuate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payload\": \"<object>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "evacuate",
+          "item": [
             {
-              "id": "b5e5b53b-65b2-4d15-9df6-8bb34847fd8b",
-              "name": "Evacuation completed",
-              "originalRequest": {
+              "name": "Solaris Zones Perform Zone Evacuation",
+              "id": "9c039ef6-c595-44dc-9f2d-0cfdc8db1925",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/ZoneManager/evacuate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "ZoneManager",
                     "evacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Execute the evacuation of all eligible zones to the previously configured remote host. Must be preceded by initEvacuate."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"status\": \"success\",\n    \"returning\": true,\n    \"migrationResults\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1c211293-d343-4c71-aa53-4b7163cca194",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ZoneManager",
-                    "evacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
+                  "id": "105e64a6-971a-45c7-a3f3-9a28dee437fe",
+                  "name": "Evacuation completed",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/evacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "evacuate"
+                      ]
                     }
-                  ]
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"status\": \"partial_fail\",\n    \"returning\": \"<boolean>\",\n    \"migrationResults\": {\n      \"irure3\": {\n        \"zoneName\": \"<string>\",\n        \"evacuated\": \"<boolean>\",\n        \"evacuationTarget\": \"<string>\",\n        \"migrationStatus\": \"<string>\",\n        \"migrationError\": {\n          \"operation\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      },\n      \"nostrud_9\": {\n        \"zoneName\": \"<string>\",\n        \"evacuated\": \"<boolean>\",\n        \"evacuationTarget\": \"<string>\",\n        \"migrationStatus\": \"<string>\",\n        \"migrationError\": {\n          \"operation\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-105e64a6-971a-45c7-a3f3-9a28dee437fe"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7d6d87a9-e72e-48fa-804a-bd8b22d67372",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ZoneManager",
-                    "evacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
+                  "id": "e7f9ae2a-e1db-4b32-9a1b-0ee94b29c1c0",
+                  "name": "Authentication required or session expired",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/evacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "evacuate"
+                      ]
                     }
-                  ]
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-e7f9ae2a-e1db-4b32-9a1b-0ee94b29c1c0"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "381e59da-a5ea-4c7e-97e0-576e0a8d49bb",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/evacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "evacuate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-381e59da-a5ea-4c7e-97e0-576e0a8d49bb"
                 }
               ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T03:14:57.000Z",
+              "updatedAt": "2026-10-22T03:14:57.000Z",
+              "uid": "35240-9c039ef6-c595-44dc-9f2d-0cfdc8db1925"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "1844baef-cbcd-46e2-b13e-655c04427169",
+          "createdAt": "2026-10-22T03:14:57.000Z",
+          "updatedAt": "2026-10-22T03:14:57.000Z",
+          "uid": "35240-1844baef-cbcd-46e2-b13e-655c04427169"
         },
         {
-          "id": "27933f01-2650-4b5c-bc59-59481402210d",
-          "name": "Solaris Zones Cancel Zone Evacuation",
-          "request": {
-            "name": "Solaris Zones Cancel Zone Evacuation",
-            "description": {
-              "content": "Cancel an in-progress evacuation operation. Zones that have already been migrated will remain on the remote host.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "ZoneManager",
-                "cancelEvacuate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payload\": \"<object>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "cancelEvacuate",
+          "item": [
             {
-              "id": "67c6959b-37da-41e6-b636-d7a308c18166",
-              "name": "Evacuation cancelled successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "ZoneManager",
-                    "cancelEvacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
+              "name": "Solaris Zones Cancel Zone Evacuation",
+              "id": "158bb780-825c-4ba8-9f2f-147b6d757bc7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
+                  "raw": "{\n  \"payload\": {}\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "13001279-b561-456f-9b92-0181c16b8f67",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "ZoneManager",
-                    "cancelEvacuate"
-                  ],
+                  "raw": "{{baseUrl}}/ZoneManager/cancelEvacuate",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "50ba07f8-2661-4f3a-9aef-af3757071b4e",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "ZoneManager",
                     "cancelEvacuate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": \"example_value\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Cancel an in-progress evacuation operation. Zones that have already been migrated will remain on the remote host."
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "6580a599-e7b6-4f65-8581-31abb2543a18",
+                  "name": "Evacuation cancelled successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/cancelEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "cancelEvacuate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NOT_EDITING\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-6580a599-e7b6-4f65-8581-31abb2543a18"
+                },
+                {
+                  "id": "aa823d9c-1fc0-4e0f-b9fb-1f394e10515e",
+                  "name": "Authentication required or session expired",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/cancelEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "cancelEvacuate"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-aa823d9c-1fc0-4e0f-b9fb-1f394e10515e"
+                },
+                {
+                  "id": "4529c947-f250-4579-b66d-a8f0894cf1ee",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "_rad_cookie",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/ZoneManager/cancelEvacuate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "ZoneManager",
+                        "cancelEvacuate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-4529c947-f250-4579-b66d-a8f0894cf1ee"
                 }
               ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T03:14:57.000Z",
+              "updatedAt": "2026-10-22T03:14:57.000Z",
+              "uid": "35240-158bb780-825c-4ba8-9f2f-147b6d757bc7"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0d4490e0-9f59-4f2d-ab22-a827c12c3773",
-          "name": "Solaris Zones Migrate a Zone to a Remote Host",
-          "request": {
-            "name": "Solaris Zones Migrate a Zone to a Remote Host",
-            "description": {
-              "content": "Migrate the specified zone to a remote Solaris host. Supports both live migration (zone continues running during transfer) and cold migration (zone is halted first). Added in version 1.1.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Zone",
-                ":zoneName",
-                "migrate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "zoneName",
-                  "description": "(Required) Name of the Solaris zone"
-                },
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"<string>\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "7a56092a-54b0-4cd6-90e9-0e519a1c69b7",
-              "name": "Migration completed successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the Solaris zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"migrationType\": \"live\",\n    \"password\": \"example_value\",\n    \"cipher\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NONE\",\n    \"message\": \"example_value\",\n    \"stdout\": \"example_value\",\n    \"stderr\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "713e787c-aaa0-488d-b3cd-b792fda5c08d",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the Solaris zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"migrationType\": \"live\",\n    \"password\": \"example_value\",\n    \"cipher\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4b8c055c-8fb7-4b6a-b762-e4afa93f52fe",
-              "name": "Zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the Solaris zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"migrationType\": \"live\",\n    \"password\": \"example_value\",\n    \"cipher\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "16489b86-3d5f-4ced-a49e-f89fe218c191",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Zone",
-                    ":zoneName",
-                    "migrate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "zoneName",
-                      "description": "(Required) Name of the Solaris zone"
-                    },
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"example_value\",\n    \"migrationType\": \"live\",\n    \"password\": \"example_value\",\n    \"cipher\": \"example_value\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f107ed8d-5300-4b45-98b7-6e460f8f369b",
+          "createdAt": "2026-10-22T03:14:57.000Z",
+          "updatedAt": "2026-10-22T03:14:57.000Z",
+          "uid": "35240-f107ed8d-5300-4b45-98b7-6e460f8f369b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Solaris host running RAD",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "host"
+      "id": "4d3afcbd-b211-46f8-b154-7fa33d95d8dd",
+      "createdAt": "2026-10-22T03:14:57.000Z",
+      "updatedAt": "2026-10-22T03:14:57.000Z",
+      "uid": "35240-4d3afcbd-b211-46f8-b154-7fa33d95d8dd"
     },
     {
-      "description": {
-        "content": "RAD REST API port",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "6788",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6",
-      "key": "baseUrl"
+      "name": "Zone",
+      "item": [
+        {
+          "name": "{zoneName}",
+          "item": [
+            {
+              "name": "migrate",
+              "item": [
+                {
+                  "name": "Solaris Zones Migrate a Zone to a Remote Host",
+                  "id": "00d4546b-8cc8-44f2-88a2-3b50080379ad",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"live\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Zone/:zoneName/migrate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Zone",
+                        ":zoneName",
+                        "migrate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2575c54d-40a7-4f0f-9919-d6fabcb73fa9",
+                          "key": "zoneName",
+                          "value": "<string>",
+                          "description": "(Required) Name of the Solaris zone"
+                        }
+                      ]
+                    },
+                    "description": "Migrate the specified zone to a remote Solaris host. Supports both live migration (zone continues running during transfer) and cold migration (zone is halted first). Added in version 1.1."
+                  },
+                  "response": [
+                    {
+                      "id": "9866f94d-5494-42fa-a953-01718b10b6bf",
+                      "name": "Migration completed successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "_rad_cookie",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"live\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/migrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "migrate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "zoneName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"code\": \"ZEC_NOT_EDITING\",\n    \"message\": \"<string>\",\n    \"stdout\": \"<string>\",\n    \"stderr\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T03:14:57.000Z",
+                      "updatedAt": "2026-10-22T03:14:57.000Z",
+                      "uid": "35240-9866f94d-5494-42fa-a953-01718b10b6bf"
+                    },
+                    {
+                      "id": "d0c6b695-a51c-4fdc-aa27-d8ebe5f419f6",
+                      "name": "Authentication required or session expired",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "_rad_cookie",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"live\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/migrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "migrate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "zoneName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T03:14:57.000Z",
+                      "updatedAt": "2026-10-22T03:14:57.000Z",
+                      "uid": "35240-d0c6b695-a51c-4fdc-aa27-d8ebe5f419f6"
+                    },
+                    {
+                      "id": "4fd533c2-2eda-4136-99aa-8538ce029234",
+                      "name": "Zone not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "_rad_cookie",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"live\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/migrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "migrate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "zoneName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T03:14:57.000Z",
+                      "updatedAt": "2026-10-22T03:14:57.000Z",
+                      "uid": "35240-4fd533c2-2eda-4136-99aa-8538ce029234"
+                    },
+                    {
+                      "id": "c8fe6c7f-50f4-4118-bfe4-96fc51929f93",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "_rad_cookie",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {\n    \"remoteHost\": \"<string>\",\n    \"migrationType\": \"live\",\n    \"password\": \"<string>\",\n    \"cipher\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/Zone/:zoneName/migrate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Zone",
+                            ":zoneName",
+                            "migrate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "zoneName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"error\",\n  \"payload\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T03:14:57.000Z",
+                      "updatedAt": "2026-10-22T03:14:57.000Z",
+                      "uid": "35240-c8fe6c7f-50f4-4118-bfe4-96fc51929f93"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T03:14:57.000Z",
+                  "updatedAt": "2026-10-22T03:14:57.000Z",
+                  "uid": "35240-00d4546b-8cc8-44f2-88a2-3b50080379ad"
+                }
+              ],
+              "id": "2edf21ac-68ac-4e35-96ed-0f84986a6850",
+              "createdAt": "2026-10-22T03:14:57.000Z",
+              "updatedAt": "2026-10-22T03:14:57.000Z",
+              "uid": "35240-2edf21ac-68ac-4e35-96ed-0f84986a6850"
+            }
+          ],
+          "id": "520cd3ce-516a-465a-b723-c8ad70a4607d",
+          "createdAt": "2026-10-22T03:14:57.000Z",
+          "updatedAt": "2026-10-22T03:14:57.000Z",
+          "uid": "35240-520cd3ce-516a-465a-b723-c8ad70a4607d"
+        }
+      ],
+      "id": "16cbe556-a1f2-43bb-96d8-ace94acfaecd",
+      "createdAt": "2026-10-22T03:14:57.000Z",
+      "updatedAt": "2026-10-22T03:14:57.000Z",
+      "uid": "35240-16cbe556-a1f2-43bb-96d8-ace94acfaecd"
     }
   ],
   "auth": {
@@ -1172,25 +1028,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "_rad_session"
+        "value": "_rad_cookie",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2c9a8e83-d92f-424c-a5a1-160e795a1808",
-    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation Zone Migration API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "radserver",
+      "value": "radserver.example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{radserver}}/api/com.oracle.solaris.rad.zonemgr/1.6"
     }
-  }
+  ]
 }

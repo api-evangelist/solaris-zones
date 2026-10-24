@@ -1,571 +1,453 @@
 {
+  "info": {
+    "_postman_id": "6a649918-5acf-4686-8553-860e34a2318d",
+    "name": "Solaris Zones Monitoring Statistics CPU Statistics API",
+    "description": "REST API for retrieving zone resource utilization statistics on Oracle Solaris 11.4 systems. Provides access to the libzonestat functionality through the RAD REST interface, enabling programmatic retrieval of per-zone resource consumption data including physical memory, virtual memory, CPU utilization, and network I/O with sorting and filtering capabilities.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:12:56.000Z",
+    "updatedAt": "2026-10-22T03:12:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6a649918-5acf-4686-8553-860e34a2318d"
+  },
   "item": [
     {
-      "id": "1cfa9f60-2d96-4563-ba86-77401982baa1",
-      "name": "CPU Statistics",
-      "description": {
-        "content": "CPU utilization and allocation statistics",
-        "type": "text/plain"
-      },
+      "name": "com.oracle.solaris.rad.kstat",
       "item": [
         {
-          "id": "f86c8aa7-01dc-414b-a185-9f6c1d9b7316",
-          "name": "Solaris Zones Get Zone Cpu Cap Statistics",
-          "request": {
-            "name": "Solaris Zones Get Zone Cpu Cap Statistics",
-            "description": {
-              "content": "Retrieve CPU capping statistics for a specific zone including the configured CPU cap value, current usage, and time spent being capped.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.kstat",
-                "2.0",
-                "Kstat",
-                "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "_rad_detail",
-                  "value": "<boolean>",
-                  "description": "Include detailed property information"
-                }
-              ],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "2.0",
+          "item": [
             {
-              "id": "022f17f7-b170-4f68-af86-179e109075d4",
-              "name": "CPU cap statistics",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "Kstat",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "cpucaps,{zoneName},cpucaps_zone_{zoneId},{zoneId}",
+                  "item": [
+                    {
+                      "name": "Solaris Zones Get Zone Cpu Cap Statistics",
+                      "id": "2ab5c810-2e8c-4146-b6e7-850d22ab692a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}?_rad_detail=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "com.oracle.solaris.rad.kstat",
+                            "2.0",
+                            "Kstat",
+                            "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Include detailed property information",
+                              "key": "_rad_detail",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve CPU capping statistics for a specific zone including the configured CPU cap value, current usage, and time spent being capped."
+                      },
+                      "response": [
+                        {
+                          "id": "6f5b6f71-5c50-4142-bae1-84e35fcda23a",
+                          "name": "CPU cap statistics",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"value\": \"<long>\",\n    \"usage\": \"<long>\",\n    \"nwait\": \"<long>\",\n    \"below\": \"<long>\",\n    \"above\": \"<long>\",\n    \"maxusage\": \"<long>\",\n    \"zonename\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-6f5b6f71-5c50-4142-bae1-84e35fcda23a"
+                        },
+                        {
+                          "id": "7309d814-0717-4a83-8485-873a274435f0",
+                          "name": "Authentication required or session expired",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-7309d814-0717-4a83-8485-873a274435f0"
+                        },
+                        {
+                          "id": "fb7f0e47-176e-43ca-a25e-ae670c8a757e",
+                          "name": "Statistic or zone not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-fb7f0e47-176e-43ca-a25e-ae670c8a757e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:12:57.000Z",
+                      "updatedAt": "2026-10-22T03:12:57.000Z",
+                      "uid": "35240-2ab5c810-2e8c-4146-b6e7-850d22ab692a"
+                    }
+                  ],
+                  "id": "0ea17ce0-74d7-4bbc-bf1d-96b0742b1726",
+                  "createdAt": "2026-10-22T03:12:57.000Z",
+                  "updatedAt": "2026-10-22T03:12:57.000Z",
+                  "uid": "35240-0ea17ce0-74d7-4bbc-bf1d-96b0742b1726"
+                },
+                {
+                  "name": "misc,cpu_info0,cpu_info,{cpuId}",
+                  "item": [
+                    {
+                      "name": "Solaris Zones Get Cpu Information",
+                      "id": "d949655b-dc7e-4975-a255-996a483c0ba1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{{cpuId}}?_rad_detail=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "com.oracle.solaris.rad.kstat",
+                            "2.0",
+                            "Kstat",
+                            "misc,cpu_info0,cpu_info,{{cpuId}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Include detailed property information",
+                              "key": "_rad_detail",
+                              "value": "<boolean>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve detailed information about a specific CPU including model, clock speed, vendor, and state. Useful for understanding the physical resources available to zones."
+                      },
+                      "response": [
+                        {
+                          "id": "d9465535-d9cf-43d7-9178-a5311a36a6f9",
+                          "name": "CPU information",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{{cpuId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "misc,cpu_info0,cpu_info,{{cpuId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"brand\": \"<string>\",\n    \"chip_id\": \"<integer>\",\n    \"clock_MHz\": \"<integer>\",\n    \"core_id\": \"<integer>\",\n    \"cpu_type\": \"<string>\",\n    \"implementation\": \"<string>\",\n    \"ncore_per_chip\": \"<integer>\",\n    \"state\": \"spare\",\n    \"vendor_id\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-d9465535-d9cf-43d7-9178-a5311a36a6f9"
+                        },
+                        {
+                          "id": "dd51f1b2-77e2-45c1-a844-a0ac80a1a7a8",
+                          "name": "Authentication required or session expired",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{{cpuId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "misc,cpu_info0,cpu_info,{{cpuId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-dd51f1b2-77e2-45c1-a844-a0ac80a1a7a8"
+                        },
+                        {
+                          "id": "94fb2ae2-fff6-43e8-8514-3b984f227871",
+                          "name": "Statistic or zone not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "_rad_session",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/com.oracle.solaris.rad.kstat/2.0/Kstat/misc,cpu_info0,cpu_info,{{cpuId}}?_rad_detail=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "com.oracle.solaris.rad.kstat",
+                                "2.0",
+                                "Kstat",
+                                "misc,cpu_info0,cpu_info,{{cpuId}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include detailed property information",
+                                  "key": "_rad_detail",
+                                  "value": "<boolean>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"payload\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T03:12:57.000Z",
+                          "updatedAt": "2026-10-22T03:12:57.000Z",
+                          "uid": "35240-94fb2ae2-fff6-43e8-8514-3b984f227871"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T03:12:57.000Z",
+                      "updatedAt": "2026-10-22T03:12:57.000Z",
+                      "uid": "35240-d949655b-dc7e-4975-a255-996a483c0ba1"
+                    }
+                  ],
+                  "id": "b57d1a45-1ff4-4888-945c-580004ebe327",
+                  "createdAt": "2026-10-22T03:12:57.000Z",
+                  "updatedAt": "2026-10-22T03:12:57.000Z",
+                  "uid": "35240-b57d1a45-1ff4-4888-945c-580004ebe327"
                 }
               ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"value\": 10,\n    \"usage\": 10,\n    \"nwait\": 10,\n    \"below\": 10,\n    \"above\": 10,\n    \"maxusage\": 10,\n    \"zonename\": \"example_value\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d3156ae8-bf52-4672-aaea-40ffeb0731aa",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1723,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4ce19a62-0248-4724-ace0-5445c4c7037b",
-              "name": "Statistic or zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "cpucaps,{{zoneName}},cpucaps_zone_{{zoneId}},{{zoneId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1723,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "5be16a79-8c4c-4ad5-bb31-358c2c18a533",
+              "createdAt": "2026-10-22T03:12:57.000Z",
+              "updatedAt": "2026-10-22T03:12:57.000Z",
+              "uid": "35240-5be16a79-8c4c-4ad5-bb31-358c2c18a533"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c4d10a21-5c61-4825-abba-7543f060e19b",
-          "name": "Solaris Zones Get Cpu Information",
-          "request": {
-            "name": "Solaris Zones Get Cpu Information",
-            "description": {
-              "content": "Retrieve detailed information about a specific CPU including model, clock speed, vendor, and state. Useful for understanding the physical resources available to zones.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "com.oracle.solaris.rad.kstat",
-                "2.0",
-                "Kstat",
-                "misc,cpu_info0,cpu_info,{{cpuId}}"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "_rad_detail",
-                  "value": "<boolean>",
-                  "description": "Include detailed property information"
-                }
-              ],
-              "variable": [
-                {
-                  "description": "Solaris host running RAD",
-                  "type": "any",
-                  "value": "{{host}}",
-                  "key": "host"
-                },
-                {
-                  "description": "RAD REST API port",
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8685cd91-0490-4589-aceb-ea21bdf440ae",
-              "name": "CPU information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "misc,cpu_info0,cpu_info,{{cpuId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"example_value\",\n  \"payload\": {\n    \"brand\": \"example_value\",\n    \"chip_id\": \"500123\",\n    \"clock_MHz\": 10,\n    \"core_id\": \"500123\",\n    \"cpu_type\": \"example_value\",\n    \"implementation\": \"example_value\",\n    \"ncore_per_chip\": 10,\n    \"state\": \"on-line\",\n    \"vendor_id\": \"500123\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a597cce6-bca7-4d4d-b79c-6e4560725497",
-              "name": "Authentication required or session expired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "misc,cpu_info0,cpu_info,{{cpuId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1723,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e9caa759-a412-48b4-bad1-34654a7beeaf",
-              "name": "Statistic or zone not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "com.oracle.solaris.rad.kstat",
-                    "2.0",
-                    "Kstat",
-                    "misc,cpu_info0,cpu_info,{{cpuId}}"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "_rad_detail",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Solaris host running RAD",
-                      "type": "any",
-                      "value": "{{host}}",
-                      "key": "host"
-                    },
-                    {
-                      "description": "RAD REST API port",
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "_rad_session",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"failure\",\n  \"payload\": {\n    \"code\": 1723,\n    \"message\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "29205f6b-3893-4c05-bc6f-129470c4092d",
+          "createdAt": "2026-10-22T03:12:57.000Z",
+          "updatedAt": "2026-10-22T03:12:57.000Z",
+          "uid": "35240-29205f6b-3893-4c05-bc6f-129470c4092d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Solaris host running RAD",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "host"
-    },
-    {
-      "description": {
-        "content": "RAD REST API port",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "6788",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "https://{{host}}:{{port}}/api/com.oracle.solaris.rad.zonemgr/1.6",
-      "key": "baseUrl"
-    },
-    {
-      "disabled": false,
-      "description": {
-        "content": "(Required) ",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "<string>",
-      "key": "zoneName"
-    },
-    {
-      "disabled": false,
-      "description": {
-        "content": "(Required) ",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "<integer>",
-      "key": "zoneId"
-    },
-    {
-      "disabled": false,
-      "description": {
-        "content": "(Required) CPU identifier number",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "<integer>",
-      "key": "cpuId"
+      "id": "47d0737f-1332-41c3-8c99-9d468ff04d02",
+      "createdAt": "2026-10-22T03:12:57.000Z",
+      "updatedAt": "2026-10-22T03:12:57.000Z",
+      "uid": "35240-47d0737f-1332-41c3-8c99-9d468ff04d02"
     }
   ],
   "auth": {
@@ -573,25 +455,45 @@
     "apikey": [
       {
         "key": "key",
-        "value": "_rad_session"
+        "value": "_rad_session",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0c0996ae-0061-45a3-87e9-aefc7108f187",
-    "name": "Solaris Zones Oracle Solaris Kernel Zones Archive Creation CPU Statistics API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API for creating and managing Oracle Solaris Kernel Zones via the RAD zonemgr module. Kernel Zones (brand solaris-kz) are non-global zones with their own kernel, providing greater independence and enhanced security isolation compared to native zones. They support live migration, independent patching, and hardware-assisted virtualization.\n\nContact Support:\n Name: Oracle Solaris Support\n Email: solaris-support@oracle.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "host",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "6788"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{host}}:{{port}}/api"
+    },
+    {
+      "key": "zoneName",
+      "value": "<string>"
+    },
+    {
+      "key": "zoneId",
+      "value": "<integer>"
+    },
+    {
+      "key": "cpuId",
+      "value": "<integer>"
     }
-  }
+  ]
 }
