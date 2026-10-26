@@ -1,0 +1,328 @@
+# Solaris Zones (solaris-zones)
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+API for managing Solaris Zones (containers) and virtualization on Oracle Solaris systems.
+
+**APIs.json:** [https://docs.oracle.com/en/operating-systems/solaris.html](https://docs.oracle.com/en/operating-systems/solaris.html)
+
+## Tags
+
+- Containers
+- Kernel Zones
+- Operating Systems
+- Oracle
+- RAD
+- Resource Management
+- Solaris
+- StatsStore
+- Virtualization
+- Zones
+
+## Timestamps
+
+- **Created:** 2024
+- **Modified:** 2026-05-19
+
+## APIs
+
+### Solaris Zones Management API
+
+Core API for creating, managing, and monitoring Solaris Zones.
+
+- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1`
+
+#### Tags
+
+- Containers
+- Oracle
+- Solaris
+- Virtualization
+- Zones
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html)
+- [OpenAPI](openapi/solaris-zones-management-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-zones-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-zones-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Zone Configuration API
+
+API endpoints for zone configuration and resource management.
+
+- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones`
+
+#### Tags
+
+- Configuration
+- Networking
+- Resources
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61040/)
+- [OpenAPI](openapi/solaris-zone-configuration-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-zone-configuration.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-zone-configuration.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Zone Administration API
+
+API for zone lifecycle management including install, boot, halt, and delete operations.
+
+- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones/admin`
+
+#### Tags
+
+- Administration
+- Lifecycle
+- Management
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html)
+- [OpenAPI](openapi/solaris-zone-administration-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-zone-administration.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-zone-administration.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Zone Monitoring API
+
+API for monitoring zone status, resource usage, and performance metrics.
+
+- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones/monitoring`
+
+#### Tags
+
+- Metrics
+- Monitoring
+- Performance
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html)
+- [OpenAPI](openapi/solaris-zone-monitoring-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-zone-monitoring.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-zone-monitoring.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### RAD Zone Management REST API
+
+Remote Administration Daemon REST API for programmatic zone management via the com.oracle.solaris.rad.zonemgr module, supporting zone creation, configuration, migration, and lifecycle operations over HTTP/JSON.
+
+- **Human URL:** [https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html)
+- **Base URL:** `https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr`
+
+#### Tags
+
+- Management
+- RAD
+- Remote Administration
+- REST API
+- Zones
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html)
+- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html)
+- [OpenAPI](openapi/solaris-rad-zonemgr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-rad-zonemgr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-rad-zonemgr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Zones Monitoring Statistics API (libzonestat)
+
+The libzonestat.so.1 C library API used to retrieve and compute zone-related resource utilization information including physical memory, virtual memory, and CPU resources with sorting and filtering options.
+
+- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E61043/](https://docs.oracle.com/cd/E37838_01/html/E61043/)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones/stats`
+
+#### Tags
+
+- CPU
+- Libzonestat
+- Memory
+- Monitoring
+- Resource Utilization
+- Statistics
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html)
+- [Documentation](https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html)
+- [OpenAPI](openapi/solaris-zone-stats-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-zone-stats.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-zone-stats.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Oracle Solaris Kernel Zones API
+
+API for creating and managing Oracle Solaris Kernel Zones, which are non-global zones with their own kernel providing greater independence and enhanced security isolation.
+
+- **Human URL:** [https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones/kernel`
+
+#### Tags
+
+- Isolation
+- Kernel Zones
+- Security
+- Virtualization
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html)
+- [OpenAPI](openapi/solaris-kernel-zones-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-kernel-zones.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-kernel-zones.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Oracle Solaris StatsStore and Analytics API
+
+REST API and web interface for accessing the Oracle Solaris 11.4 StatsStore, providing consolidated zone resource statistics, system performance data, and historical analytics via CLI, C, Python, and RAD interfaces.
+
+- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E56520/index.html](https://docs.oracle.com/cd/E37838_01/html/E56520/index.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/statsstore`
+
+#### Tags
+
+- Analytics
+- Monitoring
+- Performance
+- REST API
+- StatsStore
+- Web Interface
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/index.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html)
+- [OpenAPI](openapi/solaris-statsstore-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-statsstore.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-statsstore.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Oracle Solaris Unified Archives Zones API
+
+API for creating, deploying, and managing Unified Archives for zone system recovery, cloning, and migration across Oracle Solaris systems.
+
+- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html](https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html)
+- **Base URL:** `https://solaris-host.example.com/api/v1/zones/archives`
+
+#### Tags
+
+- Backup
+- Cloning
+- Migration
+- Recovery
+- Unified Archives
+
+#### Properties
+
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html)
+- [OpenAPI](openapi/solaris-unified-archives-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/solaris-unified-archives.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/solaris-unified-archives.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [Terms of Service](https://www.oracle.com/legal/terms.html)
+- [Privacy Policy](https://www.oracle.com/legal/privacy/)
+- [Authentication](https://docs.oracle.com/en/cloud/paas/api-platform/authentication.html)
+- [Support](https://www.oracle.com/support/)
+- [Blog](https://blogs.oracle.com/solaris/)
+- [Portal](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/index.html)
+- [Resources](https://www.oracle.com/solaris/technologies/solarisdeveloper.html)
+- [GitHub Organization](https://github.com/oracle/oraclesolaris-contrib)
+- [Getting Started](https://docs.oracle.com/cd/E37838_01/html/E61038/gitsf.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61037/zonesoverview.html)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61040/)
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html)
+- [JSON-LD](json-ld/solaris-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [JSON Schema](json-schema/solaris-zone-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/solaris-zone-resource-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/solaris-zone-stats-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/solaris-zone-migration-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/solaris-zone-evacuation-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
+**URL:** https://apievangelist.com
+**FN:** Oracle Corporation
+**Email:** solaris-feedback@oracle.com
+**URL:** https://www.oracle.com/solaris/
