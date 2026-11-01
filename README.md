@@ -1,4 +1,4 @@
-# Solaris Zones (solaris-zones)
+# Solaris Zones
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,263 +66,255 @@
 
 API for managing Solaris Zones (containers) and virtualization on Oracle Solaris systems.
 
-**APIs.json:** [https://docs.oracle.com/en/operating-systems/solaris.html](https://docs.oracle.com/en/operating-systems/solaris.html)
-
-## Tags
-
-- Containers
-- Kernel Zones
-- Operating Systems
-- Oracle
-- RAD
-- Resource Management
-- Solaris
-- StatsStore
-- Virtualization
-- Zones
-
-## Timestamps
-
-- **Created:** 2024
-- **Modified:** 2026-05-19
-
-## APIs
-
-### Solaris Zones Management API
-
-Core API for creating, managing, and monitoring Solaris Zones.
-
-- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1`
-
-#### Tags
-
-- Containers
-- Oracle
-- Solaris
-- Virtualization
-- Zones
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zones.html)
-- [OpenAPI](openapi/solaris-zones-management-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-zones-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-zones-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Zone Configuration API
-
-API endpoints for zone configuration and resource management.
-
-- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones`
-
-#### Tags
-
-- Configuration
-- Networking
-- Resources
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zonecfg-1m.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61040/)
-- [OpenAPI](openapi/solaris-zone-configuration-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-zone-configuration.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-zone-configuration.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Zone Administration API
-
-API for zone lifecycle management including install, boot, halt, and delete operations.
-
-- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones/admin`
-
-#### Tags
-
-- Administration
-- Lifecycle
-- Management
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zoneadm-1m.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61038/gqhar.html)
-- [OpenAPI](openapi/solaris-zone-administration-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-zone-administration.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-zone-administration.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Zone Monitoring API
-
-API for monitoring zone status, resource usage, and performance metrics.
-
-- **Human URL:** [https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html](https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones/monitoring`
-
-#### Tags
-
-- Metrics
-- Monitoring
-- Performance
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E37839/zonestat-1.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/gklfb.html)
-- [OpenAPI](openapi/solaris-zone-monitoring-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-zone-monitoring.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-zone-monitoring.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RAD Zone Management REST API
-
-Remote Administration Daemon REST API for programmatic zone management via the com.oracle.solaris.rad.zonemgr module, supporting zone creation, configuration, migration, and lifecycle operations over HTTP/JSON.
-
-- **Human URL:** [https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html)
-- **Base URL:** `https://solaris-host.example.com/api/com.oracle.solaris.rad.zonemgr`
-
-#### Tags
-
-- Management
-- RAD
-- Remote Administration
-- REST API
-- Zones
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/rad-client/rest-api-reference.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpv.html)
-- [Documentation](https://docs.oracle.com/cd/E88353_01/html/E76189/zonemgr-1-3rad.html)
-- [OpenAPI](openapi/solaris-rad-zonemgr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-rad-zonemgr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-rad-zonemgr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Zones Monitoring Statistics API (libzonestat)
-
-The libzonestat.so.1 C library API used to retrieve and compute zone-related resource utilization information including physical memory, virtual memory, and CPU resources with sorting and filtering options.
-
-- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E61043/](https://docs.oracle.com/cd/E37838_01/html/E61043/)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones/stats`
-
-#### Tags
-
-- CPU
-- Libzonestat
-- Memory
-- Monitoring
-- Resource Utilization
-- Statistics
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61043/gklfn.html)
-- [Documentation](https://docs.oracle.com/cd/E23824_01/html/821-1499/gloag.html)
-- [OpenAPI](openapi/solaris-zone-stats-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-zone-stats.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-zone-stats.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Oracle Solaris Kernel Zones API
-
-API for creating and managing Oracle Solaris Kernel Zones, which are non-global zones with their own kernel providing greater independence and enhanced security isolation.
-
-- **Human URL:** [https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones/kernel`
-
-#### Tags
-
-- Isolation
-- Kernel Zones
-- Security
-- Virtualization
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/kernel-zones/oracle-solaris-kernel-zones.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61041/gnzfn.html)
-- [OpenAPI](openapi/solaris-kernel-zones-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-kernel-zones.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-kernel-zones.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Oracle Solaris StatsStore and Analytics API
-
-REST API and web interface for accessing the Oracle Solaris 11.4 StatsStore, providing consolidated zone resource statistics, system performance data, and historical analytics via CLI, C, Python, and RAD interfaces.
-
-- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E56520/index.html](https://docs.oracle.com/cd/E37838_01/html/E56520/index.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/statsstore`
-
-#### Tags
-
-- Analytics
-- Monitoring
-- Performance
-- REST API
-- StatsStore
-- Web Interface
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/index.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/sstoreintro.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E56520/ssids.html)
-- [OpenAPI](openapi/solaris-statsstore-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-statsstore.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-statsstore.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Oracle Solaris Unified Archives Zones API
-
-API for creating, deploying, and managing Unified Archives for zone system recovery, cloning, and migration across Oracle Solaris systems.
-
-- **Human URL:** [https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html](https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html)
-- **Base URL:** `https://solaris-host.example.com/api/v1/zones/archives`
-
-#### Tags
-
-- Backup
-- Cloning
-- Migration
-- Recovery
-- Unified Archives
-
-#### Properties
-
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E60984/gmrlo.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E60984/gmwen.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61039/gpoiu.html)
-- [OpenAPI](openapi/solaris-unified-archives-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/solaris-unified-archives.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/solaris-unified-archives.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Terms of Service](https://www.oracle.com/legal/terms.html)
-- [Privacy Policy](https://www.oracle.com/legal/privacy/)
-- [Authentication](https://docs.oracle.com/en/cloud/paas/api-platform/authentication.html)
+**Areas:** Containers · Kernel Zones · Operating System · Oracle · RAD · Resource Management · Solaris · StatsStore · Virtualization · Zones
+
+## Solaris Zones on APIs.io
+
+Everything profiled for Solaris Zones is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/solaris-zones/](https://apis.io/providers/solaris-zones/)** — or go straight to one of the APIs or properties below.
+
+### APIs (26)
+
+- [Solaris Zones Archive Creation API](https://apis.io/apis/solaris-zones/solaris-zones-archive-creation-api/) — Create Unified Archives from zones
+- [Solaris Zones Archive Deployment API](https://apis.io/apis/solaris-zones/solaris-zones-archive-deployment-api/) — Deploy zones from Unified Archives
+- [Solaris Zones Archive Information API](https://apis.io/apis/solaris-zones/solaris-zones-archive-information-api/) — Query archive contents and metadata
+- [Solaris Zones Configuration API](https://apis.io/apis/solaris-zones/solaris-zones-configuration-api/) — Zone configuration editing and commit operations
+- [Solaris Zones CPU Statistics API](https://apis.io/apis/solaris-zones/solaris-zones-cpu-statistics-api/) — CPU utilization and allocation statistics
+- [Solaris Zones Installation API](https://apis.io/apis/solaris-zones/solaris-zones-installation-api/) — Zone install and uninstall operations
+- [Solaris Zones Kernel Statistics API](https://apis.io/apis/solaris-zones/solaris-zones-kernel-statistics-api/) — Kernel statistics via kstat module
+- [Solaris Zones Kernel Zone Configuration API](https://apis.io/apis/solaris-zones/solaris-zones-kernel-zone-configuration-api/) — Configure kernel zone resources and properties
+- [Solaris Zones Kernel Zone Lifecycle API](https://apis.io/apis/solaris-zones/solaris-zones-kernel-zone-lifecycle-api/) — Kernel zone boot, halt, suspend, and resume operations
+- [Solaris Zones Kernel Zone Management API](https://apis.io/apis/solaris-zones/solaris-zones-kernel-zone-management-api/) — Create and manage kernel zones
+- [Solaris Zones Kernel Zone Migration API](https://apis.io/apis/solaris-zones/solaris-zones-kernel-zone-migration-api/) — Live migration of kernel zones between hosts
+- [Solaris Zones Lifecycle API](https://apis.io/apis/solaris-zones/solaris-zones-lifecycle-api/) — Zone lifecycle state transitions
+- [Solaris Zones Memory Statistics API](https://apis.io/apis/solaris-zones/solaris-zones-memory-statistics-api/) — Memory and swap utilization statistics
+- [Solaris Zones Migration API](https://apis.io/apis/solaris-zones/solaris-zones-migration-api/) — Zone attach, detach, move, and migration operations
+- [Solaris Zones Resources API](https://apis.io/apis/solaris-zones/solaris-zones-resources-api/) — Zone resource management (net, device, fs, rctl, etc.)
+- [Solaris Zones State Query API](https://apis.io/apis/solaris-zones/solaris-zones-state-query-api/) — Zone state and property queries
+- [Solaris Zones Statistics Discovery API](https://apis.io/apis/solaris-zones/solaris-zones-statistics-discovery-api/) — Discover available statistics and namespaces
+- [Solaris Zones Statistics Retrieval API](https://apis.io/apis/solaris-zones/solaris-zones-statistics-retrieval-api/) — Retrieve current and historical statistics data
+- [Solaris Zones System Statistics API](https://apis.io/apis/solaris-zones/solaris-zones-system-statistics-api/) — System-wide performance statistics
+- [Solaris Zones Zone Info API](https://apis.io/apis/solaris-zones/solaris-zones-zone-info-api/) — Read-only zone information and status queries
+- [Solaris Zones Zone Manager API](https://apis.io/apis/solaris-zones/solaris-zones-zone-manager-api/) — System-wide zone management operations including creation, deletion, and evacuation
+- [Solaris Zones Zone Migration API](https://apis.io/apis/solaris-zones/solaris-zones-zone-migration-api/) — Live and cold zone migration operations between Solaris hosts
+- [Solaris Zones Zone Recovery API](https://apis.io/apis/solaris-zones/solaris-zones-zone-recovery-api/) — Recover zones from archives
+- [Solaris Zones Zone State API](https://apis.io/apis/solaris-zones/solaris-zones-zone-state-api/) — Zone state monitoring via zonemgr module
+- [Solaris Zones Zone Statistics API](https://apis.io/apis/solaris-zones/solaris-zones-zone-statistics-api/) — Per-zone resource utilization statistics
+- [Solaris Zones API](https://apis.io/apis/solaris-zones/solaris-zones-zones-api/) — Individual zone operations including configuration, lifecycle, and resource management
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Solaris Zones Agentic Access](https://apis.io/agentic-access/solaris-zones/solaris-zones-agentic-access/)
+
+#### JSON Schema (104)
+
+The data models the API reads and writes.
+
+- [KernelZone](https://apis.io/schemas/solaris-zones/solaris-kernel-zones-kernel-zone/)
+- [KernelZoneResource](https://apis.io/schemas/solaris-zones/solaris-kernel-zones-kernel-zone-resource/)
+- [Property](https://apis.io/schemas/solaris-zones/solaris-kernel-zones-property/)
+- [RadError](https://apis.io/schemas/solaris-zones/solaris-kernel-zones-rad-error/)
+- [ZoneResult](https://apis.io/schemas/solaris-zones/solaris-kernel-zones-zone-result/)
+- [EvacuationMigrationResult](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-evacuation-migration-result/)
+- [EvacuationResult](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-evacuation-result/)
+- [Property](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-property/)
+- [RadInterface](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-rad-interface/)
+- [Resource](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-resource/)
+- [Result](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-result/)
+- [ResultResponse](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-result-response/)
+- [ZoneDetail](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-zone-detail/)
+- [ZoneInfo](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-zone-info/)
+- [ZoneManagerDetail](https://apis.io/schemas/solaris-zones/solaris-rad-zonemgr-zone-manager-detail/)
+- [HistoricalStatistic](https://apis.io/schemas/solaris-zones/solaris-statsstore-historical-statistic/)
+- [RadError](https://apis.io/schemas/solaris-zones/solaris-statsstore-rad-error/)
+- [StatisticIdentifier](https://apis.io/schemas/solaris-zones/solaris-statsstore-statistic-identifier/)
+- [StatisticMetadata](https://apis.io/schemas/solaris-zones/solaris-statsstore-statistic-metadata/)
+- [StatisticValue](https://apis.io/schemas/solaris-zones/solaris-statsstore-statistic-value/)
+- [SystemStatistic](https://apis.io/schemas/solaris-zones/solaris-statsstore-system-statistic/)
+- [ZoneStatistic](https://apis.io/schemas/solaris-zones/solaris-statsstore-zone-statistic/)
+- [Property](https://apis.io/schemas/solaris-zones/solaris-unified-archives-property/)
+- [RadError](https://apis.io/schemas/solaris-zones/solaris-unified-archives-rad-error/)
+- [Resource](https://apis.io/schemas/solaris-zones/solaris-unified-archives-resource/)
+- …and 79 more published on APIs.io
+
+#### JSON Structure (61)
+
+Data models expressed in JSON Structure.
+
+- [Solaris Kernel Zones Kernel Zone Resource Structure](https://apis.io/json-structure/solaris-zones/solaris-kernel-zones-kernel-zone-resource-structure/)
+- [Solaris Kernel Zones Kernel Zone Structure](https://apis.io/json-structure/solaris-zones/solaris-kernel-zones-kernel-zone-structure/)
+- [Solaris Kernel Zones Property Structure](https://apis.io/json-structure/solaris-zones/solaris-kernel-zones-property-structure/)
+- [Solaris Kernel Zones Rad Error Structure](https://apis.io/json-structure/solaris-zones/solaris-kernel-zones-rad-error-structure/)
+- [Solaris Kernel Zones Zone Result Structure](https://apis.io/json-structure/solaris-zones/solaris-kernel-zones-zone-result-structure/)
+- [Solaris Rad Zonemgr Evacuation Migration Result Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-evacuation-migration-result-structure/)
+- [Solaris Rad Zonemgr Evacuation Result Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-evacuation-result-structure/)
+- [Solaris Rad Zonemgr Property Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-property-structure/)
+- [Solaris Rad Zonemgr Rad Interface Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-rad-interface-structure/)
+- [Solaris Rad Zonemgr Resource Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-resource-structure/)
+- [Solaris Rad Zonemgr Result Response Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-result-response-structure/)
+- [Solaris Rad Zonemgr Result Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-result-structure/)
+- [Solaris Rad Zonemgr Zone Detail Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-zone-detail-structure/)
+- [Solaris Rad Zonemgr Zone Info Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-zone-info-structure/)
+- [Solaris Rad Zonemgr Zone Manager Detail Structure](https://apis.io/json-structure/solaris-zones/solaris-rad-zonemgr-zone-manager-detail-structure/)
+- [Solaris Statsstore Historical Statistic Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-historical-statistic-structure/)
+- [Solaris Statsstore Rad Error Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-rad-error-structure/)
+- [Solaris Statsstore Statistic Identifier Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-statistic-identifier-structure/)
+- [Solaris Statsstore Statistic Metadata Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-statistic-metadata-structure/)
+- [Solaris Statsstore Statistic Value Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-statistic-value-structure/)
+- [Solaris Statsstore System Statistic Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-system-statistic-structure/)
+- [Solaris Statsstore Zone Statistic Structure](https://apis.io/json-structure/solaris-zones/solaris-statsstore-zone-statistic-structure/)
+- [Solaris Unified Archives Property Structure](https://apis.io/json-structure/solaris-zones/solaris-unified-archives-property-structure/)
+- [Solaris Unified Archives Rad Error Structure](https://apis.io/json-structure/solaris-zones/solaris-unified-archives-rad-error-structure/)
+- [Solaris Unified Archives Resource Structure](https://apis.io/json-structure/solaris-zones/solaris-unified-archives-resource-structure/)
+- …and 36 more published on APIs.io
+
+#### JSON-LD (11)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Solaris Context](https://apis.io/jsonld/solaris-zones/solaris-context/)
+- [Solaris Kernel Zones Context](https://apis.io/jsonld/solaris-zones/solaris-kernel-zones-context/)
+- [Solaris Rad Zonemgr Context](https://apis.io/jsonld/solaris-zones/solaris-rad-zonemgr-context/)
+- [Solaris Statsstore Context](https://apis.io/jsonld/solaris-zones/solaris-statsstore-context/)
+- [Solaris Unified Archives Context](https://apis.io/jsonld/solaris-zones/solaris-unified-archives-context/)
+- [Solaris Zone Administration Context](https://apis.io/jsonld/solaris-zones/solaris-zone-administration-context/)
+- [Solaris Zone Configuration Context](https://apis.io/jsonld/solaris-zones/solaris-zone-configuration-context/)
+- [Solaris Zone Monitoring Context](https://apis.io/jsonld/solaris-zones/solaris-zone-monitoring-context/)
+- [Solaris Zone Stats Context](https://apis.io/jsonld/solaris-zones/solaris-zone-stats-context/)
+- [Solaris Zones Context](https://apis.io/jsonld/solaris-zones/solaris-zones-context/)
+- [Solaris Zones Management Context](https://apis.io/jsonld/solaris-zones/solaris-zones-management-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Solaris Zones Domain Vocabulary](https://apis.io/vocabularies/solaris-zones/solaris-zones-vocabulary/)
+
+#### Examples (153)
+
+Example requests and responses.
+
+- [Solaris Kernel Zones Kernel Zone Example](https://apis.io/examples/solaris-zones/solaris-kernel-zones-kernel-zone-example/)
+- [Solaris Kernel Zones Kernel Zone Resource Example](https://apis.io/examples/solaris-zones/solaris-kernel-zones-kernel-zone-resource-example/)
+- [Solaris Kernel Zones Property Example](https://apis.io/examples/solaris-zones/solaris-kernel-zones-property-example/)
+- [Solaris Kernel Zones Rad Error Example](https://apis.io/examples/solaris-zones/solaris-kernel-zones-rad-error-example/)
+- [Solaris Kernel Zones Zone Result Example](https://apis.io/examples/solaris-zones/solaris-kernel-zones-zone-result-example/)
+- [Solaris Rad Zonemgr Evacuation Migration Result Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-evacuation-migration-result-example/)
+- [Solaris Rad Zonemgr Evacuation Result Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-evacuation-result-example/)
+- [Solaris Rad Zonemgr Property Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-property-example/)
+- [Solaris Rad Zonemgr Rad Interface Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-rad-interface-example/)
+- [Solaris Rad Zonemgr Resource Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-resource-example/)
+- [Solaris Rad Zonemgr Result Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-result-example/)
+- [Solaris Rad Zonemgr Result Response Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-result-response-example/)
+- [Solaris Rad Zonemgr Zone Detail Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-zone-detail-example/)
+- [Solaris Rad Zonemgr Zone Info Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-zone-info-example/)
+- [Solaris Rad Zonemgr Zone Manager Detail Example](https://apis.io/examples/solaris-zones/solaris-rad-zonemgr-zone-manager-detail-example/)
+- [Solaris Statsstore Historical Statistic Example](https://apis.io/examples/solaris-zones/solaris-statsstore-historical-statistic-example/)
+- [Solaris Statsstore Rad Error Example](https://apis.io/examples/solaris-zones/solaris-statsstore-rad-error-example/)
+- [Solaris Statsstore Statistic Identifier Example](https://apis.io/examples/solaris-zones/solaris-statsstore-statistic-identifier-example/)
+- [Solaris Statsstore Statistic Metadata Example](https://apis.io/examples/solaris-zones/solaris-statsstore-statistic-metadata-example/)
+- [Solaris Statsstore Statistic Value Example](https://apis.io/examples/solaris-zones/solaris-statsstore-statistic-value-example/)
+- [Solaris Statsstore System Statistic Example](https://apis.io/examples/solaris-zones/solaris-statsstore-system-statistic-example/)
+- [Solaris Statsstore Zone Statistic Example](https://apis.io/examples/solaris-zones/solaris-statsstore-zone-statistic-example/)
+- [Solaris Unified Archives Property Example](https://apis.io/examples/solaris-zones/solaris-unified-archives-property-example/)
+- [Solaris Unified Archives Rad Error Example](https://apis.io/examples/solaris-zones/solaris-unified-archives-rad-error-example/)
+- [Solaris Unified Archives Resource Example](https://apis.io/examples/solaris-zones/solaris-unified-archives-resource-example/)
+- …and 128 more published on APIs.io
+
+#### Collections (35)
+
+Postman and Open Collection request collections.
+
+- [Solaris Zones Oracle Solaris Kernel Zones API](https://apis.io/collections/solaris-zones/open-solaris-kernel-zones/)
+- [Solaris Zones Oracle Solaris RAD Zone Management REST API](https://apis.io/collections/solaris-zones/open-solaris-rad-zonemgr/)
+- [Solaris Zones Oracle Solaris StatsStore and Analytics API](https://apis.io/collections/solaris-zones/open-solaris-statsstore/)
+- [Solaris Zones Oracle Solaris Unified Archives Zones API](https://apis.io/collections/solaris-zones/open-solaris-unified-archives/)
+- [Solaris Zones Solaris Zone Administration API](https://apis.io/collections/solaris-zones/open-solaris-zone-administration/)
+- [Solaris Zones Solaris Zone Configuration API](https://apis.io/collections/solaris-zones/open-solaris-zone-configuration/)
+- [Solaris Zones Solaris Zone Monitoring API](https://apis.io/collections/solaris-zones/open-solaris-zone-monitoring/)
+- [Solaris Zones Monitoring Statistics API](https://apis.io/collections/solaris-zones/open-solaris-zone-stats/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation API](https://apis.io/collections/solaris-zones/open-solaris-zones-archive-creation-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Archive Deployment API](https://apis.io/collections/solaris-zones/open-solaris-zones-archive-deployment-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Archive Information API](https://apis.io/collections/solaris-zones/open-solaris-zones-archive-information-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Configuration API](https://apis.io/collections/solaris-zones/open-solaris-zones-configuration-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation CPU Statistics API](https://apis.io/collections/solaris-zones/open-solaris-zones-cpu-statistics-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Installation API](https://apis.io/collections/solaris-zones/open-solaris-zones-installation-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Statistics API](https://apis.io/collections/solaris-zones/open-solaris-zones-kernel-statistics-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Configuration API](https://apis.io/collections/solaris-zones/open-solaris-zones-kernel-zone-configuration-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Lifecycle API](https://apis.io/collections/solaris-zones/open-solaris-zones-kernel-zone-lifecycle-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Management API](https://apis.io/collections/solaris-zones/open-solaris-zones-kernel-zone-management-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Kernel Zone Migration API](https://apis.io/collections/solaris-zones/open-solaris-zones-kernel-zone-migration-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Lifecycle API](https://apis.io/collections/solaris-zones/open-solaris-zones-lifecycle-api/)
+- [Solaris Zones Management API](https://apis.io/collections/solaris-zones/open-solaris-zones-management/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Memory Statistics API](https://apis.io/collections/solaris-zones/open-solaris-zones-memory-statistics-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Migration API](https://apis.io/collections/solaris-zones/open-solaris-zones-migration-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation Resources API](https://apis.io/collections/solaris-zones/open-solaris-zones-resources-api/)
+- [Solaris Zones Oracle Solaris Kernel Zones Archive Creation State Query API](https://apis.io/collections/solaris-zones/open-solaris-zones-state-query-api/)
+- …and 10 more published on APIs.io
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Solaris Zones — jsonschema rules](https://apis.io/rules/solaris-zones/solaris-zones-jsonschema-spectral-rules/)
+- [Solaris Zones API Rules](https://apis.io/rules/solaris-zones/solaris-zones-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Solaris Zones Authentication](https://apis.io/security/solaris-zones/solaris-zones-authentication/)
+- [Solaris Zones Domain Security](https://apis.io/security/solaris-zones/solaris-zones-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Solaris Zones Plans Pricing](https://apis.io/plans/solaris-zones/solaris-zones-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Solaris Zones Rate Limits](https://apis.io/rate-limits/solaris-zones/solaris-zones-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Solaris Zones Finops](https://apis.io/finops/solaris-zones/solaris-zones-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61037/zonesoverview.html)
+- [Getting started](https://docs.oracle.com/cd/E37838_01/html/E61038/gitsf.html)
 - [Support](https://www.oracle.com/support/)
 - [Blog](https://blogs.oracle.com/solaris/)
-- [Portal](https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/index.html)
-- [Resources](https://www.oracle.com/solaris/technologies/solarisdeveloper.html)
-- [GitHub Organization](https://github.com/oracle/oraclesolaris-contrib)
-- [Getting Started](https://docs.oracle.com/cd/E37838_01/html/E61038/gitsf.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61037/zonesoverview.html)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E61040/)
-- [Documentation](https://docs.oracle.com/cd/E37838_01/html/E68270/gpzpd.html)
-- [JSON-LD](json-ld/solaris-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/solaris-zone-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/solaris-zone-resource-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/solaris-zone-stats-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/solaris-zone-migration-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/solaris-zone-evacuation-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
+- [Terms of service](https://www.oracle.com/legal/terms.html)
+- [Privacy policy](https://www.oracle.com/legal/privacy/)
+- [GitHub](https://github.com/oracle/oraclesolaris-contrib)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
-**FN:** Oracle Corporation
-**Email:** solaris-feedback@oracle.com
-**URL:** https://www.oracle.com/solaris/
+**Unrated** — no public website could be reached for this company, so there was almost nothing to measure and nothing a reader could check.
+
+This is not a score of zero. No rating is published for this company. If that is wrong because something public exists that we missed, say so on this repository or email [info@apievangelist.com](mailto:info@apievangelist.com) and it will be re-run — free, and no justification needed.
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Solaris Zones: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/solaris-zones/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
